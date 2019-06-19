@@ -1,0 +1,209 @@
+package hbuilder.android.com.ui.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import com.growalong.util.util.PackageUtil;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
+import com.lxj.xpopup.interfaces.OnInputConfirmListener;
+import com.lxj.xpopup.interfaces.XPopupCallback;
+import butterknife.BindView;
+import butterknife.OnClick;
+import hbuilder.android.com.BaseFragment;
+import hbuilder.android.com.MyApplication;
+import hbuilder.android.com.R;
+import hbuilder.android.com.app.AccountManager;
+import hbuilder.android.com.app.Constants;
+import hbuilder.android.com.presenter.CenterPresenter;
+import hbuilder.android.com.presenter.contract.CenterContract;
+import hbuilder.android.com.presenter.modle.CenterModle;
+import hbuilder.android.com.ui.activity.AddMakeStyleActivity;
+import hbuilder.android.com.ui.activity.IdentityActivity;
+import hbuilder.android.com.ui.activity.LoginActivity;
+import hbuilder.android.com.ui.activity.MainActivity;
+import hbuilder.android.com.ui.activity.MessageCenterActivity;
+import hbuilder.android.com.ui.activity.RecommendToFriendsActivity;
+import hbuilder.android.com.ui.activity.SecurityCenterActivity;
+import hbuilder.android.com.ui.activity.WebViewActivity;
+
+public class CenterFragment extends BaseFragment implements CenterContract.View {
+    private static final String TAG = CenterFragment.class.getSimpleName();
+    @BindView(R.id.tv_username)
+    TextView tvUsername;
+    @BindView(R.id.iv_edit)
+    ImageView ivEdit;
+    @BindView(R.id.tv_account)
+    TextView tvAccount;
+    @BindView(R.id.tv_is_sm)
+    TextView tvIsSm;
+    @BindView(R.id.tv_is_add_pay)
+    TextView tvIsAddPay;
+    @BindView(R.id.tv_center_anquan)
+    TextView tvCenterAnquan;
+    @BindView(R.id.tv_shenfencard)
+    TextView tvShenfencard;
+    @BindView(R.id.ll_add_sk_type)
+    LinearLayout llAddSkType;
+    @BindView(R.id.ll_tj_friend)
+    LinearLayout llTjFriend;
+    @BindView(R.id.ll_jc_gl)
+    LinearLayout llJcGl;
+    @BindView(R.id.ll_lx_kf)
+    LinearLayout llLxKf;
+    @BindView(R.id.ll_center_message)
+    LinearLayout llCenterMessage;
+    @BindView(R.id.tv_version_code)
+    TextView tvVersionCode;
+    @BindView(R.id.tv_logout)
+    TextView tvLogout;
+    @BindView(R.id.ll_center_bg)
+    LinearLayout llCenterBg;
+    private MainActivity mainActivity;
+    private CenterPresenter presenter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
+    }
+
+    public static CenterFragment newInstance(@Nullable String taskId) {
+        Bundle arguments = new Bundle();
+        CenterFragment fragment = new CenterFragment();
+        fragment.setArguments(arguments);
+        return fragment;
+    }
+
+    @Override
+    protected int getRootView() {
+        return R.layout.center_fragment;
+    }
+
+    @Override
+    protected void initView(View root) {
+        setRootViewPaddingTop(llCenterBg);
+    }
+
+    @Override
+    protected void lazyLoadData() {
+        super.lazyLoadData();
+        setLoadDataWhenVisible();
+        //初始化presenter
+        new CenterPresenter(this, new CenterModle());
+        tvUsername.setText(AccountManager.getInstance().getNickname());
+        tvAccount.setText(AccountManager.getInstance().getPhoneNumber());
+        tvVersionCode.setText(PackageUtil.getAppVersionName(MyApplication.appContext));
+        if (AccountManager.getInstance().isHaveAliPayee() || AccountManager.getInstance().isHaveBankPayee() || AccountManager.getInstance().isHaveWechatPayee()) {
+            tvIsAddPay.setText("已添加收款方式");
+        } else {
+            tvIsAddPay.setText("未添收款方式");
+        }
+        int iDstatus = AccountManager.getInstance().getIDstatus();//0未验证，1等待人工审核 2 已验证 99 验证失败
+        if (iDstatus == 0) {
+            tvIsSm.setText("未验证");
+        } else if (iDstatus == 1) {
+            tvIsSm.setText("等待人工审核");
+        } else if (iDstatus == 2) {
+            tvIsSm.setText("已验证");
+        } else if (iDstatus == 99) {
+            tvIsSm.setText("验证失败");
+        } else {
+            tvIsSm.setText("未知错误");
+        }
+    }
+
+    @OnClick({R.id.iv_edit, R.id.tv_center_anquan, R.id.tv_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.ll_jc_gl, R.id.ll_lx_kf, R.id.ll_center_message, R.id.tv_logout})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_edit:
+                new XPopup.Builder(getContext())
+                        .dismissOnBackPressed(false)
+                        .dismissOnTouchOutside(false)
+                        .autoOpenSoftInput(true)
+//                        .moveUpToKeyboard(false) //是否移动到软键盘上面，默认为true
+                        .asInputConfirm("请输入要修改的昵称", "", "昵称",
+                                new OnInputConfirmListener() {
+                                    @Override
+                                    public void onConfirm(String text) {
+                                        presenter.changeNickname(text);
+                                    }
+                                })
+                        .show();
+                break;
+            case R.id.tv_center_anquan:
+                SecurityCenterActivity.startThis(mainActivity);
+                break;
+            case R.id.tv_shenfencard:
+                IdentityActivity.startThis(mainActivity);
+                break;
+            case R.id.ll_add_sk_type:
+                AddMakeStyleActivity.startThis(mainActivity);
+                break;
+            case R.id.ll_tj_friend:
+                RecommendToFriendsActivity.startThis(mainActivity);
+                break;
+            case R.id.ll_jc_gl:
+                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.JIAOCHENGGONGLUO, true);
+                break;
+            case R.id.ll_lx_kf:
+                break;
+            case R.id.ll_center_message:
+                MessageCenterActivity.startThis(mainActivity);
+                break;
+            case R.id.tv_logout:
+                //带确认和取消按钮的弹窗
+                new XPopup.Builder(getContext())
+//                         .dismissOnTouchOutside(false)
+                        // 设置弹窗显示和隐藏的回调监听
+//                         .autoDismiss(false)
+//                        .popupAnimation(PopupAnimation.NoAnimation)
+                        .setPopupCallback(new XPopupCallback() {
+                            @Override
+                            public void onShow() {
+                                Log.e("tag", "onShow");
+                            }
+
+                            @Override
+                            public void onDismiss() {
+                                Log.e("tag", "onDismiss");
+                            }
+                        }).asConfirm("你确定要退出此账号吗?", "",
+                        "取消", "确定",
+                        new OnConfirmListener() {
+                            @Override
+                            public void onConfirm() {
+                                LoginActivity.startThis(mainActivity);
+                                mainActivity.finish();
+                            }
+                        }, null, false)
+                        .show();
+                break;
+        }
+    }
+
+    @Override
+    public void changeNicknameSuccess(String nickname) {
+        AccountManager.getInstance().setNickname(nickname);
+        tvUsername.setText(AccountManager.getInstance().getNickname());
+    }
+
+    @Override
+    public void setPresenter(CenterContract.Presenter presenter) {
+        this.presenter = (CenterPresenter) presenter;
+    }
+
+    @Override
+    public void showLoading() {
+        showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoading() {
+        hideLoadingDialog();
+    }
+}

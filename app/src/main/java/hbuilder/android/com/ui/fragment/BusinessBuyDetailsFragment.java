@@ -1,0 +1,248 @@
+package hbuilder.android.com.ui.fragment;
+
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.growalong.util.util.BitmapUtils;
+import com.growalong.util.util.DateUtil;
+import com.growalong.util.util.GALogger;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
+import com.lxj.xpopup.interfaces.XPopupCallback;
+import butterknife.BindView;
+import butterknife.OnClick;
+import hbuilder.android.com.BaseFragment;
+import hbuilder.android.com.MyApplication;
+import hbuilder.android.com.R;
+import hbuilder.android.com.modle.BaseBean;
+import hbuilder.android.com.modle.BuyBusinessResponse;
+import hbuilder.android.com.presenter.BusinessBuyDetailsPresenter;
+import hbuilder.android.com.presenter.contract.BusinessBuyDetailsContract;
+import hbuilder.android.com.ui.activity.BusinessBuyDetailsActivity;
+import hbuilder.android.com.ui.widget.CenterErWeiMaPopupView;
+
+public class BusinessBuyDetailsFragment extends BaseFragment implements BusinessBuyDetailsContract.View {
+    private static final String TAG = BusinessBuyDetailsFragment.class.getSimpleName();
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_count_down)
+    TextView tvCountDown;
+    @BindView(R.id.tv_order_code)
+    TextView tvOrderCode;
+    @BindView(R.id.tv_pay_price)
+    TextView tvPayPrice;
+    @BindView(R.id.tv_biusness_price)
+    TextView tvBiusnessPrice;
+    @BindView(R.id.tv_biusness_num)
+    TextView tvBiusnessNum;
+    @BindView(R.id.tv_pay_type_name)
+    TextView tvPayTypeName;
+    @BindView(R.id.tv_shoukuai_type_name)
+    TextView tvShoukuaiTypeName;
+    @BindView(R.id.tv_shoukuai_name)
+    TextView tvShoukuaiName;
+    @BindView(R.id.tv_shoukuai_account)
+    TextView tvShoukuaiAccount;
+    @BindView(R.id.tv_shoukuai_cankaoma)
+    TextView tvShoukuaiCankaoma;
+    @BindView(R.id.tv_cancel_order)
+    TextView tvCancelOrder;
+    @BindView(R.id.tv_re_pay)
+    TextView tvRePay;
+    @BindView(R.id.tv_pay_image)
+    ImageView tvPayImage;
+    @BindView(R.id.iv_popview)
+    ImageView ivPopview;
+    private BusinessBuyDetailsActivity businessBuyDetailsActivity;
+    private BusinessBuyDetailsPresenter presenter;
+    private BuyBusinessResponse buyBusinessResponse;
+    private double price;
+    private double num;
+    private int type;
+    private long createTime = 0;
+    private Bitmap bitmap;
+    private CountDownTimer timer;
+
+    public static BusinessBuyDetailsFragment newInstance(@Nullable BuyBusinessResponse buyBusinessResponse, double price, double num, int type) {
+        Bundle arguments = new Bundle();
+        arguments.putParcelable("buyBusinessResponse", buyBusinessResponse);
+        arguments.putDouble("price", price);
+        arguments.putDouble("num", num);
+        arguments.putInt("type", type);
+        BusinessBuyDetailsFragment fragment = new BusinessBuyDetailsFragment();
+        fragment.setArguments(arguments);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        businessBuyDetailsActivity = (BusinessBuyDetailsActivity) getActivity();
+        buyBusinessResponse = getArguments().getParcelable("buyBusinessResponse");
+        price = getArguments().getDouble("price");
+        num = getArguments().getDouble("num");
+        type = getArguments().getInt("type");
+    }
+
+    @Override
+    protected int getRootView() {
+        return R.layout.business_buy_details_fragment;
+    }
+
+    @Override
+    protected void initView(View root) {
+        tvTitle.setText("购买USDT");
+    }
+
+    @Override
+    protected void lazyLoadData() {
+        super.lazyLoadData();
+        tvOrderCode.setText(buyBusinessResponse.getTradeId());
+        tvPayPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + price * num + "");
+        tvBiusnessPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + price);
+        tvBiusnessNum.setText(num + "");
+        if (type == 1) {
+            tvPayTypeName.setText("支付宝");
+            tvShoukuaiTypeName.setText("支付宝");
+            tvPayImage.setImageResource(R.mipmap.g);
+        } else if (type == 2) {
+            tvPayTypeName.setText("微信");
+            tvShoukuaiTypeName.setText("微信");
+            tvPayImage.setImageResource(R.mipmap.h);
+        } else if (type == 3) {
+            tvPayTypeName.setText("银行账户");
+            tvShoukuaiTypeName.setText("银行账户");
+            tvPayImage.setImageResource(R.mipmap.f);
+        }
+        tvShoukuaiName.setText(buyBusinessResponse.getPayee().getName());
+        tvShoukuaiAccount.setText(buyBusinessResponse.getPayee().getAccount());
+        tvShoukuaiCankaoma.setText(buyBusinessResponse.getPayCode() + "");
+
+
+        long currentTime = System.currentTimeMillis();
+        if (currentTime >= createTime + 10 * 60 * 1000) {
+
+        } else {
+            timer = new CountDownTimer(createTime + 10 * 60 * 1000 - currentTime, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    //如果是Fragment 就判断getActivity() 是否为NULL
+                    //如果是Activity 就判断!activity.isFinishing() 是否为NULL
+                    if (businessBuyDetailsActivity != null) {
+                        int left = (int) ((millisUntilFinished - 1000) / 1000);
+                        GALogger.d(TAG, "left       " + left);
+                        if (left > 0) {
+                            tvCountDown.setText(DateUtil.getCurrentDateString2(millisUntilFinished));
+                        } else {
+
+                        }
+                    }
+                }
+                @Override
+                public void onFinish() {
+                }
+            };
+            timer.start();
+        }
+    }
+
+    @OnClick({R.id.iv_back, R.id.tv_cancel_order, R.id.tv_re_pay,R.id.iv_popview})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                initPopView();
+                break;
+            case R.id.tv_cancel_order:
+                presenter.ordercancel(buyBusinessResponse.getTradeId());
+                break;
+            case R.id.tv_re_pay:
+                presenter.manualPay(buyBusinessResponse.getTradeId());
+                break;
+            case R.id.iv_popview:
+                bitmap = BitmapUtils.base64ToBitmap(buyBusinessResponse.getPayee().getBase64Img());
+                new XPopup.Builder(getContext())
+                        .hasStatusBarShadow(true) //启用状态栏阴影
+                        .asCustom(new CenterErWeiMaPopupView(MyApplication.appContext,type,buyBusinessResponse.getPayee().getAccount(),bitmap))
+                        .show();
+                break;
+        }
+    }
+
+    private void initPopView() {
+        //带确认和取消按钮的弹窗
+        new XPopup.Builder(getContext())
+//                         .dismissOnTouchOutside(false)
+                // 设置弹窗显示和隐藏的回调监听
+//                         .autoDismiss(false)
+//                        .popupAnimation(PopupAnimation.NoAnimation)
+                .setPopupCallback(new XPopupCallback() {
+                    @Override
+                    public void onShow() {
+                        Log.e("tag", "onShow");
+                    }
+
+                    @Override
+                    public void onDismiss() {
+                        Log.e("tag", "onDismiss");
+                    }
+                }).asConfirm("你确定要退出购买USDT吗?", "",
+                "取消", "确定",
+                new OnConfirmListener() {
+                    @Override
+                    public void onConfirm() {
+                        businessBuyDetailsActivity.finish();
+                    }
+                }, null, false)
+                .show();
+    }
+
+    @Override
+    public void ordercancelSuccess(BaseBean baseBean) {
+        businessBuyDetailsActivity.finish();
+    }
+
+    @Override
+    public void manualPaySuccess(BaseBean baseBean) {
+        businessBuyDetailsActivity.finish();
+    }
+
+    @Override
+    public void setPresenter(BusinessBuyDetailsContract.Presenter presenter) {
+        this.presenter = (BusinessBuyDetailsPresenter) presenter;
+    }
+
+    @Override
+    public void showLoading() {
+        showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoading() {
+        hideLoadingDialog();
+    }
+
+    public void onKeyDownF() {
+        initPopView();
+    }
+
+    @Override
+    public void onDestroyView() {
+        if(bitmap != null && !bitmap.isRecycled()){
+            bitmap.recycle();
+            bitmap = null;
+        }
+        if(timer != null){
+            timer.cancel();
+            timer = null;
+        }
+        super.onDestroyView();
+    }
+}

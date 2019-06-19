@@ -1,0 +1,45 @@
+package hbuilder.android.com.ui.activity;
+
+import android.content.Intent;
+import android.view.View;
+import com.growalong.util.util.ActivityUtils;
+import hbuilder.android.com.BaseActivity;
+import hbuilder.android.com.R;
+import hbuilder.android.com.app.AccountManager;
+import hbuilder.android.com.presenter.LoginPresenter;
+import hbuilder.android.com.presenter.modle.LoginModle;
+import hbuilder.android.com.ui.fragment.LoginFragment;
+
+public class LoginActivity extends BaseActivity {
+    private static final String TAG = LoginActivity.class.getSimpleName();
+
+    public static void startThis(BaseActivity activity) {
+        activity.startActivity(new Intent(activity, LoginActivity.class));
+    }
+
+    @Override
+    protected int getRootView() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    protected void initView(View mRootView) {
+
+    }
+
+    @Override
+    protected void initData() {
+        if(AccountManager.getInstance().isLogin()){
+            AccountManager.getInstance().logout();
+        }
+        LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.contentFrame);
+        if (loginFragment == null) {
+            loginFragment = LoginFragment.newInstance("");
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    loginFragment, R.id.contentFrame);
+        }
+        //初始化presenter
+        new LoginPresenter(loginFragment, new LoginModle());
+    }
+}

@@ -1,0 +1,41 @@
+package hbuilder.android.com.ui.activity;
+
+import android.content.Intent;
+import android.view.View;
+import com.growalong.util.util.ActivityUtils;
+import hbuilder.android.com.BaseActivity;
+import hbuilder.android.com.R;
+import hbuilder.android.com.presenter.IdentityPresenter;
+import hbuilder.android.com.presenter.modle.IdentityModle;
+import hbuilder.android.com.ui.fragment.IdentityFragment;
+
+public class IdentityActivity extends BaseActivity {
+    private static final String TAG = IdentityActivity.class.getSimpleName();
+
+    public static void startThis(BaseActivity activity) {
+        activity.startActivity(new Intent(activity, IdentityActivity.class));
+    }
+
+    @Override
+    protected int getRootView() {
+        return R.layout.activity_identity;
+    }
+
+    @Override
+    protected void initView(View mRootView) {
+        setRootViewPaddingTop();
+    }
+
+    @Override
+    protected void initData() {
+        IdentityFragment identityFragment = (IdentityFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.contentFrame);
+        if (identityFragment == null) {
+            identityFragment = IdentityFragment.newInstance("");
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    identityFragment, R.id.contentFrame);
+        }
+        //初始化presenter
+        new IdentityPresenter(identityFragment, new IdentityModle());
+    }
+}

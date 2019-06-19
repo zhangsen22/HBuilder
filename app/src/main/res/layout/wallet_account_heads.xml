@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y14"
+        android:background="@color/color_f9f9f9"/>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y184"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/ll_property_cb"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+    android:layout_width="@dimen/y50"
+    android:layout_height="@dimen/y50"
+    android:src="@mipmap/s"/>
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="充币"
+    android:textSize="12sp"
+    android:textColor="@color/color_666666"
+    android:layout_marginTop="@dimen/y30"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_property_tb"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+    android:layout_width="@dimen/y50"
+    android:layout_height="@dimen/y50"
+    android:src="@mipmap/r"/>
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="提币"
+    android:textSize="12sp"
+    android:textColor="@color/color_666666"
+    android:layout_marginTop="@dimen/y30"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_property_hz"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+    android:layout_width="@dimen/y50"
+    android:layout_height="@dimen/y50"
+    android:src="@mipmap/q"/>
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="资金划转"
+    android:textSize="12sp"
+    android:textColor="@color/color_666666"
+    android:layout_marginTop="@dimen/y30"/>
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y14"
+    android:background="@color/color_f9f9f9"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/y24"
+        android:paddingRight="@dimen/y34"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="@dimen/y2"
+            android:layout_height="@dimen/y42"
+            android:src="@mipmap/m"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="财务记录"
+            android:textSize="12sp"
+            android:textColor="@color/color_666666"
+            android:layout_marginLeft="@dimen/y20"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_width="@dimen/y24"
+            android:layout_height="@dimen/y24"
+            android:src="@mipmap/u"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/line_f9"/>
+
+</LinearLayout>

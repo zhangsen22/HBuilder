@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <!--如果MagicIndicator需要加背景颜色   需要在其外面嵌套一个父布局  在父布局添加背景颜色-->
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/business_magicindicator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y92"
+        android:layout_gravity="center_horizontal"/>
+
+    <include layout="@layout/line"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y260"
+        android:background="@mipmap/banner" />
+    
+    <LinearLayout
+        android:id="@+id/ll_notry_click"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y76"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="@dimen/y30"
+            android:layout_height="@dimen/y30"
+            android:src="@mipmap/j"
+            android:layout_marginLeft="@dimen/y40"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="INFc2c限量注册开启通知"
+            android:layout_marginLeft="@dimen/y40"
+            android:textSize="11sp"
+            android:textColor="@color/color_666666"
+            android:singleLine="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/k"
+            android:layout_marginRight="@dimen/y40"
+            android:layout_marginLeft="@dimen/y64"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/line"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/business_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

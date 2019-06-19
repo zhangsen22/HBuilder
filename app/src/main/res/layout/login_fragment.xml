@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_white">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bo">
+
+    <ImageView
+        android:layout_width="@dimen/y222"
+        android:layout_height="@dimen/y256"
+        android:src="@mipmap/bp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y140"
+        android:layout_marginBottom="@dimen/y80"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/y96"
+        android:paddingRight="@dimen/y96"
+        android:paddingTop="@dimen/y26">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:textColor="@color/text"
+        android:textSize="20sp"
+        android:gravity="left"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y90"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/y60">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="账号"
+                android:textColor="@color/text"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_phone_number"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/space_10"
+                android:paddingRight="@dimen/space_10"
+                android:textColorHint="@color/color_666666"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp"
+                android:hint="请输入手机号"
+                android:layout_marginLeft="@dimen/y60"/>
+
+        </LinearLayout>
+
+        <include layout="@layout/line_f9"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y90"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码"
+            android:textColor="@color/text"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:inputType="textPassword"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/space_10"
+            android:paddingRight="@dimen/space_10"
+            android:textColorHint="@color/color_666666"
+            android:textColor="@color/color_666666"
+            android:textSize="12sp"
+            android:hint="请输入密码"
+            android:layout_marginLeft="@dimen/y60"/>
+
+        <ImageView
+            android:id="@+id/iv_eye"
+            android:layout_width="@dimen/y50"
+            android:layout_height="@dimen/y50"
+            android:src="@mipmap/yincang"/>
+
+    </LinearLayout>
+
+        <include layout="@layout/line_f9"/>
+
+    <TextView
+        android:id="@+id/go_login"
+        android:text="登录"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/n"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y70"
+        android:gravity="center"
+        android:textColor="@color/common_white"
+        android:textSize="14sp"
+        android:paddingBottom="@dimen/y10" />
+
+    <TextView
+        android:id="@+id/go_regist"
+        android:text="注册"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bq"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y6"
+        android:gravity="center"
+        android:textColor="@color/color_4f69df"
+        android:textSize="14sp"
+        android:paddingBottom="@dimen/y10" />
+
+    <TextView
+        android:id="@+id/go_forget_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="忘记密码"
+        android:gravity="center"
+        android:textColor="@color/color_666666"
+        android:textSize="12sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/y74"
+        android:layout_marginBottom="@dimen/y70"/>
+
+    </LinearLayout>
+
+</LinearLayout>

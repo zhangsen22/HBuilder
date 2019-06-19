@@ -1,0 +1,11 @@
+package hbuilder.android.com.modle;
+
+import java.util.List;
+
+public class RewardDetailResponse extends BaseBean{
+    private List<RewardDetailItem> details;
+
+    public List<RewardDetailItem> getDetails() {
+        return details;
+    }
+}

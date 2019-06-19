@@ -1,0 +1,66 @@
+package hbuilder.android.com.presenter.modle;
+
+import hbuilder.android.com.modle.BaseBean;
+import hbuilder.android.com.net.retrofit.BaseRetrofitClient;
+import hbuilder.android.com.net.retrofit.exception.ModelExceptionMap;
+import hbuilder.android.com.net.retrofit.exception.ServerExceptionMap;
+import hbuilder.android.com.net.retrofit.service.ApiServices;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
+
+public class PaySettingModle extends EdletePayBaseModle {
+
+    /**
+     * 银行卡收款设置
+     * @param bankName
+     * @param subName
+     * @param name
+     * @param account
+     * @param dailyLimit
+     * @param financePwd
+     * @param time
+     * @return
+     */
+    public Observable<BaseBean> bank(String bankName,String subName,String name,String account,double dailyLimit,String financePwd,long time){
+        return BaseRetrofitClient.getInstance().create(ApiServices.class)
+                .bank(bankName,subName,name,account,dailyLimit,financePwd,time)
+                .subscribeOn(Schedulers.io())
+                .map(new ServerExceptionMap<BaseBean>())
+                .onErrorResumeNext(new ModelExceptionMap<BaseBean>());
+    }
+
+    /**
+     * 支付宝收款设置
+     * @param name
+     * @param account
+     * @param base64Img
+     * @param financePwd
+     * @param time
+     * @return
+     */
+    public Observable<BaseBean> ali(String name,String account,String base64Img,String financePwd,long time){
+        return BaseRetrofitClient.getInstance().create(ApiServices.class)
+                .ali(name,account,base64Img,financePwd,time)
+                .subscribeOn(Schedulers.io())
+                .map(new ServerExceptionMap<BaseBean>())
+                .onErrorResumeNext(new ModelExceptionMap<BaseBean>());
+    }
+
+    /**
+     * 微信收款设置
+     * @param name
+     * @param account
+     * @param base64Img
+     * @param empBase64Img
+     * @param financePwd
+     * @param time
+     * @return
+     */
+    public Observable<BaseBean> wechat(String name,String account,String base64Img,String empBase64Img,String financePwd,long time){
+        return BaseRetrofitClient.getInstance().create(ApiServices.class)
+                .wechat(name,account,base64Img,empBase64Img,financePwd,time)
+                .subscribeOn(Schedulers.io())
+                .map(new ServerExceptionMap<BaseBean>())
+                .onErrorResumeNext(new ModelExceptionMap<BaseBean>());
+    }
+}
