@@ -382,7 +382,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="·到账后请及时放币"
+            android:text="·订单状态变更为买方已付款后，请前往收款账户核实是否收到款项后尽快放行。\n·用户需自行承担交易风险，造成损失与INFc2c平台无关"
             android:textColor="@color/color_999999"
             android:textSize="12sp"
             android:paddingLeft="@dimen/y24"

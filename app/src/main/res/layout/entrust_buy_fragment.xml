@@ -180,7 +180,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="·币已被平台锁定,请放心购买.订单有效时间10分钟,请及时付款并点击我已付款"
+            android:text="·币已被平台锁定，请放心购买 \n·订单有效时间10分钟，请及时付款并点击“我已付款”."
             android:textColor="@color/color_999999"
             android:textSize="12sp"
             android:lineSpacingExtra="@dimen/y6"

@@ -193,6 +193,6 @@
         android:textSize="10sp"
         android:textColor="@color/color_666666"
         android:lineSpacingExtra="@dimen/y10"
-        android:text="·支付宝、银行卡、微信支付，至少设置一种交易方式，才能进行 法币交易\n·为确保正常收款，规避风险，默认收款限额50,000，支付宝收\n款笔数限制20笔，银行卡可进行当日收款额度设置，当日收款额\n度或次数超出限制时，继续使用会导致收款失败几率增加。"/>
+        android:text="·请至少添加支付宝收款方式，才能进行法币交易。\n·为确保正常收款，规避风险，默认微信和支付宝收款限额50000，收款笔数限制20笔。"/>
 
 </LinearLayout>
