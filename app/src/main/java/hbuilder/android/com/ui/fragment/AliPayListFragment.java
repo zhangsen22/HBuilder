@@ -23,6 +23,7 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.AccountManager;
 import hbuilder.android.com.modle.AliPayPayeeItemModel;
 import hbuilder.android.com.modle.AliPayPayeeItemModelPayee;
 import hbuilder.android.com.modle.AliPayPayeeModel;
@@ -133,12 +134,15 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
 //            buyFragmentAdapter.setTotalCount(totalSize);
                 aliPayListAdapter.setDefaultId(defalut);
                 aliPayListAdapter.setList(list);
+                AccountManager.getInstance().setHaveAliPayee(true);
             } else {
                 emptyAnderrorView();
+                AccountManager.getInstance().setHaveAliPayee(false);
             }
             stopPulling();
         }else {
             emptyAnderrorView();
+            AccountManager.getInstance().setHaveAliPayee(false);
         }
     }
 

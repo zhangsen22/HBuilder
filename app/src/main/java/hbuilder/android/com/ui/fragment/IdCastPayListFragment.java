@@ -23,6 +23,7 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.AccountManager;
 import hbuilder.android.com.modle.BankPayeeItemModel;
 import hbuilder.android.com.modle.BankPayeeItemModelPayee;
 import hbuilder.android.com.modle.BankPayeeModel;
@@ -145,12 +146,15 @@ public class IdCastPayListFragment extends BaseFragment implements IdCastPayList
 //            buyFragmentAdapter.setTotalCount(totalSize);
                 idCastPayListAdapter.setDefaultId(defalut);
                 idCastPayListAdapter.setList(list);
+                AccountManager.getInstance().setHaveBankPayee(true);
             } else {
                 emptyAnderrorView();
+                AccountManager.getInstance().setHaveBankPayee(false);
             }
             stopPulling();
         }else {
             emptyAnderrorView();
+            AccountManager.getInstance().setHaveBankPayee(false);
         }
     }
 

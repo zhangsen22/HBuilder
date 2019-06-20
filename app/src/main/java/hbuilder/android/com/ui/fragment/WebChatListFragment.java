@@ -149,12 +149,15 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
 //            buyFragmentAdapter.setTotalCount(totalSize);
                 webChatListAdapter.setDefaultId(defalut);
                 webChatListAdapter.setList(list);
+                AccountManager.getInstance().setHaveWechatPayee(true);
             } else {
                 emptyAnderrorView();
+                AccountManager.getInstance().setHaveWechatPayee(false);
             }
             stopPulling();
         }else {
             emptyAnderrorView();
+            AccountManager.getInstance().setHaveWechatPayee(false);
         }
     }
 

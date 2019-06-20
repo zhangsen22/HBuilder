@@ -197,4 +197,22 @@ public class AccountManager {
         mSharedPreferences.edit().putString(NICKNAME, nickname).apply();
         return this;
     }
+
+    public AccountManager setHaveWechatPayee(boolean haveWechatPayee) {
+        getAccountInfo().setHaveWechatPayee(haveWechatPayee);
+        mSharedPreferences.edit().putBoolean(HAVEWECHATPAYEE, haveWechatPayee).apply();
+        return this;
+    }
+
+    public AccountManager setHaveAliPayee(boolean haveAliPayee) {
+        getAccountInfo().setHaveAliPayee(haveAliPayee);
+        mSharedPreferences.edit().putBoolean(HAVEALIPAYEE, haveAliPayee).apply();
+        return this;
+    }
+
+    public AccountManager setHaveBankPayee(boolean haveBankPayee) {
+        getAccountInfo().setHaveBankPayee(haveBankPayee);
+        mSharedPreferences.edit().putBoolean(HAVEBANKPAYEE, haveBankPayee).apply();
+        return this;
+    }
 }
