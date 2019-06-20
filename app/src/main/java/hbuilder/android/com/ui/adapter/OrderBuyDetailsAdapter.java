@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.DateUtil;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.GsonUtil;
+
 import java.text.DecimalFormat;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
@@ -135,7 +137,7 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                     tvOrderSellSs.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            BusinessBuyDetailsActivity.startThis(mContext, new BuyBusinessResponse(myBuyinfoItem.getTradeid(), myBuyinfoItem.getPayCode(),myBuyinfoItem.getCreateTime(), myBuyinfoItem.getPayee()), myBuyinfoItem.getPrice(), myBuyinfoItem.getNum(), myBuyinfoItem.getPayType());
+                            BusinessBuyDetailsActivity.startThis(mContext, new BuyBusinessResponse(myBuyinfoItem.getTradeid(), myBuyinfoItem.getPayCode(),myBuyinfoItem.getCreateTime(), GsonUtil.getInstance().objTojson(myBuyinfoItem.getPayee())), myBuyinfoItem.getPrice(), myBuyinfoItem.getNum(), myBuyinfoItem.getPayType());
                         }
                     });
                 }else if(status == 2){

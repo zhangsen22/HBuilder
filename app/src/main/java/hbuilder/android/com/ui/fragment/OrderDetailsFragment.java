@@ -114,7 +114,7 @@ public class OrderDetailsFragment extends BaseFragment {
             tvOrderDetailsTime.setText(DateUtil.getCurrentDateString3(orderDetailsModle.getCreateTime()));
             tvOrderDetailsCankaoma.setText(orderDetailsModle.getPayCode()+"");
             int payType = orderDetailsModle.getPayType();
-            String payee = orderDetailsModle.getPayee();
+            String payee = GsonUtil.getInstance().objTojson(orderDetailsModle.getPayee());
             if(!TextUtils.isEmpty(payee)) {
                 if (payType == 1) {
                     tvOrderDetailsShoukuanType.setText("支付宝");
@@ -162,7 +162,7 @@ public class OrderDetailsFragment extends BaseFragment {
             case R.id.iv_order_details_code_image:
                     new XPopup.Builder(getContext())
                             .hasStatusBarShadow(true) //启用状态栏阴影
-                            .asCustom(new CenterErWeiMaPopupView(getContext(),orderDetailsModle.getPayType(),orderDetailsModle.getPayee()))
+                            .asCustom(new CenterErWeiMaPopupView(getContext(),orderDetailsModle.getPayType(),GsonUtil.getInstance().objTojson(orderDetailsModle.getPayee())))
                             .show();
                 break;
             case R.id.tv_order_details_copy:

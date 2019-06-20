@@ -16,7 +16,7 @@ public class MySellOrBuyinfoItem implements Parcelable {
     private int payCode;//:1234            //付款参考码
     private int tradeSource;//1: 卖  其他:充
 
-    private String payee;//付款信息json
+    private Object payee;//付款信息json
 
     protected MySellOrBuyinfoItem(Parcel in) {
         id = in.readLong();
@@ -29,7 +29,27 @@ public class MySellOrBuyinfoItem implements Parcelable {
         payTime = in.readLong();
         payCode = in.readInt();
         tradeSource = in.readInt();
-        payee = in.readString();
+        payee = in.readValue(ClassLoader.getSystemClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(tradeid);
+        dest.writeDouble(price);
+        dest.writeDouble(num);
+        dest.writeInt(status);
+        dest.writeInt(payType);
+        dest.writeLong(createTime);
+        dest.writeLong(payTime);
+        dest.writeInt(payCode);
+        dest.writeInt(tradeSource);
+        dest.writeValue(payee);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<MySellOrBuyinfoItem> CREATOR = new Creator<MySellOrBuyinfoItem>() {
@@ -85,7 +105,7 @@ public class MySellOrBuyinfoItem implements Parcelable {
         return payType;
     }
 
-    public String getPayee() {
+    public Object getPayee() {
         return payee;
     }
 
@@ -106,23 +126,5 @@ public class MySellOrBuyinfoItem implements Parcelable {
                 '}';
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(id);
-        dest.writeString(tradeid);
-        dest.writeDouble(price);
-        dest.writeDouble(num);
-        dest.writeInt(status);
-        dest.writeInt(payType);
-        dest.writeLong(createTime);
-        dest.writeLong(payTime);
-        dest.writeInt(payCode);
-        dest.writeInt(tradeSource);
-        dest.writeString(payee);
-    }
 }
