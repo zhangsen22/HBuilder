@@ -20,9 +20,9 @@ public class IdCastPresenter implements IdCastContract.Presenter{
     }
 
     @Override
-    public void bank(String bankName, String subName, final String name, final String account, double dailyLimit, String financePwd, long time) {
+    public void bank(long id,String bankName, String subName, final String name, final String account, double dailyLimit, String financePwd, long time) {
         mView.showLoading();
-        mModel.bank(bankName,subName,name,account,dailyLimit,financePwd,time).observeOn(AndroidSchedulers.mainThread())
+        mModel.bank(id,bankName,subName,name,account,dailyLimit,financePwd,time).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<BaseBean>() {
                     @Override
                     public void onSuccess(BaseBean baseBean) {

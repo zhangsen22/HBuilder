@@ -5,22 +5,26 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.Md5Utils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
-import hbuilder.android.com.app.AccountManager;
 import hbuilder.android.com.modle.AliPayPayeeItemModel;
+import hbuilder.android.com.modle.AliPayPayeeItemModelPayee;
 import hbuilder.android.com.modle.AliPayPayeeModel;
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.modle.PaySetupModelAliPay;
@@ -30,12 +34,11 @@ import hbuilder.android.com.ui.activity.AliPayListActivity;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
 import hbuilder.android.com.ui.adapter.AliPayListAdapter;
 import hbuilder.android.com.ui.adapter.poweradapter.AdapterLoader;
-import hbuilder.android.com.ui.adapter.poweradapter.AdapterSelect;
-import hbuilder.android.com.ui.adapter.poweradapter.ISelect;
 import hbuilder.android.com.ui.adapter.poweradapter.LoadMoreScrollListener;
 import hbuilder.android.com.ui.adapter.poweradapter.OnLoadMoreListener;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerAdapter;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerHolder;
+import hbuilder.android.com.util.ToastUtil;
 
 public class AliPayListFragment extends BaseFragment implements AliPayListContract.View, OnLoadMoreListener, PowerAdapter.OnEmptyClickListener, PowerAdapter.OnErrorClickListener, AdapterLoader.OnItemClickListener<AliPayPayeeItemModel>,AliPayListAdapter.OnAliPayCheckListener {
     private static final String TAG = IdCastPayListFragment.class.getSimpleName();
@@ -101,9 +104,7 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
         refreshAction = new Runnable() {
             @Override
             public void run() {
-                if (AccountManager.getInstance().isHaveAliPayee()) {
-                    presenter.aliPayListRefresh(3);
-                }
+                presenter.aliPayListRefresh(1);
             }
         };
         loadMoreAction = new Runnable() {
@@ -126,15 +127,18 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
     public void aliPayListRefreshSuccess(PaySetupModelAliPay paySetupModelAliPay) {
         AliPayPayeeModel aliPayeeObj = paySetupModelAliPay.getAliPayeeObj();
         if(aliPayeeObj != null){
-            long defalut = aliPayeeObj.getDefalut();
-            List<AliPayPayeeItemModel> list = aliPayeeObj.getList();
+            long defalut = aliPayeeObj.getDefaultId();
+            List<AliPayPayeeItemModel> list = aliPayeeObj.getPayee();
             if (list != null && list.size() > 0) {
 //            buyFragmentAdapter.setTotalCount(totalSize);
+                aliPayListAdapter.setDefaultId(defalut);
                 aliPayListAdapter.setList(list);
             } else {
                 emptyAnderrorView();
             }
             stopPulling();
+        }else {
+            emptyAnderrorView();
         }
     }
 
@@ -151,20 +155,6 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
 
     @Override
     public void aliPayListLoadMoreSuccess(PaySetupModelAliPay paySetupModelAliPay) {
-//        List<MessageCenterItem> msg = messageCenterResponse.getMsg();
-//        if (msg != null && msg.size() > 0) {
-//            if(idList == null){
-//                idList = new ArrayList<Long>();
-//            }
-//            idList.clear();
-//            for (MessageCenterItem messageCenterItem: msg) {
-//                idList.add(messageCenterItem.getId());
-//            }
-//            Collections.reverse(idList);
-////            buyFragmentAdapter.setTotalCount(totalSize);
-//            idCastPayAdapter.appendList(msg);
-//        }
-//        isRun = false;
     }
 
     @Override
@@ -175,7 +165,12 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
 
     @Override
     public void setDefaultPayAliPaySuccess(BaseBean baseBean) {
+        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
+    }
 
+    @Override
+    public void detelePayAliPaySuccess(BaseBean baseBean) {
+        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
     }
 
     @Override
@@ -200,7 +195,7 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
                 aliPayListActivity.finish();
                 break;
             case R.id.tv_submit_forget_login:
-                PaySettingActivity.startThis(aliPayListActivity,1);
+                PaySettingActivity.startThis(aliPayListActivity,1,100);
                 break;
         }
     }
@@ -234,11 +229,59 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
 
     @Override
     public void onItemClick(@NonNull PowerHolder<AliPayPayeeItemModel> holder, @NonNull View itemView, int position, AliPayPayeeItemModel item) {
-        PaySettingActivity.startThis(aliPayListActivity,1);
     }
 
     @Override
     public void onAliPayCheck(int position, AliPayPayeeItemModel aliPayPayeeItemModel) {
+        AliPayPayeeItemModelPayee payee = aliPayPayeeItemModel.getPayee();
+        if(payee != null) {
+            new XPopup.Builder(getContext())
+                    .dismissOnBackPressed(false)
+                    .dismissOnTouchOutside(false)
+                    .autoOpenSoftInput(true)
+//                        .moveUpToKeyboard(false) //是否移动到软键盘上面，默认为true
+                    .asInputConfirm("请输入资金密码", "", "资金密码",true,
+                            new OnInputConfirmListener() {
+                                @Override
+                                public void onConfirm(String text) {
+                                    if(!TextUtils.isEmpty(text)){
+                                        long currentTime = System.currentTimeMillis();
+                                        presenter.setDefaultPayAliPay(1,payee.getId(), Md5Utils.getMD5(text+currentTime),currentTime);
+                                    }else {
+                                        ToastUtil.shortShow("请输入资金密码");
+                                    }
+                                }
+                            })
+                    .show();
+        }
+    }
 
+    @Override
+    public void onAliPayDelete(int position, AliPayPayeeItemModel aliPayPayeeItemModel) {
+        AliPayPayeeItemModelPayee payee = aliPayPayeeItemModel.getPayee();
+        if(payee != null) {
+            new XPopup.Builder(getContext())
+                    .dismissOnBackPressed(false)
+                    .dismissOnTouchOutside(false)
+                    .autoOpenSoftInput(true)
+//                        .moveUpToKeyboard(false) //是否移动到软键盘上面，默认为true
+                    .asInputConfirm("请输入资金密码", "", "资金密码",true,
+                            new OnInputConfirmListener() {
+                                @Override
+                                public void onConfirm(String text) {
+                                    if(!TextUtils.isEmpty(text)){
+                                        long currentTime = System.currentTimeMillis();
+                                        presenter.detelePay(1,payee.getId(), Md5Utils.getMD5(text+currentTime),currentTime);
+                                    }else {
+                                        ToastUtil.shortShow("请输入资金密码");
+                                    }
+                                }
+                            })
+                    .show();
+        }
+    }
+
+    public void onActivityResultF() {
+        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
     }
 }

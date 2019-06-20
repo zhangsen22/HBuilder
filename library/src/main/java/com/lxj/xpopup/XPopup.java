@@ -363,21 +363,21 @@ public class XPopup {
          * @param cancelListener  点击取消的监听器
          * @return
          */
-        public InputConfirmPopupView asInputConfirm(String title, String content, String hint, OnInputConfirmListener confirmListener, OnCancelListener cancelListener) {
+        public InputConfirmPopupView asInputConfirm(String title, String content, String hint,boolean isPassWord, OnInputConfirmListener confirmListener, OnCancelListener cancelListener) {
             popupType(PopupType.Center);
             InputConfirmPopupView popupView = new InputConfirmPopupView(this.context);
-            popupView.setTitleContent(title, content, hint);
+            popupView.setTitleContent(title, content, hint,isPassWord);
             popupView.setListener(confirmListener, cancelListener);
             popupView.popupInfo = this.popupInfo;
             return popupView;
         }
 
-        public InputConfirmPopupView asInputConfirm(String title, String content, String hint, OnInputConfirmListener confirmListener) {
-            return asInputConfirm(title, content, hint, confirmListener, null);
+        public InputConfirmPopupView asInputConfirm(String title, String content, String hint,boolean isPassWord, OnInputConfirmListener confirmListener) {
+            return asInputConfirm(title, content, hint,isPassWord, confirmListener, null);
         }
 
-        public InputConfirmPopupView asInputConfirm(String title, String content, OnInputConfirmListener confirmListener) {
-            return asInputConfirm(title, content, null, confirmListener, null);
+        public InputConfirmPopupView asInputConfirm(String title, String content,boolean isPassWord, OnInputConfirmListener confirmListener) {
+            return asInputConfirm(title, content, null,isPassWord, confirmListener, null);
         }
 
         /**

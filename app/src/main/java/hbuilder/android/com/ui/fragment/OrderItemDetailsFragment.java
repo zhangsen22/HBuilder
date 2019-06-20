@@ -1,7 +1,6 @@
 package hbuilder.android.com.ui.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import com.growalong.util.util.GALogger;
-import com.growalong.util.util.SharedPreferenceUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
@@ -27,15 +25,11 @@ import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
-import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.BaseBean;
-import hbuilder.android.com.modle.MyBuyinfoItem;
-import hbuilder.android.com.modle.MyBuyinfoResponse;
 import hbuilder.android.com.modle.MyEntrustinfoItem;
 import hbuilder.android.com.modle.MyEntrustinfoResponse;
-import hbuilder.android.com.modle.MySellinfoItem;
-import hbuilder.android.com.modle.MySellinfoResponse;
-import hbuilder.android.com.modle.OrderDetailsModle;
+import hbuilder.android.com.modle.MySellOrBuyinfoItem;
+import hbuilder.android.com.modle.MySellOrBuyinfoResponse;
 import hbuilder.android.com.presenter.OrderItemDetailsPresenter;
 import hbuilder.android.com.presenter.contract.OrderItemDetailsContract;
 import hbuilder.android.com.presenter.modle.OrderItemDetailsModle;
@@ -48,7 +42,6 @@ import hbuilder.android.com.ui.adapter.poweradapter.LoadMoreScrollListener;
 import hbuilder.android.com.ui.adapter.poweradapter.OnLoadMoreListener;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerAdapter;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerHolder;
-import hbuilder.android.com.util.SharedPreferencesUtils;
 
 /**
  * 1:我的卖出    1:未完成  2:已完成  3:申诉中  4:已取消
@@ -116,29 +109,11 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
             orderSellDetailsAdapter.setLoadMoreListener(this);
             orderSellDetailsAdapter.setEmptyClickListener(this);
             orderSellDetailsAdapter.setErrorClickListener(this);
-            orderSellDetailsAdapter.setOnItemClickListener(new AdapterLoader.OnItemClickListener<MySellinfoItem>() {
+            orderSellDetailsAdapter.setOnItemClickListener(new AdapterLoader.OnItemClickListener<MySellOrBuyinfoItem>() {
                 @Override
-                public void onItemClick(@NonNull PowerHolder<MySellinfoItem> holder, @NonNull View itemView, int position, MySellinfoItem item) {
+                public void onItemClick(@NonNull PowerHolder<MySellOrBuyinfoItem> holder, @NonNull View itemView, int position, MySellOrBuyinfoItem item) {
                     if(item != null){
-                        int type = item.getType();//收款方式,1为支付宝，2为微信，3为银行账户
-                        String name = null;
-                        String account = null;
-                        String base64Img = null;
-                        if(type == 3){
-                            name = SharedPreferencesUtils.getString(Constants.bankName);
-                            account = SharedPreferencesUtils.getString(Constants.bankAccount);
-                            base64Img = "";
-                        }else if(type == 1){
-                            name = SharedPreferencesUtils.getString(Constants.aliPayName);
-                            account = SharedPreferencesUtils.getString(Constants.aliPayAccount);
-                            base64Img = SharedPreferencesUtils.getString(Constants.aliPayBase64Img);
-                        }else if(type == 2){
-                            name = SharedPreferencesUtils.getString(Constants.webChatName);
-                            account = SharedPreferencesUtils.getString(Constants.webChatAccount);
-                            base64Img = SharedPreferencesUtils.getString(Constants.webChatBase64Img);
-                        }
-                        OrderDetailsModle orderDetailsModle = new OrderDetailsModle(item.getTradeId(), item.getStatus(), item.getPrice(), item.getNum(), item.getCreateTime(), item.getPayCode(),name,account,base64Img, type);
-                        OrderDetailsActivity.startThis(mContext,orderDetailsModle);
+                        OrderDetailsActivity.startThis(mContext,item);
                     }
                 }
             });
@@ -148,29 +123,11 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
             orderBuyDetailsAdapter.setLoadMoreListener(this);
             orderBuyDetailsAdapter.setEmptyClickListener(this);
             orderBuyDetailsAdapter.setErrorClickListener(this);
-            orderBuyDetailsAdapter.setOnItemClickListener(new AdapterLoader.OnItemClickListener<MyBuyinfoItem>() {
+            orderBuyDetailsAdapter.setOnItemClickListener(new AdapterLoader.OnItemClickListener<MySellOrBuyinfoItem>() {
                 @Override
-                public void onItemClick(@NonNull PowerHolder<MyBuyinfoItem> holder, @NonNull View itemView, int position, MyBuyinfoItem item) {
+                public void onItemClick(@NonNull PowerHolder<MySellOrBuyinfoItem> holder, @NonNull View itemView, int position, MySellOrBuyinfoItem item) {
                     if(item != null){
-                        int type = item.getType();//收款方式,1为支付宝，2为微信，3为银行账户
-                        String name = null;
-                        String account = null;
-                        String base64Img = null;
-                        if(type == 3){
-                            name = SharedPreferencesUtils.getString(Constants.bankName);
-                            account = SharedPreferencesUtils.getString(Constants.bankAccount);
-                            base64Img = "";
-                        }else if(type == 1){
-                            name = SharedPreferencesUtils.getString(Constants.aliPayName);
-                            account = SharedPreferencesUtils.getString(Constants.aliPayAccount);
-                            base64Img = SharedPreferencesUtils.getString(Constants.aliPayBase64Img);
-                        }else if(type == 2){
-                            name = SharedPreferencesUtils.getString(Constants.webChatName);
-                            account = SharedPreferencesUtils.getString(Constants.webChatAccount);
-                            base64Img = SharedPreferencesUtils.getString(Constants.webChatBase64Img);
-                        }
-                        OrderDetailsModle orderDetailsModle = new OrderDetailsModle(item.getTradeId(), item.getStatus(), item.getPrice(), item.getNum(), item.getCreateTime(), item.getPayCode(),name,account,base64Img, type);
-                        OrderDetailsActivity.startThis(mContext,orderDetailsModle);
+                        OrderDetailsActivity.startThis(mContext,item);
                     }
                 }
             });
@@ -253,8 +210,8 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
     }
 
     @Override
-    public void mySellinfoRefreshSuccess(MySellinfoResponse mySellinfoResponse) {
-        List<MySellinfoItem> info = mySellinfoResponse.getInfo();
+    public void mySellinfoRefreshSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse) {
+        List<MySellOrBuyinfoItem> info = mySellOrBuyinfoResponse.getInfo();
         GALogger.d(TAG,"info.size()    "+info.size());
         if (info != null && info.size() > 0) {
             GALogger.d(TAG,"info.size()    "+info.get(0).toString());
@@ -273,15 +230,15 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
     }
 
     @Override
-    public void mySellinfoLoadMoreSuccess(MySellinfoResponse mySellinfoResponse) {
-        List<MySellinfoItem> info = mySellinfoResponse.getInfo();
+    public void mySellinfoLoadMoreSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse) {
+        List<MySellOrBuyinfoItem> info = mySellOrBuyinfoResponse.getInfo();
         if (info != null && info.size() > 0) {
             if(sellIdList == null){
                 sellIdList = new ArrayList<Long>();
             }
             sellIdList.clear();
-            for (MySellinfoItem mySellinfoItem: info) {
-                sellIdList.add(mySellinfoItem.getId());
+            for (MySellOrBuyinfoItem mySellOrBuyinfoItem : info) {
+                sellIdList.add(mySellOrBuyinfoItem.getId());
             }
             Collections.reverse(sellIdList);
 //            buyFragmentAdapter.setTotalCount(totalSize);
@@ -297,8 +254,8 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
     }
 
     @Override
-    public void myBuyinfoRefreshSuccess(MyBuyinfoResponse myBuyinfoResponse) {
-        List<MyBuyinfoItem> info = myBuyinfoResponse.getInfo();
+    public void myBuyinfoRefreshSuccess(MySellOrBuyinfoResponse myBuyinfoResponse) {
+        List<MySellOrBuyinfoItem> info = myBuyinfoResponse.getInfo();
         GALogger.d(TAG,"info.size()    "+info.size());
         if (info != null && info.size() > 0) {
 //            buyFragmentAdapter.setTotalCount(totalSize);
@@ -316,14 +273,14 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
     }
 
     @Override
-    public void myBuyinfoLoadMoreSuccess(MyBuyinfoResponse myBuyinfoResponse) {
-        List<MyBuyinfoItem> info = myBuyinfoResponse.getInfo();
+    public void myBuyinfoLoadMoreSuccess(MySellOrBuyinfoResponse myBuyinfoResponse) {
+        List<MySellOrBuyinfoItem> info = myBuyinfoResponse.getInfo();
         if (info != null && info.size() > 0) {
             if(buyIdList == null){
                 buyIdList = new ArrayList<Long>();
             }
             buyIdList.clear();
-            for (MyBuyinfoItem myBuyinfoItem: info) {
+            for (MySellOrBuyinfoItem myBuyinfoItem: info) {
                 buyIdList.add(myBuyinfoItem.getId());
             }
             Collections.reverse(buyIdList);

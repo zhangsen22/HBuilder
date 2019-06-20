@@ -1,9 +1,8 @@
 package hbuilder.android.com.presenter.modle;
 
 import hbuilder.android.com.modle.BaseBean;
-import hbuilder.android.com.modle.MyBuyinfoResponse;
 import hbuilder.android.com.modle.MyEntrustinfoResponse;
-import hbuilder.android.com.modle.MySellinfoResponse;
+import hbuilder.android.com.modle.MySellOrBuyinfoResponse;
 import hbuilder.android.com.net.retrofit.BaseRetrofitClient;
 import hbuilder.android.com.net.retrofit.exception.ModelExceptionMap;
 import hbuilder.android.com.net.retrofit.exception.ServerExceptionMap;
@@ -19,12 +18,12 @@ public class OrderItemDetailsModle extends CancelOrderModle{
      * @param minId
      * @return
      */
-    public Observable<MySellinfoResponse> mySellinfo(int type, long minId){
+    public Observable<MySellOrBuyinfoResponse> mySellinfo(int type, long minId){
         return BaseRetrofitClient.getInstance().create(ApiServices.class)
                 .mySellinfo(type,minId)
                 .subscribeOn(Schedulers.io())
-                .map(new ServerExceptionMap<MySellinfoResponse>())
-                .onErrorResumeNext(new ModelExceptionMap<MySellinfoResponse>());
+                .map(new ServerExceptionMap<MySellOrBuyinfoResponse>())
+                .onErrorResumeNext(new ModelExceptionMap<MySellOrBuyinfoResponse>());
     }
 
     /**
@@ -33,16 +32,16 @@ public class OrderItemDetailsModle extends CancelOrderModle{
      * @param minId
      * @return
      */
-    public Observable<MyBuyinfoResponse> myBuyinfo(int type, long minId){
+    public Observable<MySellOrBuyinfoResponse> myBuyinfo(int type, long minId){
         return BaseRetrofitClient.getInstance().create(ApiServices.class)
                 .myBuyinfo(type,minId)
                 .subscribeOn(Schedulers.io())
-                .map(new ServerExceptionMap<MyBuyinfoResponse>())
-                .onErrorResumeNext(new ModelExceptionMap<MyBuyinfoResponse>());
+                .map(new ServerExceptionMap<MySellOrBuyinfoResponse>())
+                .onErrorResumeNext(new ModelExceptionMap<MySellOrBuyinfoResponse>());
     }
 
     /**
-     * 获取我的买入交易信息
+     * 获取我的委托单交易信息
      * @param type
      * @param minId
      * @return

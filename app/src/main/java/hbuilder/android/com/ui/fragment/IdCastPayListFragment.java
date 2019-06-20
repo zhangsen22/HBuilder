@@ -5,25 +5,26 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.Md5Utils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
-
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
-import hbuilder.android.com.app.AccountManager;
 import hbuilder.android.com.modle.BankPayeeItemModel;
+import hbuilder.android.com.modle.BankPayeeItemModelPayee;
 import hbuilder.android.com.modle.BankPayeeModel;
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.modle.PaySetupModelBank;
@@ -33,12 +34,11 @@ import hbuilder.android.com.ui.activity.IdCastPayListActivity;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
 import hbuilder.android.com.ui.adapter.IdCastPayListAdapter;
 import hbuilder.android.com.ui.adapter.poweradapter.AdapterLoader;
-import hbuilder.android.com.ui.adapter.poweradapter.AdapterSelect;
-import hbuilder.android.com.ui.adapter.poweradapter.ISelect;
 import hbuilder.android.com.ui.adapter.poweradapter.LoadMoreScrollListener;
 import hbuilder.android.com.ui.adapter.poweradapter.OnLoadMoreListener;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerAdapter;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerHolder;
+import hbuilder.android.com.util.ToastUtil;
 
 public class IdCastPayListFragment extends BaseFragment implements IdCastPayListContract.View, OnLoadMoreListener, PowerAdapter.OnEmptyClickListener, PowerAdapter.OnErrorClickListener, AdapterLoader.OnItemClickListener<BankPayeeItemModel>,IdCastPayListAdapter.OnIdCastCheckListener {
     private static final String TAG = IdCastPayListFragment.class.getSimpleName();
@@ -104,9 +104,7 @@ public class IdCastPayListFragment extends BaseFragment implements IdCastPayList
         refreshAction = new Runnable() {
             @Override
             public void run() {
-                if (AccountManager.getInstance().isHaveBankPayee()) {
-                    presenter.paysetupBankRefresh(3);
-                }
+                presenter.paysetupBankRefresh(3);
             }
         };
         loadMoreAction = new Runnable() {
@@ -122,7 +120,7 @@ public class IdCastPayListFragment extends BaseFragment implements IdCastPayList
     @Override
     protected void lazyLoadData() {
         super.lazyLoadData();
-//        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
+        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
     }
 
     @OnClick({R.id.iv_back,R.id.tv_submit_forget_login})
@@ -132,7 +130,7 @@ public class IdCastPayListFragment extends BaseFragment implements IdCastPayList
                 idCastPayListActivity.finish();
                 break;
             case R.id.tv_submit_forget_login:
-                PaySettingActivity.startThis(idCastPayListActivity, 3);
+                PaySettingActivity.startThis(idCastPayListActivity, 3,101);
                 break;
         }
     }
@@ -141,15 +139,18 @@ public class IdCastPayListFragment extends BaseFragment implements IdCastPayList
     public void paysetupBankRefreshSuccess(PaySetupModelBank paySetupModelBank) {
         BankPayeeModel bankPayeeObj = paySetupModelBank.getBankPayeeObj();
         if (bankPayeeObj != null) {
-            long defalut = bankPayeeObj.getDefalut();
-            List<BankPayeeItemModel> list = bankPayeeObj.getList();
+            long defalut = bankPayeeObj.getDefaultId();
+            List<BankPayeeItemModel> list = bankPayeeObj.getPayee();
             if (list != null && list.size() > 0) {
 //            buyFragmentAdapter.setTotalCount(totalSize);
+                idCastPayListAdapter.setDefaultId(defalut);
                 idCastPayListAdapter.setList(list);
             } else {
                 emptyAnderrorView();
             }
             stopPulling();
+        }else {
+            emptyAnderrorView();
         }
     }
 
@@ -165,22 +166,7 @@ public class IdCastPayListFragment extends BaseFragment implements IdCastPayList
     }
 
     @Override
-    public void paysetupBankLoadMoreSuccess(PaySetupModelBank paySetupModelBank) {
-//        List<MessageCenterItem> msg = messageCenterResponse.getMsg();
-//        if (msg != null && msg.size() > 0) {
-//            if(idList == null){
-//                idList = new ArrayList<Long>();
-//            }
-//            idList.clear();
-//            for (MessageCenterItem messageCenterItem: msg) {
-//                idList.add(messageCenterItem.getId());
-//            }
-//            Collections.reverse(idList);
-////            buyFragmentAdapter.setTotalCount(totalSize);
-//            idCastPayListAdapter.appendList(msg);
-//        }
-//        isRun = false;
-    }
+    public void paysetupBankLoadMoreSuccess(PaySetupModelBank paySetupModelBank) {}
 
     @Override
     public void paysetupBankLoadMoreError() {
@@ -190,7 +176,12 @@ public class IdCastPayListFragment extends BaseFragment implements IdCastPayList
 
     @Override
     public void setDefaultPayIdCastSuccess(BaseBean baseBean) {
+        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
+    }
 
+    @Override
+    public void detelePayBankSuccess(BaseBean baseBean) {
+        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
     }
 
     @Override
@@ -237,11 +228,59 @@ public class IdCastPayListFragment extends BaseFragment implements IdCastPayList
 
     @Override
     public void onItemClick(@NonNull PowerHolder<BankPayeeItemModel> holder, @NonNull View itemView, int position, BankPayeeItemModel item) {
-        PaySettingActivity.startThis(idCastPayListActivity, 3);
     }
 
     @Override
     public void onIdCastCheck(int position, BankPayeeItemModel bankPayeeItemModel) {
+        BankPayeeItemModelPayee payee = bankPayeeItemModel.getPayee();
+        if(payee != null) {
+            new XPopup.Builder(getContext())
+                    .dismissOnBackPressed(false)
+                    .dismissOnTouchOutside(false)
+                    .autoOpenSoftInput(true)
+//                        .moveUpToKeyboard(false) //是否移动到软键盘上面，默认为true
+                    .asInputConfirm("请输入资金密码", "", "资金密码",true,
+                            new OnInputConfirmListener() {
+                                @Override
+                                public void onConfirm(String text) {
+                                    if(!TextUtils.isEmpty(text)){
+                                        long currentTime = System.currentTimeMillis();
+                                        presenter.setDefaultPayIdCast(3,payee.getId(), Md5Utils.getMD5(text+currentTime),currentTime);
+                                    }else {
+                                        ToastUtil.shortShow("请输入资金密码");
+                                    }
+                                }
+                            })
+                    .show();
+        }
+    }
 
+    @Override
+    public void onIdCastDelete(int position, BankPayeeItemModel bankPayeeItemModel) {
+        BankPayeeItemModelPayee payee = bankPayeeItemModel.getPayee();
+        if(payee != null) {
+            new XPopup.Builder(getContext())
+                    .dismissOnBackPressed(false)
+                    .dismissOnTouchOutside(false)
+                    .autoOpenSoftInput(true)
+//                        .moveUpToKeyboard(false) //是否移动到软键盘上面，默认为true
+                    .asInputConfirm("请输入资金密码", "", "资金密码",true,
+                            new OnInputConfirmListener() {
+                                @Override
+                                public void onConfirm(String text) {
+                                    if(!TextUtils.isEmpty(text)){
+                                        long currentTime = System.currentTimeMillis();
+                                        presenter.detelePay(3,payee.getId(), Md5Utils.getMD5(text+currentTime),currentTime);
+                                    }else {
+                                        ToastUtil.shortShow("请输入资金密码");
+                                    }
+                                }
+                            })
+                    .show();
+        }
+    }
+
+    public void onActivityResultF() {
+        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
     }
 }

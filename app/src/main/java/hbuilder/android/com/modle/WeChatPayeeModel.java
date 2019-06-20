@@ -3,22 +3,22 @@ package hbuilder.android.com.modle;
 import java.util.List;
 
 public class WeChatPayeeModel {
-    private long defalut;
-    private List<WeChatPayeeItemModel> list;
+    private long defaultId;
+    private List<WeChatPayeeItemModel> payee;
 
-    public long getDefalut() {
-        return defalut;
+    public long getDefaultId() {
+        return defaultId;
     }
 
-    public List<WeChatPayeeItemModel> getList() {
-        return list;
+    public List<WeChatPayeeItemModel> getPayee() {
+        return payee;
     }
 
     @Override
     public String toString() {
         return "WeChatPayeeModel{" +
-                "defalut=" + defalut +
-                ", list=" + list +
+                "defaultId=" + defaultId +
+                ", payee=" + payee +
                 '}';
     }
 }

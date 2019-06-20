@@ -25,8 +25,11 @@ import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.presenter.EntrustSalePresenter;
 import hbuilder.android.com.presenter.contract.EntrustSaleContract;
 import hbuilder.android.com.presenter.modle.EntrustSaleModle;
+import hbuilder.android.com.ui.activity.AliPayListActivity;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
+import hbuilder.android.com.ui.activity.IdCastPayListActivity;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
+import hbuilder.android.com.ui.activity.WebChatListActivity;
 import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
 
@@ -109,39 +112,19 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
             hotNum = walletResponse.getHotNum();
             tvUserPrice.setText(hotNum + "USDT");
         }
-        boolean haveAliPayee = AccountManager.getInstance().isHaveAliPayee();
-        if (haveAliPayee) {
-            tvAddAlipay.setVisibility(View.GONE);
-        } else {
-            tvAddAlipay.setVisibility(View.VISIBLE);
-        }
-
-        boolean haveWechatPayee = AccountManager.getInstance().isHaveWechatPayee();
-        if (haveWechatPayee) {
-            tvAddWebchat.setVisibility(View.GONE);
-        } else {
-            tvAddWebchat.setVisibility(View.VISIBLE);
-        }
-
-        boolean haveBankPayee = AccountManager.getInstance().isHaveBankPayee();
-        if (haveBankPayee) {
-            tvAddIdcards.setVisibility(View.GONE);
-        } else {
-            tvAddIdcards.setVisibility(View.VISIBLE);
-        }
     }
 
     @OnClick({R.id.tv_add_alipay, R.id.tv_add_webchat, R.id.tv_add_idcards, R.id.tv_forget_password, R.id.tv_sell_publish,R.id.iv_alipay, R.id.iv_webchat, R.id.iv_idcards,R.id.tv_sale_cankaojia})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_add_alipay:
-                PaySettingActivity.startThis(mContext,1);
+                AliPayListActivity.startThis(mContext);
                 break;
             case R.id.tv_add_webchat:
-                PaySettingActivity.startThis(mContext,2);
+                WebChatListActivity.startThis(mContext);
                 break;
             case R.id.tv_add_idcards:
-                PaySettingActivity.startThis(mContext,3);
+                IdCastPayListActivity.startThis(mContext);
                 break;
             case R.id.iv_alipay:
                 boolean haveAliPayee = AccountManager.getInstance().isHaveAliPayee();

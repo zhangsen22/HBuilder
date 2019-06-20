@@ -5,14 +5,19 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.Md5Utils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnInputConfirmListener;
+
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -23,6 +28,7 @@ import hbuilder.android.com.app.AccountManager;
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.modle.PaySetupModelWebChat;
 import hbuilder.android.com.modle.WeChatPayeeItemModel;
+import hbuilder.android.com.modle.WeChatPayeeItemModelPayee;
 import hbuilder.android.com.modle.WeChatPayeeModel;
 import hbuilder.android.com.presenter.WebChatListPresenter;
 import hbuilder.android.com.presenter.contract.WebChatListContract;
@@ -36,6 +42,7 @@ import hbuilder.android.com.ui.adapter.poweradapter.LoadMoreScrollListener;
 import hbuilder.android.com.ui.adapter.poweradapter.OnLoadMoreListener;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerAdapter;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerHolder;
+import hbuilder.android.com.util.ToastUtil;
 
 public class WebChatListFragment extends BaseFragment implements WebChatListContract.View, OnLoadMoreListener, PowerAdapter.OnEmptyClickListener, PowerAdapter.OnErrorClickListener, AdapterLoader.OnItemClickListener<WeChatPayeeItemModel>,WebChatListAdapter.OnWebChatCheckListener {
     private static final String TAG = IdCastPayListFragment.class.getSimpleName();
@@ -101,9 +108,7 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
         refreshAction = new Runnable() {
             @Override
             public void run() {
-                if(AccountManager.getInstance().isHaveWechatPayee()) {
-                    presenter.webChatListRefresh(2);
-                }
+                presenter.webChatListRefresh(2);
             }
         };
         loadMoreAction = new Runnable() {
@@ -129,7 +134,7 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
                 webChatListActivity.finish();
                 break;
             case R.id.tv_submit_forget_login:
-                PaySettingActivity.startThis(webChatListActivity,2);
+                PaySettingActivity.startThis(webChatListActivity,2,102);
                 break;
         }
     }
@@ -138,15 +143,18 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
     public void webChatListRefreshSuccess(PaySetupModelWebChat paySetupModelWebChat) {
         WeChatPayeeModel wechatPayee = paySetupModelWebChat.getWechatPayee();
         if(wechatPayee != null){
-            long defalut = wechatPayee.getDefalut();
-            List<WeChatPayeeItemModel> list = wechatPayee.getList();
+            long defalut = wechatPayee.getDefaultId();
+            List<WeChatPayeeItemModel> list = wechatPayee.getPayee();
             if (list != null && list.size() > 0) {
 //            buyFragmentAdapter.setTotalCount(totalSize);
+                webChatListAdapter.setDefaultId(defalut);
                 webChatListAdapter.setList(list);
             } else {
                 emptyAnderrorView();
             }
             stopPulling();
+        }else {
+            emptyAnderrorView();
         }
     }
 
@@ -187,7 +195,12 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
 
     @Override
     public void setDefaultPayWebChatSuccess(BaseBean baseBean) {
+        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
+    }
 
+    @Override
+    public void deteleWebChatSuccess(BaseBean baseBean) {
+        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
     }
 
     @Override
@@ -224,7 +237,6 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
 
     @Override
     public void onItemClick(@NonNull PowerHolder<WeChatPayeeItemModel> holder, @NonNull View itemView, int position, WeChatPayeeItemModel item) {
-        PaySettingActivity.startThis(webChatListActivity,2);
     }
 
     @Override
@@ -239,6 +251,55 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
 
     @Override
     public void onWebChatCheck(int position, WeChatPayeeItemModel weChatPayeeItemModel) {
+        WeChatPayeeItemModelPayee payee = weChatPayeeItemModel.getPayee();
+        if(payee != null) {
+            new XPopup.Builder(getContext())
+                    .dismissOnBackPressed(false)
+                    .dismissOnTouchOutside(false)
+                    .autoOpenSoftInput(true)
+//                        .moveUpToKeyboard(false) //是否移动到软键盘上面，默认为true
+                    .asInputConfirm("请输入资金密码", "", "资金密码",true,
+                            new OnInputConfirmListener() {
+                                @Override
+                                public void onConfirm(String text) {
+                                    if(!TextUtils.isEmpty(text)){
+                                        long currentTime = System.currentTimeMillis();
+                                        presenter.setDefaultPayWebChat(2,payee.getId(), Md5Utils.getMD5(text+currentTime),currentTime);
+                                    }else {
+                                        ToastUtil.shortShow("请输入资金密码");
+                                    }
+                                }
+                            })
+                    .show();
+        }
+    }
 
+    @Override
+    public void onWebChatDelete(int position, WeChatPayeeItemModel weChatPayeeItemModel) {
+        WeChatPayeeItemModelPayee payee = weChatPayeeItemModel.getPayee();
+        if(payee != null) {
+            new XPopup.Builder(getContext())
+                    .dismissOnBackPressed(false)
+                    .dismissOnTouchOutside(false)
+                    .autoOpenSoftInput(true)
+//                        .moveUpToKeyboard(false) //是否移动到软键盘上面，默认为true
+                    .asInputConfirm("请输入资金密码", "", "资金密码",true,
+                            new OnInputConfirmListener() {
+                                @Override
+                                public void onConfirm(String text) {
+                                    if(!TextUtils.isEmpty(text)){
+                                        long currentTime = System.currentTimeMillis();
+                                        presenter.detelePay(2,payee.getId(), Md5Utils.getMD5(text+currentTime),currentTime);
+                                    }else {
+                                        ToastUtil.shortShow("请输入资金密码");
+                                    }
+                                }
+                            })
+                    .show();
+        }
+    }
+
+    public void onActivityResultF() {
+        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
     }
 }

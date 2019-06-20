@@ -8,9 +8,9 @@ public class BuyBusinessResponse extends BaseBean implements Parcelable {
     private String tradeId;//:"fdsafds"    //订单号
     private int payCode;//:1234            //付款参考码
     private long currentTime;
-    private PayeeBuyModle payee;
+    private String payee;//付款信息json
 
-    public BuyBusinessResponse(String tradeId, int payCode, long currentTime, PayeeBuyModle payee) {
+    public BuyBusinessResponse(String tradeId, int payCode, long currentTime, String payee) {
         this.tradeId = tradeId;
         this.payCode = payCode;
         this.currentTime = currentTime;
@@ -21,20 +21,7 @@ public class BuyBusinessResponse extends BaseBean implements Parcelable {
         tradeId = in.readString();
         payCode = in.readInt();
         currentTime = in.readLong();
-        payee = in.readParcelable(PayeeBuyModle.class.getClassLoader());
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(tradeId);
-        dest.writeInt(payCode);
-        dest.writeLong(currentTime);
-        dest.writeParcelable(payee, flags);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        payee = in.readString();
     }
 
     public static final Creator<BuyBusinessResponse> CREATOR = new Creator<BuyBusinessResponse>() {
@@ -49,6 +36,19 @@ public class BuyBusinessResponse extends BaseBean implements Parcelable {
         }
     };
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(tradeId);
+        dest.writeInt(payCode);
+        dest.writeLong(currentTime);
+        dest.writeString(payee);
+    }
+
     public String getTradeId() {
         return tradeId;
     }
@@ -61,7 +61,7 @@ public class BuyBusinessResponse extends BaseBean implements Parcelable {
         return currentTime;
     }
 
-    public PayeeBuyModle getPayee() {
+    public String getPayee() {
         return payee;
     }
 

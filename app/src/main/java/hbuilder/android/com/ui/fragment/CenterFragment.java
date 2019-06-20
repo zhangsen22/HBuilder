@@ -2,8 +2,11 @@ package hbuilder.android.com.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,6 +16,7 @@ import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 import com.lxj.xpopup.interfaces.XPopupCallback;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
@@ -30,6 +34,7 @@ import hbuilder.android.com.ui.activity.MessageCenterActivity;
 import hbuilder.android.com.ui.activity.RecommendToFriendsActivity;
 import hbuilder.android.com.ui.activity.SecurityCenterActivity;
 import hbuilder.android.com.ui.activity.WebViewActivity;
+import hbuilder.android.com.util.ToastUtil;
 
 public class CenterFragment extends BaseFragment implements CenterContract.View {
     private static final String TAG = CenterFragment.class.getSimpleName();
@@ -63,6 +68,10 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
     TextView tvLogout;
     @BindView(R.id.ll_center_bg)
     LinearLayout llCenterBg;
+    @BindView(R.id.iv_roletype)
+    ImageView ivRoletype;
+    @BindView(R.id.iv_apitype)
+    ImageView ivApitype;
     private MainActivity mainActivity;
     private CenterPresenter presenter;
 
@@ -98,6 +107,16 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
         tvUsername.setText(AccountManager.getInstance().getNickname());
         tvAccount.setText(AccountManager.getInstance().getPhoneNumber());
         tvVersionCode.setText(PackageUtil.getAppVersionName(MyApplication.appContext));
+        if(AccountManager.getInstance().getRoleType() == 2){
+            ivRoletype.setImageResource(R.mipmap.bs);
+        }else if(AccountManager.getInstance().getRoleType() == 1){
+            ivRoletype.setImageResource(R.mipmap.an);
+        }
+
+        if(AccountManager.getInstance().getApiType() == 1){
+            ivApitype.setImageResource(R.mipmap.st);
+        }
+
         if (AccountManager.getInstance().isHaveAliPayee() || AccountManager.getInstance().isHaveBankPayee() || AccountManager.getInstance().isHaveWechatPayee()) {
             tvIsAddPay.setText("已添加收款方式");
         } else {
@@ -126,11 +145,15 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                         .dismissOnTouchOutside(false)
                         .autoOpenSoftInput(true)
 //                        .moveUpToKeyboard(false) //是否移动到软键盘上面，默认为true
-                        .asInputConfirm("请输入要修改的昵称", "", "昵称",
+                        .asInputConfirm("请输入要修改的昵称", "", "昵称", false,
                                 new OnInputConfirmListener() {
                                     @Override
                                     public void onConfirm(String text) {
-                                        presenter.changeNickname(text);
+                                        if (!TextUtils.isEmpty(text)) {
+                                            presenter.changeNickname(text);
+                                        } else {
+                                            ToastUtil.shortShow("请输入要修改的昵称");
+                                        }
                                     }
                                 })
                         .show();

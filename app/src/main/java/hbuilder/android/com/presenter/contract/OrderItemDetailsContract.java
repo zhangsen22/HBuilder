@@ -3,9 +3,8 @@ package hbuilder.android.com.presenter.contract;
 import hbuilder.android.com.IBasePresenter;
 import hbuilder.android.com.IBaseView;
 import hbuilder.android.com.modle.BaseBean;
-import hbuilder.android.com.modle.MyBuyinfoResponse;
 import hbuilder.android.com.modle.MyEntrustinfoResponse;
-import hbuilder.android.com.modle.MySellinfoResponse;
+import hbuilder.android.com.modle.MySellOrBuyinfoResponse;
 
 public interface OrderItemDetailsContract {
 
@@ -26,14 +25,14 @@ public interface OrderItemDetailsContract {
         void ordercancel(String tradeId);
     }
     interface View extends IBaseView<Presenter> {
-        void mySellinfoRefreshSuccess(MySellinfoResponse mySellinfoResponse);
+        void mySellinfoRefreshSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse);
         void mySellinfoRefreshError();
-        void mySellinfoLoadMoreSuccess(MySellinfoResponse mySellinfoResponse);
+        void mySellinfoLoadMoreSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse);
         void mySellinfoLoadMoreError();
 
-        void myBuyinfoRefreshSuccess(MyBuyinfoResponse myBuyinfoResponse);
+        void myBuyinfoRefreshSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse);
         void myBuyinfoRefreshError();
-        void myBuyinfoLoadMoreSuccess(MyBuyinfoResponse myBuyinfoResponse);
+        void myBuyinfoLoadMoreSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse);
         void myBuyinfoLoadMoreError();
 
         void myBillInfoRefreshSuccess(MyEntrustinfoResponse myEntrustinfoResponse);

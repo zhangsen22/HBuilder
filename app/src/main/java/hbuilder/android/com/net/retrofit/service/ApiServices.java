@@ -7,9 +7,8 @@ import hbuilder.android.com.modle.BuyResponse;
 import hbuilder.android.com.modle.FinanceLogResponse;
 import hbuilder.android.com.modle.ImageCodeResponse;
 import hbuilder.android.com.modle.MessageCenterResponse;
-import hbuilder.android.com.modle.MyBuyinfoResponse;
 import hbuilder.android.com.modle.MyEntrustinfoResponse;
-import hbuilder.android.com.modle.MySellinfoResponse;
+import hbuilder.android.com.modle.MySellOrBuyinfoResponse;
 import hbuilder.android.com.modle.PaySetupModelAliPay;
 import hbuilder.android.com.modle.PaySetupModelBank;
 import hbuilder.android.com.modle.PaySetupModelWebChat;
@@ -251,7 +250,7 @@ public interface ApiServices {
      */
     @FormUrlEncoded
     @POST(ApiConstants.mySellinfo)
-    Observable<MySellinfoResponse> mySellinfo(@Field("type") int type, @Field("minId") long minId);
+    Observable<MySellOrBuyinfoResponse> mySellinfo(@Field("type") int type, @Field("minId") long minId);
 
     /**
      * 获取我的买入交易信息
@@ -261,7 +260,7 @@ public interface ApiServices {
      */
     @FormUrlEncoded
     @POST(ApiConstants.myBuyinfo)
-    Observable<MyBuyinfoResponse> myBuyinfo(@Field("type") int type, @Field("minId") long minId);
+    Observable<MySellOrBuyinfoResponse> myBuyinfo(@Field("type") int type, @Field("minId") long minId);
 
     /**
      * 获取我的委托单信息
@@ -434,7 +433,8 @@ public interface ApiServices {
      */
     @FormUrlEncoded
     @POST(ApiConstants.bank)
-    Observable<BaseBean> bank(@Field("bankName") String bankName
+    Observable<BaseBean> bank(@Field("id") long id
+            ,@Field("bankName") String bankName
             ,@Field("subName") String subName
             ,@Field("name") String name
             ,@Field("account") String account
@@ -453,7 +453,8 @@ public interface ApiServices {
      */
     @FormUrlEncoded
     @POST(ApiConstants.ali)
-    Observable<BaseBean> ali(@Field("name") String name
+    Observable<BaseBean> ali(@Field("id") long id
+            ,@Field("name") String name
             ,@Field("account") String account
             ,@Field("base64Img") String base64Img
             ,@Field("financePwd") String financePwd
@@ -470,7 +471,8 @@ public interface ApiServices {
      */
     @FormUrlEncoded
     @POST(ApiConstants.wechat)
-    Observable<BaseBean> wechat(@Field("name") String name
+    Observable<BaseBean> wechat(@Field("id") long id
+            ,@Field("name") String name
             ,@Field("account") String account
             ,@Field("base64Img") String base64Img
             ,@Field("empBase64Img") String empBase64Img

@@ -1,5 +1,6 @@
 package hbuilder.android.com.ui.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -42,10 +43,8 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
     TextView tvForgetPassword;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
-
     private PaySettingActivity paySettingActivity;
     private IdCastPresenter presenter;
-    private double dailyLimit;
 
     public static IdCastPayEditFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -120,42 +119,21 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
                     ToastUtil.shortShow("请输入平台资金密码");
                     return;
                 }
+
+                double dailyLimit = Double.parseDouble(everydayJine);
                 if(dailyLimit <= 0){
                     ToastUtil.shortShow("限额不能小于零");
                     return;
                 }
                 long currentTime = System.currentTimeMillis();
-                presenter.bank(yinhangName, yinhangZhiname, name, castCode, dailyLimit, Md5Utils.getMD5(forgetPassword+currentTime),currentTime);
+                presenter.bank(0,yinhangName, yinhangZhiname, name, castCode, dailyLimit, Md5Utils.getMD5(forgetPassword+currentTime),currentTime);
                 break;
         }
     }
 
-//    @Override
-//    public void paysetupBankSuccess(PaySetupModelBank paySetupModelBank) {
-//        if(paySetupModelBank != null){
-//            PaySetupModelBank.BankPayeeModel bankPayee = paySetupModelBank.getBankPayee();
-//            if(bankPayee != null){
-//                SharedPreferencesUtils.putString(Constants.bankName,bankPayee.getName());
-//                SharedPreferencesUtils.putString(Constants.bankAccount,bankPayee.getAccount());
-//                dailyLimit = bankPayee.getDailyLimit();
-//                etYinhangName.setText(bankPayee.getBankName());
-//                etYinhangZhiname.setText(bankPayee.getSubName());
-//                etName.setText(bankPayee.getName());
-//                etCastCode.setText(bankPayee.getAccount());
-//                etEverydayJine.setText(dailyLimit+"");
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void paysetupBankError() {
-//
-//    }
-
     @Override
     public void bankSuccess(String name, String account) {
-        SharedPreferencesUtils.putString(Constants.bankName,name);
-        SharedPreferencesUtils.putString(Constants.bankAccount,account);
+        paySettingActivity.setResult(Activity.RESULT_OK);
         paySettingActivity.finish();
     }
 

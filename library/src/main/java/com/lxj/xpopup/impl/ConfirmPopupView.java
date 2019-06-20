@@ -21,6 +21,7 @@ public class ConfirmPopupView extends CenterPopupView implements View.OnClickLis
     OnConfirmListener confirmListener;
     TextView tv_title, tv_content, tv_cancel, tv_confirm;
     String title, content, hint, cancelText, confirmText;
+    boolean isPassWord;
     boolean isHideCancel = false;
     public ConfirmPopupView(@NonNull Context context) {
         super(context);
@@ -72,6 +73,14 @@ public class ConfirmPopupView extends CenterPopupView implements View.OnClickLis
         this.confirmListener = confirmListener;
         return this;
     }
+    public ConfirmPopupView setTitleContent(String title, String content, String hint,boolean isPassWord){
+        this.title = title;
+        this.content = content;
+        this.hint = hint;
+        this.isPassWord = isPassWord;
+        return this;
+    }
+
     public ConfirmPopupView setTitleContent(String title, String content, String hint){
         this.title = title;
         this.content = content;

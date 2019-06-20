@@ -101,9 +101,17 @@
                     android:textSize="11sp"/>
 
                 <ImageView
+                    android:id="@+id/iv_roletype"
                     android:layout_width="@dimen/y58"
                     android:layout_height="@dimen/y26"
-                    android:src="@mipmap/an"
+                    tools:src="@mipmap/an"
+                    android:layout_marginLeft="@dimen/y24"/>
+
+                <ImageView
+                    android:id="@+id/iv_apitype"
+                    android:layout_width="@dimen/y58"
+                    android:layout_height="@dimen/y26"
+                    tools:src="@mipmap/an"
                     android:layout_marginLeft="@dimen/y24"/>
 
             </LinearLayout>

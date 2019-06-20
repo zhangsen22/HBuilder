@@ -4,22 +4,22 @@ import java.util.List;
 
 public class BankPayeeModel {
 
-    private long defalut;
-    private List<BankPayeeItemModel> list;
+    private long defaultId;
+    private List<BankPayeeItemModel> payee;
 
-    public long getDefalut() {
-        return defalut;
+    public long getDefaultId() {
+        return defaultId;
     }
 
-    public List<BankPayeeItemModel> getList() {
-        return list;
+    public List<BankPayeeItemModel> getPayee() {
+        return payee;
     }
 
     @Override
     public String toString() {
         return "BankPayeeModel{" +
-                "defalut=" + defalut +
-                ", list=" + list +
+                "defaultId=" + defaultId +
+                ", payee=" + payee +
                 '}';
     }
 }

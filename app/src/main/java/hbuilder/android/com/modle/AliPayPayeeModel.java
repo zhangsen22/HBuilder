@@ -3,22 +3,22 @@ package hbuilder.android.com.modle;
 import java.util.List;
 
 public class AliPayPayeeModel {
-    private long defalut;
-    private List<AliPayPayeeItemModel> list;
+    private long defaultId;
+    private List<AliPayPayeeItemModel> payee;
 
-    public long getDefalut() {
-        return defalut;
+    public long getDefaultId() {
+        return defaultId;
     }
 
-    public List<AliPayPayeeItemModel> getList() {
-        return list;
+    public List<AliPayPayeeItemModel> getPayee() {
+        return payee;
     }
 
     @Override
     public String toString() {
         return "AliPayPayeeModel{" +
-                "defalut=" + defalut +
-                ", list=" + list +
+                "defaultId=" + defaultId +
+                ", payee=" + payee +
                 '}';
     }
 }

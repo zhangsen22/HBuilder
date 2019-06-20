@@ -1,0 +1,11 @@
+package hbuilder.android.com.modle;
+
+import java.util.List;
+
+public class MySellOrBuyinfoResponse extends BaseBean{
+    private List<MySellOrBuyinfoItem> info;
+
+    public List<MySellOrBuyinfoItem> getInfo() {
+        return info;
+    }
+}

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,6 +39,9 @@ public class InputConfirmPopupView extends ConfirmPopupView implements View.OnCl
         super.initPopupContent();
         if(!TextUtils.isEmpty(hint)){
             tv_input.setHint(hint);
+        }
+        if(isPassWord){
+            tv_input.setInputType(InputType.TYPE_CLASS_TEXT |InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }
     }
 

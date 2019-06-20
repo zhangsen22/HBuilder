@@ -13,12 +13,12 @@ import java.text.DecimalFormat;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
 import hbuilder.android.com.modle.BuyBusinessResponse;
-import hbuilder.android.com.modle.MyBuyinfoItem;
+import hbuilder.android.com.modle.MySellOrBuyinfoItem;
 import hbuilder.android.com.ui.activity.BusinessBuyDetailsActivity;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerAdapter;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerHolder;
 
-public class OrderBuyDetailsAdapter extends PowerAdapter<MyBuyinfoItem> {
+public class OrderBuyDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
     private static final String TAG = OrderBuyDetailsAdapter.class.getSimpleName();
     private BaseActivity mContext;
     private int childType;
@@ -33,16 +33,16 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MyBuyinfoItem> {
     }
 
     @Override
-    public PowerHolder<MyBuyinfoItem> onViewHolderCreate(@NonNull ViewGroup parent, int viewType) {
+    public PowerHolder<MySellOrBuyinfoItem> onViewHolderCreate(@NonNull ViewGroup parent, int viewType) {
         return new OrderSellDetailsHolder(inflater.inflate(R.layout.order_buy_details_item, parent, false));
     }
 
     @Override
-    public void onViewHolderBind(@NonNull PowerHolder<MyBuyinfoItem> holder, int position) {
+    public void onViewHolderBind(@NonNull PowerHolder<MySellOrBuyinfoItem> holder, int position) {
         ((OrderSellDetailsHolder) holder).onBind(list.get(position), position);
     }
 
-    private class OrderSellDetailsHolder extends PowerHolder<MyBuyinfoItem> {
+    private class OrderSellDetailsHolder extends PowerHolder<MySellOrBuyinfoItem> {
         TextView tvOrderSellTime;
         TextView tvOrderSellStatus;
         TextView tvOrderSellPrice;
@@ -73,7 +73,7 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MyBuyinfoItem> {
         }
 
         @Override
-        public void onBind(@NonNull final MyBuyinfoItem myBuyinfoItem, int position) {
+        public void onBind(@NonNull final MySellOrBuyinfoItem myBuyinfoItem, int position) {
             long createTime = myBuyinfoItem.getCreateTime();
             final long payTime = myBuyinfoItem.getPayTime();
             tvOrderSellTime.setText(DateUtil.getCurrentDateString1(createTime));
@@ -127,7 +127,7 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MyBuyinfoItem> {
                         @Override
                         public void onClick(View v) {
                             if(listenering != null){
-                                listenering.orderBuyClick(2,myBuyinfoItem.getTradeId());
+                                listenering.orderBuyClick(2,myBuyinfoItem.getTradeid());
                             }
                         }
                     });
@@ -135,7 +135,7 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MyBuyinfoItem> {
                     tvOrderSellSs.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            BusinessBuyDetailsActivity.startThis(mContext, new BuyBusinessResponse(myBuyinfoItem.getTradeId(), myBuyinfoItem.getPayCode(),myBuyinfoItem.getCreateTime(), myBuyinfoItem.getPayee()), myBuyinfoItem.getPrice(), myBuyinfoItem.getNum(), myBuyinfoItem.getType());
+                            BusinessBuyDetailsActivity.startThis(mContext, new BuyBusinessResponse(myBuyinfoItem.getTradeid(), myBuyinfoItem.getPayCode(),myBuyinfoItem.getCreateTime(), myBuyinfoItem.getPayee()), myBuyinfoItem.getPrice(), myBuyinfoItem.getNum(), myBuyinfoItem.getPayType());
                         }
                     });
                 }else if(status == 2){
@@ -170,7 +170,7 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MyBuyinfoItem> {
                         @Override
                         public void onClick(View v) {
                             if(listenering != null){
-                                listenering.orderBuyClick(1,myBuyinfoItem.getTradeId());
+                                listenering.orderBuyClick(1,myBuyinfoItem.getTradeid());
                             }
                         }
                     });

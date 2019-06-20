@@ -16,9 +16,19 @@ public class AccountInfo extends BaseBean {
     private boolean haveWechatPayee;//:true    //是否有微信收款方式
     private boolean haveAliPayee;//:false        //是否有支付宝收款方式
     private boolean haveBankPayee;//:false        //是否有银行收款方式
+    private int apiType;//api匹配类型,0为普通类型 1为代理商类型
+    private int roleType;//角色类型(2=总代/1=代理/0=普通)
 
     private String phoneNumber;
     private String password;
+
+    public String getWalletaddr() {
+        return walletaddr;
+    }
+
+    public void setWalletaddr(String walletaddr) {
+        this.walletaddr = walletaddr;
+    }
 
     public long getId() {
         return id;
@@ -42,14 +52,6 @@ public class AccountInfo extends BaseBean {
 
     public void setDownloadUrl(String downloadUrl) {
         this.downloadUrl = downloadUrl;
-    }
-
-    public String getWalletAddr() {
-        return walletaddr;
-    }
-
-    public void setWalletAddr(String walletAddr) {
-        this.walletaddr = walletAddr;
     }
 
     public String getNickname() {
@@ -132,13 +134,29 @@ public class AccountInfo extends BaseBean {
         return password;
     }
 
+    public int getApiType() {
+        return apiType;
+    }
+
+    public void setApiType(int apiType) {
+        this.apiType = apiType;
+    }
+
+    public int getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(int roleType) {
+        this.roleType = roleType;
+    }
+
     @Override
     public String toString() {
         return "AccountInfo{" +
                 "id=" + id +
                 ", invitedCode='" + invitedCode + '\'' +
                 ", downloadUrl='" + downloadUrl + '\'' +
-                ", walletAddr='" + walletaddr + '\'' +
+                ", walletaddr='" + walletaddr + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", havefinancePwd=" + havefinancePwd +
                 ", autoBuy=" + autoBuy +
@@ -147,6 +165,8 @@ public class AccountInfo extends BaseBean {
                 ", haveWechatPayee=" + haveWechatPayee +
                 ", haveAliPayee=" + haveAliPayee +
                 ", haveBankPayee=" + haveBankPayee +
+                ", apiType=" + apiType +
+                ", roleType=" + roleType +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", password='" + password + '\'' +
                 '}';

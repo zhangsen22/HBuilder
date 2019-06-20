@@ -9,10 +9,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
+
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import hbuilder.android.com.R;
 import hbuilder.android.com.modle.AliPayPayeeItemModel;
+import hbuilder.android.com.modle.AliPayPayeeItemModelPayee;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerAdapter;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerHolder;
 
@@ -24,8 +27,9 @@ public class AliPayListAdapter extends PowerAdapter<AliPayPayeeItemModel> {
     private Context mContext;
     private LayoutInflater inflater;
     private OnAliPayCheckListener onAliPayCheckListener;
+    private long defalutId;
 
-    public AliPayListAdapter(Context context,OnAliPayCheckListener onAliPayCheckListener) {
+    public AliPayListAdapter(Context context, OnAliPayCheckListener onAliPayCheckListener) {
         super();
         mContext = context;
         inflater = LayoutInflater.from(mContext);
@@ -47,42 +51,87 @@ public class AliPayListAdapter extends PowerAdapter<AliPayPayeeItemModel> {
         ((AliPayListHolder) holder).onBind(list.get(position), position);
     }
 
+    public void setDefaultId(long defalut) {
+        this.defalutId = defalut;
+    }
+
     private class AliPayListHolder extends PowerHolder<AliPayPayeeItemModel> {
         TextView tvAlipayName;
+        TextView tvName;
         CheckBox tvAlipayCheck;
         TextView tvAlipayLastmoney;
         TextView tvAlipayLastnum;
+        TextView tvShuoming;
+        TextView tvPayDelete;
+
         public AliPayListHolder(View itemView) {
             super(itemView);
             tvAlipayName = itemView.findViewById(R.id.tv_alipay_name);
+            tvName = itemView.findViewById(R.id.tv_name);
             tvAlipayCheck = itemView.findViewById(R.id.tv_alipay_check);
             tvAlipayLastmoney = itemView.findViewById(R.id.tv_alipay_lastmoney);
             tvAlipayLastnum = itemView.findViewById(R.id.tv_alipay_lastnum);
+            tvShuoming = itemView.findViewById(R.id.tv_shuoming);
+            tvPayDelete = itemView.findViewById(R.id.tv_pay_delete);
         }
 
         @Override
         public void onBind(@NonNull final AliPayPayeeItemModel aliPayPayeeItemModel, final int position) {
-            GALogger.d(TAG,"position           "+position);
-            tvAlipayName.setText(position+"");
-            tvAlipayCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    GALogger.d(TAG,"isChecked           "+isChecked);
-                    if (isChecked == true) {
+            GALogger.d(TAG, "position           " + position);
+            AliPayPayeeItemModelPayee payee = aliPayPayeeItemModel.getPayee();
+            if(payee != null){
+                tvAlipayName.setText(payee.getAccount());
+                tvName.setText(payee.getName());
+                if (defalutId > 0) {
+                    if (defalutId == payee.getId()) {
                         map.clear();
                         map.put(position, true);
                         checkedPosition = position;
-                        if(onAliPayCheckListener != null){
-                            onAliPayCheckListener.onAliPayCheck(position,aliPayPayeeItemModel);
-                        }
+                        tvShuoming.setText("默认");
+                        tvAlipayCheck.setVisibility(View.GONE);
+                        tvShuoming.setTextColor(mContext.getResources().getColor(R.color.color_ff0000));
                     } else {
                         map.remove(position);
                         if (map.size() == 0) {
                             checkedPosition = -1; //-1 代表一个都未选择
                         }
+                        tvShuoming.setText("设为默认");
+                        tvAlipayCheck.setVisibility(View.VISIBLE);
+                        tvShuoming.setTextColor(mContext.getResources().getColor(R.color.color_666666));
                     }
-                    if (!onBind) {
-                        notifyDataSetChanged();
+                }
+            }
+            tvAlipayLastmoney.setText(new DecimalFormat("0.00").format(aliPayPayeeItemModel.getLeftMoney()));
+            tvAlipayLastnum.setText(aliPayPayeeItemModel.getLeftTimes() + "");
+            tvPayDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onAliPayCheckListener != null) {
+                        onAliPayCheckListener.onAliPayDelete(position, aliPayPayeeItemModel);
+                    }
+                }
+            });
+            tvAlipayCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (buttonView.isPressed()) {
+                        GALogger.d(TAG, "isChecked           " + isChecked);
+                        if (isChecked == true) {
+                            map.clear();
+                            map.put(position, true);
+                            checkedPosition = position;
+                            if (onAliPayCheckListener != null) {
+                                onAliPayCheckListener.onAliPayCheck(position, aliPayPayeeItemModel);
+                            }
+                        } else {
+                            map.remove(position);
+                            if (map.size() == 0) {
+                                checkedPosition = -1; //-1 代表一个都未选择
+                            }
+                        }
+                        if (!onBind) {
+                            notifyDataSetChanged();
+                        }
                     }
                 }
             });
@@ -96,7 +145,8 @@ public class AliPayListAdapter extends PowerAdapter<AliPayPayeeItemModel> {
         }
     }
 
-    public interface OnAliPayCheckListener{
-        void onAliPayCheck(int position,AliPayPayeeItemModel aliPayPayeeItemModel);
+    public interface OnAliPayCheckListener {
+        void onAliPayCheck(int position, AliPayPayeeItemModel aliPayPayeeItemModel);
+        void onAliPayDelete(int position, AliPayPayeeItemModel aliPayPayeeItemModel);
     }
 }

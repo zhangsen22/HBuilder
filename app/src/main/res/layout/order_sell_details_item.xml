@@ -15,10 +15,11 @@
         android:paddingBottom="@dimen/y24">
 
         <TextView
+            android:id="@+id/tv_order_sell_shuoming"
             android:layout_width="@dimen/y42"
             android:layout_height="@dimen/y42"
-            android:text="卖"
-            android:background="@mipmap/af"
+            tools:text="卖"
+            tools:background="@mipmap/af"
             android:textSize="12sp"
             android:textColor="@color/common_white"
             android:gravity="center"/>

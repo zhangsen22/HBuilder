@@ -24,9 +24,9 @@ public class WebChatEditPresenter implements WebChatEditContract.Presenter{
     }
 
     @Override
-    public void wechat(final String name, final String account, final String base64Img, String empBase64Img, String financePwd, long time) {
+    public void wechat(long id,final String name, final String account, final String base64Img, String empBase64Img, String financePwd, long time) {
         mView.showLoading();
-        mModel.wechat(name,account,base64Img,empBase64Img,financePwd,time).observeOn(AndroidSchedulers.mainThread())
+        mModel.wechat(id,name,account,base64Img,empBase64Img,financePwd,time).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<BaseBean>() {
                     @Override
                     public void onSuccess(BaseBean baseBean) {

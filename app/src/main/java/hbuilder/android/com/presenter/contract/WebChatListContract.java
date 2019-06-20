@@ -11,6 +11,7 @@ public interface WebChatListContract {
         void webChatListRefresh(int type);
         void webChatListLoadMore(int type);
         void setDefaultPayWebChat(int type, long id, String financePwd, long time);
+        void detelePay(int type,long id,String financePwd,long time);
     }
     interface View extends IBaseView<Presenter> {
         void webChatListRefreshSuccess(PaySetupModelWebChat paySetupModelWebChat);
@@ -18,6 +19,7 @@ public interface WebChatListContract {
         void webChatListLoadMoreSuccess(PaySetupModelWebChat paySetupModelWebChat);
         void webChatListLoadMoreError();
         void setDefaultPayWebChatSuccess(BaseBean baseBean);
+        void deteleWebChatSuccess(BaseBean baseBean);
     }
 }
 

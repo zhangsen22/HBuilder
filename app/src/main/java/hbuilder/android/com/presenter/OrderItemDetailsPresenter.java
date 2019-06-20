@@ -1,9 +1,8 @@
 package hbuilder.android.com.presenter;
 
 import hbuilder.android.com.modle.BaseBean;
-import hbuilder.android.com.modle.MyBuyinfoResponse;
 import hbuilder.android.com.modle.MyEntrustinfoResponse;
-import hbuilder.android.com.modle.MySellinfoResponse;
+import hbuilder.android.com.modle.MySellOrBuyinfoResponse;
 import hbuilder.android.com.net.retrofit.ModelResultObserver;
 import hbuilder.android.com.net.retrofit.exception.ModelException;
 import hbuilder.android.com.presenter.contract.OrderItemDetailsContract;
@@ -25,10 +24,10 @@ public class OrderItemDetailsPresenter implements OrderItemDetailsContract.Prese
     public void mySellinfoRefresh(int type, long minId) {
         mView.showLoading();
         mModel.mySellinfo(type,minId).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ModelResultObserver<MySellinfoResponse>() {
+                .subscribe(new ModelResultObserver<MySellOrBuyinfoResponse>() {
                     @Override
-                    public void onSuccess(MySellinfoResponse mySellinfoResponse) {
-                        mView.mySellinfoRefreshSuccess(mySellinfoResponse);
+                    public void onSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse) {
+                        mView.mySellinfoRefreshSuccess(mySellOrBuyinfoResponse);
                         mView.hideLoading();
                     }
 
@@ -45,10 +44,10 @@ public class OrderItemDetailsPresenter implements OrderItemDetailsContract.Prese
     public void mySellinfoLoadMore(int type, long minId) {
         mView.showLoading();
         mModel.mySellinfo(type,minId).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ModelResultObserver<MySellinfoResponse>() {
+                .subscribe(new ModelResultObserver<MySellOrBuyinfoResponse>() {
                     @Override
-                    public void onSuccess(MySellinfoResponse mySellinfoResponse) {
-                        mView.mySellinfoLoadMoreSuccess(mySellinfoResponse);
+                    public void onSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse) {
+                        mView.mySellinfoLoadMoreSuccess(mySellOrBuyinfoResponse);
                         mView.hideLoading();
                     }
 
@@ -65,10 +64,10 @@ public class OrderItemDetailsPresenter implements OrderItemDetailsContract.Prese
     public void myBuyinfoRefresh(int type, long minId) {
         mView.showLoading();
         mModel.myBuyinfo(type,minId).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ModelResultObserver<MyBuyinfoResponse>() {
+                .subscribe(new ModelResultObserver<MySellOrBuyinfoResponse>() {
                     @Override
-                    public void onSuccess(MyBuyinfoResponse myBuyinfoResponse) {
-                        mView.myBuyinfoRefreshSuccess(myBuyinfoResponse);
+                    public void onSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse) {
+                        mView.myBuyinfoRefreshSuccess(mySellOrBuyinfoResponse);
                         mView.hideLoading();
                     }
 
@@ -85,10 +84,10 @@ public class OrderItemDetailsPresenter implements OrderItemDetailsContract.Prese
     public void myBuyinfoLoadMore(int type, long minId) {
         mView.showLoading();
         mModel.myBuyinfo(type,minId).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ModelResultObserver<MyBuyinfoResponse>() {
+                .subscribe(new ModelResultObserver<MySellOrBuyinfoResponse>() {
                     @Override
-                    public void onSuccess(MyBuyinfoResponse myBuyinfoResponse) {
-                        mView.myBuyinfoLoadMoreSuccess(myBuyinfoResponse);
+                    public void onSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse) {
+                        mView.myBuyinfoLoadMoreSuccess(mySellOrBuyinfoResponse);
                         mView.hideLoading();
                     }
 

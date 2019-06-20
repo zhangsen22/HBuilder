@@ -20,6 +20,7 @@
         android:fadingEdge="none"
         android:listSelector="#00000000"
         ptr:ptrMode="pullFromStart"
+        android:layout_marginTop="@dimen/y20"
         ptr:ptrOverScroll="false"/>
 
     <TextView

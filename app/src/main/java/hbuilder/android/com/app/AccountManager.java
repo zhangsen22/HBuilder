@@ -23,6 +23,8 @@ public class AccountManager {
     private static final String HAVEWECHATPAYEE = "haveWechatPayee";
     private static final String HAVEALIPAYEE = "haveAliPayee";
     private static final String HAVEBANKPAYEE = "haveBankPayee";
+    private static final String APITYPE = "apiType";
+    private static final String ROLETYPE = "roleType";
 
     //静态内部类
     private static class AccountManagerHoder{
@@ -51,7 +53,7 @@ public class AccountManager {
         edit.putLong(ID, accountInfo.getId());
         edit.putString(INVITEDCODE, accountInfo.getInvitedCode());
         edit.putString(DOWNLOADURL, accountInfo.getDownloadUrl());
-        edit.putString(WALLETADDR, accountInfo.getWalletAddr());
+        edit.putString(WALLETADDR, accountInfo.getWalletaddr());
         edit.putString(NICKNAME, accountInfo.getNickname());
         edit.putBoolean(HAVEFINANCEPWD, accountInfo.isHavefinancePwd());
         edit.putBoolean(AUTOBUY, accountInfo.isAutoBuy());
@@ -62,6 +64,8 @@ public class AccountManager {
         edit.putBoolean(HAVEBANKPAYEE, accountInfo.isHaveBankPayee());
         edit.putString(PHONENUMBER, accountInfo.getPhoneNumber());
         edit.putString(PASSWORD, accountInfo.getPassword());
+        edit.putInt(APITYPE,accountInfo.getApiType());
+        edit.putInt(ROLETYPE,accountInfo.getRoleType());
         edit.apply();
         mAccountInfo = getAccountInfoFormLocate();
     }
@@ -83,6 +87,8 @@ public class AccountManager {
         edit.remove(HAVEBANKPAYEE);
         edit.remove(PHONENUMBER);
         edit.remove(PASSWORD);
+        edit.remove(APITYPE);
+        edit.remove(ROLETYPE);
         edit.apply();
         mAccountInfo = null;
     }
@@ -92,7 +98,7 @@ public class AccountManager {
         mAccountInfo.setId(mSharedPreferences.getLong(ID, 0));
         mAccountInfo.setInvitedCode(mSharedPreferences.getString(INVITEDCODE, ""));
         mAccountInfo.setDownloadUrl(mSharedPreferences.getString(DOWNLOADURL, ""));
-        mAccountInfo.setWalletAddr(mSharedPreferences.getString(WALLETADDR, ""));
+        mAccountInfo.setWalletaddr(mSharedPreferences.getString(WALLETADDR, ""));
         mAccountInfo.setNickname(mSharedPreferences.getString(NICKNAME, ""));
         mAccountInfo.setHavefinancePwd(mSharedPreferences.getBoolean(HAVEFINANCEPWD, false));
         mAccountInfo.setAutoBuy(mSharedPreferences.getBoolean(AUTOBUY, false));
@@ -103,6 +109,8 @@ public class AccountManager {
         mAccountInfo.setIDstatus(mSharedPreferences.getInt(IDSTATUS, -1));
         mAccountInfo.setPhoneNumber(mSharedPreferences.getString(PHONENUMBER, ""));
         mAccountInfo.setPassword(mSharedPreferences.getString(PASSWORD, ""));
+        mAccountInfo.setApiType(mSharedPreferences.getInt(APITYPE, 0));
+        mAccountInfo.setRoleType(mSharedPreferences.getInt(ROLETYPE, 0));
         return mAccountInfo;
     }
 
@@ -159,7 +167,7 @@ public class AccountManager {
     }
 
     public String getWalletAddr() {
-        return getAccountInfo().getWalletAddr();
+        return getAccountInfo().getWalletaddr();
     }
 
     public boolean isHaveAliPayee() {
@@ -173,6 +181,16 @@ public class AccountManager {
     public boolean isHaveBankPayee() {
         return getAccountInfo().isHaveBankPayee();
     }
+
+    public int getApiType() {
+        return getAccountInfo().getApiType();
+    }
+
+    public int getRoleType() {
+        return getAccountInfo().getRoleType();
+    }
+
+
 
     public AccountManager setNickname(String nickname) {
         getAccountInfo().setNickname(nickname);

@@ -1,6 +1,7 @@
 package hbuilder.android.com.ui.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -19,7 +20,9 @@ import android.widget.TextView;
 import com.example.qrcode.Constant;
 import com.example.qrcode.ScannerActivity;
 import com.example.qrcode.utils.QRCodeUtil;
+import com.growalong.util.util.BitmapUtils;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.XPopupCallback;
@@ -29,6 +32,7 @@ import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.Constants;
+import hbuilder.android.com.modle.AliPayee;
 import hbuilder.android.com.presenter.AliPayEditPresenter;
 import hbuilder.android.com.presenter.contract.AliPayEditContract;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
@@ -98,38 +102,9 @@ public class AliPayEditFragment extends BaseFragment implements AliPayEditContra
         bitmapLog = BitmapFactory.decodeResource(MyApplication.appContext.getResources(), R.drawable.ic_launcher_round);
     }
 
-//    @Override
-//    public void paysetupAliPaySuccess(PaySetupModelAliPay paySetupModelAliPay) {
-//        if(paySetupModelAliPay != null){
-//            PaySetupModelAliPay.AliPayPayeeModel aliPayee = paySetupModelAliPay.getAliPayee();
-//            if(aliPayee != null){
-//                String base64Img = aliPayee.getBase64Img();
-//                if(!TextUtils.isEmpty(base64Img)) {
-//                    qrImage1 = QRCodeUtil.createQRCodeBitmap(base64Img, 650, 650, "UTF-8",
-//                            "H", "1", Color.BLACK, Color.WHITE, bitmapLog, 0.2F, null);
-//                    sIdcardFront = base64Img;
-//                    ivAlipayImage.setImageBitmap(qrImage1);
-//                    ivAlipayImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                }
-//                etAlipayName.setText(aliPayee.getName());
-//                etAlipayAccount.setText(aliPayee.getAccount());
-//                SharedPreferencesUtils.putString(Constants.aliPayName,aliPayee.getName());
-//                SharedPreferencesUtils.putString(Constants.aliPayAccount,aliPayee.getAccount());
-//                SharedPreferencesUtils.putString(Constants.aliPayBase64Img,aliPayee.getBase64Img());
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void paysetupAliPayError() {
-//
-//    }
-
     @Override
     public void aliSuccess(String name, String account, String base64Img) {
-        SharedPreferencesUtils.putString(Constants.aliPayName,name);
-        SharedPreferencesUtils.putString(Constants.aliPayAccount,account);
-        SharedPreferencesUtils.putString(Constants.aliPayBase64Img,base64Img);
+        paySettingActivity.setResult(Activity.RESULT_OK);
         paySettingActivity.finish();
     }
 
@@ -190,13 +165,9 @@ public class AliPayEditFragment extends BaseFragment implements AliPayEditContra
                                     qrImage.recycle();
                                     qrImage = null;
                                 }
-                                if(bitmapLog != null && !bitmapLog.isRecycled()){
-                                    bitmapLog.recycle();
-                                    bitmapLog = null;
-                                }
                             }
                         })
-                        .asCustom(new CenterErWeiMaPopupView(getContext(),1,"",qrImage))
+                        .asCustom(new CenterErWeiMaPopupView(getContext(),1,GsonUtil.getInstance().objTojson(new AliPayee("", BitmapUtils.bitmapToBase64(qrImage)))))
                         .show();
                 break;
             case R.id.tv_forget_alipay_password:
@@ -229,7 +200,7 @@ public class AliPayEditFragment extends BaseFragment implements AliPayEditContra
                 }
 
                 long currentTime = System.currentTimeMillis();
-                presenter.ali(alipayName1,alipayAccount1,sIdcardFront,Md5Utils.getMD5(forgetPassword+currentTime),currentTime);
+                presenter.ali(0,alipayName1,alipayAccount1,sIdcardFront,Md5Utils.getMD5(forgetPassword+currentTime),currentTime);
                 break;
             case R.id.iv_alipay_image:
                 if (ContextCompat.checkSelfPermission(paySettingActivity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {

@@ -15,14 +15,13 @@ import hbuilder.android.com.ui.fragment.WebChatEditFragment;
 
 public class PaySettingActivity extends BaseActivity {
     private static final String TAG = PaySettingActivity.class.getSimpleName();
-    private int type;//1为支付宝，2为微信，3为银行账户
     private WebChatEditFragment webChatEditFragment;
     private AliPayEditFragment aliPayEditFragment;
 
-    public static void startThis(BaseActivity activity,int type) {
+    public static void startThis(BaseActivity activity,int type,int requestCode) {
         Intent intent = new Intent(activity, PaySettingActivity.class);
         intent.putExtra("type",type);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent,requestCode);
     }
 
     @Override
@@ -38,7 +37,7 @@ public class PaySettingActivity extends BaseActivity {
     @Override
     protected void initData() {
         int type = getIntent().getIntExtra("type", 1);
-        if(type == 1){
+        if(type == 1){//1为支付宝，2为微信，3为银行账户
             aliPayEditFragment = (AliPayEditFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.contentFrame);
             if (aliPayEditFragment == null) {

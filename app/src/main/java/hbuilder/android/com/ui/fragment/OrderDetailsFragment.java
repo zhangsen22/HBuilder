@@ -3,25 +3,26 @@ package hbuilder.android.com.ui.fragment;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.growalong.util.util.BitmapUtils;
 import com.growalong.util.util.DateUtil;
+import com.growalong.util.util.GsonUtil;
 import com.lxj.xpopup.XPopup;
-
 import java.text.DecimalFormat;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
-import hbuilder.android.com.modle.OrderDetailsModle;
+import hbuilder.android.com.modle.AliPayee;
+import hbuilder.android.com.modle.BankPayee;
+import hbuilder.android.com.modle.MySellOrBuyinfoItem;
+import hbuilder.android.com.modle.WechatPayee;
 import hbuilder.android.com.ui.activity.OrderDetailsActivity;
 import hbuilder.android.com.ui.widget.CenterErWeiMaPopupView;
 import hbuilder.android.com.util.ToastUtil;
@@ -61,10 +62,9 @@ public class OrderDetailsFragment extends BaseFragment {
     @BindView(R.id.tv_order_details_allprice)
     TextView tvOrderDetailsAllprice;
     private OrderDetailsActivity orderDetailsActivity;
-    private OrderDetailsModle orderDetailsModle;
-    private Bitmap bitmap;
+    private MySellOrBuyinfoItem orderDetailsModle;
 
-    public static OrderDetailsFragment newInstance(@Nullable OrderDetailsModle orderDetailsModle) {
+    public static OrderDetailsFragment newInstance(@Nullable MySellOrBuyinfoItem orderDetailsModle) {
         Bundle arguments = new Bundle();
         arguments.putParcelable("orderDetailsModle", orderDetailsModle);
         OrderDetailsFragment fragment = new OrderDetailsFragment();
@@ -93,7 +93,7 @@ public class OrderDetailsFragment extends BaseFragment {
     protected void lazyLoadData() {
         super.lazyLoadData();
         if(orderDetailsModle != null){
-            tvOrderDetailsCode.setText(orderDetailsModle.getTradeId());
+            tvOrderDetailsCode.setText(orderDetailsModle.getTradeid());
             int status = orderDetailsModle.getStatus();
             if(status == 1){
                 tvOrderDetailsStatus.setText("等待付款");
@@ -109,22 +109,47 @@ public class OrderDetailsFragment extends BaseFragment {
                 tvOrderDetailsStatus.setText("已关闭");
             }
             tvOrderDetailsPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(orderDetailsModle.getNum()*orderDetailsModle.getPrice()));
-            tvOrderDetailsSellName.setText(orderDetailsModle.getName());
             tvOrderDetailsSingleprice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(orderDetailsModle.getPrice()));
             tvOrderDetailsNum.setText(new DecimalFormat("0.00").format(orderDetailsModle.getNum()));
             tvOrderDetailsTime.setText(DateUtil.getCurrentDateString3(orderDetailsModle.getCreateTime()));
             tvOrderDetailsCankaoma.setText(orderDetailsModle.getPayCode()+"");
-            tvShoukuaiOrderDetailsName.setText(orderDetailsModle.getName());
-            if(orderDetailsModle.getType() == 1){
-                tvOrderDetailsShoukuanType.setText("支付宝");
-            }else if(orderDetailsModle.getType() == 2){
-                tvOrderDetailsShoukuanType.setText("微信");
-            }else if(orderDetailsModle.getType() == 3){
-                tvOrderDetailsShoukuanType.setText("银行账户");
+            int payType = orderDetailsModle.getPayType();
+            String payee = orderDetailsModle.getPayee();
+            if(!TextUtils.isEmpty(payee)) {
+                if (payType == 1) {
+                    tvOrderDetailsShoukuanType.setText("支付宝");
+                    AliPayee aliPayee =  GsonUtil.getInstance().getServerBean(payee,AliPayee.class);
+                    if(aliPayee != null){
+                        tvOrderDetailsSellName.setText(aliPayee.getName());
+                        tvShoukuaiOrderDetailsName.setText(aliPayee.getName());
+                        tvOrderDetailsAccount.setText(aliPayee.getAccount());
+                        ivOrderDetailsCodeImage.setVisibility(View.VISIBLE);
+                        String base64Img = aliPayee.getBase64Img();
+                        ivOrderDetailsCodeImage.setImageBitmap(BitmapUtils.base64ToBitmap(base64Img));
+                    }
+                } else if (payType == 2) {
+                    tvOrderDetailsShoukuanType.setText("微信");
+                    WechatPayee wechatPayee =  GsonUtil.getInstance().getServerBean(payee,WechatPayee.class);
+                    if(wechatPayee != null){
+                        tvOrderDetailsSellName.setText(wechatPayee.getName());
+                        tvShoukuaiOrderDetailsName.setText(wechatPayee.getName());
+                        tvOrderDetailsAccount.setText(wechatPayee.getAccount());
+                        ivOrderDetailsCodeImage.setVisibility(View.VISIBLE);
+                        String base64Img = wechatPayee.getBase64Img();
+                        ivOrderDetailsCodeImage.setImageBitmap(BitmapUtils.base64ToBitmap(base64Img));
+                    }
+                } else if (payType == 3) {
+                    tvOrderDetailsShoukuanType.setText("银行账户");
+                    BankPayee bankPayee =  GsonUtil.getInstance().getServerBean(payee,BankPayee.class);
+                    if(bankPayee != null){
+                        tvOrderDetailsSellName.setText(bankPayee.getName());
+                        tvShoukuaiOrderDetailsName.setText(bankPayee.getName());
+                        tvOrderDetailsAccount.setText(bankPayee.getAccount());
+                        ivOrderDetailsCodeImage.setVisibility(View.GONE);
+                    }
+                }
             }
-            tvOrderDetailsAccount.setText(orderDetailsModle.getAccount());
             tvOrderDetailsAllprice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(orderDetailsModle.getNum()*orderDetailsModle.getPrice()));
-            ivOrderDetailsCodeImage.setImageBitmap(BitmapUtils.base64ToBitmap(orderDetailsModle.getBase64Img()));
         }
     }
 
@@ -135,11 +160,10 @@ public class OrderDetailsFragment extends BaseFragment {
                 orderDetailsActivity.finish();
                 break;
             case R.id.iv_order_details_code_image:
-                bitmap = BitmapUtils.base64ToBitmap(orderDetailsModle.getBase64Img());
-                new XPopup.Builder(getContext())
-                        .hasStatusBarShadow(true) //启用状态栏阴影
-                        .asCustom(new CenterErWeiMaPopupView(getContext(),orderDetailsModle.getType(),orderDetailsModle.getAccount(),bitmap))
-                        .show();
+                    new XPopup.Builder(getContext())
+                            .hasStatusBarShadow(true) //启用状态栏阴影
+                            .asCustom(new CenterErWeiMaPopupView(getContext(),orderDetailsModle.getPayType(),orderDetailsModle.getPayee()))
+                            .show();
                 break;
             case R.id.tv_order_details_copy:
                 //获取剪贴板管理器：
@@ -155,10 +179,6 @@ public class OrderDetailsFragment extends BaseFragment {
 
     @Override
     public void onDestroyView() {
-        if(bitmap != null && !bitmap.isRecycled()){
-            bitmap.recycle();
-            bitmap = null;
-        }
         super.onDestroyView();
     }
 }

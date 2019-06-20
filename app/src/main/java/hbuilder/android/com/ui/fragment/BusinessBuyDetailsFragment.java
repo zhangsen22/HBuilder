@@ -4,14 +4,15 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.growalong.util.util.BitmapUtils;
 import com.growalong.util.util.DateUtil;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.GsonUtil;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.XPopupCallback;
@@ -20,8 +21,11 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.modle.AliPayee;
+import hbuilder.android.com.modle.BankPayee;
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.modle.BuyBusinessResponse;
+import hbuilder.android.com.modle.WechatPayee;
 import hbuilder.android.com.presenter.BusinessBuyDetailsPresenter;
 import hbuilder.android.com.presenter.contract.BusinessBuyDetailsContract;
 import hbuilder.android.com.ui.activity.BusinessBuyDetailsActivity;
@@ -68,7 +72,6 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
     private double num;
     private int type;
     private long createTime = 0;
-    private Bitmap bitmap;
     private CountDownTimer timer;
 
     public static BusinessBuyDetailsFragment newInstance(@Nullable BuyBusinessResponse buyBusinessResponse, double price, double num, int type) {
@@ -109,48 +112,70 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
         tvPayPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + price * num + "");
         tvBiusnessPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + price);
         tvBiusnessNum.setText(num + "");
-        if (type == 1) {
-            tvPayTypeName.setText("支付宝");
-            tvShoukuaiTypeName.setText("支付宝");
-            tvPayImage.setImageResource(R.mipmap.g);
-        } else if (type == 2) {
-            tvPayTypeName.setText("微信");
-            tvShoukuaiTypeName.setText("微信");
-            tvPayImage.setImageResource(R.mipmap.h);
-        } else if (type == 3) {
-            tvPayTypeName.setText("银行账户");
-            tvShoukuaiTypeName.setText("银行账户");
-            tvPayImage.setImageResource(R.mipmap.f);
-        }
-        tvShoukuaiName.setText(buyBusinessResponse.getPayee().getName());
-        tvShoukuaiAccount.setText(buyBusinessResponse.getPayee().getAccount());
-        tvShoukuaiCankaoma.setText(buyBusinessResponse.getPayCode() + "");
+
+        String payee = buyBusinessResponse.getPayee();
+        if (!TextUtils.isEmpty(payee)) {
+            if (type == 1) {
+                tvPayTypeName.setText("支付宝");
+                tvShoukuaiTypeName.setText("支付宝");
+                tvPayImage.setImageResource(R.mipmap.g);
+                AliPayee aliPayee = GsonUtil.getInstance().getServerBean(payee, AliPayee.class);
+                if (aliPayee != null) {
+                    tvShoukuaiName.setText(aliPayee.getName());
+                    tvShoukuaiAccount.setText(aliPayee.getAccount());
+                    ivPopview.setVisibility(View.VISIBLE);
+                }
+            } else if (type == 2) {
+                tvPayTypeName.setText("微信");
+                tvShoukuaiTypeName.setText("微信");
+                tvPayImage.setImageResource(R.mipmap.h);
+                WechatPayee wechatPayee = GsonUtil.getInstance().getServerBean(payee, WechatPayee.class);
+                if (wechatPayee != null) {
+                    tvShoukuaiName.setText(wechatPayee.getName());
+                    tvShoukuaiAccount.setText(wechatPayee.getAccount());
+                    ivPopview.setVisibility(View.VISIBLE);
+                }
+            } else if (type == 3) {
+                tvPayTypeName.setText("银行账户");
+                tvShoukuaiTypeName.setText("银行账户");
+                tvPayImage.setImageResource(R.mipmap.f);
+                BankPayee bankPayee = GsonUtil.getInstance().getServerBean(payee, BankPayee.class);
+                if (bankPayee != null) {
+                    tvShoukuaiName.setText(bankPayee.getName());
+                    tvShoukuaiAccount.setText(bankPayee.getAccount());
+                    ivPopview.setVisibility(View.GONE);
+                }
+            }
+
+            tvShoukuaiCankaoma.setText(buyBusinessResponse.getPayCode() + "");
 
 
-        long currentTime = System.currentTimeMillis();
-        if (currentTime >= createTime + 10 * 60 * 1000) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime >= createTime + 10 * 60 * 1000) {
 
-        } else {
-            timer = new CountDownTimer(createTime + 10 * 60 * 1000 - currentTime, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    //如果是Fragment 就判断getActivity() 是否为NULL
-                    //如果是Activity 就判断!activity.isFinishing() 是否为NULL
-                    if (businessBuyDetailsActivity != null) {
-                        int left = (int) ((millisUntilFinished - 1000) / 1000);
-                        GALogger.d(TAG, "left       " + left);
-                        if (left > 0) {
-                            tvCountDown.setText(DateUtil.getCurrentDateString2(millisUntilFinished));
-                        } else {
+            } else {
+                timer = new CountDownTimer(createTime + 10 * 60 * 1000 - currentTime, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        //如果是Fragment 就判断getActivity() 是否为NULL
+                        //如果是Activity 就判断!activity.isFinishing() 是否为NULL
+                        if (businessBuyDetailsActivity != null) {
+                            int left = (int) ((millisUntilFinished - 1000) / 1000);
+                            GALogger.d(TAG, "left       " + left);
+                            if (left > 0) {
+                                tvCountDown.setText(DateUtil.getCurrentDateString2(millisUntilFinished));
+                            } else {
 
+                            }
                         }
                     }
-                }
-                @Override
-                public void onFinish() {
-                }
-            };
-            timer.start();
+
+                    @Override
+                    public void onFinish() {
+                    }
+                };
+                timer.start();
+            }
         }
     }
 
@@ -167,10 +192,9 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
                 presenter.manualPay(buyBusinessResponse.getTradeId());
                 break;
             case R.id.iv_popview:
-                bitmap = BitmapUtils.base64ToBitmap(buyBusinessResponse.getPayee().getBase64Img());
                 new XPopup.Builder(getContext())
                         .hasStatusBarShadow(true) //启用状态栏阴影
-                        .asCustom(new CenterErWeiMaPopupView(MyApplication.appContext,type,buyBusinessResponse.getPayee().getAccount(),bitmap))
+                        .asCustom(new CenterErWeiMaPopupView(MyApplication.appContext,type,buyBusinessResponse.getPayee()))
                         .show();
                 break;
         }
@@ -235,10 +259,6 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
 
     @Override
     public void onDestroyView() {
-        if(bitmap != null && !bitmap.isRecycled()){
-            bitmap.recycle();
-            bitmap = null;
-        }
         if(timer != null){
             timer.cancel();
             timer = null;

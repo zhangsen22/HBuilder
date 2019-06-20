@@ -12,6 +12,7 @@ public interface IdCastPayListContract {
         void paysetupBankRefresh(int type);
         void paysetupBankLoadMore(int type);
         void setDefaultPayIdCast(int type, long id, String financePwd, long time);
+        void detelePay(int type,long id,String financePwd,long time);
     }
     interface View extends IBaseView<Presenter> {
         //获取自己的收款信息  银行卡  成功
@@ -23,5 +24,6 @@ public interface IdCastPayListContract {
         //获取自己的收款信息  银行卡  失败
         void paysetupBankLoadMoreError();
         void setDefaultPayIdCastSuccess(BaseBean baseBean);
+        void detelePayBankSuccess(BaseBean baseBean);
     }
 }

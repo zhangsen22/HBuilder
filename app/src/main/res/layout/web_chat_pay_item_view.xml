@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/common_white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,6 +39,7 @@
             android:layout_marginLeft="@dimen/y20"/>
 
         <TextView
+            android:id="@+id/tv_webchat_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="微信名"
@@ -61,11 +63,21 @@
             style="@style/CustomCheckboxTheme2" />
 
         <TextView
+            android:id="@+id/tv_shuoming"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="设为默认"
             android:textSize="12sp"
             android:textColor="@color/color_666666"/>
+
+        <TextView
+            android:id="@+id/tv_pay_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除"
+            android:textSize="12sp"
+            android:textColor="@color/color_1a72fb"
+            android:layout_marginLeft="@dimen/y20"/>
 
     </LinearLayout>
 

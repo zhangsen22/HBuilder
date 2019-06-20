@@ -1,6 +1,7 @@
 package hbuilder.android.com.ui.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,17 +13,29 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.qrcode.Constant;
 import com.example.qrcode.ScannerActivity;
 import com.example.qrcode.utils.QRCodeUtil;
+import com.growalong.util.util.BitmapUtils;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.ImageUtil;
 import com.growalong.util.util.Md5Utils;
+
+import java.io.File;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.finalteam.rxgalleryfinal.RxGalleryFinal;
+import cn.finalteam.rxgalleryfinal.imageloader.ImageLoaderType;
+import cn.finalteam.rxgalleryfinal.rxbus.RxBusResultDisposable;
+import cn.finalteam.rxgalleryfinal.rxbus.event.ImageRadioResultEvent;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
@@ -31,8 +44,12 @@ import hbuilder.android.com.presenter.WebChatEditPresenter;
 import hbuilder.android.com.presenter.contract.WebChatEditContract;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
-import hbuilder.android.com.util.SharedPreferencesUtils;
+import hbuilder.android.com.ui.activity.WebViewActivity;
+import hbuilder.android.com.util.FileUtils;
 import hbuilder.android.com.util.ToastUtil;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class WebChatEditFragment extends BaseFragment implements WebChatEditContract.View {
     private static final String TAG = WebChatEditFragment.class.getSimpleName();
@@ -52,9 +69,14 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
     TextView tvForgetPassword;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    @BindView(R.id.tv_howget_dyewm)
+    TextView tvHowgetDyewm;
+    @BindView(R.id.iv_dianyuan_webchat_image)
+    ImageView ivDianyuanWebchatImage;
     private PaySettingActivity paySettingActivity;
     private WebChatEditPresenter presenter;
     private String sIdcardFront;
+    private String dianyuanCode;
     private Bitmap qrImage;
     private Bitmap bitmap;
 
@@ -86,40 +108,9 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
         super.lazyLoadData();
     }
 
-//    @Override
-//    public void paysetupWebChatSuccess(PaySetupModelWebChat paySetupModelWebChat) {
-//        if(paySetupModelWebChat != null){
-//            PaySetupModelWebChat.WeChatPayeeModel wechatPayee = paySetupModelWebChat.getWechatPayee();
-//            if(wechatPayee != null){
-//                        String base64Img = wechatPayee.getBase64Img();
-//                        if(!TextUtils.isEmpty(base64Img)) {
-//                            bitmap = BitmapFactory.decodeResource(MyApplication.appContext.getResources(), R.drawable.ic_launcher_round);
-//                            qrImage =  QRCodeUtil.createQRCodeBitmap(base64Img, 650, 650, "UTF-8",
-//                                    "H", "1", Color.BLACK, Color.WHITE, bitmap, 0.2F, null);
-//                            sIdcardFront = base64Img;
-//                            ivWebchatImage.setImageBitmap(qrImage);
-//                            ivWebchatImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                        }
-//                        etWenchatName.setText(wechatPayee.getName());
-//                        etWebchatCode.setText(wechatPayee.getAccount());
-//
-//                        SharedPreferencesUtils.putString(Constants.webChatName,wechatPayee.getName());
-//                        SharedPreferencesUtils.putString(Constants.webChatAccount,wechatPayee.getAccount());
-//                        SharedPreferencesUtils.putString(Constants.webChatBase64Img,wechatPayee.getBase64Img());
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void paysetupWebChatError() {
-//
-//    }
-
     @Override
     public void wechatSuccess(String name, String account, String base64Img) {
-        SharedPreferencesUtils.putString(Constants.webChatName,name);
-        SharedPreferencesUtils.putString(Constants.webChatAccount,account);
-        SharedPreferencesUtils.putString(Constants.webChatBase64Img,base64Img);
+        paySettingActivity.setResult(Activity.RESULT_OK);
         paySettingActivity.finish();
     }
 
@@ -138,7 +129,7 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
         hideLoadingDialog();
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_webchat_image, R.id.tv_forget_password, R.id.tv_submit})
+    @OnClick({R.id.iv_back, R.id.iv_webchat_image, R.id.tv_forget_password, R.id.tv_submit,R.id.tv_howget_dyewm, R.id.iv_dianyuan_webchat_image})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -148,45 +139,76 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
                 if (ContextCompat.checkSelfPermission(paySettingActivity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                     goScanner();
                 } else {
-                    ActivityCompat.requestPermissions(paySettingActivity, new String[]{Manifest.permission.CAMERA},99);
+                    ActivityCompat.requestPermissions(paySettingActivity, new String[]{Manifest.permission.CAMERA}, 99);
                 }
                 break;
             case R.id.tv_forget_password:
                 BalancePassWordActivity.startThis(paySettingActivity);
                 break;
+            case R.id.tv_howget_dyewm:
+                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.HOWGETDIANYUANERWEIMA,true);
+                break;
+            case R.id.iv_dianyuan_webchat_image:
+                //自定义方法的单选
+                RxGalleryFinal
+                        .with(paySettingActivity)
+                        .image()//图片
+                        .radio()//单选
+                        .imageLoader(ImageLoaderType.GLIDE)
+                        .subscribe(new RxBusResultDisposable<ImageRadioResultEvent>() {
+                            @Override
+                            protected void onEvent(ImageRadioResultEvent imageRadioResultEvent) throws Exception {
+                                //图片选择结果
+                                String path = imageRadioResultEvent.getResult().getOriginalPath();
+                                GALogger.d(TAG, "path === " + path);
+                                if (!TextUtils.isEmpty(path)) {
+                                    initLuBan(path);
+                                }
+                            }
+                        })
+                        .openGallery();
+                break;
             case R.id.tv_submit:
                 String wenchatName = etWenchatName.getText().toString().trim();
-                if(TextUtils.isEmpty(wenchatName)){
+                if (TextUtils.isEmpty(wenchatName)) {
                     ToastUtil.shortShow("请输入微信名");
                     return;
                 }
+
                 String webchatCode = etWebchatCode.getText().toString().trim();
-                if(TextUtils.isEmpty(webchatCode)){
+                if (TextUtils.isEmpty(webchatCode)) {
                     ToastUtil.shortShow("请输入微信号");
                     return;
                 }
-                if(TextUtils.isEmpty(sIdcardFront)){
+
+                if (TextUtils.isEmpty(sIdcardFront)) {
                     ToastUtil.shortShow("请上传微信收款码");
                     return;
                 }
+
+                if(TextUtils.isEmpty(dianyuanCode)){
+                    ToastUtil.shortShow("请上传店员收款码");
+                    return;
+                }
+
                 String forgetPassword = etForgetPassword.getText().toString().trim();
-                if(TextUtils.isEmpty(forgetPassword)){
+                if (TextUtils.isEmpty(forgetPassword)) {
                     ToastUtil.shortShow("请输入资金密码");
                     return;
                 }
                 long currentTime = System.currentTimeMillis();
-                presenter.wechat(wenchatName,webchatCode,sIdcardFront,"",Md5Utils.getMD5(forgetPassword+currentTime),currentTime);
+                presenter.wechat(0, wenchatName, webchatCode, sIdcardFront, dianyuanCode, Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
                 break;
         }
     }
 
     @Override
     public void onDestroyView() {
-        if(qrImage != null && !qrImage.isRecycled()){
+        if (qrImage != null && !qrImage.isRecycled()) {
             qrImage.recycle();
             qrImage = null;
         }
-        if(bitmap != null && !bitmap.isRecycled()){
+        if (bitmap != null && !bitmap.isRecycled()) {
             bitmap.recycle();
             bitmap = null;
         }
@@ -217,7 +239,7 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
 //        //设置扫码框距顶部的位置
 //        intent.putExtra(Constant.EXTRA_SCANNER_FRAME_TOP_PADDING, 100);
 //        //设置是否启用从相册获取二维码。
-        intent.putExtra(Constant.EXTRA_IS_ENABLE_SCAN_FROM_PIC,true);
+        intent.putExtra(Constant.EXTRA_IS_ENABLE_SCAN_FROM_PIC, true);
 //        Bundle bundle = new Bundle();
 //        //设置支持的扫码类型
 //        bundle.putSerializable(Constant.EXTRA_SCAN_CODE_TYPE, mHashMap);
@@ -228,8 +250,8 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
     public void onActivityResultF(int requestCode, int resultCode, Intent data) {
         String type = data.getStringExtra(Constant.EXTRA_RESULT_CODE_TYPE);
         String content = data.getStringExtra(Constant.EXTRA_RESULT_CONTENT);
-        GALogger.d(TAG,"codeType:" + type + "-----content:" + content);
-        if(!TextUtils.isEmpty(content)) {
+        GALogger.d(TAG, "codeType:" + type + "-----content:" + content);
+        if (!TextUtils.isEmpty(content)) {
             bitmap = BitmapFactory.decodeResource(MyApplication.appContext.getResources(), R.drawable.ic_launcher_round);
             qrImage = QRCodeUtil.createQRCodeBitmap(content, 650, 650, "UTF-8",
                     "H", "1", Color.BLACK, Color.WHITE, bitmap, 0.2F, null);
@@ -237,5 +259,44 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
             ivWebchatImage.setImageBitmap(qrImage);
             ivWebchatImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
+    }
+
+    private void initLuBan(String path) {
+        Luban.with(MyApplication.appContext)
+                .load(path)
+                .ignoreBy(1 * 1024)//1.0M 以下不压缩
+                .setTargetDir(FileUtils.getTempPath(MyApplication.appContext))
+                .filter(new CompressionPredicate() {
+                    @Override
+                    public boolean apply(String path) {
+                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                    }
+                })
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                        showLoadingDialog();
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        // TODO 压缩成功后调用，返回压缩后的图片文件
+                        hideLoadingDialog();
+                        try {
+                            Bitmap bitmap = ImageUtil.fileToBitmap(file);
+                            ivDianyuanWebchatImage.setImageBitmap(bitmap);
+                            ivDianyuanWebchatImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            dianyuanCode = BitmapUtils.bitmapToBase64(bitmap);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // TODO 当压缩过程出现问题时调用
+                    }
+                }).launch();
     }
 }

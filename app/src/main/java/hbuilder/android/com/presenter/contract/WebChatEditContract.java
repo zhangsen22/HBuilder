@@ -9,7 +9,7 @@ public interface WebChatEditContract {
 
     interface Presenter extends IBasePresenter {
         //微信收款设置
-        void wechat(String name,String account,String base64Img,String empBase64Img,String financePwd,long time);
+        void wechat(long id,String name,String account,String base64Img,String empBase64Img,String financePwd,long time);
     }
     interface View extends IBaseView<Presenter> {
         //微信收款设置成功

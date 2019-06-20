@@ -79,6 +79,25 @@ public class IdCastPayListPresenter implements IdCastPayListContract.Presenter{
     }
 
     @Override
+    public void detelePay(int type, long id, String financePwd, long time) {
+        mView.showLoading();
+        mModel.detelePay(type,id,financePwd,time).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ModelResultObserver<BaseBean>() {
+                    @Override
+                    public void onSuccess(BaseBean baseBean) {
+                        mView.detelePayBankSuccess(baseBean);
+                        mView.hideLoading();
+                    }
+
+                    @Override
+                    public void onFailure(ModelException ex) {
+                        super.onFailure(ex);
+                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
     public void starLoadData() {
 
     }

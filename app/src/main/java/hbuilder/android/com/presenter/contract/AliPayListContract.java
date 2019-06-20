@@ -11,6 +11,7 @@ public interface AliPayListContract {
         void aliPayListRefresh(int type);
         void aliPayListLoadMore(int type);
         void setDefaultPayAliPay(int type, long id, String financePwd, long time);
+        void detelePay(int type,long id,String financePwd,long time);
     }
     interface View extends IBaseView<Presenter> {
         void aliPayListRefreshSuccess(PaySetupModelAliPay paySetupModelAliPay);
@@ -18,5 +19,6 @@ public interface AliPayListContract {
         void aliPayListLoadMoreSuccess(PaySetupModelAliPay paySetupModelAliPay);
         void aliPayListLoadMoreError();
         void setDefaultPayAliPaySuccess(BaseBean baseBean);
+        void detelePayAliPaySuccess(BaseBean baseBean);
     }
 }

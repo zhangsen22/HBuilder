@@ -30,10 +30,13 @@ import hbuilder.android.com.modle.SellResponse;
 import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.presenter.BusinessSellPresenter;
 import hbuilder.android.com.presenter.contract.BusinessSellContract;
+import hbuilder.android.com.ui.activity.AliPayListActivity;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.BusinessSellActivity;
 import hbuilder.android.com.ui.activity.BusinessSellDetailsActivity;
+import hbuilder.android.com.ui.activity.IdCastPayListActivity;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
+import hbuilder.android.com.ui.activity.WebChatListActivity;
 import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
 
@@ -267,13 +270,13 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
                 presenter.sell(buyItem.getId(), d_businessBuyNum, type, Md5Utils.getMD5(businessPassword + currentTime), currentTime);
                 break;
             case R.id.tv_add_alipay:
-                PaySettingActivity.startThis(businessSellActivity,1);
+                AliPayListActivity.startThis(businessSellActivity);
                 break;
             case R.id.tv_add_webchat:
-                PaySettingActivity.startThis(businessSellActivity,2);
+                WebChatListActivity.startThis(businessSellActivity);
                 break;
             case R.id.tv_add_idcards:
-                PaySettingActivity.startThis(businessSellActivity,3);
+                IdCastPayListActivity.startThis(businessSellActivity);
                 break;
 
         }

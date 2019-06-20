@@ -115,7 +115,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
+        GALogger.d(TAG,"isVisibleToUser     "+isVisibleToUser);
         tryLazyLoadData();
     }
 

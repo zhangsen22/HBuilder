@@ -1,6 +1,7 @@
 package hbuilder.android.com.ui.activity;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.view.View;
 import com.growalong.util.util.ActivityUtils;
 import hbuilder.android.com.BaseActivity;
@@ -11,6 +12,7 @@ import hbuilder.android.com.ui.fragment.AliPayListFragment;
 
 public class AliPayListActivity extends BaseActivity {
     private static final String TAG = AliPayListActivity.class.getSimpleName();
+    private AliPayListFragment aliPayListFragment;
 
     public static void startThis(BaseActivity activity) {
         activity.startActivity(new Intent(activity, AliPayListActivity.class));
@@ -28,7 +30,7 @@ public class AliPayListActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        AliPayListFragment aliPayListFragment = (AliPayListFragment) getSupportFragmentManager()
+        aliPayListFragment = (AliPayListFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);
         if (aliPayListFragment == null) {
             aliPayListFragment = AliPayListFragment.newInstance("");
@@ -37,5 +39,14 @@ public class AliPayListActivity extends BaseActivity {
         }
         //初始化presenter
         new AliPayListPresenter(aliPayListFragment, new AliPayListModle());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == RESULT_OK){
+            if(requestCode == 100){
+                aliPayListFragment.onActivityResultF();
+            }
+        }
     }
 }

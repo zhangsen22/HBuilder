@@ -1,40 +1,5 @@
 package hbuilder.android.com.net.retrofit.exception;
 
-//        0	操作成功;Operation succeeded
-//        10001	参数不合法;The parameter is invalid
-//        10002	未知错误;Unknown error
-//        10003	非法请求;Illegal request
-//        10004	验证码错误;Verification code error
-//        10005	请先获取验证码;Get the authentication code first
-//        10006	验证码发送失败;Verification Code Failure
-//        10007	验证码已失效，请重新发送;Verification code is invalid. Please send it again
-//        10008	密码不能为空;Password cannot be empty
-//        10009	短信验证码不能为空;The verification code cannot be empty
-//        10010	获取版本号失败;Failed to get the version number
-//        10011	保存成功;Save successful
-//        10012	获取成功;get successful
-//        20001	用户不存在;User does not exist
-//        20002	用户名或密码不正确;Username or password is error
-//        20003	用户名不正确;Username error
-//        20004	用户没有登录;User not logged in
-//        20005	登录已失效，请重新登录;Logon is invalid. Please log in again
-//        20006	用户名已经注册过;Username has been registered
-//        20007	注册失败;Register failed
-//        20008	未查到该用户信息;The user information was not found
-//        20009	该账户已锁定，请联系管理员;This account is locked. Please contact the administrator.
-//        20010	已经添加过好友;Friends have been added.
-//        20011	未绑定，不能操作此子账号;Unbound, cannot operate this sub-account
-//        20012	已绑定，不能操作此子账号;Bind, cannot operate this sub-account
-//        20013	请先申请绑定;Please apply for binding first
-//        20014	绑定失败;Binding failed
-//        20015	该注册渠道暂未开通，The registration channel has not been opened yet
-//        30001	未查到相关信息;No relevant information was found
-//        30002	未查到好友信息;No friend relevant information was found
-//        30003	不能操作该用户;Cannot operate this user
-//        30004	无下一页;No next page
-//        30005	请先申请;Please apply first
-//        30006	不是好友;Not a friend
-
 import hbuilder.android.com.BuildConfig;
 
 /**
@@ -129,7 +94,13 @@ public class HttpErrorCode {
             }else {
                 resString = "昵称重复";
             }
-        }else if(error == 140){
+        }else if(error == 132){
+            if(BuildConfig.DEBUG){
+                resString = error+" : 添加店员二维码失败";
+            }else {
+                resString = "添加店员二维码失败";
+            }
+        } else if(error == 140){
             if(BuildConfig.DEBUG){
                 resString = error+" : 不能重复验证身份";
             }else {
