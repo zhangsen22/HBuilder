@@ -45,6 +45,8 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
     }
 
     private class OrderSellDetailsHolder extends PowerHolder<MySellOrBuyinfoItem> {
+        CountDownTimer sStimer;
+        CountDownTimer sStimer1;
         TextView tvOrderSellTime;
         TextView tvOrderSellStatus;
         TextView tvOrderSellPrice;
@@ -105,7 +107,11 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                     if(currentTime >= createTime + 10*60*1000){
                         tvOrderSellSstime.setVisibility(View.GONE);
                     }else {
-                        CountDownTimer timer = new CountDownTimer(createTime + 10*60*1000 - currentTime, 1000) {
+                        if(sStimer != null){
+                            sStimer.cancel();
+                            sStimer = null;
+                        }
+                        sStimer = new CountDownTimer(createTime + 10*60*1000 - currentTime, 1000) {
                             @Override
                             public void onTick(long millisUntilFinished) {
                                 if (mContext != null) {
@@ -123,7 +129,7 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                             public void onFinish() {
                             }
                         };
-                        timer.start();
+                        sStimer.start();
                     }
                     tvOrderSellQfb.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -148,7 +154,11 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                         tvOrderSellSstime1.setVisibility(View.GONE);
                         tvOrderSellSs1.setEnabled(true);
                     }else {
-                        CountDownTimer timer = new CountDownTimer(payTime + 10 * 61 * 1000 - currentTime, 1000) {
+                        if(sStimer1 != null){
+                            sStimer1.cancel();
+                            sStimer1 = null;
+                        }
+                        sStimer1 = new CountDownTimer(payTime + 10 * 61 * 1000 - currentTime, 1000) {
                             @Override
                             public void onTick(long millisUntilFinished) {
                                 int left = (int) ((millisUntilFinished - 1000) / 1000);
@@ -166,7 +176,7 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                             public void onFinish() {
                             }
                         };
-                        timer.start();
+                        sStimer1.start();
                     }
                     tvOrderSellSs1.setOnClickListener(new View.OnClickListener() {
                         @Override

@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.growalong.util.util.DateUtil;
-
 import java.text.DecimalFormat;
-
 import hbuilder.android.com.R;
 import hbuilder.android.com.modle.MyEntrustinfoItem;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerAdapter;

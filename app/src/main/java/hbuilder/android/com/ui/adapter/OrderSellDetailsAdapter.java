@@ -44,6 +44,8 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
     }
 
     private class OrderSellDetailsHolder extends PowerHolder<MySellOrBuyinfoItem> {
+        private CountDownTimer timer;
+        private CountDownTimer timer1;
         TextView tvOrderSellShuoming;
         TextView tvOrderSellTime;
         TextView tvOrderSellStatus;
@@ -108,7 +110,11 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                     if (currentTime >= createTime + 10 * 60 * 1000) {
                         tvOrderSellDjs.setVisibility(View.GONE);
                     } else {
-                        CountDownTimer timer = new CountDownTimer(createTime + 10 * 60 * 1000 - currentTime, 1000) {
+                        if(timer != null){
+                            timer.cancel();
+                            timer = null;
+                        }
+                        timer = new CountDownTimer(createTime + 10 * 60 * 1000 - currentTime, 1000) {
                             @Override
                             public void onTick(long millisUntilFinished) {
                                 int left = (int) ((millisUntilFinished - 1000) / 1000);
@@ -135,7 +141,11 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                         tvOrderSellSstime.setVisibility(View.GONE);
                         tvOrderSellSs.setEnabled(true);
                     } else {
-                        CountDownTimer timer = new CountDownTimer(payTime + 10 * 61 * 1000 - currentTime, 1000) {
+                        if(timer1 != null){
+                            timer1.cancel();
+                            timer1 = null;
+                        }
+                        timer1 = new CountDownTimer(payTime + 10 * 61 * 1000 - currentTime, 1000) {
                             @Override
                             public void onTick(long millisUntilFinished) {
                                 if (mContext != null) {
@@ -156,7 +166,7 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                             public void onFinish() {
                             }
                         };
-                        timer.start();
+                        timer1.start();
                     }
                     tvOrderSellQfb.setOnClickListener(new View.OnClickListener() {
                         @Override

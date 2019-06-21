@@ -186,7 +186,31 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
                 initPopView();
                 break;
             case R.id.tv_cancel_order:
-                presenter.ordercancel(buyBusinessResponse.getTradeId());
+                //带确认和取消按钮的弹窗
+                new XPopup.Builder(getContext())
+//                         .dismissOnTouchOutside(false)
+                        // 设置弹窗显示和隐藏的回调监听
+//                         .autoDismiss(false)
+//                        .popupAnimation(PopupAnimation.NoAnimation)
+                        .setPopupCallback(new XPopupCallback() {
+                            @Override
+                            public void onShow() {
+                                Log.e("tag", "onShow");
+                            }
+
+                            @Override
+                            public void onDismiss() {
+                                Log.e("tag", "onDismiss");
+                            }
+                        }).asConfirm("你确定要取消订单吗?", "",
+                        "取消", "确定",
+                        new OnConfirmListener() {
+                            @Override
+                            public void onConfirm() {
+                                presenter.ordercancel(buyBusinessResponse.getTradeId());
+                            }
+                        }, null, false)
+                        .show();
                 break;
             case R.id.tv_re_pay:
                 presenter.manualPay(buyBusinessResponse.getTradeId());
