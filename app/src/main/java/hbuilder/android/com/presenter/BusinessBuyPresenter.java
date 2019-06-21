@@ -24,7 +24,7 @@ public class BusinessBuyPresenter implements BusinessBuyContract.Presenter{
                 .subscribe(new ModelResultObserver<BuyBusinessResponse>() {
                     @Override
                     public void onSuccess(BuyBusinessResponse buyBusinessResponse) {
-                        mView.buySuccess(buyBusinessResponse);
+                        mView.buySuccess(buyBusinessResponse,type);
                         mView.hideLoading();
                     }
 

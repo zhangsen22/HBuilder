@@ -12,6 +12,6 @@ public interface BusinessBuyContract {
     }
     interface View extends IBaseView<Presenter> {
         //购买成功
-        void buySuccess(BuyBusinessResponse buyBusinessResponse);
+        void buySuccess(BuyBusinessResponse buyBusinessResponse,int type);
     }
 }

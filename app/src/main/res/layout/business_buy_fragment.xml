@@ -312,7 +312,7 @@
                 android:paddingLeft="@dimen/y34"
                 android:paddingRight="@dimen/y6"
                 android:gravity="center_vertical"
-                android:visibility="gone">
+                android:visibility="gone" >
 
                 <ImageView
                     android:layout_width="@dimen/y34"
@@ -334,8 +334,7 @@
 
                 <CheckBox
                     android:id="@+id/cb_alipay"
-                    style="@style/CustomCheckboxTheme2"
-                    android:checked="true"/>
+                    style="@style/CustomCheckboxTheme2" />
 
             </LinearLayout>
 
@@ -350,7 +349,7 @@
                 android:paddingLeft="@dimen/y34"
                 android:paddingRight="@dimen/y6"
                 android:gravity="center_vertical"
-                android:visibility="gone">
+                android:visibility="gone" >
 
                 <ImageView
                     android:layout_width="@dimen/y34"
@@ -372,8 +371,7 @@
 
                 <CheckBox
                     android:id="@+id/cb_webchat"
-                    style="@style/CustomCheckboxTheme2"
-                    android:checked="true"/>
+                    style="@style/CustomCheckboxTheme2" />
 
             </LinearLayout>
 
@@ -388,7 +386,7 @@
                 android:paddingLeft="@dimen/y34"
                 android:paddingRight="@dimen/y6"
                 android:gravity="center_vertical"
-                android:visibility="gone">
+                 android:visibility="gone">
 
                 <ImageView
                     android:layout_width="@dimen/y34"
@@ -410,8 +408,7 @@
 
                 <CheckBox
                     android:id="@+id/cb_idcast"
-                    style="@style/CustomCheckboxTheme2"
-                    android:checked="true"/>
+                    style="@style/CustomCheckboxTheme2" />
 
             </LinearLayout>
 

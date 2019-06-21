@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.example.qrcode.Constant;
 import com.example.qrcode.ScannerActivity;
 import com.example.qrcode.utils.QRCodeUtil;
-import com.growalong.util.util.BitmapUtils;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
@@ -39,7 +38,6 @@ import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
 import hbuilder.android.com.ui.activity.WebViewActivity;
 import hbuilder.android.com.ui.widget.CenterErWeiMaPopupView;
-import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
 
 public class AliPayEditFragment extends BaseFragment implements AliPayEditContract.View {
@@ -68,7 +66,6 @@ public class AliPayEditFragment extends BaseFragment implements AliPayEditContra
     TextView tvAlipaySubmit;
     private PaySettingActivity paySettingActivity;
     private AliPayEditPresenter presenter;
-    private Bitmap qrImage;
     private Bitmap bitmapLog;
     private Bitmap qrImage1;
     private String sIdcardFront;
@@ -149,8 +146,6 @@ public class AliPayEditFragment extends BaseFragment implements AliPayEditContra
                     return;
                 }
                 String alipayImage = "alipays://platformapi/startapp?appId=09999988&actionType=toAccount&goBack=YES&amount=1.00&userId="+alipayId+"&memo=3990";
-                qrImage = QRCodeUtil.createQRCodeBitmap(alipayImage, 650, 650, "UTF-8",
-                        "H", "1", Color.BLACK, Color.WHITE, bitmapLog, 0.2F, null);
                 new XPopup.Builder(getContext())
                         .hasStatusBarShadow(true) //启用状态栏阴影
                         .setPopupCallback(new XPopupCallback() {
@@ -161,13 +156,9 @@ public class AliPayEditFragment extends BaseFragment implements AliPayEditContra
 
                             @Override
                             public void onDismiss() {
-                                if(qrImage != null && !qrImage.isRecycled()){
-                                    qrImage.recycle();
-                                    qrImage = null;
-                                }
                             }
                         })
-                        .asCustom(new CenterErWeiMaPopupView(getContext(),1,GsonUtil.getInstance().objTojson(new AliPayee("", BitmapUtils.bitmapToBase64(qrImage)))))
+                        .asCustom(new CenterErWeiMaPopupView(getContext(),1,GsonUtil.getInstance().objTojson(new AliPayee(alipayAccount, alipayImage))))
                         .show();
                 break;
             case R.id.tv_forget_alipay_password:
@@ -214,10 +205,6 @@ public class AliPayEditFragment extends BaseFragment implements AliPayEditContra
 
     @Override
     public void onDestroyView() {
-        if(qrImage != null && !qrImage.isRecycled()){
-            qrImage.recycle();
-            qrImage = null;
-        }
         if(bitmapLog != null && !bitmapLog.isRecycled()){
             bitmapLog.recycle();
             bitmapLog = null;

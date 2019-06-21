@@ -124,8 +124,6 @@ public class OrderDetailsFragment extends BaseFragment {
                         tvShoukuaiOrderDetailsName.setText(aliPayee.getName());
                         tvOrderDetailsAccount.setText(aliPayee.getAccount());
                         ivOrderDetailsCodeImage.setVisibility(View.VISIBLE);
-                        String base64Img = aliPayee.getBase64Img();
-                        ivOrderDetailsCodeImage.setImageBitmap(BitmapUtils.base64ToBitmap(base64Img));
                     }
                 } else if (payType == 2) {
                     tvOrderDetailsShoukuanType.setText("微信");
@@ -135,8 +133,6 @@ public class OrderDetailsFragment extends BaseFragment {
                         tvShoukuaiOrderDetailsName.setText(wechatPayee.getName());
                         tvOrderDetailsAccount.setText(wechatPayee.getAccount());
                         ivOrderDetailsCodeImage.setVisibility(View.VISIBLE);
-                        String base64Img = wechatPayee.getBase64Img();
-                        ivOrderDetailsCodeImage.setImageBitmap(BitmapUtils.base64ToBitmap(base64Img));
                     }
                 } else if (payType == 3) {
                     tvOrderDetailsShoukuanType.setText("银行账户");

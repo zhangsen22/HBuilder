@@ -8,9 +8,9 @@ public class BuyBusinessResponse extends BaseBean implements Parcelable {
     private String tradeId;//:"fdsafds"    //订单号
     private int payCode;//:1234            //付款参考码
     private long currentTime;
-    private String payee;//付款信息json
+    private Object payee;//付款信息json
 
-    public BuyBusinessResponse(String tradeId, int payCode, long currentTime, String payee) {
+    public BuyBusinessResponse(String tradeId, int payCode, long currentTime, Object payee) {
         this.tradeId = tradeId;
         this.payCode = payCode;
         this.currentTime = currentTime;
@@ -21,7 +21,7 @@ public class BuyBusinessResponse extends BaseBean implements Parcelable {
         tradeId = in.readString();
         payCode = in.readInt();
         currentTime = in.readLong();
-        payee = in.readString();
+        payee = in.readValue(ClassLoader.getSystemClassLoader());
     }
 
     public static final Creator<BuyBusinessResponse> CREATOR = new Creator<BuyBusinessResponse>() {
@@ -46,7 +46,7 @@ public class BuyBusinessResponse extends BaseBean implements Parcelable {
         dest.writeString(tradeId);
         dest.writeInt(payCode);
         dest.writeLong(currentTime);
-        dest.writeString(payee);
+        dest.writeValue(payee);
     }
 
     public String getTradeId() {
@@ -61,7 +61,7 @@ public class BuyBusinessResponse extends BaseBean implements Parcelable {
         return currentTime;
     }
 
-    public String getPayee() {
+    public Object getPayee() {
         return payee;
     }
 

@@ -1,6 +1,5 @@
 package hbuilder.android.com.ui.fragment;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -9,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.growalong.util.util.BitmapUtils;
 import com.growalong.util.util.DateUtil;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
@@ -30,6 +28,7 @@ import hbuilder.android.com.presenter.BusinessBuyDetailsPresenter;
 import hbuilder.android.com.presenter.contract.BusinessBuyDetailsContract;
 import hbuilder.android.com.ui.activity.BusinessBuyDetailsActivity;
 import hbuilder.android.com.ui.widget.CenterErWeiMaPopupView;
+import hbuilder.android.com.util.ToastUtil;
 
 public class BusinessBuyDetailsFragment extends BaseFragment implements BusinessBuyDetailsContract.View {
     private static final String TAG = BusinessBuyDetailsFragment.class.getSimpleName();
@@ -112,8 +111,8 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
         tvPayPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + price * num + "");
         tvBiusnessPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + price);
         tvBiusnessNum.setText(num + "");
-
-        String payee = buyBusinessResponse.getPayee();
+        createTime = buyBusinessResponse.getCurrentTime();
+        String payee = GsonUtil.getInstance().objTojson(buyBusinessResponse.getPayee());
         if (!TextUtils.isEmpty(payee)) {
             if (type == 1) {
                 tvPayTypeName.setText("支付宝");
@@ -149,7 +148,6 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
 
             tvShoukuaiCankaoma.setText(buyBusinessResponse.getPayCode() + "");
 
-
             long currentTime = System.currentTimeMillis();
             if (currentTime >= createTime + 10 * 60 * 1000) {
 
@@ -172,6 +170,8 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
 
                     @Override
                     public void onFinish() {
+                        ToastUtil.shortShow("订单已超时");
+                        businessBuyDetailsActivity.finish();
                     }
                 };
                 timer.start();
@@ -194,7 +194,7 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
             case R.id.iv_popview:
                 new XPopup.Builder(getContext())
                         .hasStatusBarShadow(true) //启用状态栏阴影
-                        .asCustom(new CenterErWeiMaPopupView(MyApplication.appContext,type,buyBusinessResponse.getPayee()))
+                        .asCustom(new CenterErWeiMaPopupView(getContext(),type,GsonUtil.getInstance().objTojson(buyBusinessResponse.getPayee())))
                         .show();
                 break;
         }
