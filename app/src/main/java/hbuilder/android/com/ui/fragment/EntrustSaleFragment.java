@@ -180,15 +180,15 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                     return;
                 }
 
-                if(minSellPrice > 0 && maxSellPrice > 0 && minSellPrice <= maxSellPrice){
-                    if(d_businessPrice < minSellPrice || d_businessPrice > maxSellPrice){
-                        ToastUtil.shortShow("交易价格请限于" + minSellPrice + " - " + maxSellPrice + "之间");
-                        return;
-                    }
-                }else {
-                    ToastUtil.shortShow("请获取交易价格区间");
-                    return;
-                }
+//                if(minSellPrice > 0 && maxSellPrice > 0 && minSellPrice <= maxSellPrice){
+//                    if(d_businessPrice < minSellPrice || d_businessPrice > maxSellPrice){
+//                        ToastUtil.shortShow("交易价格请限于" + minSellPrice + " - " + maxSellPrice + "之间");
+//                        return;
+//                    }
+//                }else {
+//                    ToastUtil.shortShow("请获取交易价格区间");
+//                    return;
+//                }
 
                 String expectMinnum = etExpectMinnum.getText().toString().trim();
                 if (TextUtils.isEmpty(expectMinnum)) {
