@@ -17,6 +17,17 @@ public class BuyItem implements Parcelable {
     private boolean supportBank;//:false    //是否支持银行卡支付
     private long puttime;//：21313131    //挂单时间
 
+    public BuyItem(long id, String nickname, double price, double minNum, double maxNum, boolean supportAli, boolean supportWechat, boolean supportBank) {
+        this.id = id;
+        this.nickname = nickname;
+        this.price = price;
+        this.minNum = minNum;
+        this.maxNum = maxNum;
+        this.supportAli = supportAli;
+        this.supportWechat = supportWechat;
+        this.supportBank = supportBank;
+    }
+
     protected BuyItem(Parcel in) {
         id = in.readLong();
         userid = in.readLong();

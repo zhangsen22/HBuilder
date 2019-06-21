@@ -343,6 +343,16 @@ public class DateUtil {
         return df.format(new Date(time));
     }
 
+    /**
+     * 时间戳转yyyy.MM.dd
+     *
+     * @return
+     */
+    public static String getCurrentDateString4(long time) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd");
+        return df.format(new Date(time));
+    }
+
     private static long toSeconds(long date) {
         return date / 1000L;
     }

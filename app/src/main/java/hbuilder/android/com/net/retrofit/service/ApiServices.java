@@ -6,6 +6,7 @@ import hbuilder.android.com.modle.BuyBusinessResponse;
 import hbuilder.android.com.modle.BuyResponse;
 import hbuilder.android.com.modle.FinanceLogResponse;
 import hbuilder.android.com.modle.ImageCodeResponse;
+import hbuilder.android.com.modle.LargeAmountResponse;
 import hbuilder.android.com.modle.MessageCenterResponse;
 import hbuilder.android.com.modle.MyEntrustinfoResponse;
 import hbuilder.android.com.modle.MySellOrBuyinfoResponse;
@@ -136,6 +137,15 @@ public interface ApiServices {
     @FormUrlEncoded
     @POST(ApiConstants.getBuyinfo)
     Observable<BuyResponse> getBuyinfo(@Field("minId") long minId);
+
+    /**
+     * 获取大额提现订单
+     * @param minId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.getHugeBillinfo)
+    Observable<LargeAmountResponse> getHugeBillinfo(@Field("minId") long minId);
 
     /**
      * 查看USDT最新价格

@@ -14,6 +14,7 @@ public class ApiConstants {
     public static final String changeNickname = "user/changeNickname";//设置昵称
     public static final String changePwd = "user/changePwd";//修改密码
     public static final String getSellinfo = "trade/bill/getSellinfo";//获取挂取的卖单信息
+    public static final String getHugeBillinfo = "api/bill/getHugeBillinfo";//获取大额提现订单
     public static final String getBuyinfo = "trade/bill/getBuyinfo";//获取挂取的买单信息
     public static final String usdtPrice = "trade/usdtPrice";//查看USDT最新价格
     public static final String getInfo = "balance/getInfo";//资产查询

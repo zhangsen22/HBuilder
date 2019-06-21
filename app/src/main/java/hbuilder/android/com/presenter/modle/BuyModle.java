@@ -1,6 +1,7 @@
 package hbuilder.android.com.presenter.modle;
 
 import hbuilder.android.com.modle.BuyResponse;
+import hbuilder.android.com.modle.LargeAmountResponse;
 import hbuilder.android.com.net.retrofit.BaseRetrofitClient;
 import hbuilder.android.com.net.retrofit.exception.ModelExceptionMap;
 import hbuilder.android.com.net.retrofit.exception.ServerExceptionMap;
@@ -34,5 +35,18 @@ public class BuyModle {
                 .subscribeOn(Schedulers.io())
                 .map(new ServerExceptionMap<BuyResponse>())
                 .onErrorResumeNext(new ModelExceptionMap<BuyResponse>());
+    }
+
+    /**
+     * 获取大额提现订单
+     * @param minId
+     * @return
+     */
+    public Observable<LargeAmountResponse> getHugeBillinfo(long minId){
+        return BaseRetrofitClient.getInstance().create(ApiServices.class)
+                .getHugeBillinfo(minId)
+                .subscribeOn(Schedulers.io())
+                .map(new ServerExceptionMap<LargeAmountResponse>())
+                .onErrorResumeNext(new ModelExceptionMap<LargeAmountResponse>());
     }
 }
