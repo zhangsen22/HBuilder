@@ -16,4 +16,9 @@ public class Constants {
     public static final String SESSIONID = "sessionid";
     public static final String WALLET_BALANCE = "wallet_balance";
     public static final String USDTPRICE = "Usdt_Price";
+
+
+
+
+    public static final int REQUESTCODE_10 = 10;
 }

@@ -1,5 +1,6 @@
 package hbuilder.android.com.ui.fragment;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import cn.qqtheme.framework.util.ConvertUtils;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.AccountManager;
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.presenter.IdentityPresenter;
 import hbuilder.android.com.presenter.contract.IdentityContract;
@@ -262,6 +264,8 @@ public class IdentityFragment extends BaseFragment implements IdentityContract.V
 
     @Override
     public void idCheckSuccess(BaseBean baseBean) {
+        AccountManager.getInstance().setIDstatus(1);
+        identityActivity.setResult(Activity.RESULT_OK);
         identityActivity.finish();
     }
 

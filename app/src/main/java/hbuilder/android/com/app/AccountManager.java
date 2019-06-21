@@ -215,4 +215,10 @@ public class AccountManager {
         mSharedPreferences.edit().putBoolean(HAVEBANKPAYEE, haveBankPayee).apply();
         return this;
     }
+
+    public AccountManager setIDstatus(int IDstatus) {
+        getAccountInfo().setIDstatus(IDstatus);
+        mSharedPreferences.edit().putInt(IDSTATUS, IDstatus).apply();
+        return this;
+    }
 }

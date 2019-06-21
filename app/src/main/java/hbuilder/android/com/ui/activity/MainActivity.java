@@ -1,6 +1,7 @@
 package hbuilder.android.com.ui.activity;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.RadioButton;
 import com.growalong.util.util.GsonUtil;
@@ -16,6 +17,7 @@ import hbuilder.android.com.presenter.MainPresenter;
 import hbuilder.android.com.presenter.contract.MainContract;
 import hbuilder.android.com.presenter.modle.MainModle;
 import hbuilder.android.com.ui.adapter.MainViewPagerAdapter;
+import hbuilder.android.com.ui.fragment.CenterFragment;
 import hbuilder.android.com.ui.widget.NoScrollViewPager;
 import hbuilder.android.com.util.SharedPreferencesUtils;
 
@@ -35,6 +37,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     RadioButton rbCenter;
 
     private MainPresenter mainPresenter;
+    private MainViewPagerAdapter mainViewPagerAdapter;
 
     public static void startThis(BaseActivity activity) {
         activity.startActivity(new Intent(activity, MainActivity.class));
@@ -66,7 +69,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 mainPresenter.getInfo();
             }
         },1000);
-        MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
+        mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         noscrollViewPager.setAdapter(mainViewPagerAdapter);
         noscrollViewPager.setOffscreenPageLimit(4);
     }
@@ -135,5 +138,17 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     public void hideLoading() {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == RESULT_OK){
+            if(requestCode == Constants.REQUESTCODE_10){
+                CenterFragment centerFragment = mainViewPagerAdapter.getCenterFragment();
+                if(centerFragment != null){
+                    centerFragment.onActivityResultCenter(requestCode);
+                }
+            }
+        }
     }
 }

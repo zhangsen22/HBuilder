@@ -61,4 +61,8 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getCurrentFragment(){
         return mCurrentPrimaryItem;
     }
+
+    public CenterFragment getCenterFragment() {
+        return centerFragment;
+    }
 }

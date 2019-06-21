@@ -104,36 +104,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
         setLoadDataWhenVisible();
         //初始化presenter
         new CenterPresenter(this, new CenterModle());
-        tvUsername.setText(AccountManager.getInstance().getNickname());
-        tvAccount.setText(AccountManager.getInstance().getPhoneNumber());
-        tvVersionCode.setText(PackageUtil.getAppVersionName(MyApplication.appContext));
-        if(AccountManager.getInstance().getRoleType() == 2){
-            ivRoletype.setImageResource(R.mipmap.bs);
-        }else if(AccountManager.getInstance().getRoleType() == 1){
-            ivRoletype.setImageResource(R.mipmap.an);
-        }
-
-        if(AccountManager.getInstance().getApiType() == 1){
-            ivApitype.setImageResource(R.mipmap.st);
-        }
-
-        if (AccountManager.getInstance().isHaveAliPayee() || AccountManager.getInstance().isHaveBankPayee() || AccountManager.getInstance().isHaveWechatPayee()) {
-            tvIsAddPay.setText("已添加收款方式");
-        } else {
-            tvIsAddPay.setText("未添收款方式");
-        }
-        int iDstatus = AccountManager.getInstance().getIDstatus();//0未验证，1等待人工审核 2 已验证 99 验证失败
-        if (iDstatus == 0) {
-            tvIsSm.setText("未验证");
-        } else if (iDstatus == 1) {
-            tvIsSm.setText("等待人工审核");
-        } else if (iDstatus == 2) {
-            tvIsSm.setText("已验证");
-        } else if (iDstatus == 99) {
-            tvIsSm.setText("验证失败");
-        } else {
-            tvIsSm.setText("未知错误");
-        }
+        initUserInfo();
     }
 
     @OnClick({R.id.iv_edit, R.id.tv_center_anquan, R.id.tv_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.ll_jc_gl, R.id.ll_lx_kf, R.id.ll_center_message, R.id.tv_logout})
@@ -162,7 +133,10 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                 SecurityCenterActivity.startThis(mainActivity);
                 break;
             case R.id.tv_shenfencard:
-                IdentityActivity.startThis(mainActivity);
+                int iDstatus = AccountManager.getInstance().getIDstatus();//0未验证，1等待人工审核 2 已验证 99 验证失败
+                if(iDstatus == 0 || iDstatus == 99){
+                    IdentityActivity.startThis(mainActivity,Constants.REQUESTCODE_10);
+                }
                 break;
             case R.id.ll_add_sk_type:
                 AddMakeStyleActivity.startThis(mainActivity);
@@ -228,5 +202,42 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
     @Override
     public void hideLoading() {
         hideLoadingDialog();
+    }
+
+    public void onActivityResultCenter(int requestCode) {
+        initUserInfo();
+    }
+
+    private void initUserInfo() {
+        tvUsername.setText(AccountManager.getInstance().getNickname());
+        tvAccount.setText(AccountManager.getInstance().getPhoneNumber());
+        tvVersionCode.setText(PackageUtil.getAppVersionName(MyApplication.appContext));
+        if(AccountManager.getInstance().getRoleType() == 2){
+            ivRoletype.setImageResource(R.mipmap.bs);
+        }else if(AccountManager.getInstance().getRoleType() == 1){
+            ivRoletype.setImageResource(R.mipmap.an);
+        }
+
+        if(AccountManager.getInstance().getApiType() == 1){
+            ivApitype.setImageResource(R.mipmap.st);
+        }
+
+        if (AccountManager.getInstance().isHaveAliPayee() || AccountManager.getInstance().isHaveBankPayee() || AccountManager.getInstance().isHaveWechatPayee()) {
+            tvIsAddPay.setText("已添加收款方式");
+        } else {
+            tvIsAddPay.setText("未添收款方式");
+        }
+        int iDstatus = AccountManager.getInstance().getIDstatus();//0未验证，1等待人工审核 2 已验证 99 验证失败
+        if (iDstatus == 0) {
+            tvIsSm.setText("未验证");
+        } else if (iDstatus == 1) {
+            tvIsSm.setText("等待人工审核");
+        } else if (iDstatus == 2) {
+            tvIsSm.setText("已验证");
+        } else if (iDstatus == 99) {
+            tvIsSm.setText("验证失败");
+        } else {
+            tvIsSm.setText("未知错误");
+        }
     }
 }

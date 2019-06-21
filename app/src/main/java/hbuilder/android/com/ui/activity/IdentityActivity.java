@@ -12,8 +12,8 @@ import hbuilder.android.com.ui.fragment.IdentityFragment;
 public class IdentityActivity extends BaseActivity {
     private static final String TAG = IdentityActivity.class.getSimpleName();
 
-    public static void startThis(BaseActivity activity) {
-        activity.startActivity(new Intent(activity, IdentityActivity.class));
+    public static void startThis(BaseActivity activity,int requestCode) {
+        activity.startActivityForResult(new Intent(activity, IdentityActivity.class),requestCode);
     }
 
     @Override

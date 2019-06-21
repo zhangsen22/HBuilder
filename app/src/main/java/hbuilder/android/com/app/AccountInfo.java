@@ -12,7 +12,7 @@ public class AccountInfo extends BaseBean {
     private boolean havefinancePwd;//:false    //是否有资金密码
     private boolean autoBuy;//:false            //是否自动买币
     private boolean autoSell;//:false            //是否自动放币
-    private int IDstatus;//:0                //身份验证状态 0未验证，1等待人工审核 2 已验证 99 验证失败
+    private int idstatus;//:0                //身份验证状态 0未验证，1等待人工审核 2 已验证 99 验证失败
     private boolean haveWechatPayee;//:true    //是否有微信收款方式
     private boolean haveAliPayee;//:false        //是否有支付宝收款方式
     private boolean haveBankPayee;//:false        //是否有银行收款方式
@@ -87,11 +87,11 @@ public class AccountInfo extends BaseBean {
     }
 
     public int getIDstatus() {
-        return IDstatus;
+        return idstatus;
     }
 
     public void setIDstatus(int IDstatus) {
-        this.IDstatus = IDstatus;
+        this.idstatus = IDstatus;
     }
 
     public boolean isHaveWechatPayee() {
@@ -161,7 +161,7 @@ public class AccountInfo extends BaseBean {
                 ", havefinancePwd=" + havefinancePwd +
                 ", autoBuy=" + autoBuy +
                 ", autoSell=" + autoSell +
-                ", IDstatus=" + IDstatus +
+                ", IDstatus=" + idstatus +
                 ", haveWechatPayee=" + haveWechatPayee +
                 ", haveAliPayee=" + haveAliPayee +
                 ", haveBankPayee=" + haveBankPayee +
