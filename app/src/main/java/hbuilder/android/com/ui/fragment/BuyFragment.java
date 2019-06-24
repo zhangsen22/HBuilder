@@ -165,6 +165,11 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
             reverseIdList(billInfo);
             buyFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
             buyFragmentAdapter.appendList(billInfo);
+        }else {
+            GALogger.d(TAG,"LoadMore  is  no");
+            reverseIdList(billInfo);
+            buyFragmentAdapter.setTotalCount(buyFragmentAdapter.getItemRealCount());
+            buyFragmentAdapter.notifyDataSetChanged();
         }
         isRun = false;
     }
@@ -174,6 +179,9 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
             idList = new ArrayList<Long>();
         }
         idList.clear();
+        if(billInfo == null){
+            return;
+        }
         for (BuyItem buyItem: billInfo) {
             idList.add(buyItem.getId());
         }

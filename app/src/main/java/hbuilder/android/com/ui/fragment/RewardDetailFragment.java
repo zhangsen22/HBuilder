@@ -178,6 +178,11 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
             reverseIdList(details);
             rewardDetailAdapter.setTotalCount(Integer.MAX_VALUE);
             rewardDetailAdapter.appendList(details);
+        }else {
+            GALogger.d(TAG,"LoadMore  is  no");
+            reverseIdList(details);
+            rewardDetailAdapter.setTotalCount(rewardDetailAdapter.getItemRealCount());
+            rewardDetailAdapter.notifyDataSetChanged();
         }
         isRun = false;
     }
@@ -187,6 +192,9 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
             idList = new ArrayList<Long>();
         }
         idList.clear();
+        if(billInfo == null){
+            return;
+        }
         for (RewardDetailItem buyItem: billInfo) {
             idList.add(buyItem.getId());
         }

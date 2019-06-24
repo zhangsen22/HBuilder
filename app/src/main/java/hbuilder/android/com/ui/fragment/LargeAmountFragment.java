@@ -132,6 +132,11 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
             reverseIdList(billInfo);
             largeAmountAdapter.setTotalCount(Integer.MAX_VALUE);
             largeAmountAdapter.appendList(billInfo);
+        }else {
+            GALogger.d(TAG,"LoadMore  is  no");
+            reverseIdList(billInfo);
+            largeAmountAdapter.setTotalCount(largeAmountAdapter.getItemRealCount());
+            largeAmountAdapter.notifyDataSetChanged();
         }
         isRun = false;
     }
@@ -141,6 +146,9 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
             idList = new ArrayList<Long>();
         }
         idList.clear();
+        if(billInfo == null){
+            return;
+        }
         for (LargeAmountItem buyItem: billInfo) {
             idList.add(buyItem.getId());
         }

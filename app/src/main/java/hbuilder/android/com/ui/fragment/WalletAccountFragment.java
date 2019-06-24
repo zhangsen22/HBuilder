@@ -133,6 +133,11 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
             reverseIdList(financeLog);
             walletAccountAdapter.setTotalCount(Integer.MAX_VALUE);
             walletAccountAdapter.appendList(financeLog);
+        }else {
+            GALogger.d(TAG,"LoadMore  is  no");
+            reverseIdList(financeLog);
+            walletAccountAdapter.setTotalCount(walletAccountAdapter.getItemRealCount());
+            walletAccountAdapter.notifyDataSetChanged();
         }
         isRun = false;
     }
@@ -142,6 +147,9 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
             idList = new ArrayList<Long>();
         }
         idList.clear();
+        if(billInfo == null){
+            return;
+        }
         for (FinanceLogItem buyItem: billInfo) {
             idList.add(buyItem.getId());
         }

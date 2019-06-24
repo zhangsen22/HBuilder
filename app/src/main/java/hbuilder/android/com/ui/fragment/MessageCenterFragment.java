@@ -103,7 +103,7 @@ public class MessageCenterFragment extends BaseFragment implements MessageCenter
             @Override
             public void run() {
                 if(idList != null && idList.size() > 0){
-                    presenter.msgCenterRefresh(idList.get(0));
+                    presenter.msgCenterLoadMore(idList.get(0));
                 }
             }
         };
@@ -151,6 +151,11 @@ public class MessageCenterFragment extends BaseFragment implements MessageCenter
             reverseIdList(msg);
             messageCenterAdapter.setTotalCount(Integer.MAX_VALUE);
             messageCenterAdapter.appendList(msg);
+        }else {
+            GALogger.d(TAG,"LoadMore  is  no");
+            reverseIdList(msg);
+            messageCenterAdapter.setTotalCount(messageCenterAdapter.getItemRealCount());
+            messageCenterAdapter.notifyDataSetChanged();
         }
         isRun = false;
     }
@@ -160,6 +165,9 @@ public class MessageCenterFragment extends BaseFragment implements MessageCenter
             idList = new ArrayList<Long>();
         }
         idList.clear();
+        if(billInfo == null){
+            billInfo.clear();
+        }
         for (MessageCenterItem buyItem: billInfo) {
             idList.add(buyItem.getId());
         }

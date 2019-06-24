@@ -163,15 +163,15 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
             public void run() {
                 if(parentType == 1) {
                     if(sellIdList != null && sellIdList.size() > 0){
-                        presenter.mySellinfoRefresh(childType, sellIdList.get(0));
+                        presenter.mySellinfoLoadMore(childType, sellIdList.get(0));
                     }
                 }else if(parentType == 2){
                     if(buyIdList != null && buyIdList.size() > 0){
-                        presenter.myBuyinfoRefresh(childType, buyIdList.get(0));
+                        presenter.myBuyinfoLoadMore(childType, buyIdList.get(0));
                     }
                 }else if(parentType == 3){
                     if(entrustIdList != null && entrustIdList.size() > 0){
-                        presenter.myBillInfoRefresh(childType-1, entrustIdList.get(0));
+                        presenter.myBillInfoLoadMore(childType-1, entrustIdList.get(0));
                     }
                 }
             }
@@ -237,6 +237,11 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
             reverseIdsellIdList(info);
             orderSellDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
             orderSellDetailsAdapter.appendList(info);
+        }else {
+            GALogger.d(TAG,"LoadMore  is  no");
+            reverseIdsellIdList(info);
+            orderSellDetailsAdapter.setTotalCount(orderSellDetailsAdapter.getItemRealCount());
+            orderSellDetailsAdapter.notifyDataSetChanged();
         }
         isRun = false;
     }
@@ -246,6 +251,9 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
             sellIdList = new ArrayList<Long>();
         }
         sellIdList.clear();
+        if(billInfo == null){
+            return;
+        }
         for (MySellOrBuyinfoItem buyItem: billInfo) {
             sellIdList.add(buyItem.getId());
         }
@@ -285,6 +293,11 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
             reverseIdbuyIdList(info);
             orderBuyDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
             orderBuyDetailsAdapter.appendList(info);
+        }else {
+            GALogger.d(TAG,"LoadMore  is  no");
+            reverseIdbuyIdList(info);
+            orderBuyDetailsAdapter.setTotalCount(orderBuyDetailsAdapter.getItemRealCount());
+            orderBuyDetailsAdapter.notifyDataSetChanged();
         }
         isRun = false;
     }
@@ -294,6 +307,9 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
             buyIdList = new ArrayList<Long>();
         }
         buyIdList.clear();
+        if(billInfo == null){
+            return;
+        }
         for (MySellOrBuyinfoItem buyItem: billInfo) {
             buyIdList.add(buyItem.getId());
         }
@@ -333,6 +349,11 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
             reverseIdentrustIdList(billInfo);
             orderEntrustDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
             orderEntrustDetailsAdapter.appendList(billInfo);
+        }else {
+            GALogger.d(TAG,"LoadMore  is  no");
+            reverseIdentrustIdList(billInfo);
+            orderEntrustDetailsAdapter.setTotalCount(orderEntrustDetailsAdapter.getItemRealCount());
+            orderEntrustDetailsAdapter.notifyDataSetChanged();
         }
         isRun = false;
     }
@@ -342,6 +363,9 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
             entrustIdList = new ArrayList<Long>();
         }
         entrustIdList.clear();
+        if(billInfo == null){
+            return;
+        }
         for (MyEntrustinfoItem buyItem: billInfo) {
             entrustIdList.add(buyItem.getId());
         }

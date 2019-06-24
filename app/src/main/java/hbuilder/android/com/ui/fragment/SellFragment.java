@@ -170,6 +170,11 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
             reverseIdList(billInfo);
             sellFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
             sellFragmentAdapter.appendList(billInfo);
+        }else {
+            GALogger.d(TAG,"LoadMore  is  no");
+            reverseIdList(billInfo);
+            sellFragmentAdapter.setTotalCount(sellFragmentAdapter.getItemRealCount());
+            sellFragmentAdapter.notifyDataSetChanged();
         }
         isRun = false;
     }
@@ -179,6 +184,9 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
             idList = new ArrayList<Long>();
         }
         idList.clear();
+        if(billInfo == null){
+            return;
+        }
         for (BuyItem buyItem: billInfo) {
             idList.add(buyItem.getId());
         }
