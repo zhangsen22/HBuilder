@@ -132,8 +132,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@mipmap/ao"
-            tools:text="已实名"
+            tools:text="等待人工审核"
             android:textSize="11sp"
+            android:paddingLeft="@dimen/y60"
+            android:paddingRight="@dimen/y22"
             android:textColor="@color/common_white"
             android:gravity="center"/>
 
