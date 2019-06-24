@@ -215,7 +215,8 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
         GALogger.d(TAG,"info.size()    "+info.size());
         if (info != null && info.size() > 0) {
             GALogger.d(TAG,"info.size()    "+info.get(0).toString());
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdsellIdList(info);
+            orderSellDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
             orderSellDetailsAdapter.setList(info);
         } else {
             emptyAnderrorView();
@@ -233,18 +234,22 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
     public void mySellinfoLoadMoreSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse) {
         List<MySellOrBuyinfoItem> info = mySellOrBuyinfoResponse.getInfo();
         if (info != null && info.size() > 0) {
-            if(sellIdList == null){
-                sellIdList = new ArrayList<Long>();
-            }
-            sellIdList.clear();
-            for (MySellOrBuyinfoItem mySellOrBuyinfoItem : info) {
-                sellIdList.add(mySellOrBuyinfoItem.getId());
-            }
-            Collections.reverse(sellIdList);
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdsellIdList(info);
+            orderSellDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
             orderSellDetailsAdapter.appendList(info);
         }
         isRun = false;
+    }
+
+    public void reverseIdsellIdList(List<MySellOrBuyinfoItem> billInfo){
+        if(sellIdList == null){
+            sellIdList = new ArrayList<Long>();
+        }
+        sellIdList.clear();
+        for (MySellOrBuyinfoItem buyItem: billInfo) {
+            sellIdList.add(buyItem.getId());
+        }
+        Collections.reverse(sellIdList);
     }
 
     @Override
@@ -258,7 +263,8 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
         List<MySellOrBuyinfoItem> info = myBuyinfoResponse.getInfo();
         GALogger.d(TAG,"info.size()    "+info.size());
         if (info != null && info.size() > 0) {
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdbuyIdList(info);
+            orderBuyDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
             orderBuyDetailsAdapter.setList(info);
         } else {
             emptyAnderrorView();
@@ -276,18 +282,22 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
     public void myBuyinfoLoadMoreSuccess(MySellOrBuyinfoResponse myBuyinfoResponse) {
         List<MySellOrBuyinfoItem> info = myBuyinfoResponse.getInfo();
         if (info != null && info.size() > 0) {
-            if(buyIdList == null){
-                buyIdList = new ArrayList<Long>();
-            }
-            buyIdList.clear();
-            for (MySellOrBuyinfoItem myBuyinfoItem: info) {
-                buyIdList.add(myBuyinfoItem.getId());
-            }
-            Collections.reverse(buyIdList);
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdbuyIdList(info);
+            orderBuyDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
             orderBuyDetailsAdapter.appendList(info);
         }
         isRun = false;
+    }
+
+    public void reverseIdbuyIdList(List<MySellOrBuyinfoItem> billInfo){
+        if(buyIdList == null){
+            buyIdList = new ArrayList<Long>();
+        }
+        buyIdList.clear();
+        for (MySellOrBuyinfoItem buyItem: billInfo) {
+            buyIdList.add(buyItem.getId());
+        }
+        Collections.reverse(buyIdList);
     }
 
     @Override
@@ -301,7 +311,8 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
         List<MyEntrustinfoItem> billInfo = myEntrustinfoResponse.getBillInfo();
         GALogger.d(TAG,"info.size()    "+billInfo.size());
         if (billInfo != null && billInfo.size() > 0) {
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdentrustIdList(billInfo);
+            orderEntrustDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
             orderEntrustDetailsAdapter.setList(billInfo);
         } else {
             emptyAnderrorView();
@@ -319,18 +330,22 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
     public void myBillInfoLoadMoreSuccess(MyEntrustinfoResponse myEntrustinfoResponse) {
         List<MyEntrustinfoItem> billInfo = myEntrustinfoResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
-            if(entrustIdList == null){
-                entrustIdList = new ArrayList<Long>();
-            }
-            entrustIdList.clear();
-            for (MyEntrustinfoItem myEntrustinfoItem: billInfo) {
-                entrustIdList.add(myEntrustinfoItem.getId());
-            }
-            Collections.reverse(entrustIdList);
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdentrustIdList(billInfo);
+            orderEntrustDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
             orderEntrustDetailsAdapter.appendList(billInfo);
         }
         isRun = false;
+    }
+
+    public void reverseIdentrustIdList(List<MyEntrustinfoItem> billInfo){
+        if(entrustIdList == null){
+            entrustIdList = new ArrayList<Long>();
+        }
+        entrustIdList.clear();
+        for (MyEntrustinfoItem buyItem: billInfo) {
+            entrustIdList.add(buyItem.getId());
+        }
+        Collections.reverse(entrustIdList);
     }
 
     @Override

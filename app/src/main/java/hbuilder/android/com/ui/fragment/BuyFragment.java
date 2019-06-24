@@ -138,7 +138,8 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
     public void getBuyRefreshSuccess(BuyResponse buyResponse) {
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdList(billInfo);
+            buyFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
             buyFragmentAdapter.setList(billInfo);
         } else {
             emptyAnderrorView();
@@ -161,18 +162,22 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
     public void getBuyLoadMoreSuccess(BuyResponse buyResponse) {
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
-            if(idList == null){
-                idList = new ArrayList<Long>();
-            }
-            idList.clear();
-            for (BuyItem buyItem: billInfo) {
-                idList.add(buyItem.getId());
-            }
-            Collections.reverse(idList);
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdList(billInfo);
+            buyFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
             buyFragmentAdapter.appendList(billInfo);
         }
         isRun = false;
+    }
+
+    public void reverseIdList(List<BuyItem> billInfo){
+        if(idList == null){
+            idList = new ArrayList<Long>();
+        }
+        idList.clear();
+        for (BuyItem buyItem: billInfo) {
+            idList.add(buyItem.getId());
+        }
+        Collections.reverse(idList);
     }
 
     @Override

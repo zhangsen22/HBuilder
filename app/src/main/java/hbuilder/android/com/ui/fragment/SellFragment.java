@@ -148,7 +148,8 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
     public void getSellRefreshSuccess(BuyResponse buyResponse) {
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdList(billInfo);
+            sellFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
             sellFragmentAdapter.setList(billInfo);
         } else {
             emptyAnderrorView();
@@ -166,18 +167,22 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
     public void getSellLoadMoreSuccess(BuyResponse buyResponse) {
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
-            if(idList == null){
-                idList = new ArrayList<Long>();
-            }
-            idList.clear();
-            for (BuyItem buyItem: billInfo) {
-                idList.add(buyItem.getId());
-            }
-            Collections.reverse(idList);
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdList(billInfo);
+            sellFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
             sellFragmentAdapter.appendList(billInfo);
         }
         isRun = false;
+    }
+
+    public void reverseIdList(List<BuyItem> billInfo){
+        if(idList == null){
+            idList = new ArrayList<Long>();
+        }
+        idList.clear();
+        for (BuyItem buyItem: billInfo) {
+            idList.add(buyItem.getId());
+        }
+        Collections.reverse(idList);
     }
 
     @Override

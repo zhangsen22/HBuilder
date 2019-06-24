@@ -104,7 +104,9 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     public void getHugeBillinfoRefreshSuccess(LargeAmountResponse largeAmountResponse) {
         List<LargeAmountItem> billInfo = largeAmountResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            GALogger.d(TAG,"billInfo.size()    "+billInfo.size());
+            reverseIdList(billInfo);
+            largeAmountAdapter.setTotalCount(Integer.MAX_VALUE);
             largeAmountAdapter.setList(billInfo);
         } else {
             emptyAnderrorView();
@@ -127,18 +129,22 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     public void getHugeBillinfoLoadMoreSuccess(LargeAmountResponse largeAmountResponse) {
         List<LargeAmountItem> billInfo = largeAmountResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
-            if(idList == null){
-                idList = new ArrayList<Long>();
-            }
-            idList.clear();
-            for (LargeAmountItem buyItem: billInfo) {
-                idList.add(buyItem.getId());
-            }
-            Collections.reverse(idList);
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdList(billInfo);
+            largeAmountAdapter.setTotalCount(Integer.MAX_VALUE);
             largeAmountAdapter.appendList(billInfo);
         }
         isRun = false;
+    }
+
+    public void reverseIdList(List<LargeAmountItem> billInfo){
+        if(idList == null){
+            idList = new ArrayList<Long>();
+        }
+        idList.clear();
+        for (LargeAmountItem buyItem: billInfo) {
+            idList.add(buyItem.getId());
+        }
+        Collections.reverse(idList);
     }
 
     @Override

@@ -13,7 +13,6 @@ import com.growalong.util.util.GALogger;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +22,7 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
-import hbuilder.android.com.modle.BuyItem;
+import hbuilder.android.com.modle.LargeAmountItem;
 import hbuilder.android.com.modle.RewardDetailItem;
 import hbuilder.android.com.modle.RewardDetailResponse;
 import hbuilder.android.com.modle.RewardLogResponse;
@@ -157,7 +156,8 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
     public void rewardDetailRefreshSuccess(RewardDetailResponse rewardDetailResponse) {
         List<RewardDetailItem> details = rewardDetailResponse.getDetails();
         if (details != null && details.size() > 0) {
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdList(details);
+            rewardDetailAdapter.setTotalCount(Integer.MAX_VALUE);
             rewardDetailAdapter.setList(details);
         } else {
             emptyAnderrorView();
@@ -175,18 +175,22 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
     public void rewardDetailLoadMoreSuccess(RewardDetailResponse rewardDetailResponse) {
         List<RewardDetailItem> details = rewardDetailResponse.getDetails();
         if (details != null && details.size() > 0) {
-            if(idList == null){
-                idList = new ArrayList<Long>();
-            }
-            idList.clear();
-            for (RewardDetailItem rewardDetailItem: details) {
-                idList.add(rewardDetailItem.getId());
-            }
-            Collections.reverse(idList);
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdList(details);
+            rewardDetailAdapter.setTotalCount(Integer.MAX_VALUE);
             rewardDetailAdapter.appendList(details);
         }
         isRun = false;
+    }
+
+    public void reverseIdList(List<RewardDetailItem> billInfo){
+        if(idList == null){
+            idList = new ArrayList<Long>();
+        }
+        idList.clear();
+        for (RewardDetailItem buyItem: billInfo) {
+            idList.add(buyItem.getId());
+        }
+        Collections.reverse(idList);
     }
 
     @Override

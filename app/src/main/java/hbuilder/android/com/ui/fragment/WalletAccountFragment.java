@@ -111,7 +111,8 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
         List<FinanceLogItem> financeLog = financeLogResponse.getFinanceLog();
         if (financeLog != null && financeLog.size() > 0) {
             tvNoData.setVisibility(View.GONE);
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdList(financeLog);
+            walletAccountAdapter.setTotalCount(Integer.MAX_VALUE);
             walletAccountAdapter.setList(financeLog);
         } else {
             emptyAnderrorView();
@@ -129,18 +130,22 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
     public void financeLogLoadMoreSuccess(FinanceLogResponse financeLogResponse) {
         List<FinanceLogItem> financeLog = financeLogResponse.getFinanceLog();
         if (financeLog != null && financeLog.size() > 0) {
-            if (idList == null) {
-                idList = new ArrayList<Long>();
-            }
-            idList.clear();
-            for (FinanceLogItem financeLogItem : financeLog) {
-                idList.add(financeLogItem.getId());
-            }
-            Collections.reverse(idList);
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdList(financeLog);
+            walletAccountAdapter.setTotalCount(Integer.MAX_VALUE);
             walletAccountAdapter.appendList(financeLog);
         }
         isRun = false;
+    }
+
+    public void reverseIdList(List<FinanceLogItem> billInfo){
+        if(idList == null){
+            idList = new ArrayList<Long>();
+        }
+        idList.clear();
+        for (FinanceLogItem buyItem: billInfo) {
+            idList.add(buyItem.getId());
+        }
+        Collections.reverse(idList);
     }
 
     @Override

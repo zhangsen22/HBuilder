@@ -124,7 +124,8 @@ public class MessageCenterFragment extends BaseFragment implements MessageCenter
     public void msgCenterRefreshSuccess(MessageCenterResponse messageCenterResponse) {
         List<MessageCenterItem> msg = messageCenterResponse.getMsg();
         if (msg != null && msg.size() > 0) {
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdList(msg);
+            messageCenterAdapter.setTotalCount(Integer.MAX_VALUE);
             messageCenterAdapter.setList(msg);
         } else {
             emptyAnderrorView();
@@ -147,18 +148,22 @@ public class MessageCenterFragment extends BaseFragment implements MessageCenter
     public void msgCenterLoadMoreSuccess(MessageCenterResponse messageCenterResponse) {
         List<MessageCenterItem> msg = messageCenterResponse.getMsg();
         if (msg != null && msg.size() > 0) {
-            if(idList == null){
-                idList = new ArrayList<Long>();
-            }
-            idList.clear();
-            for (MessageCenterItem messageCenterItem: msg) {
-                idList.add(messageCenterItem.getId());
-            }
-            Collections.reverse(idList);
-//            buyFragmentAdapter.setTotalCount(totalSize);
+            reverseIdList(msg);
+            messageCenterAdapter.setTotalCount(Integer.MAX_VALUE);
             messageCenterAdapter.appendList(msg);
         }
         isRun = false;
+    }
+
+    public void reverseIdList(List<MessageCenterItem> billInfo){
+        if(idList == null){
+            idList = new ArrayList<Long>();
+        }
+        idList.clear();
+        for (MessageCenterItem buyItem: billInfo) {
+            idList.add(buyItem.getId());
+        }
+        Collections.reverse(idList);
     }
 
     @Override
