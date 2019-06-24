@@ -40,20 +40,17 @@ public class SellPresenter implements SellContract.Presenter{
 
     @Override
     public void getSellLoadMore(long minId) {
-        mView.showLoading();
         mModel.getBuyinfo(minId).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<BuyResponse>() {
                     @Override
                     public void onSuccess(BuyResponse buyResponse) {
                         mView.getSellLoadMoreSuccess(buyResponse);
-                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.getSellLoadMoreError();
-                        mView.hideLoading();
                     }
                 });
     }

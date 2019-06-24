@@ -41,19 +41,16 @@ public class RewardDetailPresenter implements RewardDetailContract.Presenter{
 
     @Override
     public void rewardDetailLoadMore(int type, long minId) {
-        mView.showLoading();
         mModel.rewardDetail(type,minId).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<RewardDetailResponse>() {
                     @Override
                     public void onSuccess(RewardDetailResponse rewardDetailResponse) {
-                        mView.hideLoading();
                         mView.rewardDetailLoadMoreSuccess(rewardDetailResponse);
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
-                        mView.hideLoading();
                         mView.rewardDetailLoadMoreError();
                     }
                 });

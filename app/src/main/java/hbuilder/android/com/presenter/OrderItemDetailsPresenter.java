@@ -42,20 +42,17 @@ public class OrderItemDetailsPresenter implements OrderItemDetailsContract.Prese
 
     @Override
     public void mySellinfoLoadMore(int type, long minId) {
-        mView.showLoading();
         mModel.mySellinfo(type,minId).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<MySellOrBuyinfoResponse>() {
                     @Override
                     public void onSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse) {
                         mView.mySellinfoLoadMoreSuccess(mySellOrBuyinfoResponse);
-                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.mySellinfoLoadMoreError();
-                        mView.hideLoading();
                     }
                 });
     }
@@ -82,20 +79,17 @@ public class OrderItemDetailsPresenter implements OrderItemDetailsContract.Prese
 
     @Override
     public void myBuyinfoLoadMore(int type, long minId) {
-        mView.showLoading();
         mModel.myBuyinfo(type,minId).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<MySellOrBuyinfoResponse>() {
                     @Override
                     public void onSuccess(MySellOrBuyinfoResponse mySellOrBuyinfoResponse) {
                         mView.myBuyinfoLoadMoreSuccess(mySellOrBuyinfoResponse);
-                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.myBuyinfoLoadMoreError();
-                        mView.hideLoading();
                     }
                 });
     }
@@ -122,20 +116,17 @@ public class OrderItemDetailsPresenter implements OrderItemDetailsContract.Prese
 
     @Override
     public void myBillInfoLoadMore(int type, long minId) {
-        mView.showLoading();
         mModel.myBillInfo(type,minId).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<MyEntrustinfoResponse>() {
                     @Override
                     public void onSuccess(MyEntrustinfoResponse myEntrustinfoResponse) {
                         mView.myBillInfoLoadMoreSuccess(myEntrustinfoResponse);
-                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.myBillInfoLoadMoreError();
-                        mView.hideLoading();
                     }
                 });
     }
