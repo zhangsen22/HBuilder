@@ -59,9 +59,10 @@
             android:layout_marginLeft="@dimen/y10"/>
 
         <ImageView
-            android:layout_width="@dimen/y28"
-            android:layout_height="@dimen/y22"
-            android:src="@mipmap/e"
+            android:id="@+id/iv_api_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:src="@mipmap/st"
             android:layout_marginLeft="@dimen/y14"/>
 
         <View

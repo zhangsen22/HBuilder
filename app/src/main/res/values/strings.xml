@@ -3,4 +3,6 @@
     <string name="text20">Loading…</string>
     <string name="rmb">¥</string>
     <string name="xingxing">*</string>
+    <string name="download_progress_channel_message">下载进度</string>
+    <string name="download_now">正在下载</string>
 </resources>

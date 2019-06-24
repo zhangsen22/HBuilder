@@ -66,9 +66,9 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
         @Override
         public void onBind(@NonNull LargeAmountItem largeAmountItem, int position) {
             if(largeAmountItem != null){
-                tvLargeAmountTime.setText(DateUtil.getCurrentDateString4(largeAmountItem.getPuttime()));
-                tvLargeAmountPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(largeAmountItem.getPrice()));
-                tvLargeAmountLastNum.setText(new DecimalFormat("0.00").format(largeAmountItem.getNum()));
+                tvLargeAmountTime.setText(largeAmountItem.getNickname());
+                tvLargeAmountPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+largeAmountItem.getPrice());
+                tvLargeAmountLastNum.setText("1");
                 tvLargeAmountNum.setText(new DecimalFormat("0.00").format(largeAmountItem.getNum()));
                 tvAllPrice.setText(new DecimalFormat("0.00").format(largeAmountItem.getMoney()));
                 if(largeAmountItem.isSupportBank()){
@@ -91,7 +91,7 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
                 tvQianggou.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        BuyItem buyItem = new BuyItem(largeAmountItem.getId(), largeAmountItem.getNickname(), largeAmountItem.getPrice(), largeAmountItem.getNum(), largeAmountItem.getNum(), largeAmountItem.isSupportAli(), largeAmountItem.isSupportWechat(), largeAmountItem.isSupportBank());
+                        BuyItem buyItem = new BuyItem(largeAmountItem.getId(), largeAmountItem.getNickname(), largeAmountItem.getPrice(), largeAmountItem.getNum(), largeAmountItem.getNum(), largeAmountItem.isSupportAli(), largeAmountItem.isSupportWechat(), largeAmountItem.isSupportBank(),true);
                         BusinessBuyActivity.startThis(mContext,buyItem);
                     }
                 });

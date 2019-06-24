@@ -8,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.growalong.util.util.GALogger;
+
 import java.text.DecimalFormat;
 
+import butterknife.BindView;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.modle.BuyItem;
@@ -54,11 +57,13 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
         ImageView ivIdcard;
         ImageView ivAilpay;
         ImageView ivWebpay;
+        ImageView ivApiType;
 
         public BuyItemHolder(View itemView) {
             super(itemView);
             tvNameFirst = itemView.findViewById(R.id.tv_name_first);
             tvName = itemView.findViewById(R.id.tv_name);
+            ivApiType = itemView.findViewById(R.id.iv_api_type);
             tvTradetimes = itemView.findViewById(R.id.tv_tradetimes);
             tvTradesuccrate = itemView.findViewById(R.id.tv_tradesuccrate);
             tvNumber = itemView.findViewById(R.id.tv_number);
@@ -66,8 +71,6 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
             tvMaxPrice = itemView.findViewById(R.id.tv_max_price);
             tvSinglePrice = itemView.findViewById(R.id.tv_single_price);
             tvBuy = itemView.findViewById(R.id.tv_buy);
-            tvNameFirst = itemView.findViewById(R.id.tv_name_first);
-
             ivIdcard = itemView.findViewById(R.id.iv_idcard);
             ivAilpay = itemView.findViewById(R.id.iv_ailpay);
             ivWebpay = itemView.findViewById(R.id.iv_webpay);
@@ -82,35 +85,40 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
                     tvNameFirst.setText(nickname.subSequence(0, 1));
                     tvName.setText(nickname);
                 }
-
+                if(buyItem.getApiType() == 1){
+                    ivApiType.setVisibility(View.VISIBLE);
+                    ivApiType.setImageResource(R.mipmap.st);
+                }else {
+                    ivApiType.setVisibility(View.GONE);
+                }
                 tvTradetimes.setText(buyItem.getTradeTimes() + "");
                 tvTradesuccrate.setText(buyItem.getTradeSuccRate() + "%");
                 tvNumber.setText(buyItem.getMaxNum() + "");
-                tvMinPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()));
-                tvMaxPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
-                tvSinglePrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+buyItem.getPrice());
-                if(buyItem.isSupportBank()){
+                tvMinPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()));
+                tvMaxPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
+                tvSinglePrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + buyItem.getPrice());
+                if (buyItem.isSupportBank()) {
                     ivIdcard.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     ivIdcard.setVisibility(View.GONE);
                 }
 
-                if(buyItem.isSupportAli()){
+                if (buyItem.isSupportAli()) {
                     ivAilpay.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     ivAilpay.setVisibility(View.GONE);
                 }
 
-                if(buyItem.isSupportWechat()){
+                if (buyItem.isSupportWechat()) {
                     ivWebpay.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     ivWebpay.setVisibility(View.GONE);
                 }
 
                 tvBuy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        BusinessBuyActivity.startThis(mContext,buyItem);
+                        BusinessBuyActivity.startThis(mContext, buyItem);
                     }
                 });
             }

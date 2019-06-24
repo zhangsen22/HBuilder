@@ -16,7 +16,10 @@ public class Constants {
     public static final String SESSIONID = "sessionid";
     public static final String WALLET_BALANCE = "wallet_balance";
     public static final String USDTPRICE = "Usdt_Price";
-
+    /**
+     * android 8.0以上通知栏渠道ID
+     */
+    public static final String NOTIFICATION_CHANNEL_DOWNLOAD = "bingo_channel_02";//下载安装包进度通知栏 渠道ID
 
 
 

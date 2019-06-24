@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.growalong.util.util.GALogger;
@@ -52,11 +53,13 @@ public class SellFragmentAdapter extends PowerAdapter<BuyItem> {
         TextView tvMaxPrice;
         TextView tvSinglePrice;
         TextView tvBuy;
+        ImageView ivApiType;
 
         public BuyItemHolder(View itemView) {
             super(itemView);
             tvNameFirst = itemView.findViewById(R.id.tv_name_first);
             tvName = itemView.findViewById(R.id.tv_name);
+            ivApiType = itemView.findViewById(R.id.iv_api_type);
             tvTradetimes = itemView.findViewById(R.id.tv_tradetimes);
             tvTradesuccrate = itemView.findViewById(R.id.tv_tradesuccrate);
             tvNumber = itemView.findViewById(R.id.tv_number);
@@ -77,7 +80,12 @@ public class SellFragmentAdapter extends PowerAdapter<BuyItem> {
                     tvNameFirst.setText(nickname.subSequence(0, 1));
                     tvName.setText(nickname);
                 }
-
+                if(buyItem.getApiType() == 1){
+                    ivApiType.setVisibility(View.VISIBLE);
+                    ivApiType.setImageResource(R.mipmap.st);
+                }else {
+                    ivApiType.setVisibility(View.GONE);
+                }
                 tvTradetimes.setText(buyItem.getTradeTimes() + "");
                 tvTradesuccrate.setText(buyItem.getTradeSuccRate() + "%");
                 tvNumber.setText(buyItem.getMaxNum() + "");

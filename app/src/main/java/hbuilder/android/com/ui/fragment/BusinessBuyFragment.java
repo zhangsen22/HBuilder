@@ -102,49 +102,51 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
     @Override
     protected void initView(View root) {
         tvTitle.setText("购买USDT");
-        etBusinessBuyNum.addTextChangedListener(new TextWatcherUtils() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                super.afterTextChanged(s);
-                if (!TextUtils.isEmpty(s.toString())) {
-                    if (flag) {
-                        flag = false;
-                        double num = Double.parseDouble(s.toString());
-                        if (num > buyItem.getMaxNum()) {
-                            ToastUtil.shortShow("超出了最大购买数量");
-                            return;
+        if(!buyItem.isLargeAmount()) {
+            etBusinessBuyNum.addTextChangedListener(new TextWatcherUtils() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    super.afterTextChanged(s);
+                    if (!TextUtils.isEmpty(s.toString())) {
+                        if (flag) {
+                            flag = false;
+                            double num = Double.parseDouble(s.toString());
+                            if (num > buyItem.getMaxNum()) {
+                                ToastUtil.shortShow("超出了最大购买数量");
+                                return;
+                            }
+                            etBusinessBuyMoney.setText((num * buyItem.getPrice()) + "");
+                        } else {
+                            flag = true;
                         }
-                        etBusinessBuyMoney.setText((num * buyItem.getPrice()) + "");
-                    } else {
-                        flag = true;
                     }
                 }
-            }
-        });
+            });
 
-        etBusinessBuyMoney.addTextChangedListener(new TextWatcherUtils() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                super.afterTextChanged(s);
-                if (!TextUtils.isEmpty(s.toString())) {
-                    if (flag) {
-                        flag = false;
-                        double price = Double.parseDouble(s.toString());
-                            if(price > buyItem.getMaxNum() * buyItem.getPrice()){
+            etBusinessBuyMoney.addTextChangedListener(new TextWatcherUtils() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    super.afterTextChanged(s);
+                    if (!TextUtils.isEmpty(s.toString())) {
+                        if (flag) {
+                            flag = false;
+                            double price = Double.parseDouble(s.toString());
+                            if (price > buyItem.getMaxNum() * buyItem.getPrice()) {
                                 ToastUtil.shortShow("超出了最大购买金额");
                                 return;
                             }
-                            if (price < buyItem.getMinNum() * buyItem.getPrice()){
+                            if (price < buyItem.getMinNum() * buyItem.getPrice()) {
                                 ToastUtil.shortShow("小于最小购买金额");
                                 return;
                             }
-                        etBusinessBuyNum.setText((price / buyItem.getPrice()) + "");
-                    } else {
-                        flag = true;
+                            etBusinessBuyNum.setText((price / buyItem.getPrice()) + "");
+                        } else {
+                            flag = true;
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
 
         cbAlipay.setOnCheckedChangeListener(this);
         cbWebchat.setOnCheckedChangeListener(this);
@@ -179,10 +181,28 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
         }
         ivBuyName.setText(buyItem.getNickname());
         tvBusinessBuyPrice.setText(new DecimalFormat("0.00").format(buyItem.getPrice()));
-        tvBusinessBuyMore.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()) + " - " + MyApplication.appContext.getResources().getString(R.string.rmb)+ new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
         tvBusinessBuyNum.setText(buyItem.getMaxNum() + "");
         etBusinessBuyPrice.setText(new DecimalFormat("0.00").format(buyItem.getPrice()));
 
+        if(buyItem.isLargeAmount()){
+            tvBusinessBuyMore.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
+            tvNumAll.setVisibility(View.GONE);
+            tvPriceAll.setVisibility(View.GONE);
+            etBusinessBuyNum.setFocusable(false);
+            etBusinessBuyNum.setFocusableInTouchMode(false);
+            etBusinessBuyNum.setText(buyItem.getMaxNum() + "");
+            etBusinessBuyMoney.setFocusable(false);
+            etBusinessBuyMoney.setFocusableInTouchMode(false);
+            etBusinessBuyMoney.setText(new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
+        }else {
+            tvBusinessBuyMore.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()) + " - " + MyApplication.appContext.getResources().getString(R.string.rmb)+ new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
+            tvNumAll.setVisibility(View.VISIBLE);
+            tvPriceAll.setVisibility(View.VISIBLE);
+            etBusinessBuyNum.setFocusable(true);
+            etBusinessBuyNum.setFocusableInTouchMode(true);
+            etBusinessBuyMoney.setFocusable(true);
+            etBusinessBuyMoney.setFocusableInTouchMode(true);
+        }
     }
 
     @OnClick({R.id.iv_back, R.id.tv_num_all, R.id.tv_price_all, R.id.tv_cancel_order, R.id.tv_order})

@@ -16,8 +16,10 @@ public class BuyItem implements Parcelable {
     private boolean supportWechat;//:false    //是否支持微信支付
     private boolean supportBank;//:false    //是否支持银行卡支付
     private long puttime;//：21313131    //挂单时间
+    private boolean isLargeAmount;//是否是大额抢单的数据
+    private int apiType;//api匹配类型,0为普通类型 1为代理商类型
 
-    public BuyItem(long id, String nickname, double price, double minNum, double maxNum, boolean supportAli, boolean supportWechat, boolean supportBank) {
+    public BuyItem(long id, String nickname, double price, double minNum, double maxNum, boolean supportAli, boolean supportWechat, boolean supportBank,boolean isLargeAmount) {
         this.id = id;
         this.nickname = nickname;
         this.price = price;
@@ -26,6 +28,7 @@ public class BuyItem implements Parcelable {
         this.supportAli = supportAli;
         this.supportWechat = supportWechat;
         this.supportBank = supportBank;
+        this.isLargeAmount = isLargeAmount;
     }
 
     protected BuyItem(Parcel in) {
@@ -41,6 +44,31 @@ public class BuyItem implements Parcelable {
         supportWechat = in.readByte() != 0;
         supportBank = in.readByte() != 0;
         puttime = in.readLong();
+        isLargeAmount = in.readByte() != 0;
+        apiType = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeLong(userid);
+        dest.writeString(nickname);
+        dest.writeInt(tradeTimes);
+        dest.writeDouble(tradeSuccRate);
+        dest.writeDouble(price);
+        dest.writeDouble(minNum);
+        dest.writeDouble(maxNum);
+        dest.writeByte((byte) (supportAli ? 1 : 0));
+        dest.writeByte((byte) (supportWechat ? 1 : 0));
+        dest.writeByte((byte) (supportBank ? 1 : 0));
+        dest.writeLong(puttime);
+        dest.writeByte((byte) (isLargeAmount ? 1 : 0));
+        dest.writeInt(apiType);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<BuyItem> CREATOR = new Creator<BuyItem>() {
@@ -103,6 +131,14 @@ public class BuyItem implements Parcelable {
         return puttime;
     }
 
+    public boolean isLargeAmount() {
+        return isLargeAmount;
+    }
+
+    public int getApiType() {
+        return apiType;
+    }
+
     @Override
     public String toString() {
         return "BuyItem{" +
@@ -118,27 +154,8 @@ public class BuyItem implements Parcelable {
                 ", supportWechat=" + supportWechat +
                 ", supportBank=" + supportBank +
                 ", puttime=" + puttime +
+                ", isLargeAmount=" + isLargeAmount +
+                ", apiType=" + apiType +
                 '}';
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(id);
-        dest.writeLong(userid);
-        dest.writeString(nickname);
-        dest.writeInt(tradeTimes);
-        dest.writeDouble(tradeSuccRate);
-        dest.writeDouble(price);
-        dest.writeDouble(minNum);
-        dest.writeDouble(maxNum);
-        dest.writeByte((byte) (supportAli ? 1 : 0));
-        dest.writeByte((byte) (supportWechat ? 1 : 0));
-        dest.writeByte((byte) (supportBank ? 1 : 0));
-        dest.writeLong(puttime);
     }
 }
