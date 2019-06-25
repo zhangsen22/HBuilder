@@ -1,5 +1,6 @@
 package hbuilder.android.com.ui.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -9,9 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
-
 import java.text.DecimalFormat;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
@@ -158,6 +157,7 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
         if(walletResponse != null){
             SharedPreferencesUtils.putString(Constants.WALLET_BALANCE,GsonUtil.getInstance().objTojson(walletResponse));
         }
+        ransferOfFundsActivity.setResult(Activity.RESULT_OK);
         ransferOfFundsActivity.finish();
     }
 

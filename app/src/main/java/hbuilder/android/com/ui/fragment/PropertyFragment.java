@@ -167,4 +167,11 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     public void onPageScrollStateChanged(int i) {
 
     }
+
+    public void onActivityResultProperty(int requestCode) {
+        if(propertyViewPager != null){
+            int currentItem = propertyViewPager.getCurrentItem();
+            onPageSelected(currentItem);
+        }
+    }
 }

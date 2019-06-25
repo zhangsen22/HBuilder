@@ -111,6 +111,7 @@
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
             android:textSize="12sp"
+            android:inputType="textPassword"
             android:hint="请输入资金密码"
             android:layout_marginLeft="@dimen/y60"/>
 

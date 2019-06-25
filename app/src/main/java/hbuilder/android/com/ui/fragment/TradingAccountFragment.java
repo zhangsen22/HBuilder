@@ -14,6 +14,7 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.RewardLogResponse;
 import hbuilder.android.com.presenter.TradingAccountPresenter;
 import hbuilder.android.com.presenter.contract.TradingAccountContract;
@@ -118,7 +119,7 @@ public class TradingAccountFragment extends BaseFragment implements TradingAccou
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_transfer_of_funds:
-                RansferOfFundsActivity.startThis(mContext,2);
+                RansferOfFundsActivity.startThis(mContext,2,Constants.REQUESTCODE_11);
                 break;
             case R.id.ll_business_reward:
                 if(rewardLogResponse != null) {

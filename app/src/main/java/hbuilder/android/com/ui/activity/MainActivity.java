@@ -18,6 +18,7 @@ import hbuilder.android.com.presenter.contract.MainContract;
 import hbuilder.android.com.presenter.modle.MainModle;
 import hbuilder.android.com.ui.adapter.MainViewPagerAdapter;
 import hbuilder.android.com.ui.fragment.CenterFragment;
+import hbuilder.android.com.ui.fragment.PropertyFragment;
 import hbuilder.android.com.ui.widget.NoScrollViewPager;
 import hbuilder.android.com.util.SharedPreferencesUtils;
 
@@ -147,6 +148,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 CenterFragment centerFragment = mainViewPagerAdapter.getCenterFragment();
                 if(centerFragment != null){
                     centerFragment.onActivityResultCenter(requestCode);
+                }
+            }else if(requestCode == Constants.REQUESTCODE_11){
+                PropertyFragment propertyFragment = mainViewPagerAdapter.getPropertyFragment();
+                if(propertyFragment != null){
+                    propertyFragment.onActivityResultProperty(requestCode);
                 }
             }
         }

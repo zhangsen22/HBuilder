@@ -1,6 +1,5 @@
 package hbuilder.android.com.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +10,10 @@ import hbuilder.android.com.ui.fragment.RansferOfFundsFragment;
 
 public class RansferOfFundsActivity extends BaseActivity {
 
-    public static void startThis(Context activity, int formType) {
-        Intent intent = new Intent(activity, RansferOfFundsActivity.class);
+    public static void startThis(BaseActivity context, int formType,int requestCode) {
+        Intent intent = new Intent(context, RansferOfFundsActivity.class);
         intent.putExtra("formType",formType);
-        activity.startActivity(intent);
+        context.startActivityForResult(intent,requestCode);
     }
 
     @Override

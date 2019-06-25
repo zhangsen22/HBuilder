@@ -1,8 +1,10 @@
 package hbuilder.android.com.ui.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
@@ -48,12 +51,19 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
     private boolean isRun;
     private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
+    private BaseActivity mContext;
 
     public static WalletAccountFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
         WalletAccountFragment fragment = new WalletAccountFragment();
         fragment.setArguments(arguments);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mContext = (BaseActivity) activity;
     }
 
     @Override
@@ -68,7 +78,7 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
         mRecyclerView = walletaccountPullRefreshRecycler.getRefreshableView();
         LinearLayoutManager manager = new LinearLayoutManager(MyApplication.appContext, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
-        walletAccountAdapter = new WalletAccountAdapter(MyApplication.appContext);
+        walletAccountAdapter = new WalletAccountAdapter(mContext);
         walletAccountAdapter.attachRecyclerView(mRecyclerView);
         mRecyclerView.addOnScrollListener(new LoadMoreScrollListener(mRecyclerView));
         walletaccountPullRefreshRecycler.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {

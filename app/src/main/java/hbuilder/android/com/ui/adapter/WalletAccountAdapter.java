@@ -1,6 +1,5 @@
 package hbuilder.android.com.ui.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +8,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.DateUtil;
-
 import java.text.DecimalFormat;
-
+import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.FinanceLogItem;
 import hbuilder.android.com.ui.activity.ChongBiActivity;
 import hbuilder.android.com.ui.activity.RansferOfFundsActivity;
@@ -22,10 +21,10 @@ import hbuilder.android.com.ui.adapter.poweradapter.PowerHolder;
 
 public class WalletAccountAdapter extends PowerAdapter<FinanceLogItem> {
     private static final String TAG = WalletAccountAdapter.class.getSimpleName();
-    private Context mContext;
+    private BaseActivity mContext;
     private LayoutInflater inflater;
 
-    public WalletAccountAdapter(Context context) {
+    public WalletAccountAdapter(BaseActivity context) {
         super();
         mContext = context;
         inflater = LayoutInflater.from(mContext);
@@ -86,7 +85,7 @@ public class WalletAccountAdapter extends PowerAdapter<FinanceLogItem> {
             llPropertyHz.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    RansferOfFundsActivity.startThis(mContext,1);
+                    RansferOfFundsActivity.startThis(mContext,1,Constants.REQUESTCODE_11);
                 }
             });
         }
