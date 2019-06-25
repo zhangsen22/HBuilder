@@ -110,9 +110,9 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
                 break;
             case R.id.tv_all:
                 if(fromType == 1){
-                    etHuazhuanNum.setText(walletNum+"");
+                    etHuazhuanNum.setText(new DecimalFormat("0.000000").format(walletNum));
                 }else if(fromType == 2){
-                    etHuazhuanNum.setText(hotNum+"");
+                    etHuazhuanNum.setText(new DecimalFormat("0.000000").format(hotNum));
                 }
                 break;
             case R.id.tv_publish_zhuan:
