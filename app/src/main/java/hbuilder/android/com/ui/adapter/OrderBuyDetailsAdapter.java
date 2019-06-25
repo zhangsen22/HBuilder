@@ -122,6 +122,9 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                                         tvOrderSellSstime.setText(DateUtil.getCurrentDateString2(millisUntilFinished) + "后自动取消订单");
                                     } else {
                                         tvOrderSellSstime.setVisibility(View.GONE);
+                                        if(listenering != null){
+                                            listenering.orderBuyClick(2,myBuyinfoItem.getTradeid());
+                                        }
                                     }
                                 }
                             }
