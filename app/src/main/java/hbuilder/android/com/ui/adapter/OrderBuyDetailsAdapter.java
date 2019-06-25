@@ -158,7 +158,7 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                             sStimer1.cancel();
                             sStimer1 = null;
                         }
-                        sStimer1 = new CountDownTimer(payTime + 10 * 61 * 1000 - currentTime, 1000) {
+                        sStimer1 = new CountDownTimer(payTime + 10 * 60 * 1000 - currentTime, 1000) {
                             @Override
                             public void onTick(long millisUntilFinished) {
                                 int left = (int) ((millisUntilFinished - 1000) / 1000);
@@ -166,7 +166,7 @@ public class OrderBuyDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                                 if (left > 0) {
                                     tvOrderSellSs1.setEnabled(false);
                                     tvOrderSellSstime1.setVisibility(View.VISIBLE);
-                                    tvOrderSellSstime1.setText(DateUtil.getCurrentDateString2(payTime + 10*60*1000)+"后可申诉");
+                                    tvOrderSellSstime1.setText(DateUtil.getCurrentDateString2(millisUntilFinished)+"后可申诉");
                                 } else {
                                     tvOrderSellSstime1.setVisibility(View.GONE);
                                     tvOrderSellSs1.setEnabled(true);
