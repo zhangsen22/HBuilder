@@ -23,13 +23,17 @@ public class LoginPresenter implements LoginContract.Presenter{
     }
 
     @Override
-    public void login(final String phoneNum, final String pwd, long time) {
-        mView.showLoading();
+    public void login(final String phoneNum, final String pwd, long time,boolean isLoading) {
+        if(isLoading) {
+            mView.showLoading();
+        }
         mModel.login(phoneNum,Md5Utils.getMD5(pwd+time),time).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<AccountInfo>() {
                     @Override
                     public void onSuccess(AccountInfo accountInfo) {
-                        mView.hideLoading();
+                        if(isLoading) {
+                            mView.hideLoading();
+                        }
                         accountInfo.setPhoneNumber(phoneNum);
                         accountInfo.setPassword(pwd);
                         AccountManager.getInstance().saveAccountInfoFormModel(accountInfo);
@@ -39,7 +43,9 @@ public class LoginPresenter implements LoginContract.Presenter{
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
-                        mView.hideLoading();
+                        if(isLoading) {
+                            mView.hideLoading();
+                        }
                         mView.loginError();
                     }
                 });

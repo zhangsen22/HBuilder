@@ -7,7 +7,7 @@ import hbuilder.android.com.app.AccountInfo;
 public interface LoginContract {
     interface Presenter extends IBasePresenter {
         //登录
-        void login(String phoneNum,String pwd,long time);
+        void login(String phoneNum,String pwd,long time,boolean isLoading);
     }
     interface View extends IBaseView<Presenter> {
         //登录  成功

@@ -91,7 +91,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
                     return;
                 }
                 long currentTime = System.currentTimeMillis();
-                loginPresenter.login(phone,password,currentTime);
+                loginPresenter.login(phone,password,currentTime,true);
                 break;
             case R.id.go_regist:
                 RegistActivity.startThis(loginActivity);

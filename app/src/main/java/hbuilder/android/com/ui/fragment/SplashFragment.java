@@ -55,7 +55,7 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
             long currentTime = System.currentTimeMillis();
             String phoneNumber = AccountManager.getInstance().getPhoneNumber();
             String passWord = AccountManager.getInstance().getPassWord();
-            splashPresenter.login(phoneNumber,passWord,currentTime);
+            splashPresenter.login(phoneNumber,passWord,currentTime,false);
 
         }else {
             MyApplication.runOnUIThread(new Runnable() {
