@@ -122,7 +122,7 @@
             android:background="@color/transparent"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
-            android:textColor="@color/text"
+            android:textColor="@color/color_999999"
             android:textSize="12sp"
             android:inputType="number"
             android:hint="请输入您预想的最小售出数量"
@@ -151,7 +151,7 @@
         <EditText
             android:id="@+id/et_expect_maxnum"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/transparent"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"

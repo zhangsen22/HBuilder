@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
+
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
@@ -110,7 +113,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
         WalletResponse walletResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.WALLET_BALANCE), WalletResponse.class);
         if (walletResponse != null) {
             hotNum = walletResponse.getHotNum();
-            tvUserPrice.setText(hotNum + "USDT");
+            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + "USDT");
         }
     }
 

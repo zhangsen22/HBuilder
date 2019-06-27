@@ -134,6 +134,10 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                         timer.start();
                     }
                 } else if (status == 2) {
+                    if(timer != null){
+                        timer.cancel();
+                        timer = null;
+                    }
                     tvOrderSellDjs.setVisibility(View.GONE);
                     llOrderSellButton.setVisibility(View.VISIBLE);
                     long currentTime = System.currentTimeMillis();
