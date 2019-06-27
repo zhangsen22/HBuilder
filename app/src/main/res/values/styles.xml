@@ -9,11 +9,12 @@
         <item name="android:windowTranslucentStatus">false</item>
     </style>
 
+    <!--android app启动是白屏或黑屏问题的解决-->
     <style name="Theme.iAround.Splash.NotDefault" parent="@android:style/Theme.Light.NoTitleBar">
-        <item name="android:windowBackground">@mipmap/a</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowIsTranslucent"> true </item>
     </style>
 
     <!-- 自定义loading dialog -->

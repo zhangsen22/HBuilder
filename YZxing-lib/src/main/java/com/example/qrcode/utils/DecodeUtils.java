@@ -49,7 +49,7 @@ public class DecodeUtils {
 
         @Override
         protected Result doInBackground(Bitmap... bitmaps) {
-            result = decodeFromPicture(bitmaps[0]);
+            result = QRCodeUtil.decodeFromPicture(bitmaps[0]);
             return result;
         }
 
@@ -74,34 +74,6 @@ public class DecodeUtils {
 
         }
     }
-
-
-    private static Result decodeFromPicture(Bitmap bitmap) {
-        if (bitmap == null) return null;
-        int picWidth = bitmap.getWidth();
-        int picHeight = bitmap.getHeight();
-        int[] pix = new int[picWidth * picHeight];
-        Log.e(TAG, "decodeFromPicture:图片大小： " + bitmap.getByteCount() / 1024 / 1024 + "M");
-        bitmap.getPixels(pix, 0, picWidth, 0, 0, picWidth, picHeight);
-        //构造LuminanceSource对象
-        RGBLuminanceSource rgbLuminanceSource = new RGBLuminanceSource(picWidth
-                , picHeight, pix);
-        BinaryBitmap bb = new BinaryBitmap(new HybridBinarizer(rgbLuminanceSource));
-        //因为解析的条码类型是二维码，所以这边用QRCodeReader最合适。
-        QRCodeReader qrCodeReader = new QRCodeReader();
-        Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
-        hints.put(DecodeHintType.CHARACTER_SET, "utf-8");
-        hints.put(DecodeHintType.TRY_HARDER, true);
-        Result result = null;
-        try {
-            result = qrCodeReader.decode(bb, hints);
-            return result;
-        } catch (NotFoundException | ChecksumException | FormatException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 }
 
 

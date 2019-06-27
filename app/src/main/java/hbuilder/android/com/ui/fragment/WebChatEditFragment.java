@@ -13,24 +13,21 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.qrcode.Constant;
 import com.example.qrcode.ScannerActivity;
+import com.example.qrcode.utils.CommonUtils;
 import com.example.qrcode.utils.QRCodeUtil;
+import com.google.zxing.Result;
 import com.growalong.util.util.BitmapUtils;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.ImageUtil;
 import com.growalong.util.util.Md5Utils;
-
 import java.io.File;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.finalteam.rxgalleryfinal.RxGalleryFinal;
 import cn.finalteam.rxgalleryfinal.imageloader.ImageLoaderType;
@@ -162,6 +159,19 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
                                 String path = imageRadioResultEvent.getResult().getOriginalPath();
                                 GALogger.d(TAG, "path === " + path);
                                 if (!TextUtils.isEmpty(path)) {
+                                    //对获取到的二维码照片进行压缩
+                                    Bitmap bitmap = CommonUtils.compressPicture(path);
+                                    Result result = QRCodeUtil.decodeFromPicture(bitmap);
+                                    if(result == null){
+                                        ToastUtil.shortShow("请添加二维码图片");
+                                        return;
+                                    }else {
+                                        String text = result.getText();
+                                        if (!TextUtils.isEmpty(text)) {
+                                            ToastUtil.shortShow("请添加二维码图片");
+                                            return;
+                                        }
+                                    }
                                     initLuBan(path);
                                 }
                             }

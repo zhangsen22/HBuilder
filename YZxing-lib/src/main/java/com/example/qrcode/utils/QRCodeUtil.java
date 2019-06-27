@@ -4,16 +4,27 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-
+import android.util.Log;
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.DecodeHintType;
 import com.google.zxing.EncodeHintType;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Result;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
-
+import java.util.EnumMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class QRCodeUtil {
+    private static final String TAG = QRCodeUtil.class.getSimpleName();
     /**
      *  生成自定义二维码
      *
@@ -136,4 +147,34 @@ public class QRCodeUtil {
         return bitmap;
     }
 
+    /**
+     * 检测图片是否是二维码
+     * @param bitmap
+     * @return
+     */
+    public static Result decodeFromPicture(Bitmap bitmap) {
+        if (bitmap == null) return null;
+        int picWidth = bitmap.getWidth();
+        int picHeight = bitmap.getHeight();
+        int[] pix = new int[picWidth * picHeight];
+        Log.e(TAG, "decodeFromPicture:图片大小： " + bitmap.getByteCount() / 1024 / 1024 + "M");
+        bitmap.getPixels(pix, 0, picWidth, 0, 0, picWidth, picHeight);
+        //构造LuminanceSource对象
+        RGBLuminanceSource rgbLuminanceSource = new RGBLuminanceSource(picWidth
+                , picHeight, pix);
+        BinaryBitmap bb = new BinaryBitmap(new HybridBinarizer(rgbLuminanceSource));
+        //因为解析的条码类型是二维码，所以这边用QRCodeReader最合适。
+        QRCodeReader qrCodeReader = new QRCodeReader();
+        Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
+        hints.put(DecodeHintType.CHARACTER_SET, "utf-8");
+        hints.put(DecodeHintType.TRY_HARDER, true);
+        Result result = null;
+        try {
+            result = qrCodeReader.decode(bb, hints);
+            return result;
+        } catch (NotFoundException | ChecksumException | FormatException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
