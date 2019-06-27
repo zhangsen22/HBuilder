@@ -104,6 +104,7 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
     public void lazyLoadData() {
         super.lazyLoadData();
         setLoadDataWhenVisible();
+        GALogger.d(TAG,"lazyLoadData   ");
         //初始化presenter
         new BuyPresenter(this, new BuyModle());
         mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
@@ -214,5 +215,11 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
         if (buyPullRefreshRecycler != null) {
             buyPullRefreshRecycler.onRefreshComplete();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        GALogger.d(TAG,"onResume   ");
     }
 }
