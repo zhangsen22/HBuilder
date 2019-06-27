@@ -154,7 +154,7 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         if (buyItem.isSupportBank()) {
             ivIdcast.setVisibility(View.VISIBLE);

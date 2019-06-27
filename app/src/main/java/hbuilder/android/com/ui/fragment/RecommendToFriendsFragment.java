@@ -69,7 +69,7 @@ public class RecommendToFriendsFragment extends BaseFragment {
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         tvTitle.setText("推荐给好友");
         tvYqm.setText(AccountManager.getInstance().getInvitedCode());

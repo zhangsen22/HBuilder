@@ -100,7 +100,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         //初始化presenter
         new EntrustSalePresenter(this, new EntrustSaleModle());

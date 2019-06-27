@@ -94,7 +94,7 @@ public class AliPayEditFragment extends BaseFragment implements AliPayEditContra
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         bitmapLog = BitmapFactory.decodeResource(MyApplication.appContext.getResources(), R.drawable.ic_launcher_round);
     }

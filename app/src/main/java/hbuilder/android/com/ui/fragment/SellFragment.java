@@ -100,8 +100,9 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
+        setLoadDataWhenVisible();
         //初始化presenter
         new SellPresenter(this, new BuyModle());
         mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);

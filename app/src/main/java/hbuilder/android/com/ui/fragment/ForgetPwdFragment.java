@@ -86,7 +86,7 @@ public class ForgetPwdFragment extends BaseFragment implements ForgetPwdContract
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
     }
 

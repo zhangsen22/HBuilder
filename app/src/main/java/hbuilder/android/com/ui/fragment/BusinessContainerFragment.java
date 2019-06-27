@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -34,6 +35,7 @@ public class BusinessContainerFragment extends BaseFragment {
     @BindView(R.id.ll_notry_click)
     LinearLayout llNotryClick;
     private Context mContext;
+    private BusinessViewPagerAdapter baseFragmentPagerAdapter;
 
     public static BusinessContainerFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -56,16 +58,10 @@ public class BusinessContainerFragment extends BaseFragment {
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(root);
-    }
-
-    @Override
-    protected void lazyLoadData() {
-        super.lazyLoadData();
         final String[] businessTitle = mContext.getResources().getStringArray(R.array.business_title);
         businessViewPager.setOffscreenPageLimit(businessTitle.length - 1);
-        BusinessViewPagerAdapter baseFragmentPagerAdapter = new BusinessViewPagerAdapter(getChildFragmentManager(), businessTitle);
+        baseFragmentPagerAdapter = new BusinessViewPagerAdapter(getChildFragmentManager(), businessTitle);
         businessViewPager.setAdapter(baseFragmentPagerAdapter);
-
         CommonNavigator commonNavigator = new CommonNavigator(mContext);
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
@@ -107,6 +103,19 @@ public class BusinessContainerFragment extends BaseFragment {
 
         businessMagicindicator.setNavigator(commonNavigator);
         ViewPagerHelper.bind(businessMagicindicator, businessViewPager);
+    }
+
+    @Override
+    public void lazyLoadData() {
+        super.lazyLoadData();
+        setLoadDataWhenVisible();
+        int currentItem = businessViewPager.getCurrentItem();
+        if(baseFragmentPagerAdapter != null){
+            BaseFragment currentFragment = baseFragmentPagerAdapter.getCurrentFragment(currentItem);
+            if(currentFragment != null && currentFragment.isVisible()){
+                currentFragment.lazyLoadData();
+            }
+        }
     }
 
     @OnClick(R.id.ll_notry_click)

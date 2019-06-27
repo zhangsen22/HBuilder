@@ -119,7 +119,7 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
     }

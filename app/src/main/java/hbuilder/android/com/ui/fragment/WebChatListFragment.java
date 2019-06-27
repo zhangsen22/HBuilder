@@ -122,7 +122,7 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
     }

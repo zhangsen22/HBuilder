@@ -70,7 +70,7 @@ public class ChongBiFragment extends BaseFragment {
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         tvBiType.setText("USDT");
         String walletAddr = AccountManager.getInstance().getWalletAddr();

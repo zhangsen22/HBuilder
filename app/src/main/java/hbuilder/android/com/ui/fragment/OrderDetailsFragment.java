@@ -90,7 +90,7 @@ public class OrderDetailsFragment extends BaseFragment {
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         if(orderDetailsModle != null){
             tvOrderDetailsCode.setText(orderDetailsModle.getTradeid());

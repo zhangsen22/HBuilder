@@ -56,7 +56,7 @@ public class OrderFragment extends BaseFragment {
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         final String[] orderTitle = mContext.getResources().getStringArray(R.array.order_title);
         orderViewPager.setOffscreenPageLimit(orderTitle.length - 1);

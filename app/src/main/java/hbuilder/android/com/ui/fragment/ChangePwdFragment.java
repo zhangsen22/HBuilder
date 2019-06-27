@@ -77,7 +77,7 @@ public class ChangePwdFragment extends BaseFragment implements ChangePwdContract
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         phoneNumber = AccountManager.getInstance().getPhoneNumber();
         if(!TextUtils.isEmpty(phoneNumber)){

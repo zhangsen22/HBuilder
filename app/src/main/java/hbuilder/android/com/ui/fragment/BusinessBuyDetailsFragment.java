@@ -105,7 +105,7 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         tvOrderCode.setText(buyBusinessResponse.getTradeId());
         tvPayPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + price * num + "");

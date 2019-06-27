@@ -119,7 +119,7 @@ public class IdCastPayListFragment extends BaseFragment implements IdCastPayList
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
     }

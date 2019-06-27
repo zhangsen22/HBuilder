@@ -46,7 +46,7 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         if(AccountManager.getInstance().isLogin()){
             /**

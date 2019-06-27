@@ -123,7 +123,7 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
         if (fromType > 0) {

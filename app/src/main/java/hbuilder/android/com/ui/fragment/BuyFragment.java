@@ -101,8 +101,9 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
+        setLoadDataWhenVisible();
         //初始化presenter
         new BuyPresenter(this, new BuyModle());
         mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);

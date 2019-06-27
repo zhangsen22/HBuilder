@@ -81,7 +81,7 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         WalletResponse walletResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.WALLET_BALANCE), WalletResponse.class);
         if (walletResponse != null) {

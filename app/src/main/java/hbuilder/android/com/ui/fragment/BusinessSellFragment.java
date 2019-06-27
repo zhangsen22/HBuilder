@@ -183,7 +183,7 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         tvBusinessSellName.setText(buyItem.getNickname());
         tvBusinessSellPrice.setText(buyItem.getPrice() + "");

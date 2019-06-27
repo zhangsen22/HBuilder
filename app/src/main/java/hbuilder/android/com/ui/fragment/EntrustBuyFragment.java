@@ -75,7 +75,7 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         //初始化presenter
         new EntrustBuyPresenter(this, new EntrustBuyModle());

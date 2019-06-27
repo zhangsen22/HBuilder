@@ -78,7 +78,7 @@ public class TradingAccountFragment extends BaseFragment implements TradingAccou
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         //初始化presenter
         new TradingAccountPresenter(this, new TradingAccountModle());

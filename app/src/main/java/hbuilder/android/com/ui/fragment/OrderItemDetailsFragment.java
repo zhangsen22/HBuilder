@@ -179,7 +179,7 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         GALogger.d(TAG,"lazyLoadData");
         setLoadDataWhenVisible();

@@ -109,7 +109,7 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         //初始化presenter
         new WalletAccountPresenter(this, new WalletAccountModle());

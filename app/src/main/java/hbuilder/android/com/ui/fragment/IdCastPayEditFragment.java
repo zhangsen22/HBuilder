@@ -70,7 +70,7 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
     }
 

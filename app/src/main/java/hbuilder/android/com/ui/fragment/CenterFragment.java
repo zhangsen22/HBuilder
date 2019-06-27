@@ -99,7 +99,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         setLoadDataWhenVisible();
         //初始化presenter

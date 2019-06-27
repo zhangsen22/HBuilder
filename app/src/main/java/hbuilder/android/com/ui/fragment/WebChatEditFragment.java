@@ -101,7 +101,7 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
     }
 

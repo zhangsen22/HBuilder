@@ -93,7 +93,7 @@ public class BusinessSellDetailsFragment extends BaseFragment implements Busines
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         long currentTime = System.currentTimeMillis();
         if(currentTime >= createTime + 10*60*1000){

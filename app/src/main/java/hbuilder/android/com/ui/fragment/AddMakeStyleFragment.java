@@ -61,7 +61,7 @@ public class AddMakeStyleFragment extends BaseFragment {
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         GALogger.d(TAG,"lazyLoadData  ........");
     }

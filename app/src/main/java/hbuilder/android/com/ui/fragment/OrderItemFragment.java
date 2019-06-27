@@ -63,7 +63,7 @@ public class OrderItemFragment extends BaseFragment {
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         int type = getArguments().getInt("type");
         if(type == 1 || type == 2){

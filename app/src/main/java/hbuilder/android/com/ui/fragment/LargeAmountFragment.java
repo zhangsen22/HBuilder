@@ -93,8 +93,9 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
+        setLoadDataWhenVisible();
         //初始化presenter
         new LargeAmountPresenter(this, new BuyModle());
         mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);

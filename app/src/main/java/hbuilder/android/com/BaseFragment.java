@@ -146,7 +146,7 @@ public abstract class BaseFragment extends Fragment {
      * 懒加载加载数据
      * 延迟加载业务
      */
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
 
     }
 

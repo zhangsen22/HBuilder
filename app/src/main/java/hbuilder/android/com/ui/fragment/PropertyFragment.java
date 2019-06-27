@@ -75,7 +75,7 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         final String[] propertyTitle = mContext.getResources().getStringArray(R.array.property_title);
         propertyViewPager.setOffscreenPageLimit(propertyTitle.length - 1);

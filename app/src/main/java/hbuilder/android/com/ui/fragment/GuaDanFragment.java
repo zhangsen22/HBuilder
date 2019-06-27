@@ -56,7 +56,7 @@ public class GuaDanFragment extends BaseFragment {
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         final String[] guadanTitle = mContext.getResources().getStringArray(R.array.guadan_title);
         guadanViewPager.setOffscreenPageLimit(guadanTitle.length-1);

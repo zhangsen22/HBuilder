@@ -100,7 +100,7 @@ public class IdentityFragment extends BaseFragment implements IdentityContract.V
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
     }
 

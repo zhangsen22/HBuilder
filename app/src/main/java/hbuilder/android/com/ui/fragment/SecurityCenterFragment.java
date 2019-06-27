@@ -50,7 +50,7 @@ public class SecurityCenterFragment extends BaseFragment {
     }
 
     @Override
-    protected void lazyLoadData() {
+    public void lazyLoadData() {
         super.lazyLoadData();
         tvTitle.setText("安全中心");
     }
