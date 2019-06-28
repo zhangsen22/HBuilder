@@ -167,7 +167,7 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
                                         return;
                                     }else {
                                         String text = result.getText();
-                                        if (!TextUtils.isEmpty(text)) {
+                                        if (TextUtils.isEmpty(text)) {
                                             ToastUtil.shortShow("请添加二维码图片");
                                             return;
                                         }
