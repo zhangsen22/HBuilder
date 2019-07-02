@@ -5,14 +5,35 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
+import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.InetAddress;
+import java.net.URL;
+
 
 /**
- * Created by codeest on 2016/8/4.
+ * Android检查设备是否可以访问互联网，判断Internet连接，测试网络请求，解析域名
+ * 安卓SDK提供了ConnectivityManager类，那么我们就可以轻松的获取设备的网络状态以及联网方式等信息。
+ * 但是要想知道安卓设备连接的网络能不能访问到Internet，就要费一番周折了。
+ * 本文为大家介绍三种方式来检查Internet连接状态。
+ *
+ * 1、使用Linux系统ping ip的命令方式检查设备的Internet连接状态。
+ * 2、使用HttpURLConnection的get请求方式检查设备的Internet连接状态。（可以设置超时时长）
+ * 3、使用java.net.InetAddress解析域名的方式检查设备的Internet连接状态。（可以设置超时时长）
+ *
+ * 本文只为测试网络连接状态使用，用到了三种常用的Internet状态检查方式，如果想在做某些网络操作之前检查Internet是否连通，
+ * 建议使用后两种方式，可以自己定义等待响应的时间。我设置的是3秒。如果使用ping IP的方式的话，如果无法访问到Internet，
+ * 则需要等待较长的时间。
  */
 public class NetWorkUtil {
+    private static final String TAG = NetWorkUtil.class.getSimpleName();
+
 
     /**
      * 检查WIFI是否连接
@@ -132,5 +153,259 @@ public class NetWorkUtil {
         manager.setPrimaryClip(clipData);
         Toast.makeText(context, "已复制到剪贴板", Toast.LENGTH_SHORT).show();
     }
+
+
+
+    /** 第一种方式
+     * ping IP方式
+     *
+     * 检查互联网地址是否可以访问
+     *
+     * @param address  要检查的域名或IP地址
+     * @param callback 检查结果回调（是否可以ping通地址）{@see java.lang.Comparable<T>}
+     */
+    public static void isNetWorkAvailable(final String address, final Comparable<Boolean> callback) {
+        final Handler handler = new Handler() {
+
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if (callback != null) {
+                    callback.compareTo(msg.arg1 == 0);
+                }
+            }
+
+        };
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Runtime runtime = Runtime.getRuntime();
+                Message msg = new Message();
+                try {
+                    Process pingProcess = runtime.exec("/system/bin/ping -c 1 " + address);
+                    InputStreamReader isr = new InputStreamReader(pingProcess.getInputStream());
+                    BufferedReader buf = new BufferedReader(isr);
+                    if (buf.readLine() == null) {
+                        msg.arg1 = -1;
+                    } else {
+                        msg.arg1 = 0;
+                    }
+                    buf.close();
+                    isr.close();
+                } catch (Exception e) {
+                    msg.arg1 = -1;
+                    e.printStackTrace();
+                } finally {
+                    runtime.gc();
+                    handler.sendMessage(msg);
+                }
+            }
+
+        }).start();
+    }
+
+//    可以使用ping www.baidu.com，进行测试。当然，你也可以ping你们的服务器地址。如下：
+//
+//    复制代码
+//      NetWorkUtils.isNetWorkAvailable("www.baidu.com", new Comparable<Boolean>() {
+//
+//        @Override
+//        public int compareTo(Boolean available) {
+//            if (available) {
+//                // TODO 设备访问Internet正常
+//            } else {
+//                // TODO 设备无法访问Internet
+//            }
+//            return 0;
+//        }
+//
+//    });
+
+
+    /**
+     * 第二种方式
+     * get请求方式
+     *
+     * 检查互联网地址是否可以访问-使用get请求
+     *
+     * @param urlStr   要检查的url
+     * @param callback 检查结果回调（是否可以get请求成功）{@see java.lang.Comparable<T>}
+     */
+    public static void isNetWorkAvailableOfGet(final String urlStr, final Comparable<Boolean> callback) {
+        final Handler handler = new Handler() {
+
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if (callback != null) {
+                    callback.compareTo(msg.arg1 == 0);
+                }
+            }
+
+        };
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Message msg = new Message();
+                try {
+                    Connection conn = new Connection(urlStr);
+                    Thread thread = new Thread(conn);
+                    thread.start();
+                    thread.join(3 * 1000); // 设置等待DNS解析线程响应时间为3秒
+                    int resCode = conn.get(); // 获取get请求responseCode
+                    msg.arg1 = resCode == 200 ? 0 : -1;
+                } catch (Exception e) {
+                    msg.arg1 = -1;
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+
+        }).start();
+    }
+
+    /**
+     * HttpURLConnection请求线程
+     */
+    private static class Connection implements Runnable {
+        private String urlStr;
+        private int responseCode;
+
+        public Connection(String urlStr) {
+            this.urlStr = urlStr;
+        }
+
+        public void run() {
+            try {
+                URL url = new URL(urlStr);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.connect();
+                set(conn.getResponseCode());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public synchronized void set(int responseCode) {
+            this.responseCode = responseCode;
+        }
+
+        public synchronized int get() {
+            return responseCode;
+        }
+    }
+
+//    可以请求http://www.baidu.com，进行测试。当然，你也可以写你们的服务器地址。如下：
+//
+//    复制代码
+//NetWorkUtils.isNetWorkAvailableOfGet("http://www.baidu.com", new Comparable<Boolean>() {
+//
+//        @Override
+//        public int compareTo(Boolean available) {
+//            if (available) {
+//                // TODO 设备访问Internet正常
+//            } else {
+//                // TODO 设备无法访问Internet
+//            }
+//            return 0;
+//        }
+//
+//    });
+
+
+
+    /**
+     * 第三种方式
+     * DNS解析方式
+     *
+     * 检查互联网地址是否可以访问-使用DNS解析
+     *
+     * @param hostname   要检查的域名或IP
+     * @param callback 检查结果回调（是否可以解析成功）{@see java.lang.Comparable<T>}
+     */
+    public static void isNetWorkAvailableOfDNS(final String hostname, final Comparable<Boolean> callback) {
+        final Handler handler = new Handler() {
+
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if (callback != null) {
+                    GALogger.d(TAG,"msg.arg1    "+msg.arg1);
+                    callback.compareTo(msg.arg1 == 0);
+                }
+            }
+
+        };
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Message msg = new Message();
+                try {
+                    DNSParse parse = new DNSParse(hostname);
+                    Thread thread = new Thread(parse);
+                    thread.start();
+                    thread.join(3 * 1000); // 设置等待DNS解析线程响应时间为3秒
+                    InetAddress resCode = parse.get(); // 获取解析到的IP地址
+                    msg.arg1 = resCode == null ? -1 : 0;
+                } catch (Exception e) {
+                    msg.arg1 = -1;
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }).start();
+    }
+
+    /**
+     * DNS解析线程
+     */
+    private static class DNSParse implements Runnable {
+        private String hostname;
+        private InetAddress address;
+
+        public DNSParse(String hostname) {
+            this.hostname = hostname;
+        }
+
+        public void run() {
+            try {
+                set(InetAddress.getByName(hostname));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public synchronized void set(InetAddress address) {
+            this.address = address;
+        }
+
+        public synchronized InetAddress get() {
+            return address;
+        }
+    }
+
+
+//    可以解析百度www.baidu.com，进行测试。当然，你也可以解析自己的域名。如下：
+//
+//    复制代码
+//NetWorkUtils.isNetWorkAvailableOfDNS("www.baidu.com", new Comparable<Boolean>() {
+//
+//        @Override
+//        public int compareTo(Boolean available) {
+//            if (available) {
+//                // TODO 设备访问Internet正常
+//            } else {
+//                // TODO 设备无法访问Internet
+//            }
+//            return 0;
+//        }
+//
+//    });
 
 }

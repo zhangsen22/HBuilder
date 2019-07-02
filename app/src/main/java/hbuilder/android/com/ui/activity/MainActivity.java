@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.RadioButton;
+
+import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -23,6 +25,7 @@ import hbuilder.android.com.ui.widget.NoScrollViewPager;
 import hbuilder.android.com.util.SharedPreferencesUtils;
 
 public class MainActivity extends BaseActivity implements MainContract.View {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @BindView(R.id.noscrollViewPager)
     NoScrollViewPager noscrollViewPager;
@@ -51,6 +54,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     protected void initView(View mRootView) {
+        String hostAddress = MyApplication.getHostAddress();
+        GALogger.d(TAG,"hostAddress   "+hostAddress);
     }
 
     @Override

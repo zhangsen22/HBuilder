@@ -13,6 +13,7 @@ public class MyApplication extends Application {
     public static final String TAG = MyApplication.class.getSimpleName();
     public static volatile Handler applicationHandler;
     public static volatile Context appContext;
+    public static volatile String hostAddress;
 
     /**
      * 由于在onCreate替换真正的Application,
@@ -63,5 +64,13 @@ public class MyApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(base);
+    }
+
+    public static String getHostAddress() {
+        return hostAddress;
+    }
+
+    public static void setHostAddress(String hostAddress) {
+        MyApplication.hostAddress = hostAddress;
     }
 }
