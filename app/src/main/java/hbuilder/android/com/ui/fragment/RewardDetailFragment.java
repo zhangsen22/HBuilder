@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -22,7 +23,6 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
-import hbuilder.android.com.modle.LargeAmountItem;
 import hbuilder.android.com.modle.RewardDetailItem;
 import hbuilder.android.com.modle.RewardDetailResponse;
 import hbuilder.android.com.modle.RewardLogResponse;
@@ -51,6 +51,16 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
     ImageView ivBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_reward_bottom_type1)
+    TextView tvRewardBottomType1;
+    @BindView(R.id.tv_reward_bottom_num1)
+    TextView tvRewardBottomNum1;
+    @BindView(R.id.tv_reward_bottom_type2)
+    TextView tvRewardBottomType2;
+    @BindView(R.id.tv_reward_bottom_num2)
+    TextView tvRewardBottomNum2;
+    @BindView(R.id.ll_reward_bottom_details)
+    LinearLayout llRewardBottomDetails;
     private RecyclerView mRecyclerView;
     private RewardDetailActivity rewardDetailActivity;
     private int fromType;
@@ -90,7 +100,7 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
         rewardDetailspullRefreshRecycler.setId(R.id.recycleView);
         rewardDetailspullRefreshRecycler.setHeaderLayout(new RecycleViewLoadingLayout(MyApplication.appContext));
         mRecyclerView = rewardDetailspullRefreshRecycler.getRefreshableView();
-        LinearLayoutManager manager = new LinearLayoutManager(MyApplication.appContext, LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager manager = new LinearLayoutManager(MyApplication.appContext, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
         rewardDetailAdapter = new RewardDetailAdapter(MyApplication.appContext);
         rewardDetailAdapter.attachRecyclerView(mRecyclerView);
@@ -109,14 +119,14 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
         refreshAction = new Runnable() {
             @Override
             public void run() {
-                presenter.rewardDetailRefresh(fromType,0);
+                presenter.rewardDetailRefresh(fromType, 0);
             }
         };
         loadMoreAction = new Runnable() {
             @Override
             public void run() {
-                if(idList != null && idList.size() > 0){
-                    presenter.rewardDetailLoadMore(fromType,idList.get(0));
+                if (idList != null && idList.size() > 0) {
+                    presenter.rewardDetailLoadMore(fromType, idList.get(0));
                 }
             }
         };
@@ -131,18 +141,30 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
                 tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTradeReward()));
                 tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTradeReward()));
                 tvTitle.setText("交易奖励详细");
+                llRewardBottomDetails.setVisibility(View.GONE);
             } else if (fromType == 2) {
                 tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTGReward()));
                 tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTGReward()));
                 tvTitle.setText("推广分红详细");
+                llRewardBottomDetails.setVisibility(View.VISIBLE);
+                tvRewardBottomType1.setText(MyApplication.appContext.getResources().getString(R.string.text1));
+                tvRewardBottomType2.setText(MyApplication.appContext.getResources().getString(R.string.text2));
+                tvRewardBottomNum1.setText(mRewardLogResponse.getFirstTG()+"");
+                tvRewardBottomNum2.setText(mRewardLogResponse.getSecondTG()+"");
             } else if (fromType == 3) {
                 tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotAgentReward()));
                 tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastAgentReward()));
                 tvTitle.setText("代理奖励详细");
+                llRewardBottomDetails.setVisibility(View.VISIBLE);
+                tvRewardBottomType1.setText(MyApplication.appContext.getResources().getString(R.string.text3));
+                tvRewardBottomType2.setText(MyApplication.appContext.getResources().getString(R.string.text4));
+                tvRewardBottomNum1.setText(mRewardLogResponse.getFirstAgentTG()+"");
+                tvRewardBottomNum2.setText(mRewardLogResponse.getSecondAgentTG()+"");
             } else if (fromType == 4) {
                 tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotBillReward()));
                 tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastBillReward()));
                 tvTitle.setText("挂单奖励详细");
+                llRewardBottomDetails.setVisibility(View.GONE);
             }
         }
     }
@@ -178,8 +200,8 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
             reverseIdList(details);
             rewardDetailAdapter.setTotalCount(Integer.MAX_VALUE);
             rewardDetailAdapter.appendList(details);
-        }else {
-            GALogger.d(TAG,"LoadMore  is  no");
+        } else {
+            GALogger.d(TAG, "LoadMore  is  no");
             reverseIdList(details);
             rewardDetailAdapter.setTotalCount(rewardDetailAdapter.getItemRealCount());
             rewardDetailAdapter.notifyDataSetChanged();
@@ -187,15 +209,15 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
         isRun = false;
     }
 
-    public void reverseIdList(List<RewardDetailItem> billInfo){
-        if(idList == null){
+    public void reverseIdList(List<RewardDetailItem> billInfo) {
+        if (idList == null) {
             idList = new ArrayList<Long>();
         }
         idList.clear();
-        if(billInfo == null){
+        if (billInfo == null) {
             return;
         }
-        for (RewardDetailItem buyItem: billInfo) {
+        for (RewardDetailItem buyItem : billInfo) {
             idList.add(buyItem.getId());
         }
         Collections.reverse(idList);
