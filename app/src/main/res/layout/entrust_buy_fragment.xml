@@ -92,10 +92,7 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y1"
-        android:background="@mipmap/l"/>
+    <include layout="@layout/line_f9"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -127,10 +124,7 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y1"
-        android:background="@mipmap/l"/>
+    <include layout="@layout/line_f9"/>
 
     <LinearLayout
         android:layout_width="match_parent"

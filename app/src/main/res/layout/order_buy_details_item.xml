@@ -48,7 +48,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="/USDT"
+            android:text="/INF"
             android:textSize="12sp"
             android:textColor="@color/color_666666"
             android:gravity="center"/>
@@ -174,9 +174,10 @@
                        <TextView
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
-                           android:text="USDT"
+                           android:text="@string/inf"
                            android:textColor="@color/color_666666"
-                           android:textSize="11sp"/>
+                           android:textSize="11sp"
+                           android:layout_marginLeft="@dimen/y6"/>
 
                    </LinearLayout>
 
