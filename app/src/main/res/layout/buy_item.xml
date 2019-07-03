@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:text="@string/inf"
             android:gravity="center"
-            android:textColor="@color/color_999999"
+            android:textColor="@color/color_666666"
             android:textSize="12sp"
             android:layout_marginLeft="@dimen/y10"/>
 
