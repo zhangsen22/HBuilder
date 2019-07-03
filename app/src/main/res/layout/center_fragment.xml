@@ -176,7 +176,7 @@
         android:background="@mipmap/ar"
         android:layout_marginLeft="@dimen/y30"
         android:text="安全中心"
-        android:textColor="@color/color_999999"
+        android:textColor="@color/color_666666"
         android:textSize="12sp"
         android:gravity="bottom|center_horizontal"
         android:paddingBottom="@dimen/y42"/>
@@ -193,7 +193,7 @@
         android:background="@mipmap/aq"
         android:layout_marginRight="@dimen/y30"
         android:text="身份认证"
-        android:textColor="@color/color_999999"
+        android:textColor="@color/color_666666"
         android:textSize="12sp"
         android:gravity="bottom|center_horizontal"
         android:paddingBottom="@dimen/y42"/>
@@ -223,7 +223,7 @@
             android:layout_height="wrap_content"
             android:text="添加收款方式"
             android:textSize="13sp"
-            android:textColor="@color/color_999999"
+            android:textColor="@color/color_666666"
             android:gravity="center"
             android:layout_marginLeft="@dimen/y30"/>
 
@@ -260,7 +260,7 @@
             android:layout_height="wrap_content"
             android:text="推荐好友"
             android:textSize="13sp"
-            android:textColor="@color/color_999999"
+            android:textColor="@color/color_666666"
             android:gravity="center"
             android:layout_marginLeft="@dimen/y30"/>
 
@@ -298,7 +298,7 @@
             android:layout_height="wrap_content"
             android:text="教程攻略"
             android:textSize="13sp"
-            android:textColor="@color/color_999999"
+            android:textColor="@color/color_666666"
             android:gravity="center"
             android:layout_marginLeft="@dimen/y30"/>
 
@@ -336,7 +336,7 @@
             android:layout_height="wrap_content"
             android:text="联系客服"
             android:textSize="13sp"
-            android:textColor="@color/color_999999"
+            android:textColor="@color/color_666666"
             android:gravity="center"
             android:layout_marginLeft="@dimen/y30"/>
 
@@ -374,7 +374,7 @@
             android:layout_height="wrap_content"
             android:text="消息中心"
             android:textSize="13sp"
-            android:textColor="@color/color_999999"
+            android:textColor="@color/color_666666"
             android:gravity="center"
             android:layout_marginLeft="@dimen/y30"/>
 
@@ -412,7 +412,7 @@
             android:layout_height="wrap_content"
             android:text="版本号"
             android:textSize="13sp"
-            android:textColor="@color/color_999999"
+            android:textColor="@color/color_666666"
             android:gravity="center"
             android:layout_marginLeft="@dimen/y30"/>
 
@@ -444,7 +444,7 @@
         android:layout_height="@dimen/y100"
         android:text="退出登录"
         android:textSize="13sp"
-        android:textColor="@color/color_999999"
+        android:textColor="@color/color_666666"
         android:gravity="center"
         android:layout_marginTop="@dimen/y60"
         android:layout_marginBottom="@dimen/y30"

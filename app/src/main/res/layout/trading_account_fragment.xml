@@ -86,7 +86,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="USDT"
+                    android:text="@string/inf"
                     android:textColor="@color/color_666666"
                     android:textSize="12sp" />
 
@@ -130,7 +130,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="USDT"
+                    android:text="@string/inf"
                     android:textColor="@color/color_6194f7"
                     android:textSize="12sp" />
 
@@ -213,7 +213,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="USDT"
+                    android:text="@string/inf"
                     android:textColor="@color/color_666666"
                     android:textSize="12sp" />
 
@@ -257,7 +257,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="USDT"
+                    android:text="@string/inf"
                     android:textColor="@color/color_6194f7"
                     android:textSize="12sp" />
 
@@ -340,7 +340,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="USDT"
+                    android:text="@string/inf"
                     android:textColor="@color/color_666666"
                     android:textSize="12sp" />
 
@@ -384,7 +384,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="USDT"
+                    android:text="@string/inf"
                     android:textColor="@color/color_6194f7"
                     android:textSize="12sp" />
 
@@ -467,7 +467,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="USDT"
+                    android:text="@string/inf"
                     android:textColor="@color/color_666666"
                     android:textSize="12sp" />
 
@@ -511,7 +511,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="USDT"
+                    android:text="@string/inf"
                     android:textColor="@color/color_6194f7"
                     android:textSize="12sp" />
 

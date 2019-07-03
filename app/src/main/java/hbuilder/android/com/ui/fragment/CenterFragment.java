@@ -214,12 +214,19 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
         tvVersionCode.setText(PackageUtil.getAppVersionName(MyApplication.appContext));
         if(AccountManager.getInstance().getRoleType() == 2){
             ivRoletype.setImageResource(R.mipmap.bs);
+            ivRoletype.setVisibility(View.VISIBLE);
         }else if(AccountManager.getInstance().getRoleType() == 1){
             ivRoletype.setImageResource(R.mipmap.an);
+            ivRoletype.setVisibility(View.VISIBLE);
+        }else {
+            ivRoletype.setVisibility(View.GONE);
         }
 
         if(AccountManager.getInstance().getApiType() == 1){
             ivApitype.setImageResource(R.mipmap.st);
+            ivApitype.setVisibility(View.VISIBLE);
+        }else {
+            ivApitype.setVisibility(View.GONE);
         }
 
         if (AccountManager.getInstance().isHaveAliPayee() || AccountManager.getInstance().isHaveBankPayee() || AccountManager.getInstance().isHaveWechatPayee()) {
