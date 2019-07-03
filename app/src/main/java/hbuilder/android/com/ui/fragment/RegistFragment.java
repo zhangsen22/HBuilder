@@ -20,7 +20,6 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
-import hbuilder.android.com.RSAUtil;
 import hbuilder.android.com.app.AccountInfo;
 import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.ImageCodeResponse;
@@ -30,6 +29,7 @@ import hbuilder.android.com.presenter.contract.RegistContract;
 import hbuilder.android.com.ui.activity.MainActivity;
 import hbuilder.android.com.ui.activity.RegistActivity;
 import hbuilder.android.com.ui.activity.WebViewActivity;
+import hbuilder.android.com.util.RSAUtil;
 import hbuilder.android.com.util.ToastUtil;
 
 public class RegistFragment extends BaseFragment implements RegistContract.View {

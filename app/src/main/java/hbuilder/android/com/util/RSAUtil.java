@@ -1,13 +1,20 @@
-package hbuilder.android.com;
+package hbuilder.android.com.util;
 
 import com.google.commons.codec.binary.Base64;
 
-import javax.crypto.Cipher;
-import java.security.*;
+import java.security.Key;
+import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.Signature;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.crypto.Cipher;
 
 /**
  * Created by lake on 17-4-12.

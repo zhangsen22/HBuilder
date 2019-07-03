@@ -15,7 +15,6 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
-import hbuilder.android.com.RSAUtil;
 import hbuilder.android.com.app.AccountManager;
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.modle.SmsCodeResponse;
@@ -23,6 +22,7 @@ import hbuilder.android.com.presenter.BalancePassWordPresenter;
 import hbuilder.android.com.presenter.contract.BalancePassWordContract;
 import hbuilder.android.com.presenter.modle.BalancePassWordModle;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
+import hbuilder.android.com.util.RSAUtil;
 import hbuilder.android.com.util.ToastUtil;
 
 public class BalancePassWordFragment extends BaseFragment implements BalancePassWordContract.View {
