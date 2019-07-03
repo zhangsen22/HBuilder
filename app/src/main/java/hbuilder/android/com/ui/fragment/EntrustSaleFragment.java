@@ -1,7 +1,6 @@
 package hbuilder.android.com.ui.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -12,13 +11,12 @@ import android.widget.TextView;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
-
 import java.text.DecimalFormat;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.BaseFragment;
+import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
 import hbuilder.android.com.app.Constants;
@@ -31,7 +29,6 @@ import hbuilder.android.com.presenter.modle.EntrustSaleModle;
 import hbuilder.android.com.ui.activity.AliPayListActivity;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.IdCastPayListActivity;
-import hbuilder.android.com.ui.activity.PaySettingActivity;
 import hbuilder.android.com.ui.activity.WebChatListActivity;
 import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
@@ -113,7 +110,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
         WalletResponse walletResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.WALLET_BALANCE), WalletResponse.class);
         if (walletResponse != null) {
             hotNum = walletResponse.getHotNum();
-            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + "USDT");
+            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.inf));
         }
     }
 

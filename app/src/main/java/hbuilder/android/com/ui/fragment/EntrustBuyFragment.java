@@ -7,11 +7,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
