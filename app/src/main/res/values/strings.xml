@@ -5,4 +5,6 @@
     <string name="xingxing">*</string>
     <string name="download_progress_channel_message">下载进度</string>
     <string name="download_now">正在下载</string>
+    <string name="usdt">USDT</string>
+    <string name="inf">INF</string>
 </resources>

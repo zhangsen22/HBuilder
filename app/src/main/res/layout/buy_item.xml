@@ -81,9 +81,9 @@
 
         <View
             android:layout_width="@dimen/y2"
-            android:layout_height="@dimen/y28"
-            android:layout_marginLeft="@dimen/y16"
-            android:layout_marginRight="@dimen/y16"
+            android:layout_height="@dimen/y22"
+            android:layout_marginLeft="@dimen/y10"
+            android:layout_marginRight="@dimen/y10"
             android:background="@color/gray_text"/>
 
         <TextView
@@ -123,15 +123,6 @@
             android:textSize="12sp"
             android:layout_marginLeft="@dimen/y10"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="USDT"
-            android:gravity="center"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp"
-            android:layout_marginLeft="@dimen/y10"/>
-
         <View
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -140,7 +131,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="单价"
+            android:text="@string/inf"
             android:gravity="center"
             android:textColor="@color/color_999999"
             android:textSize="12sp"
@@ -222,6 +213,7 @@
             android:layout_width="@dimen/y30"
             android:layout_height="@dimen/y30"
             android:src="@mipmap/f"
+            android:layout_marginRight="@dimen/y18"
             android:visibility="gone"/>
 
         <ImageView
@@ -229,15 +221,14 @@
             android:layout_width="@dimen/y30"
             android:layout_height="@dimen/y30"
             android:src="@mipmap/g"
-            android:layout_marginLeft="@dimen/y18"
-            android:visibility="gone" />
+            android:layout_marginRight="@dimen/y18"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/iv_webpay"
             android:layout_width="@dimen/y30"
             android:layout_height="@dimen/y30"
             android:src="@mipmap/h"
-            android:layout_marginLeft="@dimen/y18"
             android:visibility="gone"/>
 
         <View

@@ -88,10 +88,10 @@ public class SellFragmentAdapter extends PowerAdapter<BuyItem> {
                 }
                 tvTradetimes.setText(buyItem.getTradeTimes() + "");
                 tvTradesuccrate.setText(buyItem.getTradeSuccRate() + "%");
-                tvNumber.setText(buyItem.getMaxNum() + "");
+                tvNumber.setText(new DecimalFormat("0.00").format(buyItem.getMaxNum()));
                 tvMinPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()));
                 tvMaxPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
-                tvSinglePrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+buyItem.getPrice());
+                tvSinglePrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice()));
 
                 tvBuy.setOnClickListener(new View.OnClickListener() {
                     @Override

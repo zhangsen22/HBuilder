@@ -37,8 +37,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="INFc2c限量注册开启通知"
-            android:layout_marginLeft="@dimen/y40"
+            android:text="v5.0.1版本升级公告"
+            android:layout_marginLeft="@dimen/y20"
             android:textSize="11sp"
             android:textColor="@color/color_666666"
             android:singleLine="true"/>
