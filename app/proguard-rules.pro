@@ -181,11 +181,13 @@ public static final int *;
 #    public *** is*();
 #}
 
-# OkHttp3
--dontwarn javax.annotation.**
--keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
--dontwarn org.codehaus.mojo.animal_sniffer.*
--dontwarn okhttp3.internal.platform.ConscryptPlatform
+#-------------- okhttp3 -------------
+-dontwarn com.squareup.okhttp.**
+-keep class com.squareup.okhttp.{*;}
+
+-dontwarn com.squareup.okhttp3.**
+-keep class com.squareup.okhttp3.** { *;}
+-dontwarn okio.**
 
 # Retrofit
 -keep class retrofit2.** { *; }
@@ -231,10 +233,10 @@ public static final int *;
     public <init>(android.content.Context);
 }
 
-#2.rx
--dontwarn io.reactivex.**
--keep io.reactivex.**
--keepclassmembers class io.reactivex.** { *; }
+##2.rx
+#-dontwarn io.reactivex.**
+#-keep io.reactivex.**
+#-keepclassmembers class io.reactivex.** { *; }
 
 #3.retrolambda
 -dontwarn java.lang.invoke.*
@@ -265,6 +267,9 @@ public static final int *;
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
 }
+
+-keep class hbuilder.android.com.modle.** { *; }
+
 -keepclassmembers class **.R$* {
     public static <fields>;
 }
@@ -283,4 +288,27 @@ public static final int *;
 -keepattributes *Annotation*
 -keep class cn.qqtheme.framework.entity.** { *;}
 
+#-------- fresco ----------
+-keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
+-keep,allowobfuscation @interface com.facebook.soloader.DoNotOptimize
 
+# Do not strip any method/class that is annotated with @DoNotStrip
+-keep @com.facebook.common.internal.DoNotStrip class *
+-keepclassmembers class * {
+    @com.facebook.common.internal.DoNotStrip *;
+}
+
+# Do not strip any method/class that is annotated with @DoNotOptimize
+-keep @com.facebook.soloader.DoNotOptimize class *
+-keepclassmembers class * {
+    @com.facebook.soloader.DoNotOptimize *;
+}
+
+# Keep native methods
+-keepclassmembers class * {
+    native <methods>;
+}
+
+-dontwarn okhttp3.**
+-dontwarn com.android.volley.toolbox.**
+-dontwarn com.facebook.infer.**
