@@ -105,87 +105,40 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
 
             if (childType == 1) {
                 if (status == 1) {
-                    long currentTime = System.currentTimeMillis();
-                    llOrderSellButton.setVisibility(View.GONE);
-                    if (currentTime >= createTime + 10 * 60 * 1000) {
-                        tvOrderSellDjs.setVisibility(View.GONE);
-                    } else {
-                        if(timer != null){
-                            timer.cancel();
-                            timer = null;
-                        }
-                        timer = new CountDownTimer(createTime + 10 * 60 * 1000 - currentTime, 1000) {
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-                                int left = (int) ((millisUntilFinished - 1000) / 1000);
-                                GALogger.d(TAG, "left       " + left);
-                                if (left > 0) {
-                                    tvOrderSellDjs.setVisibility(View.VISIBLE);
-                                    tvOrderSellDjs.setText(DateUtil.getCurrentDateString2(millisUntilFinished) + "后取消订单");
-                                } else {
-                                    tvOrderSellDjs.setVisibility(View.GONE);
-                                }
+                    if(tradeSource == 1){
+                        long currentTime = System.currentTimeMillis();
+                        llOrderSellButton.setVisibility(View.GONE);
+                        if (currentTime >= createTime + 10 * 60 * 1000) {
+                            tvOrderSellDjs.setVisibility(View.GONE);
+                        } else {
+                            if(timer != null){
+                                timer.cancel();
+                                timer = null;
                             }
-
-                            @Override
-                            public void onFinish() {
-                            }
-                        };
-                        timer.start();
-                    }
-                } else if (status == 2) {
-                    if(timer != null){
-                        timer.cancel();
-                        timer = null;
-                    }
-                    tvOrderSellDjs.setVisibility(View.GONE);
-                    llOrderSellButton.setVisibility(View.VISIBLE);
-                    long currentTime = System.currentTimeMillis();
-                    if (currentTime >= payTime + 10 * 60 * 1000) {
-                        tvOrderSellSstime.setVisibility(View.GONE);
-                        tvOrderSellSs.setEnabled(true);
-                    } else {
-                        if(timer1 != null){
-                            timer1.cancel();
-                            timer1 = null;
-                        }
-                        timer1 = new CountDownTimer(payTime + 10 * 60 * 1000 - currentTime, 1000) {
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-                                if (mContext != null) {
+                            timer = new CountDownTimer(createTime + 10 * 60 * 1000 - currentTime, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
                                     int left = (int) ((millisUntilFinished - 1000) / 1000);
                                     GALogger.d(TAG, "left       " + left);
                                     if (left > 0) {
-                                        tvOrderSellSs.setEnabled(false);
-                                        tvOrderSellSstime.setVisibility(View.VISIBLE);
-                                        tvOrderSellSstime.setText(DateUtil.getCurrentDateString2(millisUntilFinished) + "后可申诉");
+                                        tvOrderSellDjs.setVisibility(View.VISIBLE);
+                                        tvOrderSellDjs.setText(DateUtil.getCurrentDateString2(millisUntilFinished) + "后取消订单");
                                     } else {
                                         tvOrderSellDjs.setVisibility(View.GONE);
-                                        tvOrderSellSs.setEnabled(true);
                                     }
                                 }
-                            }
 
-                            @Override
-                            public void onFinish() {
-                            }
-                        };
-                        timer1.start();
+                                @Override
+                                public void onFinish() {
+                                }
+                            };
+                            timer.start();
+                        }
+                    }else {
+                        Status2ChuLi(payTime,mySellOrBuyinfoItem);
                     }
-                    tvOrderSellQfb.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            BusinessSellDetailsActivity.startThis(mContext, new SellResponse(mySellOrBuyinfoItem.getTradeid(), mySellOrBuyinfoItem.getPayCode(), mySellOrBuyinfoItem.getCreateTime()), mySellOrBuyinfoItem.getPrice(), mySellOrBuyinfoItem.getNum(), AccountManager.getInstance().getNickname());
-                        }
-                    });
-                    tvOrderSellSs.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (listenering != null) {
-                                listenering.orderSellClick(mySellOrBuyinfoItem.getTradeid());
-                            }
-                        }
-                    });
+                } else if (status == 2) {
+                    Status2ChuLi(payTime,mySellOrBuyinfoItem);
                 } else {
                     tvOrderSellDjs.setVisibility(View.GONE);
                     llOrderSellButton.setVisibility(View.GONE);
@@ -200,6 +153,63 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                 tvOrderSellDjs.setVisibility(View.GONE);
                 llOrderSellButton.setVisibility(View.GONE);
             }
+        }
+
+
+        private void Status2ChuLi(long payTime,MySellOrBuyinfoItem mySellOrBuyinfoItem){
+            if(timer != null){
+                timer.cancel();
+                timer = null;
+            }
+            tvOrderSellDjs.setVisibility(View.GONE);
+            llOrderSellButton.setVisibility(View.VISIBLE);
+            long currentTime = System.currentTimeMillis();
+            if (currentTime >= payTime + 10 * 60 * 1000) {
+                tvOrderSellSstime.setVisibility(View.GONE);
+                tvOrderSellSs.setEnabled(true);
+            } else {
+                if(timer1 != null){
+                    timer1.cancel();
+                    timer1 = null;
+                }
+                timer1 = new CountDownTimer(payTime + 10 * 60 * 1000 - currentTime, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        if (mContext != null) {
+                            int left = (int) ((millisUntilFinished - 1000) / 1000);
+                            GALogger.d(TAG, "left       " + left);
+                            if (left > 0) {
+                                tvOrderSellSs.setEnabled(false);
+                                tvOrderSellSstime.setVisibility(View.VISIBLE);
+                                tvOrderSellSstime.setText(DateUtil.getCurrentDateString2(millisUntilFinished) + "后可申诉");
+                            } else {
+                                tvOrderSellDjs.setVisibility(View.GONE);
+                                tvOrderSellSs.setEnabled(true);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                    }
+                };
+                timer1.start();
+            }
+            tvOrderSellQfb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    BusinessSellDetailsActivity.startThis(mContext, new SellResponse(mySellOrBuyinfoItem.getTradeid(), mySellOrBuyinfoItem.getPayCode(), mySellOrBuyinfoItem.getCreateTime()), mySellOrBuyinfoItem.getPrice(), mySellOrBuyinfoItem.getNum(), AccountManager.getInstance().getNickname());
+                }
+            });
+            tvOrderSellSs.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listenering != null) {
+                        listenering.orderSellClick(mySellOrBuyinfoItem.getTradeid());
+                    }
+                }
+            });
+
         }
     }
 
