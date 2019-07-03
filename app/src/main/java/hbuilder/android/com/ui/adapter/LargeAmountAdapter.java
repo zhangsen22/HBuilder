@@ -67,7 +67,7 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
         public void onBind(@NonNull LargeAmountItem largeAmountItem, int position) {
             if(largeAmountItem != null){
                 tvLargeAmountTime.setText(largeAmountItem.getNickname());
-                tvLargeAmountPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+largeAmountItem.getPrice());
+                tvLargeAmountPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(largeAmountItem.getPrice()));
                 tvLargeAmountLastNum.setText("1");
                 tvLargeAmountNum.setText(new DecimalFormat("0.00").format(largeAmountItem.getNum()));
                 tvAllPrice.setText(new DecimalFormat("0.00").format(largeAmountItem.getMoney()));
