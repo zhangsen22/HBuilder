@@ -6,6 +6,8 @@ import android.view.View;
 import com.growalong.util.util.ActivityUtils;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
+import hbuilder.android.com.presenter.RansferOfFundsPresenter;
+import hbuilder.android.com.presenter.modle.RansferOfFundsModle;
 import hbuilder.android.com.ui.fragment.RansferOfFundsFragment;
 
 public class RansferOfFundsActivity extends BaseActivity {
@@ -41,6 +43,7 @@ public class RansferOfFundsActivity extends BaseActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     ransferOfFundsFragment, R.id.contentFrame);
         }
-
+        //初始化presenter
+        new RansferOfFundsPresenter(ransferOfFundsFragment, new RansferOfFundsModle());
     }
 }

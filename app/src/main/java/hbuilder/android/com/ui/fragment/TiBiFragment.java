@@ -17,24 +17,19 @@ import android.widget.TextView;
 import com.example.qrcode.Constant;
 import com.example.qrcode.ScannerActivity;
 import com.growalong.util.util.GALogger;
-import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
 import com.growalong.util.util.TextWatcherUtils;
-
 import java.text.DecimalFormat;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.R;
-import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.presenter.TiBiPresenter;
 import hbuilder.android.com.presenter.contract.TiBiContract;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.TiBiActivity;
-import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
 
 public class TiBiFragment extends BaseFragment implements TiBiContract.View {
@@ -119,12 +114,7 @@ public class TiBiFragment extends BaseFragment implements TiBiContract.View {
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
-        WalletResponse walletResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.WALLET_BALANCE), WalletResponse.class);
-        if(walletResponse != null){
-            walletNum = walletResponse.getWalletNum();
-            etBiKeyongum.setText(new DecimalFormat("0.00").format(walletNum));
-            etBiShouxufei.setText("2");
-        }
+        presenter.getInfo();
     }
 
     @OnClick({R.id.iv_back, R.id.iv_saoyisao, R.id.tv_forget_password, R.id.tv_queding,R.id.tv_bi_all})
@@ -216,6 +206,15 @@ public class TiBiFragment extends BaseFragment implements TiBiContract.View {
     @Override
     public void withdrawSuccess(BaseBean baseBean) {
         tiBiActivity.finish();
+    }
+
+    @Override
+    public void getInfoSuccess(WalletResponse walletResponse) {
+        if(walletResponse != null){
+            walletNum = walletResponse.getWalletNum();
+            etBiKeyongum.setText(new DecimalFormat("0.00").format(walletNum));
+            etBiShouxufei.setText("2");
+        }
     }
 
     @Override

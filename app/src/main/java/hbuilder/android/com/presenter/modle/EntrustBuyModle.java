@@ -8,7 +8,7 @@ import hbuilder.android.com.net.retrofit.service.ApiServices;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
-public class EntrustBuyModle {
+public class EntrustBuyModle extends WalletModle{
 
     /**
      * 委托购买

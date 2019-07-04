@@ -4,17 +4,13 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.RadioButton;
-
 import com.growalong.util.util.GALogger;
-import com.growalong.util.util.GsonUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.Constants;
-import hbuilder.android.com.modle.UsdtPriceResponse;
-import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.presenter.MainPresenter;
 import hbuilder.android.com.presenter.contract.MainContract;
 import hbuilder.android.com.presenter.modle.MainModle;
@@ -22,7 +18,6 @@ import hbuilder.android.com.ui.adapter.MainViewPagerAdapter;
 import hbuilder.android.com.ui.fragment.CenterFragment;
 import hbuilder.android.com.ui.fragment.PropertyFragment;
 import hbuilder.android.com.ui.widget.NoScrollViewPager;
-import hbuilder.android.com.util.SharedPreferencesUtils;
 
 public class MainActivity extends BaseActivity implements MainContract.View {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -62,19 +57,6 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     protected void initData() {
         //初始化presenter
         new MainPresenter(this, new MainModle());
-        MyApplication.applicationHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mainPresenter.usdtPrice();
-                MyApplication.applicationHandler.postDelayed(this,5*60*1000);
-            }
-        },0);
-        MyApplication.runOnUIThread(new Runnable() {
-            @Override
-            public void run() {
-                mainPresenter.getInfo();
-            }
-        },1000);
         mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         noscrollViewPager.setAdapter(mainViewPagerAdapter);
         noscrollViewPager.setOffscreenPageLimit(4);
@@ -114,20 +96,6 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                     noscrollViewPager.setCurrentItem(4,false);
                 }
                 break;
-        }
-    }
-
-    @Override
-    public void usdtPriceSuccess(UsdtPriceResponse usdtPriceResponse) {
-        if(usdtPriceResponse != null){
-            SharedPreferencesUtils.putString(Constants.USDTPRICE,GsonUtil.getInstance().objTojson(usdtPriceResponse));
-        }
-    }
-
-    @Override
-    public void getInfoSuccess(WalletResponse walletResponse) {
-        if(walletResponse != null){
-            SharedPreferencesUtils.putString(Constants.WALLET_BALANCE,GsonUtil.getInstance().objTojson(walletResponse));
         }
     }
 

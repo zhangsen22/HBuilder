@@ -111,6 +111,7 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
+        setLoadDataWhenVisible();
         //初始化presenter
         new WalletAccountPresenter(this, new WalletAccountModle());
         mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);

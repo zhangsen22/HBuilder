@@ -83,23 +83,7 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
-        WalletResponse walletResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.WALLET_BALANCE), WalletResponse.class);
-        if (walletResponse != null) {
-            walletNum = walletResponse.getWalletNum();
-            hotNum = walletResponse.getHotNum();
-        }
-
-        if(fromType == 1){
-            tvLeft.setText("我的钱包");
-            tvRight.setText("交易账户");
-            etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum));
-        }else if(fromType == 2){
-            tvLeft.setText("交易账户");
-            tvRight.setText("我的钱包");
-            etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum));
-        }
-        //初始化presenter
-        new RansferOfFundsPresenter(this, new RansferOfFundsModle());
+        presenter.getInfo();
     }
 
     @OnClick({R.id.iv_back, R.id.tv_all, R.id.tv_publish_zhuan})
@@ -154,11 +138,26 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
 
     @Override
     public void transferSuccess(WalletResponse walletResponse) {
-        if(walletResponse != null){
-            SharedPreferencesUtils.putString(Constants.WALLET_BALANCE,GsonUtil.getInstance().objTojson(walletResponse));
-        }
         ransferOfFundsActivity.setResult(Activity.RESULT_OK);
         ransferOfFundsActivity.finish();
+    }
+
+    @Override
+    public void getInfoSuccess(WalletResponse walletResponse) {
+        if (walletResponse != null) {
+            walletNum = walletResponse.getWalletNum();
+            hotNum = walletResponse.getHotNum();
+        }
+
+        if(fromType == 1){
+            tvLeft.setText("我的钱包");
+            tvRight.setText("交易账户");
+            etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum));
+        }else if(fromType == 2){
+            tvLeft.setText("交易账户");
+            tvRight.setText("我的钱包");
+            etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum));
+        }
     }
 
     @Override

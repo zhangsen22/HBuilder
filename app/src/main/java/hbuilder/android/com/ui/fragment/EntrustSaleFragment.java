@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
-import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
 import java.text.DecimalFormat;
 import butterknife.BindView;
@@ -19,9 +18,7 @@ import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
-import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.BaseBean;
-import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.presenter.EntrustSalePresenter;
 import hbuilder.android.com.presenter.contract.EntrustSaleContract;
@@ -30,7 +27,6 @@ import hbuilder.android.com.ui.activity.AliPayListActivity;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.IdCastPayListActivity;
 import hbuilder.android.com.ui.activity.WebChatListActivity;
-import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
 
 public class EntrustSaleFragment extends BaseFragment implements EntrustSaleContract.View {
@@ -67,9 +63,6 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     private boolean isUseIvAlipay;
     private boolean isUseIvWebchat;
     private boolean isUseIvIdcards;
-    private double minSellPrice;
-    private double maxSellPrice;
-
     private EntrustSalePresenter entrustSalePresenter;
     private double hotNum;
     private BaseActivity mContext;
@@ -101,17 +94,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
         super.lazyLoadData();
         //初始化presenter
         new EntrustSalePresenter(this, new EntrustSaleModle());
-        UsdtPriceResponse usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
-        if (usdtPriceResponse != null) {
-            minSellPrice = usdtPriceResponse.getMinSellPrice();
-            maxSellPrice = usdtPriceResponse.getMaxSellPrice();
-            etBusinessPrice.setHint("交易价格请限于" + minSellPrice + " ~ " + maxSellPrice);
-        }
-        WalletResponse walletResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.WALLET_BALANCE), WalletResponse.class);
-        if (walletResponse != null) {
-            hotNum = walletResponse.getHotNum();
-            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.inf));
-        }
+        entrustSalePresenter.getInfo();
     }
 
     @OnClick({R.id.tv_add_alipay, R.id.tv_add_webchat, R.id.tv_add_idcards, R.id.tv_forget_password, R.id.tv_sell_publish,R.id.iv_alipay, R.id.iv_webchat, R.id.iv_idcards,R.id.tv_sale_cankaojia})
@@ -244,7 +227,6 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                         ,isUseIvWebchat,isUseIvIdcards,Md5Utils.getMD5(moneryPassword+currentTime),currentTime);
                 break;
             case R.id.tv_sale_cankaojia:
-                etBusinessPrice.setText(maxSellPrice+"");
                 break;
         }
     }
@@ -252,6 +234,14 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     @Override
     public void putUpSellSuccess(BaseBean baseBean) {
 
+    }
+
+    @Override
+    public void getInfoSuccess(WalletResponse walletResponse) {
+        if (walletResponse != null) {
+            hotNum = walletResponse.getHotNum();
+            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.inf));
+        }
     }
 
     @Override

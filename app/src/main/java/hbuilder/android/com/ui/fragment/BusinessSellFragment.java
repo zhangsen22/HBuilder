@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -18,7 +16,6 @@ import com.growalong.util.util.Md5Utils;
 import com.growalong.util.util.TextWatcherUtils;
 import java.text.DecimalFormat;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
@@ -35,7 +32,6 @@ import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.BusinessSellActivity;
 import hbuilder.android.com.ui.activity.BusinessSellDetailsActivity;
 import hbuilder.android.com.ui.activity.IdCastPayListActivity;
-import hbuilder.android.com.ui.activity.PaySettingActivity;
 import hbuilder.android.com.ui.activity.WebChatListActivity;
 import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
@@ -102,10 +98,9 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
     TextView tvAddWebchat;
     @BindView(R.id.tv_add_idcards)
     TextView tvAddIdcards;
-
+    private double hotNum;
     private BusinessSellActivity businessSellActivity;
     private BusinessSellPresenter presenter;
-    private WalletResponse walletResponse;
     private BuyItem buyItem;
     private boolean flag = true;//添加标志位，标志是否被编辑
     private int type = 0;//1为支付宝，2为微信，3为银行账户
@@ -123,7 +118,6 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
         super.onCreate(savedInstanceState);
         businessSellActivity = (BusinessSellActivity) getActivity();
         buyItem = getArguments().getParcelable("buyItem");
-        walletResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.WALLET_BALANCE), WalletResponse.class);
     }
 
     @Override
@@ -142,7 +136,7 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
                     if (flag) {
                         flag = false;
                         double num = Double.parseDouble(s.toString());
-                        if (num > walletResponse.getHotNum()) {
+                        if (num > hotNum) {
                             ToastUtil.shortShow("超出了交易账户可用数量");
                             return;
                         }
@@ -166,7 +160,7 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
                     if (flag) {
                         flag = false;
                         double price = Double.parseDouble(s.toString());
-                        if (price > walletResponse.getHotNum() * buyItem.getPrice() || price > buyItem.getMaxNum() * buyItem.getPrice()) {
+                        if (price > hotNum * buyItem.getPrice() || price > buyItem.getMaxNum() * buyItem.getPrice()) {
                             ToastUtil.shortShow("交易账户可用余额不足");
                             return;
                         }
@@ -185,12 +179,12 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
+        presenter.getInfo();
         tvBusinessSellName.setText(buyItem.getNickname());
         tvBusinessSellPrice.setText(buyItem.getPrice() + "");
         tvBusinessSellMore.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()) + " - " + MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
         tvBusinessSellNum.setText(buyItem.getMaxNum() + "");
         tvBusinessSellPriceC.setText(buyItem.getPrice() + "");
-        tvCurrentSellNum.setText(walletResponse.getHotNum() + "");
         boolean haveAliPayee = AccountManager.getInstance().isHaveAliPayee();
         if (haveAliPayee) {
             tvAddAlipay.setVisibility(View.GONE);
@@ -221,8 +215,6 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
                 break;
             case R.id.tv_num_all:
             case R.id.tv_price_all:
-                if (walletResponse != null) {
-                    double hotNum = walletResponse.getHotNum();
                     if (hotNum > buyItem.getMaxNum()) {
                         etBusinessSellNum.setText(buyItem.getMaxNum() + "");
                         etBusinessSellPrice.setText(new DecimalFormat("0.00").format(buyItem.getMaxNum() * buyItem.getPrice()));
@@ -230,7 +222,6 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
                         etBusinessSellNum.setText(hotNum + "");
                         etBusinessSellPrice.setText(new DecimalFormat("0.00").format(hotNum * buyItem.getPrice()));
                     }
-                }
                 break;
             case R.id.tv_forget_password:
                 BalancePassWordActivity.startThis(businessSellActivity);
@@ -339,6 +330,14 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
             sellResponse.setCreatTime(System.currentTimeMillis());
             BusinessSellDetailsActivity.startThis(businessSellActivity, sellResponse, buyItem.getPrice(), Double.parseDouble(etBusinessSellNum.getText().toString().trim()), buyItem.getNickname());
             businessSellActivity.finish();
+        }
+    }
+
+    @Override
+    public void getInfoSuccess(WalletResponse walletResponse) {
+        if(walletResponse != null){
+            this.hotNum = walletResponse.getHotNum();
+            tvCurrentSellNum.setText( hotNum+ "");
         }
     }
 

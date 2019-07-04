@@ -5,12 +5,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
+
+import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.ui.fragment.TradingAccountFragment;
 import hbuilder.android.com.ui.fragment.WalletAccountFragment;
 
 public class PropertyViewPagerAdapter extends FragmentPagerAdapter {
 
-    private Fragment mCurrentPrimaryItem = null;
+    private BaseFragment mCurrentPrimaryItem = null;
     private WalletAccountFragment walletAccountFragment;
     private TradingAccountFragment tradingAccountFragment;
     private List<Fragment> fragmentList;
@@ -47,7 +49,12 @@ public class PropertyViewPagerAdapter extends FragmentPagerAdapter {
         return mTitles[position];
     }
 
-    public Fragment getCurrentFragment(){
+    public BaseFragment getCurrentFragment(int position){
+        if(position == 0){
+            mCurrentPrimaryItem = walletAccountFragment;
+        }else if(position == 1){
+            mCurrentPrimaryItem = tradingAccountFragment;
+        }
         return mCurrentPrimaryItem;
     }
 }

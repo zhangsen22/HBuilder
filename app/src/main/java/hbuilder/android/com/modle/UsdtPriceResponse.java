@@ -7,6 +7,11 @@ public class UsdtPriceResponse extends BaseBean{
     private double maxSellPrice;//:6.76    //最高卖价
     private double minSellPrice;//:6.75    //最低卖价
 
+    public UsdtPriceResponse(double maxSellPrice, double minSellPrice) {
+        this.maxSellPrice = maxSellPrice;
+        this.minSellPrice = minSellPrice;
+    }
+
     public double getMaxBuyPrice() {
         return maxBuyPrice;
     }

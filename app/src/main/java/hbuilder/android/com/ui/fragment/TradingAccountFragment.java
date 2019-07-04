@@ -80,6 +80,7 @@ public class TradingAccountFragment extends BaseFragment implements TradingAccou
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
+        setLoadDataWhenVisible();
         //初始化presenter
         new TradingAccountPresenter(this, new TradingAccountModle());
         tradingAccountPresenter.rewardLog();

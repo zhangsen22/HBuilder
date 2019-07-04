@@ -12,10 +12,9 @@ public class Constants {
     public static final String HOWGETALIPAYID = "https://down.no-time.cn/aliid.htm";
     public static final String NOTIFYCLICK = "https://down.no-time.cn/msg.html";
     public static final String USERXIEYI = "https://down.no-time.cn/userpro.html";
+    public static final String KEFU = "https://down.no-time.cn/service.html";
     public static final String HOWGETDIANYUANERWEIMA = "https://down.no-time.cn/wxqr.htm";
     public static final String SESSIONID = "sessionid";
-    public static final String WALLET_BALANCE = "wallet_balance";
-    public static final String USDTPRICE = "Usdt_Price";
     /**
      * android 8.0以上通知栏渠道ID
      */

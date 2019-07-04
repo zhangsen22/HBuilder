@@ -8,10 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
-
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
-import com.growalong.util.util.GsonUtil;
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
@@ -20,20 +18,19 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
-
 import java.text.DecimalFormat;
-
 import butterknife.BindView;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
-import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.modle.WalletResponse;
+import hbuilder.android.com.presenter.PropertyPresenter;
+import hbuilder.android.com.presenter.contract.PropertyContract;
+import hbuilder.android.com.presenter.modle.PropertyModle;
 import hbuilder.android.com.ui.adapter.PropertyViewPagerAdapter;
-import hbuilder.android.com.util.SharedPreferencesUtils;
 
-public class PropertyFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
+public class PropertyFragment extends BaseFragment implements ViewPager.OnPageChangeListener, PropertyContract.View {
     private static final String TAG = PropertyFragment.class.getSimpleName();
 
     @BindView(R.id.property_magicindicator)
@@ -48,8 +45,11 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     TextView tvFreezeMonery;
     @BindView(R.id.tv_freeze_rmb_monery)
     TextView tvFreezeRmbMonery;
-
+    private PropertyViewPagerAdapter propertyViewPagerAdapter;
+    private PropertyPresenter propertyPresenter;
     private Context mContext;
+    private UsdtPriceResponse mUsdtPriceResponse = null;
+    private WalletResponse mWalletResponse = null;
 
     public static PropertyFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -72,14 +72,9 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(root);
-    }
-
-    @Override
-    public void lazyLoadData() {
-        super.lazyLoadData();
         final String[] propertyTitle = mContext.getResources().getStringArray(R.array.property_title);
         propertyViewPager.setOffscreenPageLimit(propertyTitle.length - 1);
-        PropertyViewPagerAdapter propertyViewPagerAdapter = new PropertyViewPagerAdapter(getChildFragmentManager(), propertyTitle);
+        propertyViewPagerAdapter = new PropertyViewPagerAdapter(getChildFragmentManager(), propertyTitle);
         propertyViewPager.setAdapter(propertyViewPagerAdapter);
         CommonNavigator commonNavigator = new CommonNavigator(mContext);
         commonNavigator.setAdjustMode(true);
@@ -133,6 +128,34 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     }
 
     @Override
+    public void lazyLoadData() {
+        super.lazyLoadData();
+        setLoadDataWhenVisible();
+        //初始化presenter
+        new PropertyPresenter(PropertyFragment.this, new PropertyModle());
+        MyApplication.applicationHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                propertyPresenter.usdtPrice();
+                MyApplication.applicationHandler.postDelayed(this,5*60*1000);
+            }
+        },0);
+        MyApplication.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                propertyPresenter.getInfo();
+            }
+        },1000);
+        int currentItem = propertyViewPager.getCurrentItem();
+        if(propertyViewPagerAdapter != null){
+            BaseFragment currentFragment = propertyViewPagerAdapter.getCurrentFragment(currentItem);
+            if(currentFragment != null && currentFragment.isVisible()){
+                currentFragment.lazyLoadData();
+            }
+        }
+    }
+
+    @Override
     public void onPageScrolled(int i, float v, int i1) {
 
     }
@@ -140,8 +163,56 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     @Override
     public void onPageSelected(int i) {
         GALogger.d(TAG,"i    "+i);
-        UsdtPriceResponse usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
-        WalletResponse walletResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.WALLET_BALANCE), WalletResponse.class);
+        upDateWaller(i,mUsdtPriceResponse,mWalletResponse);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
+    }
+
+    public void onActivityResultProperty(int requestCode) {
+        propertyPresenter.getInfo();
+    }
+
+    @Override
+    public void usdtPriceSuccess(UsdtPriceResponse usdtPriceResponse) {
+        if(usdtPriceResponse != null){
+            this.mUsdtPriceResponse = usdtPriceResponse;
+            onPageSelected(propertyViewPager.getCurrentItem());
+        }
+    }
+
+    @Override
+    public void usdtPriceError() {
+        mUsdtPriceResponse = new UsdtPriceResponse(6.90,6.90);
+        onPageSelected(propertyViewPager.getCurrentItem());
+    }
+
+    @Override
+    public void getInfoSuccess(WalletResponse walletResponse) {
+        if(walletResponse != null){
+            this.mWalletResponse = walletResponse;
+            onPageSelected(propertyViewPager.getCurrentItem());
+        }
+    }
+
+    @Override
+    public void setPresenter(PropertyContract.Presenter presenter) {
+        this.propertyPresenter = (PropertyPresenter) presenter;
+    }
+
+    @Override
+    public void showLoading() {
+        showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoading() {
+        hideLoadingDialog();
+    }
+
+    private void upDateWaller(int i,UsdtPriceResponse usdtPriceResponse,WalletResponse walletResponse){
         if (walletResponse != null && usdtPriceResponse != null) {
             if (i == 0) {
                 double walletNum = walletResponse.getWalletNum();
@@ -160,18 +231,6 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
                 tvAvailableRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(hotNum*maxSellPrice));
                 tvFreezeRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(hotFreezeNum*maxSellPrice));
             }
-        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int i) {
-
-    }
-
-    public void onActivityResultProperty(int requestCode) {
-        if(propertyViewPager != null){
-            int currentItem = propertyViewPager.getCurrentItem();
-            onPageSelected(currentItem);
         }
     }
 }

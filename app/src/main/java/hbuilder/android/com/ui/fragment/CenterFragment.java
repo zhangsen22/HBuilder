@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,7 +14,6 @@ import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 import com.lxj.xpopup.interfaces.XPopupCallback;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
@@ -148,6 +145,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                 WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.JIAOCHENGGONGLUO, true);
                 break;
             case R.id.ll_lx_kf:
+                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.KEFU,true);
                 break;
             case R.id.ll_center_message:
                 MessageCenterActivity.startThis(mainActivity);

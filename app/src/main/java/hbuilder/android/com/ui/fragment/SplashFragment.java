@@ -52,18 +52,7 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
         if(hostList == null){
             hostList = new ArrayList<>();
         }
-        hostList.add("app");
         hostList.add("app.injbank.com");
-        hostList.add("injbank");
-        hostList.add("www.baidu.com");
-        hostList.add("com");
-        hostList.add("www.cnblogs.com");
-        hostList.add("adpp");
-        hostList.add("lanhuapp.com");
-        hostList.add("injbdank");
-        hostList.add("daohang.qq.com");
-        hostList.add("cfom");
-        hostList.add("kan.sogou.com");
     }
 
     @Override

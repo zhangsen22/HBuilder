@@ -1,37 +1,39 @@
 package hbuilder.android.com.presenter;
 
+import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.net.retrofit.ModelResultObserver;
 import hbuilder.android.com.net.retrofit.exception.ModelException;
-import hbuilder.android.com.presenter.contract.RansferOfFundsContract;
-import hbuilder.android.com.presenter.modle.RansferOfFundsModle;
+import hbuilder.android.com.presenter.contract.PropertyContract;
+import hbuilder.android.com.presenter.modle.PropertyModle;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class RansferOfFundsPresenter implements RansferOfFundsContract.Presenter{
+public class PropertyPresenter implements PropertyContract.Presenter{
 
-    private RansferOfFundsContract.View mView;
-    private RansferOfFundsModle mModel;
+    private PropertyContract.View mView;
+    private PropertyModle mModel;
 
-    public RansferOfFundsPresenter(RansferOfFundsContract.View view, RansferOfFundsModle model){
+    public PropertyPresenter(PropertyContract.View view, PropertyModle model){
         mView = view;
         mModel = model;
         mView.setPresenter(this);
     }
 
     @Override
-    public void transfer(int type, double num, String financePwd, long time) {
+    public void usdtPrice() {
         mView.showLoading();
-        mModel.transfer(type,num,financePwd,time).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ModelResultObserver<WalletResponse>() {
+        mModel.usdtPrice().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ModelResultObserver<UsdtPriceResponse>() {
                     @Override
-                    public void onSuccess(WalletResponse walletResponse) {
-                        mView.transferSuccess(walletResponse);
+                    public void onSuccess(UsdtPriceResponse usdtPriceResponse) {
+                        mView.usdtPriceSuccess(usdtPriceResponse);
                         mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
+                        mView.usdtPriceError();
                         mView.hideLoading();
                     }
                 });
