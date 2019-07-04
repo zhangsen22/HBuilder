@@ -3,6 +3,7 @@ package hbuilder.android.com.ui.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
+import com.growalong.util.util.TextWatcherUtils;
+
 import java.text.DecimalFormat;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -56,6 +59,7 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
     private double walletNum;
     private double hotNum;
     private RansferOfFundsPresenter presenter;
+    private UsdtPriceResponse usdtPriceResponse;
 
     public static RansferOfFundsFragment newInstance(@Nullable int fromType) {
         Bundle arguments = new Bundle();
@@ -70,6 +74,7 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
         super.onCreate(savedInstanceState);
         ransferOfFundsActivity = (RansferOfFundsActivity) getActivity();
         fromType = getArguments().getInt("fromType");
+        usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
     }
 
     @Override
@@ -80,6 +85,47 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
     @Override
     protected void initView(View root) {
         tvTitle.setText("资金划转");
+        etHuazhuanNum.addTextChangedListener(new TextWatcherUtils(){
+            @Override
+            public void afterTextChanged(Editable s) {
+                super.afterTextChanged(s);
+                if (!TextUtils.isEmpty(s.toString())) {
+                    double num = Double.parseDouble(s.toString());
+                    if(num <= 0){
+                        ToastUtil.shortShow("划转数量不能小于0");
+                        if(usdtPriceResponse != null) {
+                            etHuazhuanMore.setText(new DecimalFormat("0.00").format(0) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(0 * usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.inf));
+                        }
+                        return;
+                    }
+                    if(fromType == 1){
+                        if(num > walletNum){
+                            ToastUtil.shortShow("超出了最大划转数量");
+                            if(usdtPriceResponse != null) {
+                                etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(walletNum * usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.inf));
+                            }
+                            return;
+                        }
+
+                        if(usdtPriceResponse != null) {
+                            etHuazhuanMore.setText(new DecimalFormat("0.00").format(num) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(num * usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.inf));
+                        }
+                    }else if(fromType == 2){
+                        if(num > hotNum){
+                            ToastUtil.shortShow("超出了最大划转数量");
+                            if(usdtPriceResponse != null) {
+                                etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.inf) + " ≈ " + new DecimalFormat("0.00").format(hotNum / usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.usdt));
+                            }
+                            return;
+                        }
+
+                        if(usdtPriceResponse != null) {
+                            etHuazhuanMore.setText(new DecimalFormat("0.00").format(num) + MyApplication.appContext.getResources().getString(R.string.inf) + " ≈ " + new DecimalFormat("0.00").format(num / usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.usdt));
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -150,7 +196,6 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
             walletNum = walletResponse.getWalletNum();
             hotNum = walletResponse.getHotNum();
         }
-        UsdtPriceResponse usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
         if(fromType == 1){
             tvLeft.setText("我的钱包");
             tvRight.setText("交易账户");
