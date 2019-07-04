@@ -102,6 +102,7 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
+        GALogger.d(TAG,"SellFragment  is  lazyLoadData");
         setLoadDataWhenVisible();
         //初始化presenter
         new SellPresenter(this, new BuyModle());

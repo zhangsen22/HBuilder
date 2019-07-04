@@ -5,12 +5,15 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.RadioButton;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.GsonUtil;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.Constants;
+import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.presenter.MainPresenter;
 import hbuilder.android.com.presenter.contract.MainContract;
 import hbuilder.android.com.presenter.modle.MainModle;
@@ -18,6 +21,7 @@ import hbuilder.android.com.ui.adapter.MainViewPagerAdapter;
 import hbuilder.android.com.ui.fragment.CenterFragment;
 import hbuilder.android.com.ui.fragment.PropertyFragment;
 import hbuilder.android.com.ui.widget.NoScrollViewPager;
+import hbuilder.android.com.util.SharedPreferencesUtils;
 
 public class MainActivity extends BaseActivity implements MainContract.View {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -57,6 +61,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     protected void initData() {
         //初始化presenter
         new MainPresenter(this, new MainModle());
+        mainPresenter.usdtPrice();
         mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         noscrollViewPager.setAdapter(mainViewPagerAdapter);
         noscrollViewPager.setOffscreenPageLimit(4);
@@ -129,5 +134,18 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 }
             }
         }
+    }
+
+    @Override
+    public void usdtPriceSuccess(UsdtPriceResponse usdtPriceResponse) {
+        if(usdtPriceResponse != null){
+            SharedPreferencesUtils.putString(Constants.USDTPRICE,GsonUtil.getInstance().objTojson(usdtPriceResponse));
+        }
+    }
+
+    @Override
+    public void usdtPriceError() {
+        UsdtPriceResponse mUsdtPriceResponse = new UsdtPriceResponse(6.90,6.90);
+        SharedPreferencesUtils.putString(Constants.USDTPRICE,GsonUtil.getInstance().objTojson(mUsdtPriceResponse));
     }
 }

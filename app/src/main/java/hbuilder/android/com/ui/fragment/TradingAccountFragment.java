@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.growalong.util.util.GALogger;
+
 import java.text.DecimalFormat;
 
 import butterknife.BindView;
@@ -80,6 +82,7 @@ public class TradingAccountFragment extends BaseFragment implements TradingAccou
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
+        GALogger.d(TAG,"TradingAccountFragment   is    lazyLoadData");
         setLoadDataWhenVisible();
         //初始化presenter
         new TradingAccountPresenter(this, new TradingAccountModle());

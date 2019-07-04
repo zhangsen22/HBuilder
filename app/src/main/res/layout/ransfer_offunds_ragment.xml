@@ -144,14 +144,6 @@
                 tools:text="419.27"
                 android:textColor="@color/color_666666"
                 android:textSize="12sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  USDT"
-                android:textColor="@color/color_666666"
-                android:textSize="12sp"/>
-
         </LinearLayout>
 
        <include layout="@layout/a1"/>

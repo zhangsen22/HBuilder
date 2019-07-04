@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.growalong.util.util.DensityUtil;
+import com.growalong.util.util.GALogger;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -52,6 +53,7 @@ public class OrderFragment extends BaseFragment {
 
     @Override
     protected void initView(View root) {
+        GALogger.d(TAG,"OrderFragment   is    initView");
         setRootViewPaddingTop(root);
     }
 

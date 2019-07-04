@@ -1,6 +1,5 @@
 package hbuilder.android.com.presenter;
 
-import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.net.retrofit.ModelResultObserver;
 import hbuilder.android.com.net.retrofit.exception.ModelException;
@@ -17,26 +16,6 @@ public class PropertyPresenter implements PropertyContract.Presenter{
         mView = view;
         mModel = model;
         mView.setPresenter(this);
-    }
-
-    @Override
-    public void usdtPrice() {
-        mView.showLoading();
-        mModel.usdtPrice().observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ModelResultObserver<UsdtPriceResponse>() {
-                    @Override
-                    public void onSuccess(UsdtPriceResponse usdtPriceResponse) {
-                        mView.usdtPriceSuccess(usdtPriceResponse);
-                        mView.hideLoading();
-                    }
-
-                    @Override
-                    public void onFailure(ModelException ex) {
-                        super.onFailure(ex);
-                        mView.usdtPriceError();
-                        mView.hideLoading();
-                    }
-                });
     }
 
     @Override

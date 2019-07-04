@@ -10,15 +10,4 @@ import io.reactivex.schedulers.Schedulers;
 
 public class PropertyModle extends WalletModle{
 
-    /**
-     * 查看USDT最新价格
-     * @return
-     */
-    public Observable<UsdtPriceResponse> usdtPrice(){
-        return BaseRetrofitClient.getInstance().create(ApiServices.class)
-                .usdtPrice()
-                .subscribeOn(Schedulers.io())
-                .map(new ServerExceptionMap<UsdtPriceResponse>())
-                .onErrorResumeNext(new ModelExceptionMap<UsdtPriceResponse>());
-    }
 }

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.growalong.util.util.GALogger;
 import com.growalong.util.util.PackageUtil;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
@@ -92,6 +94,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
 
     @Override
     protected void initView(View root) {
+        GALogger.d(TAG,"CenterFragment   is    initView");
         setRootViewPaddingTop(llCenterBg);
     }
 

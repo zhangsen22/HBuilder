@@ -87,11 +87,15 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
 
     @Override
     protected void initView(View root) {
+        GALogger.d(TAG,"EntrustSaleFragment    is    initView");
+        GALogger.d(TAG,"mEnableLazyLoad   "+mEnableLazyLoad+"   mIsCreateView   "+mIsCreateView+"  getUserVisibleHint()  "+getUserVisibleHint()+"   mIsLoadData   "+mIsLoadData);
     }
 
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
+        GALogger.d(TAG,"EntrustSaleFragment    is    lazyLoadData");
+        GALogger.d(TAG,"mEnableLazyLoad   "+mEnableLazyLoad+"   mIsCreateView   "+mIsCreateView+"  getUserVisibleHint()  "+getUserVisibleHint()+"   mIsLoadData   "+mIsLoadData);
         //初始化presenter
         new EntrustSalePresenter(this, new EntrustSaleModle());
         entrustSalePresenter.getInfo();

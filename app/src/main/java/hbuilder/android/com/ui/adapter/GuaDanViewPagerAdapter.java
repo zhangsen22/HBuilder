@@ -5,12 +5,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
+
+import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.ui.fragment.EntrustBuyFragment;
 import hbuilder.android.com.ui.fragment.EntrustSaleFragment;
 
 public class GuaDanViewPagerAdapter extends FragmentPagerAdapter {
 
-    private Fragment mCurrentPrimaryItem = null;
+    private BaseFragment mCurrentPrimaryItem = null;
     private EntrustSaleFragment entrustSaleFragment;
     private EntrustBuyFragment entrustBuyFragment;
     private List<Fragment> fragmentList;
@@ -24,6 +26,7 @@ public class GuaDanViewPagerAdapter extends FragmentPagerAdapter {
         }
         if(entrustSaleFragment == null){
             entrustSaleFragment = EntrustSaleFragment.newInstance("");
+            entrustSaleFragment.setEnableLazyLoad(false);
         }
         fragmentList.add(entrustSaleFragment);
         if(entrustBuyFragment == null){
@@ -47,7 +50,12 @@ public class GuaDanViewPagerAdapter extends FragmentPagerAdapter {
         return mTitles[position];
     }
 
-    public Fragment getCurrentFragment(){
+    public BaseFragment getCurrentFragment(int position){
+        if(position == 0){
+            mCurrentPrimaryItem = entrustSaleFragment;
+        }else if(position == 1){
+            mCurrentPrimaryItem = entrustBuyFragment;
+        }
         return mCurrentPrimaryItem;
     }
 }

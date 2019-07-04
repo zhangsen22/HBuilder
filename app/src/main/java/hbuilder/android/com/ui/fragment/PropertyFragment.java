@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.GsonUtil;
+
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
@@ -23,12 +25,14 @@ import butterknife.BindView;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.presenter.PropertyPresenter;
 import hbuilder.android.com.presenter.contract.PropertyContract;
 import hbuilder.android.com.presenter.modle.PropertyModle;
 import hbuilder.android.com.ui.adapter.PropertyViewPagerAdapter;
+import hbuilder.android.com.util.SharedPreferencesUtils;
 
 public class PropertyFragment extends BaseFragment implements ViewPager.OnPageChangeListener, PropertyContract.View {
     private static final String TAG = PropertyFragment.class.getSimpleName();
@@ -48,7 +52,6 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     private PropertyViewPagerAdapter propertyViewPagerAdapter;
     private PropertyPresenter propertyPresenter;
     private Context mContext;
-    private UsdtPriceResponse mUsdtPriceResponse = null;
     private WalletResponse mWalletResponse = null;
 
     public static PropertyFragment newInstance(@Nullable String taskId) {
@@ -71,6 +74,7 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
 
     @Override
     protected void initView(View root) {
+        GALogger.d(TAG,"PropertyFragment   is    initView");
         setRootViewPaddingTop(root);
         final String[] propertyTitle = mContext.getResources().getStringArray(R.array.property_title);
         propertyViewPager.setOffscreenPageLimit(propertyTitle.length - 1);
@@ -119,38 +123,37 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
         ViewPagerHelper.bind(propertyMagicindicator, propertyViewPager);
         // do this in a runnable to make sure the viewPager's views are already instantiated before triggering the onPageSelected call
         propertyViewPager.addOnPageChangeListener(this);
-        propertyViewPager.post(new Runnable() {
-            @Override
-            public void run() {
-                onPageSelected(propertyViewPager.getCurrentItem());
-            }
-        });
+        /**
+         * 此代码解决进来不调用onPageSelected
+         */
+//        propertyViewPager.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                onPageSelected(propertyViewPager.getCurrentItem());
+//            }
+//        });
     }
 
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
+        GALogger.d(TAG,"PropertyFragment   is    lazyLoadData");
         setLoadDataWhenVisible();
         //初始化presenter
         new PropertyPresenter(PropertyFragment.this, new PropertyModle());
-        MyApplication.applicationHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                propertyPresenter.usdtPrice();
-                MyApplication.applicationHandler.postDelayed(this,5*60*1000);
-            }
-        },0);
-        MyApplication.runOnUIThread(new Runnable() {
-            @Override
-            public void run() {
-                propertyPresenter.getInfo();
-            }
-        },1000);
+        propertyPresenter.getInfo();
         int currentItem = propertyViewPager.getCurrentItem();
         if(propertyViewPagerAdapter != null){
             BaseFragment currentFragment = propertyViewPagerAdapter.getCurrentFragment(currentItem);
+            GALogger.d(TAG,"currentFragment.isVisible()   "+currentFragment.isVisible());
             if(currentFragment != null && currentFragment.isVisible()){
-                currentFragment.lazyLoadData();
+                MyApplication.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        currentFragment.setEnableLazyLoad(true);
+                        currentFragment.lazyLoadData();
+                    }
+                },1000);
             }
         }
     }
@@ -163,7 +166,29 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     @Override
     public void onPageSelected(int i) {
         GALogger.d(TAG,"i    "+i);
-        upDateWaller(i,mUsdtPriceResponse,mWalletResponse);
+//        if(propertyViewPagerAdapter != null) {
+//            BaseFragment currentFragment = propertyViewPagerAdapter.getCurrentFragment(i);
+//
+//        }
+        UsdtPriceResponse usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
+        if (mWalletResponse != null && usdtPriceResponse != null) {
+            if (i == 0) {
+                double walletNum = mWalletResponse.getWalletNum();
+                double walletFreezeNum = mWalletResponse.getWalletFreezeNum();
+                double minSellPrice = usdtPriceResponse.getMinSellPrice();
+                tvAvailableMonery.setText(new DecimalFormat("0.00").format(walletNum));
+                tvFreezeMonery.setText(new DecimalFormat("0.00").format(walletFreezeNum));
+                tvAvailableRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(walletNum*minSellPrice));
+                tvFreezeRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(walletFreezeNum*minSellPrice));
+            } else if (i == 1) {
+                double hotNum = mWalletResponse.getHotNum();
+                double hotFreezeNum = mWalletResponse.getHotFreezeNum();
+                tvAvailableMonery.setText(new DecimalFormat("0.00").format(hotNum));
+                tvFreezeMonery.setText(new DecimalFormat("0.00").format(hotFreezeNum));
+                tvAvailableRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(hotNum));
+                tvFreezeRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(hotFreezeNum));
+            }
+        }
     }
 
     @Override
@@ -172,21 +197,8 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     }
 
     public void onActivityResultProperty(int requestCode) {
+        GALogger.d(TAG,"requestCode == "+requestCode);
         propertyPresenter.getInfo();
-    }
-
-    @Override
-    public void usdtPriceSuccess(UsdtPriceResponse usdtPriceResponse) {
-        if(usdtPriceResponse != null){
-            this.mUsdtPriceResponse = usdtPriceResponse;
-            onPageSelected(propertyViewPager.getCurrentItem());
-        }
-    }
-
-    @Override
-    public void usdtPriceError() {
-        mUsdtPriceResponse = new UsdtPriceResponse(6.90,6.90);
-        onPageSelected(propertyViewPager.getCurrentItem());
     }
 
     @Override
@@ -210,27 +222,5 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     @Override
     public void hideLoading() {
         hideLoadingDialog();
-    }
-
-    private void upDateWaller(int i,UsdtPriceResponse usdtPriceResponse,WalletResponse walletResponse){
-        if (walletResponse != null && usdtPriceResponse != null) {
-            if (i == 0) {
-                double walletNum = walletResponse.getWalletNum();
-                double walletFreezeNum = walletResponse.getWalletFreezeNum();
-                double minSellPrice = usdtPriceResponse.getMinSellPrice();
-                tvAvailableMonery.setText(new DecimalFormat("0.00").format(walletNum));
-                tvFreezeMonery.setText(new DecimalFormat("0.00").format(walletFreezeNum));
-                tvAvailableRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(walletNum*minSellPrice));
-                tvFreezeRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(walletFreezeNum*minSellPrice));
-            } else if (i == 1) {
-                double hotNum = walletResponse.getHotNum();
-                double hotFreezeNum = walletResponse.getHotFreezeNum();
-                double maxSellPrice = usdtPriceResponse.getMaxSellPrice();
-                tvAvailableMonery.setText(new DecimalFormat("0.00").format(hotNum));
-                tvFreezeMonery.setText(new DecimalFormat("0.00").format(hotFreezeNum));
-                tvAvailableRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(hotNum*maxSellPrice));
-                tvFreezeRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(hotFreezeNum*maxSellPrice));
-            }
-        }
     }
 }

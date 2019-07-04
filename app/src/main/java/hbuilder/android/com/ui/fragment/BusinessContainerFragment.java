@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
 import com.growalong.util.util.DensityUtil;
+import com.growalong.util.util.GALogger;
+
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
@@ -28,6 +30,7 @@ import hbuilder.android.com.ui.activity.WebViewActivity;
 import hbuilder.android.com.ui.adapter.BusinessViewPagerAdapter;
 
 public class BusinessContainerFragment extends BaseFragment {
+    private static final String TAG = BusinessContainerFragment.class.getSimpleName();
     @BindView(R.id.business_magicindicator)
     MagicIndicator businessMagicindicator;
     @BindView(R.id.business_viewPager)
@@ -57,6 +60,7 @@ public class BusinessContainerFragment extends BaseFragment {
 
     @Override
     protected void initView(View root) {
+        GALogger.d(TAG,"BusinessContainerFragment   is    initView");
         setRootViewPaddingTop(root);
         final String[] businessTitle = mContext.getResources().getStringArray(R.array.business_title);
         businessViewPager.setOffscreenPageLimit(businessTitle.length - 1);

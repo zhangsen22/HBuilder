@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.growalong.util.util.DensityUtil;
+import com.growalong.util.util.GALogger;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -25,11 +26,12 @@ import hbuilder.android.com.R;
 import hbuilder.android.com.ui.adapter.GuaDanViewPagerAdapter;
 
 public class GuaDanFragment extends BaseFragment {
+    private static final String TAG = GuaDanFragment.class.getSimpleName();
     @BindView(R.id.guadan_magicindicator)
     MagicIndicator guadanMagicindicator;
     @BindView(R.id.guadan_viewPager)
     ViewPager guadanViewPager;
-
+    private GuaDanViewPagerAdapter guaDanViewPagerAdapter;
     private Context mContext;
 
     public static GuaDanFragment newInstance(@Nullable String taskId) {
@@ -52,15 +54,11 @@ public class GuaDanFragment extends BaseFragment {
 
     @Override
     protected void initView(View root) {
+        GALogger.d(TAG,"GuaDanFragment   is    initView");
         setRootViewPaddingTop(root);
-    }
-
-    @Override
-    public void lazyLoadData() {
-        super.lazyLoadData();
         final String[] guadanTitle = mContext.getResources().getStringArray(R.array.guadan_title);
         guadanViewPager.setOffscreenPageLimit(guadanTitle.length-1);
-        GuaDanViewPagerAdapter guaDanViewPagerAdapter = new GuaDanViewPagerAdapter(getChildFragmentManager(),guadanTitle);
+        guaDanViewPagerAdapter = new GuaDanViewPagerAdapter(getChildFragmentManager(),guadanTitle);
         guadanViewPager.setAdapter(guaDanViewPagerAdapter);
 
         CommonNavigator commonNavigator = new CommonNavigator(mContext);
@@ -104,5 +102,20 @@ public class GuaDanFragment extends BaseFragment {
 
         guadanMagicindicator.setNavigator(commonNavigator);
         ViewPagerHelper.bind(guadanMagicindicator, guadanViewPager);
+    }
+
+    @Override
+    public void lazyLoadData() {
+        super.lazyLoadData();
+        GALogger.d(TAG,"GuaDanFragment   is    lazyLoadData");
+        int currentItem = guadanViewPager.getCurrentItem();
+        if(guaDanViewPagerAdapter != null){
+            BaseFragment currentFragment = guaDanViewPagerAdapter.getCurrentFragment(currentItem);
+            GALogger.d(TAG,"currentFragment.isVisible()   "+currentFragment.isVisible());
+            if(currentFragment != null && currentFragment.isVisible()){
+                currentFragment.setEnableLazyLoad(true);
+                currentFragment.lazyLoadData();
+            }
+        }
     }
 }

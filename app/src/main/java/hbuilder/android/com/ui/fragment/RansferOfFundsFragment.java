@@ -8,18 +8,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
 import java.text.DecimalFormat;
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
+import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.Constants;
+import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.presenter.RansferOfFundsPresenter;
 import hbuilder.android.com.presenter.contract.RansferOfFundsContract;
-import hbuilder.android.com.presenter.modle.RansferOfFundsModle;
 import hbuilder.android.com.ui.activity.RansferOfFundsActivity;
 import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
@@ -148,15 +150,19 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
             walletNum = walletResponse.getWalletNum();
             hotNum = walletResponse.getHotNum();
         }
-
+        UsdtPriceResponse usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
         if(fromType == 1){
             tvLeft.setText("我的钱包");
             tvRight.setText("交易账户");
-            etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum));
-        }else if(fromType == 2){
+            if(usdtPriceResponse != null) {
+                etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(walletNum * usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.inf));
+            }
+            }else if(fromType == 2){
             tvLeft.setText("交易账户");
             tvRight.setText("我的钱包");
-            etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum));
+            if(usdtPriceResponse != null) {
+                etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.inf) + " ≈ " + new DecimalFormat("0.00").format(hotNum / usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.usdt));
+            }
         }
     }
 

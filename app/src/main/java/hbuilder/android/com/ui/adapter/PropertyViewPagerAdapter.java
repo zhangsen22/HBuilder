@@ -26,6 +26,7 @@ public class PropertyViewPagerAdapter extends FragmentPagerAdapter {
         }
         if(walletAccountFragment == null){
             walletAccountFragment = WalletAccountFragment.newInstance("");
+            walletAccountFragment.setEnableLazyLoad(false);
         }
         fragmentList.add(walletAccountFragment);
         if(tradingAccountFragment == null){

@@ -111,6 +111,7 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
+        GALogger.d(TAG,"WalletAccountFragment   is    lazyLoadData");
         setLoadDataWhenVisible();
         //初始化presenter
         new WalletAccountPresenter(this, new WalletAccountModle());
@@ -222,5 +223,11 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
         if (walletaccountPullRefreshRecycler != null) {
             walletaccountPullRefreshRecycler.onRefreshComplete();
         }
+    }
+
+    @Override
+    public void onResume() {
+        GALogger.d(TAG,"WalletAccountFragment   is    onResume");
+        super.onResume();
     }
 }

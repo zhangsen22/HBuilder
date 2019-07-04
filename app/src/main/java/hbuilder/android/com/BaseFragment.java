@@ -28,7 +28,7 @@ public abstract class BaseFragment extends Fragment {
     protected boolean mIsCreateView = false; //View是否已经创建
     private Unbinder unbinder;
     //懒加载
-    protected boolean mEnableLazyLoad = true; //延迟加载开关
+    protected boolean mEnableLazyLoad = true; //延迟加载开关   true  加载数据   false  不加载数据   可用于判断viewpager预加载的fragment   第一次不可见时是否加载数据
     protected boolean mIsLoadData = false; //是否已经加载数据
 
     @Override
@@ -128,6 +128,10 @@ public abstract class BaseFragment extends Fragment {
         this.mEnableLazyLoad = enableLazyLoad;
     }
 
+    public boolean ismEnableLazyLoad() {
+        return mEnableLazyLoad;
+    }
+
     /**
      * 设置每次进入 fragment 都要加载数据
      */
@@ -136,8 +140,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
     private void tryLazyLoadData() {
+        GALogger.d(TAG,"mEnableLazyLoad   "+mEnableLazyLoad+"   mIsCreateView   "+mIsCreateView+"  getUserVisibleHint()  "+getUserVisibleHint()+"   mIsLoadData   "+mIsLoadData);
         if (mEnableLazyLoad == true && mIsCreateView == true && getUserVisibleHint() == true && mIsLoadData == false) {
-            mIsLoadData = true;
             lazyLoadData();
         }
     }
@@ -147,7 +151,7 @@ public abstract class BaseFragment extends Fragment {
      * 延迟加载业务
      */
     public void lazyLoadData() {
-
+        mIsLoadData = true;
     }
 
     private LoadingDialog customDialog;
