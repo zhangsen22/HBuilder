@@ -81,6 +81,7 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                 tvOrderSellShuoming.setBackgroundResource(R.mipmap.af);
             }else {
                 tvOrderSellShuoming.setText("充");
+                tvOrderSellShuoming.setBackgroundResource(R.mipmap.bu);
             }
             long createTime = mySellOrBuyinfoItem.getCreateTime();
             final long payTime = mySellOrBuyinfoItem.getPayTime();

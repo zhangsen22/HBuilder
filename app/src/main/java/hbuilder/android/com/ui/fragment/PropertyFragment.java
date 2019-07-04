@@ -6,8 +6,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
@@ -20,8 +24,12 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
+
 import java.text.DecimalFormat;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
@@ -49,6 +57,10 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     TextView tvFreezeMonery;
     @BindView(R.id.tv_freeze_rmb_monery)
     TextView tvFreezeRmbMonery;
+    @BindView(R.id.iv_waller_iamge)
+    ImageView ivWallerIamge;
+    @BindView(R.id.iv_waller_iamge1)
+    ImageView ivWallerIamge1;
     private PropertyViewPagerAdapter propertyViewPagerAdapter;
     private PropertyPresenter propertyPresenter;
     private Context mContext;
@@ -74,7 +86,7 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
 
     @Override
     protected void initView(View root) {
-        GALogger.d(TAG,"PropertyFragment   is    initView");
+        GALogger.d(TAG, "PropertyFragment   is    initView");
         setRootViewPaddingTop(root);
         final String[] propertyTitle = mContext.getResources().getStringArray(R.array.property_title);
         propertyViewPager.setOffscreenPageLimit(propertyTitle.length - 1);
@@ -112,7 +124,7 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext,1));
+                indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 1));
                 indicator.setColors(R.color.color_afadad);
                 indicator.setMode(LinePagerIndicator.MODE_MATCH_EDGE);
                 return indicator;
@@ -137,23 +149,23 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
-        GALogger.d(TAG,"PropertyFragment   is    lazyLoadData");
+        GALogger.d(TAG, "PropertyFragment   is    lazyLoadData");
         setLoadDataWhenVisible();
         //初始化presenter
         new PropertyPresenter(PropertyFragment.this, new PropertyModle());
         propertyPresenter.getInfo();
         int currentItem = propertyViewPager.getCurrentItem();
-        if(propertyViewPagerAdapter != null){
+        if (propertyViewPagerAdapter != null) {
             BaseFragment currentFragment = propertyViewPagerAdapter.getCurrentFragment(currentItem);
-            GALogger.d(TAG,"currentFragment.isVisible()   "+currentFragment.isVisible());
-            if(currentFragment != null && currentFragment.isVisible()){
+            GALogger.d(TAG, "currentFragment.isVisible()   " + currentFragment.isVisible());
+            if (currentFragment != null && currentFragment.isVisible()) {
                 MyApplication.runOnUIThread(new Runnable() {
                     @Override
                     public void run() {
                         currentFragment.setEnableLazyLoad(true);
                         currentFragment.lazyLoadData();
                     }
-                },1000);
+                }, 1000);
             }
         }
     }
@@ -165,11 +177,7 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
 
     @Override
     public void onPageSelected(int i) {
-        GALogger.d(TAG,"i    "+i);
-//        if(propertyViewPagerAdapter != null) {
-//            BaseFragment currentFragment = propertyViewPagerAdapter.getCurrentFragment(i);
-//
-//        }
+        GALogger.d(TAG, "i    " + i);
         UsdtPriceResponse usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
         if (mWalletResponse != null && usdtPriceResponse != null) {
             if (i == 0) {
@@ -178,15 +186,19 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
                 double minSellPrice = usdtPriceResponse.getMinSellPrice();
                 tvAvailableMonery.setText(new DecimalFormat("0.00").format(walletNum));
                 tvFreezeMonery.setText(new DecimalFormat("0.00").format(walletFreezeNum));
-                tvAvailableRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(walletNum*minSellPrice));
-                tvFreezeRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(walletFreezeNum*minSellPrice));
+                tvAvailableRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(walletNum * minSellPrice));
+                tvFreezeRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(walletFreezeNum * minSellPrice));
+                ivWallerIamge.setImageResource(R.mipmap.p);
+                ivWallerIamge1.setImageResource(R.mipmap.p);
             } else if (i == 1) {
                 double hotNum = mWalletResponse.getHotNum();
                 double hotFreezeNum = mWalletResponse.getHotFreezeNum();
                 tvAvailableMonery.setText(new DecimalFormat("0.00").format(hotNum));
                 tvFreezeMonery.setText(new DecimalFormat("0.00").format(hotFreezeNum));
-                tvAvailableRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(hotNum));
-                tvFreezeRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(hotFreezeNum));
+                tvAvailableRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(hotNum));
+                tvFreezeRmbMonery.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(hotFreezeNum));
+                ivWallerIamge.setImageResource(R.mipmap.bt);
+                ivWallerIamge1.setImageResource(R.mipmap.bt);
             }
         }
     }
@@ -197,13 +209,13 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     }
 
     public void onActivityResultProperty(int requestCode) {
-        GALogger.d(TAG,"requestCode == "+requestCode);
+        GALogger.d(TAG, "requestCode == " + requestCode);
         propertyPresenter.getInfo();
     }
 
     @Override
     public void getInfoSuccess(WalletResponse walletResponse) {
-        if(walletResponse != null){
+        if (walletResponse != null) {
             this.mWalletResponse = walletResponse;
             onPageSelected(propertyViewPager.getCurrentItem());
         }

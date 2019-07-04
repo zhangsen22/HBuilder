@@ -197,14 +197,14 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
             hotNum = walletResponse.getHotNum();
         }
         if(fromType == 1){
-            tvLeft.setText("我的钱包");
-            tvRight.setText("交易账户");
+            tvLeft.setText("我的钱包" +"  (" +MyApplication.appContext.getResources().getString(R.string.usdt)+")");
+            tvRight.setText("交易账户" + "  (" +MyApplication.appContext.getResources().getString(R.string.inf)+")");
             if(usdtPriceResponse != null) {
                 etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(walletNum * usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.inf));
             }
             }else if(fromType == 2){
-            tvLeft.setText("交易账户");
-            tvRight.setText("我的钱包");
+            tvLeft.setText("交易账户" + "  (" +MyApplication.appContext.getResources().getString(R.string.inf)+")");
+            tvRight.setText("我的钱包" + "  (" +MyApplication.appContext.getResources().getString(R.string.usdt)+")");
             if(usdtPriceResponse != null) {
                 etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.inf) + " ≈ " + new DecimalFormat("0.00").format(hotNum / usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.usdt));
             }

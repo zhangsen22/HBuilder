@@ -47,9 +47,10 @@
             android:layout_marginTop="@dimen/y28">
 
             <ImageView
+                android:id="@+id/iv_waller_iamge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/p"/>
+                tools:src="@mipmap/p"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -108,9 +109,10 @@
                 android:layout_marginTop="@dimen/y28">
 
                 <ImageView
+                    android:id="@+id/iv_waller_iamge1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/p"/>
+                    tools:src="@mipmap/p"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
