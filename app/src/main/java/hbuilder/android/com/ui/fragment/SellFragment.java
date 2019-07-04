@@ -41,7 +41,7 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
     private Runnable refreshAction;
     private Runnable loadMoreAction;
     private boolean isRun;
-    private static final int DEFAULT_TIME = 0;
+    private static final int DEFAULT_TIME = 1000;
     public List<Long> idList;
 
     public static SellFragment newInstance(@Nullable String taskId) {

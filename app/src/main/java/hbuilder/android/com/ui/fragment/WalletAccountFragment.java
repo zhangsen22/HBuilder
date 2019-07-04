@@ -49,7 +49,7 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
     private Runnable refreshAction;
     private Runnable loadMoreAction;
     private boolean isRun;
-    private static final int DEFAULT_TIME = 0;
+    private static final int DEFAULT_TIME = 1000;
     public List<Long> idList;
     private BaseActivity mContext;
 

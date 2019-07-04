@@ -63,7 +63,7 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
     private Runnable refreshAction;
     private Runnable loadMoreAction;
     private boolean isRun;
-    private static final int DEFAULT_TIME = 0;
+    private static final int DEFAULT_TIME = 1000;
     public List<Long> sellIdList;
     public List<Long> buyIdList;
     public List<Long> entrustIdList;
