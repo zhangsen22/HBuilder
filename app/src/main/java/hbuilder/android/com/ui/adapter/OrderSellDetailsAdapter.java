@@ -137,7 +137,7 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                             timer.start();
                         }
                     }else {
-                        Status2ChuLi(payTime,mySellOrBuyinfoItem);
+                        Status2ChuLi(createTime,mySellOrBuyinfoItem);
                     }
                 } else if (status == 2) {
                     Status2ChuLi(payTime,mySellOrBuyinfoItem);
@@ -158,7 +158,7 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
         }
 
 
-        private void Status2ChuLi(long payTime,MySellOrBuyinfoItem mySellOrBuyinfoItem){
+        private void Status2ChuLi(long time,MySellOrBuyinfoItem mySellOrBuyinfoItem){
             if(timer != null){
                 timer.cancel();
                 timer = null;
@@ -166,7 +166,7 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
             tvOrderSellDjs.setVisibility(View.GONE);
             llOrderSellButton.setVisibility(View.VISIBLE);
             long currentTime = System.currentTimeMillis();
-            if (currentTime >= payTime + 10 * 60 * 1000) {
+            if (currentTime >= time + 10 * 60 * 1000) {
                 tvOrderSellSstime.setVisibility(View.GONE);
                 tvOrderSellSs.setEnabled(true);
             } else {
@@ -174,7 +174,7 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
                     timer1.cancel();
                     timer1 = null;
                 }
-                timer1 = new CountDownTimer(payTime + 10 * 60 * 1000 - currentTime, 1000) {
+                timer1 = new CountDownTimer(time + 10 * 60 * 1000 - currentTime, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         if (mContext != null) {
