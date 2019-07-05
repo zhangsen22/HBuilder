@@ -19,6 +19,7 @@ import butterknife.BindView;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.BuyItem;
 import hbuilder.android.com.modle.BuyResponse;
 import hbuilder.android.com.presenter.SellPresenter;
@@ -41,7 +42,7 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
     private Runnable refreshAction;
     private Runnable loadMoreAction;
     private boolean isRun;
-    private static final int DEFAULT_TIME = 1000;
+    private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
 
     public static SellFragment newInstance(@Nullable String taskId) {
@@ -151,7 +152,11 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
             reverseIdList(billInfo);
-            sellFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
+            if(billInfo.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+                sellFragmentAdapter.setTotalCount(billInfo.size());
+            }else {
+                sellFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
+            }
             sellFragmentAdapter.setList(billInfo);
         } else {
             emptyAnderrorView();

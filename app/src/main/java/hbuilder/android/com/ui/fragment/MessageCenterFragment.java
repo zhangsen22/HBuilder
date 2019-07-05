@@ -22,6 +22,7 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.MessageCenterItem;
 import hbuilder.android.com.modle.MessageCenterResponse;
 import hbuilder.android.com.presenter.MessageCenterPresenter;
@@ -49,7 +50,7 @@ public class MessageCenterFragment extends BaseFragment implements MessageCenter
     private Runnable refreshAction;
     private Runnable loadMoreAction;
     private boolean isRun;
-    private static final int DEFAULT_TIME = 1000;
+    private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
 
     public static MessageCenterFragment newInstance(@Nullable String taskId) {
@@ -125,7 +126,11 @@ public class MessageCenterFragment extends BaseFragment implements MessageCenter
         List<MessageCenterItem> msg = messageCenterResponse.getMsg();
         if (msg != null && msg.size() > 0) {
             reverseIdList(msg);
-            messageCenterAdapter.setTotalCount(Integer.MAX_VALUE);
+            if(msg.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+                messageCenterAdapter.setTotalCount(msg.size());
+            }else {
+                messageCenterAdapter.setTotalCount(Integer.MAX_VALUE);
+            }
             messageCenterAdapter.setList(msg);
         } else {
             emptyAnderrorView();

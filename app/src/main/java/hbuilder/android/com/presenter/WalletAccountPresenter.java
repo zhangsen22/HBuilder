@@ -20,20 +20,20 @@ public class WalletAccountPresenter implements WalletAccountContract.Presenter{
 
     @Override
     public void financeLogRefresh(long minId) {
-        mView.showLoading();
+//        mView.showLoading();
         mModel.financeLog(minId).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<FinanceLogResponse>() {
                     @Override
                     public void onSuccess(FinanceLogResponse financeLogResponse) {
                         mView.financeLogRefreshSuccess(financeLogResponse);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.financeLogRefreshError();
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }

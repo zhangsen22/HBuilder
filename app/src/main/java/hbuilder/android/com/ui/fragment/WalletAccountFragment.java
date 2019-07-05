@@ -24,6 +24,7 @@ import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.FinanceLogItem;
 import hbuilder.android.com.modle.FinanceLogResponse;
 import hbuilder.android.com.presenter.WalletAccountPresenter;
@@ -49,7 +50,7 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
     private Runnable refreshAction;
     private Runnable loadMoreAction;
     private boolean isRun;
-    private static final int DEFAULT_TIME = 1000;
+    private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
     private BaseActivity mContext;
 
@@ -124,7 +125,11 @@ public class WalletAccountFragment extends BaseFragment implements WalletAccount
         if (financeLog != null && financeLog.size() > 0) {
             tvNoData.setVisibility(View.GONE);
             reverseIdList(financeLog);
-            walletAccountAdapter.setTotalCount(Integer.MAX_VALUE);
+            if(financeLog.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+                walletAccountAdapter.setTotalCount(financeLog.size());
+            }else {
+                walletAccountAdapter.setTotalCount(Integer.MAX_VALUE);
+            }
             walletAccountAdapter.setList(financeLog);
         } else {
             emptyAnderrorView();

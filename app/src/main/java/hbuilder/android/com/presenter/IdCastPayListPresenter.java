@@ -21,40 +21,40 @@ public class IdCastPayListPresenter implements IdCastPayListContract.Presenter{
 
     @Override
     public void paysetupBankRefresh(int type) {
-        mView.showLoading();
+//        mView.showLoading();
         mModel.paysetupBank(type).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<PaySetupModelBank>() {
                     @Override
                     public void onSuccess(PaySetupModelBank paySetupModelBank) {
                         mView.paysetupBankRefreshSuccess(paySetupModelBank);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.paysetupBankRefreshError();
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }
 
     @Override
     public void paysetupBankLoadMore(int type) {
-        mView.showLoading();
+//        mView.showLoading();
         mModel.paysetupBank(type).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<PaySetupModelBank>() {
                     @Override
                     public void onSuccess(PaySetupModelBank paySetupModelBank) {
                         mView.paysetupBankLoadMoreSuccess(paySetupModelBank);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.paysetupBankLoadMoreError();
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }

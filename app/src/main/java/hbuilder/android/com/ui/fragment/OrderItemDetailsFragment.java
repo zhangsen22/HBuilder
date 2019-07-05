@@ -25,6 +25,7 @@ import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.modle.MyEntrustinfoItem;
 import hbuilder.android.com.modle.MyEntrustinfoResponse;
@@ -63,7 +64,7 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
     private Runnable refreshAction;
     private Runnable loadMoreAction;
     private boolean isRun;
-    private static final int DEFAULT_TIME = 1000;
+    private static final int DEFAULT_TIME = 0;
     public List<Long> sellIdList;
     public List<Long> buyIdList;
     public List<Long> entrustIdList;
@@ -216,7 +217,11 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
         if (info != null && info.size() > 0) {
             GALogger.d(TAG,"info.size()    "+info.get(0).toString());
             reverseIdsellIdList(info);
-            orderSellDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
+            if(info.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+                orderSellDetailsAdapter.setTotalCount(info.size());
+            }else {
+                orderSellDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
+            }
             orderSellDetailsAdapter.setList(info);
         } else {
             emptyAnderrorView();
@@ -272,7 +277,11 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
         GALogger.d(TAG,"info.size()    "+info.size());
         if (info != null && info.size() > 0) {
             reverseIdbuyIdList(info);
-            orderBuyDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
+            if(info.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+                orderBuyDetailsAdapter.setTotalCount(info.size());
+            }else {
+                orderBuyDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
+            }
             orderBuyDetailsAdapter.setList(info);
         } else {
             emptyAnderrorView();
@@ -328,7 +337,11 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
         GALogger.d(TAG,"info.size()    "+billInfo.size());
         if (billInfo != null && billInfo.size() > 0) {
             reverseIdentrustIdList(billInfo);
-            orderEntrustDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
+            if(billInfo.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+                orderEntrustDetailsAdapter.setTotalCount(billInfo.size());
+            }else {
+                orderEntrustDetailsAdapter.setTotalCount(Integer.MAX_VALUE);
+            }
             orderEntrustDetailsAdapter.setList(billInfo);
         } else {
             emptyAnderrorView();

@@ -20,19 +20,19 @@ public class TradingAccountPresenter implements TradingAccountContract.Presenter
 
     @Override
     public void rewardLog() {
-        mView.showLoading();
+//        mView.showLoading();
         mModel.rewardLog().observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<RewardLogResponse>() {
                     @Override
                     public void onSuccess(RewardLogResponse rewardLogResponse) {
                         mView.rewardLogSuccess(rewardLogResponse);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }

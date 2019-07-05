@@ -21,40 +21,40 @@ public class AliPayListPresenter implements AliPayListContract.Presenter{
 
     @Override
     public void aliPayListRefresh(int type) {
-        mView.showLoading();
+//        mView.showLoading();
         mModel.paysetupAliPay(type).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<PaySetupModelAliPay>() {
                     @Override
                     public void onSuccess(PaySetupModelAliPay paySetupModelAliPay) {
                         mView.aliPayListRefreshSuccess(paySetupModelAliPay);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.aliPayListRefreshError();
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }
 
     @Override
     public void aliPayListLoadMore(int type) {
-        mView.showLoading();
+//        mView.showLoading();
         mModel.paysetupAliPay(type).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<PaySetupModelAliPay>() {
                     @Override
                     public void onSuccess(PaySetupModelAliPay paySetupModelAliPay) {
                         mView.aliPayListLoadMoreSuccess(paySetupModelAliPay);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.aliPayListLoadMoreError();
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }

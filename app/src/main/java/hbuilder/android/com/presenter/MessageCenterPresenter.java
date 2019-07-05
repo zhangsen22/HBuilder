@@ -21,19 +21,19 @@ public class MessageCenterPresenter implements MessageCenterContract.Presenter{
 
     @Override
     public void msgCenterRefresh(long minId) {
-        mView.showLoading();
+//        mView.showLoading();
         mModel.msgCenter(minId).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<MessageCenterResponse>() {
                     @Override
                     public void onSuccess(MessageCenterResponse messageCenterResponse) {
-                        mView.hideLoading();
+//                        mView.hideLoading();
                         mView.msgCenterRefreshSuccess(messageCenterResponse);
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                         mView.msgCenterRefreshError();
                     }
                 });

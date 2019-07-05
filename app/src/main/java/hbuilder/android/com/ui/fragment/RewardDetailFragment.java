@@ -23,6 +23,7 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.RewardDetailItem;
 import hbuilder.android.com.modle.RewardDetailResponse;
 import hbuilder.android.com.modle.RewardLogResponse;
@@ -70,7 +71,7 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
     private Runnable refreshAction;
     private Runnable loadMoreAction;
     private boolean isRun;
-    private static final int DEFAULT_TIME = 1000;
+    private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
 
     public static RewardDetailFragment newInstance(int fromType, RewardLogResponse rewardLogResponse) {
@@ -179,7 +180,11 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
         List<RewardDetailItem> details = rewardDetailResponse.getDetails();
         if (details != null && details.size() > 0) {
             reverseIdList(details);
-            rewardDetailAdapter.setTotalCount(Integer.MAX_VALUE);
+            if(details.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+                rewardDetailAdapter.setTotalCount(details.size());
+            }else {
+                rewardDetailAdapter.setTotalCount(Integer.MAX_VALUE);
+            }
             rewardDetailAdapter.setList(details);
         } else {
             emptyAnderrorView();

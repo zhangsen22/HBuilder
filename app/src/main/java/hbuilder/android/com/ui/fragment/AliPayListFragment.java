@@ -59,7 +59,7 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
     private Runnable refreshAction;
     private Runnable loadMoreAction;
     private boolean isRun;
-    private static final int DEFAULT_TIME = 1000;
+    private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
 
     public static AliPayListFragment newInstance(@Nullable String taskId) {

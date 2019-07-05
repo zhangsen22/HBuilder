@@ -18,6 +18,7 @@ import butterknife.BindView;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.LargeAmountItem;
 import hbuilder.android.com.modle.LargeAmountResponse;
 import hbuilder.android.com.presenter.LargeAmountPresenter;
@@ -40,7 +41,7 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     private Runnable refreshAction;
     private Runnable loadMoreAction;
     private boolean isRun;
-    private static final int DEFAULT_TIME = 1000;
+    private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
 
     public static LargeAmountFragment newInstance(@Nullable String taskId) {
@@ -107,7 +108,11 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
         if (billInfo != null && billInfo.size() > 0) {
             GALogger.d(TAG,"billInfo.size()    "+billInfo.size());
             reverseIdList(billInfo);
-            largeAmountAdapter.setTotalCount(Integer.MAX_VALUE);
+            if(billInfo.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+                largeAmountAdapter.setTotalCount(billInfo.size());
+            }else {
+                largeAmountAdapter.setTotalCount(Integer.MAX_VALUE);
+            }
             largeAmountAdapter.setList(billInfo);
         } else {
             emptyAnderrorView();

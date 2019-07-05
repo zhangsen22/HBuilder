@@ -62,7 +62,7 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
     private Runnable refreshAction;
     private Runnable loadMoreAction;
     private boolean isRun;
-    private static final int DEFAULT_TIME = 1000;
+    private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
 
     public static WebChatListFragment newInstance(@Nullable String taskId) {

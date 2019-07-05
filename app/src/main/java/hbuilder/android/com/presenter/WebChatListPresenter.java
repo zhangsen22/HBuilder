@@ -21,40 +21,40 @@ public class WebChatListPresenter implements WebChatListContract.Presenter{
 
     @Override
     public void webChatListRefresh(int type) {
-        mView.showLoading();
+//        mView.showLoading();
         mModel.paysetupWebChat(type).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<PaySetupModelWebChat>() {
                     @Override
                     public void onSuccess(PaySetupModelWebChat paySetupModelWebChat) {
                         mView.webChatListRefreshSuccess(paySetupModelWebChat);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.webChatListRefreshError();
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }
 
     @Override
     public void webChatListLoadMore(int type) {
-        mView.showLoading();
+//        mView.showLoading();
         mModel.paysetupWebChat(type).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<PaySetupModelWebChat>() {
                     @Override
                     public void onSuccess(PaySetupModelWebChat paySetupModelWebChat) {
                         mView.webChatListLoadMoreSuccess(paySetupModelWebChat);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.webChatListLoadMoreError();
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }

@@ -20,19 +20,19 @@ public class PropertyPresenter implements PropertyContract.Presenter{
 
     @Override
     public void getInfo() {
-        mView.showLoading();
+//        mView.showLoading();
         mModel.getInfo().observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<WalletResponse>() {
                     @Override
                     public void onSuccess(WalletResponse walletResponse) {
                         mView.getInfoSuccess(walletResponse);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }
