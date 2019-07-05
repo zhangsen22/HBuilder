@@ -10,6 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.Md5Utils;
+import com.growalong.util.util.bean.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.text.DecimalFormat;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -237,7 +241,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
 
     @Override
     public void putUpSellSuccess(BaseBean baseBean) {
-
+        EventBus.getDefault().post(new MessageEvent(1));
     }
 
     @Override

@@ -9,6 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.Md5Utils;
+import com.growalong.util.util.bean.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
@@ -153,7 +157,7 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
 
     @Override
     public void putUpBuySuccess(BaseBean baseBean) {
-
+        EventBus.getDefault().post(new MessageEvent(2));
     }
 
     @Override

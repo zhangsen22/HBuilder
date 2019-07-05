@@ -6,11 +6,16 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
+import com.growalong.util.util.bean.MessageEvent;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.XPopupCallback;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
@@ -43,12 +48,20 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     RadioButton rbProperty;
     @BindView(R.id.rb_center)
     RadioButton rbCenter;
+    @BindView(R.id.rg_controal)
+    RadioGroup rgControal;
 
     private MainPresenter mainPresenter;
     private MainViewPagerAdapter mainViewPagerAdapter;
 
     public static void startThis(BaseActivity activity) {
-        activity.startActivity(new Intent(activity, MainActivity.class));
+        Intent intent = new Intent(activity, MainActivity.class);
+        activity.startActivity(intent);
+    }
+
+    public static void startThis(BaseActivity activity, int requestCode) {
+        Intent intent = new Intent(activity, MainActivity.class);
+        activity.startActivityForResult(intent, requestCode);
     }
 
     @Override
@@ -59,7 +72,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     protected void initView(View mRootView) {
         String hostAddress = MyApplication.getHostAddress();
-        GALogger.d(TAG,"hostAddress   "+hostAddress);
+        GALogger.d(TAG, "hostAddress   " + hostAddress);
     }
 
     @Override
@@ -69,7 +82,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
             public void run() {
                 updateApp();
             }
-        },3000);
+        }, 3000);
         //初始化presenter
         new MainPresenter(this, new MainModle());
         mainPresenter.usdtPrice();
@@ -78,38 +91,33 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         noscrollViewPager.setOffscreenPageLimit(4);
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-    }
-
     @OnClick({R.id.rb_business, R.id.rb_guadan, R.id.rb_order, R.id.rb_property, R.id.rb_center})
     public void onViewClicked(View view) {
         int currentItem = noscrollViewPager.getCurrentItem();
         switch (view.getId()) {
             case R.id.rb_business:
                 if (currentItem != 0) {
-                    noscrollViewPager.setCurrentItem(0,false);
+                    noscrollViewPager.setCurrentItem(0, false);
                 }
                 break;
             case R.id.rb_guadan:
                 if (currentItem != 1) {
-                    noscrollViewPager.setCurrentItem(1,false);
+                    noscrollViewPager.setCurrentItem(1, false);
                 }
                 break;
             case R.id.rb_order:
                 if (currentItem != 2) {
-                    noscrollViewPager.setCurrentItem(2,false);
+                    noscrollViewPager.setCurrentItem(2, false);
                 }
                 break;
             case R.id.rb_property:
                 if (currentItem != 3) {
-                    noscrollViewPager.setCurrentItem(3,false);
+                    noscrollViewPager.setCurrentItem(3, false);
                 }
                 break;
             case R.id.rb_center:
                 if (currentItem != 4) {
-                    noscrollViewPager.setCurrentItem(4,false);
+                    noscrollViewPager.setCurrentItem(4, false);
                 }
                 break;
         }
@@ -131,41 +139,78 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        GALogger.d(TAG, "onNewIntent");
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode == RESULT_OK){
-            if(requestCode == Constants.REQUESTCODE_10){
+        GALogger.d(TAG, "onActivityResult");
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Constants.REQUESTCODE_10) {
                 CenterFragment centerFragment = mainViewPagerAdapter.getCenterFragment();
-                if(centerFragment != null){
+                if (centerFragment != null) {
                     centerFragment.onActivityResultCenter(requestCode);
                 }
-            }else if(requestCode == Constants.REQUESTCODE_11){
+            } else if (requestCode == Constants.REQUESTCODE_11) {
                 PropertyFragment propertyFragment = mainViewPagerAdapter.getPropertyFragment();
-                if(propertyFragment != null){
+                if (propertyFragment != null) {
                     propertyFragment.onActivityResultProperty(requestCode);
                 }
-            }else if(requestCode == Constants.REQUESTCODE_12){
+            } else if (requestCode == Constants.REQUESTCODE_12 || requestCode == Constants.REQUESTCODE_13 || requestCode == Constants.REQUESTCODE_14) {
                 OrderFragment orderFragment = mainViewPagerAdapter.getOrderFragment();
-                if(orderFragment != null){
+                if (orderFragment != null) {
                     orderFragment.onActivityResultOrder(requestCode);
                 }
             }
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        int type = event.getType();
+        GALogger.d(TAG, "type    " + type);
+        switch (type) {
+            case 1:
+                noscrollViewPager.setCurrentItem(2, false);
+                changeRadioButton(2);
+                onActivityResult(Constants.REQUESTCODE_13, RESULT_OK, null);
+                break;
+            case 2:
+                noscrollViewPager.setCurrentItem(2, false);
+                changeRadioButton(2);
+                onActivityResult(Constants.REQUESTCODE_14, RESULT_OK, null);
+                break;
+        }
+    }
+
     @Override
     public void usdtPriceSuccess(UsdtPriceResponse usdtPriceResponse) {
-        if(usdtPriceResponse != null){
-            SharedPreferencesUtils.putString(Constants.USDTPRICE,GsonUtil.getInstance().objTojson(usdtPriceResponse));
+        if (usdtPriceResponse != null) {
+            SharedPreferencesUtils.putString(Constants.USDTPRICE, GsonUtil.getInstance().objTojson(usdtPriceResponse));
         }
     }
 
     @Override
     public void usdtPriceError() {
-        UsdtPriceResponse mUsdtPriceResponse = new UsdtPriceResponse(6.90,6.90);
-        SharedPreferencesUtils.putString(Constants.USDTPRICE,GsonUtil.getInstance().objTojson(mUsdtPriceResponse));
+        UsdtPriceResponse mUsdtPriceResponse = new UsdtPriceResponse(6.90, 6.90);
+        SharedPreferencesUtils.putString(Constants.USDTPRICE, GsonUtil.getInstance().objTojson(mUsdtPriceResponse));
     }
 
-    private void updateApp(){
+    private void updateApp() {
         //带确认和取消按钮的弹窗
         new XPopup.Builder(this)
 //                         .dismissOnTouchOutside(false)
@@ -228,5 +273,19 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                     }
                 }, null, false)
                 .show();
+    }
+
+    private void changeRadioButton(int position){
+        int childCount = rgControal.getChildCount();
+        if(childCount > 0){
+            for (int i = 0; i < childCount; i++) {
+                RadioButton childAt = (RadioButton) rgControal.getChildAt(i);
+                if(i == position){
+                    childAt.setChecked(true);
+                }else {
+                    childAt.setChecked(false);
+                }
+            }
+        }
     }
 }

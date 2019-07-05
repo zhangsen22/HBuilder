@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
 import com.growalong.util.util.DensityUtil;
-
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
@@ -22,6 +20,7 @@ import butterknife.BindView;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.ui.adapter.OrderItemViewPagerAdapter;
 
 /**
@@ -120,10 +119,24 @@ public class OrderItemFragment extends BaseFragment {
     }
 
     public void onActivityResultOrderItem(int requestCode) {
-        int currentItem = orderItemViewPager.getCurrentItem();
-        if(orderViewPagerAdapter != null){
-            OrderItemDetailsFragment currentFragment = (OrderItemDetailsFragment) orderViewPagerAdapter.getCurrentFragment(currentItem);
-            currentFragment.onActivityResultOrderItemDetails(requestCode);
+        if(requestCode == Constants.REQUESTCODE_12){
+            int currentItem = orderItemViewPager.getCurrentItem();
+            if(orderViewPagerAdapter != null){
+                OrderItemDetailsFragment currentFragment = (OrderItemDetailsFragment) orderViewPagerAdapter.getCurrentFragment(currentItem);
+                currentFragment.onActivityResultOrderItemDetails(requestCode);
+            }
+        }else if(requestCode == Constants.REQUESTCODE_13){
+            orderItemViewPager.setCurrentItem(1,false);
+            if(orderViewPagerAdapter != null){
+                OrderItemDetailsFragment currentFragment = (OrderItemDetailsFragment) orderViewPagerAdapter.getCurrentFragment(1);
+                currentFragment.onActivityResultOrderItemDetails(requestCode);
+            }
+        }else if(requestCode == Constants.REQUESTCODE_14){
+            orderItemViewPager.setCurrentItem(0,false);
+            if(orderViewPagerAdapter != null){
+                OrderItemDetailsFragment currentFragment = (OrderItemDetailsFragment) orderViewPagerAdapter.getCurrentFragment(0);
+                currentFragment.onActivityResultOrderItemDetails(requestCode);
+            }
         }
     }
 }

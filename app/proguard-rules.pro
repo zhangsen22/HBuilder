@@ -175,3 +175,15 @@ public static final int *;
 -keepattributes InnerClasses,Signature
 -keepattributes *Annotation*
 -keep class cn.qqtheme.framework.entity.** { *;}
+
+#--------EventBus---------
+ -keepattributes *Annotation*
+ -keepclassmembers class * {
+     @org.greenrobot.eventbus.Subscribe <methods>;
+ }
+ -keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+ # Only required if you use AsyncExecutor
+ -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+     <init>(java.lang.Throwable);
+ }

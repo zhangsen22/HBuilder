@@ -7,13 +7,8 @@ package com.growalong.util.util.bean;
 public class MessageEvent {
 
     /**
-     * 1 : 首页客服底部按钮显示隐藏
-     * 2 : 一对一班主任咨询发送视频
-     * 3:收到环信新消息
-     * 4:首页mainactivity 切换到录制的fragment
-     * 5:查看了新消息
-     * 6:首页好友页面刷新数据
-     * 7:自我介绍视频审核通过
+     * 1:挂单 委托出售  切换到我的委托订单页  刷新
+     * 2:挂单 委托购买  切换到我的委托订单页  刷新
      */
     private int type;
 

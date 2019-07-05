@@ -96,4 +96,6 @@ dependencies {
         changing = true
     }
     implementation files('libs/googleBase64.jar')
+
+    implementation rootProject.ext.dependencies.eventbus
 }

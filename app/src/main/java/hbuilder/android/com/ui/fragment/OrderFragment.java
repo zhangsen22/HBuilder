@@ -21,6 +21,7 @@ import butterknife.BindView;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.ui.adapter.OrderViewPagerAdapter;
 
 public class OrderFragment extends BaseFragment {
@@ -107,10 +108,18 @@ public class OrderFragment extends BaseFragment {
     }
 
     public void onActivityResultOrder(int requestCode) {
-        int currentItem = orderViewPager.getCurrentItem();
-        if(orderViewPagerAdapter != null){
-            OrderItemFragment currentFragment = (OrderItemFragment) orderViewPagerAdapter.getCurrentFragment(currentItem);
-            currentFragment.onActivityResultOrderItem(requestCode);
+        if(requestCode == Constants.REQUESTCODE_12){
+            int currentItem = orderViewPager.getCurrentItem();
+            if(orderViewPagerAdapter != null){
+                OrderItemFragment currentFragment = (OrderItemFragment) orderViewPagerAdapter.getCurrentFragment(currentItem);
+                currentFragment.onActivityResultOrderItem(requestCode);
+            }
+        }else if(requestCode == Constants.REQUESTCODE_13 || requestCode == Constants.REQUESTCODE_14){
+            orderViewPager.setCurrentItem(2,false);
+            if(orderViewPagerAdapter != null){
+                OrderItemFragment currentFragment = (OrderItemFragment) orderViewPagerAdapter.getCurrentFragment(2);
+                currentFragment.onActivityResultOrderItem(requestCode);
+            }
         }
     }
 }

@@ -20,6 +20,7 @@
         <include layout="@layout/line"/>
 
     <RadioGroup
+        android:id="@+id/rg_controal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y100"
         android:clipChildren="false"
