@@ -37,6 +37,7 @@ public class OrderItemFragment extends BaseFragment {
     ViewPager orderItemViewPager;
     private Context mContext;
     private String[] orderItemTitle;
+    private OrderItemViewPagerAdapter orderViewPagerAdapter;
 
     @Override
     public void onAttach(Activity activity) {
@@ -73,7 +74,7 @@ public class OrderItemFragment extends BaseFragment {
         }
 
         orderItemViewPager.setOffscreenPageLimit(orderItemTitle.length - 1);
-        OrderItemViewPagerAdapter orderViewPagerAdapter = new OrderItemViewPagerAdapter(getChildFragmentManager(), orderItemTitle,type);
+        orderViewPagerAdapter = new OrderItemViewPagerAdapter(getChildFragmentManager(), orderItemTitle,type);
         orderItemViewPager.setAdapter(orderViewPagerAdapter);
         CommonNavigator commonNavigator = new CommonNavigator(mContext);
         commonNavigator.setAdjustMode(true);
@@ -116,5 +117,13 @@ public class OrderItemFragment extends BaseFragment {
 
         orderItemMagicindicator.setNavigator(commonNavigator);
         ViewPagerHelper.bind(orderItemMagicindicator, orderItemViewPager);
+    }
+
+    public void onActivityResultOrderItem(int requestCode) {
+        int currentItem = orderItemViewPager.getCurrentItem();
+        if(orderViewPagerAdapter != null){
+            OrderItemDetailsFragment currentFragment = (OrderItemDetailsFragment) orderViewPagerAdapter.getCurrentFragment(currentItem);
+            currentFragment.onActivityResultOrderItemDetails(requestCode);
+        }
     }
 }

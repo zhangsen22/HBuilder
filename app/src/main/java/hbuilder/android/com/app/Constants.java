@@ -25,5 +25,6 @@ public class Constants {
 
     public static final int REQUESTCODE_10 = 10;
     public static final int REQUESTCODE_11 = 11;
+    public static final int REQUESTCODE_12 = 12;
     public static final int RECYCLEVIEW_TOTALCOUNT = 10;
 }

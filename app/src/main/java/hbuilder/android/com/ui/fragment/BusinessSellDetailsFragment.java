@@ -1,5 +1,6 @@
 package hbuilder.android.com.ui.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -151,11 +152,13 @@ public class BusinessSellDetailsFragment extends BaseFragment implements Busines
 
     @Override
     public void appealSuccess(BaseBean baseBean) {
+        businessSellDetailsActivity.setResult(Activity.RESULT_OK);
         businessSellDetailsActivity.finish();
     }
 
     @Override
     public void fb_transferSuccess(BaseBean baseBean) {
+        businessSellDetailsActivity.setResult(Activity.RESULT_OK);
         businessSellDetailsActivity.finish();
     }
 

@@ -13,6 +13,7 @@ import java.text.DecimalFormat;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.MySellOrBuyinfoItem;
 import hbuilder.android.com.modle.SellResponse;
 import hbuilder.android.com.ui.activity.BusinessSellDetailsActivity;
@@ -199,7 +200,7 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
             tvOrderSellQfb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    BusinessSellDetailsActivity.startThis(mContext, new SellResponse(mySellOrBuyinfoItem.getTradeid(), mySellOrBuyinfoItem.getPayCode(), mySellOrBuyinfoItem.getCreateTime()), mySellOrBuyinfoItem.getPrice(), mySellOrBuyinfoItem.getNum(), AccountManager.getInstance().getNickname());
+                    BusinessSellDetailsActivity.startThis(mContext, new SellResponse(mySellOrBuyinfoItem.getTradeid(), mySellOrBuyinfoItem.getPayCode(), mySellOrBuyinfoItem.getCreateTime()), mySellOrBuyinfoItem.getPrice(), mySellOrBuyinfoItem.getNum(), AccountManager.getInstance().getNickname(),Constants.REQUESTCODE_12);
                 }
             });
             tvOrderSellSs.setOnClickListener(new View.OnClickListener() {

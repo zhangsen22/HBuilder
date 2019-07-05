@@ -6,13 +6,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.ui.fragment.OrderItemFragment;
 
 public class OrderViewPagerAdapter extends FragmentPagerAdapter {
 
-    private Fragment mCurrentPrimaryItem = null;
+    private BaseFragment mCurrentPrimaryItem = null;
     private OrderItemFragment orderItemFragment;
-    private List<Fragment> fragmentList;
+    private List<BaseFragment> fragmentList;
     private String[] mTitles;
 
     public OrderViewPagerAdapter(FragmentManager fm, String[] titles) {
@@ -42,7 +43,8 @@ public class OrderViewPagerAdapter extends FragmentPagerAdapter {
         return mTitles[position];
     }
 
-    public Fragment getCurrentFragment() {
+    public BaseFragment getCurrentFragment(int position) {
+        mCurrentPrimaryItem = (BaseFragment) fragmentList.get(position);
         return mCurrentPrimaryItem;
     }
 }

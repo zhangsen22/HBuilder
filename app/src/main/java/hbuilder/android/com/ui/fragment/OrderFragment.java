@@ -7,10 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
-
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
@@ -32,6 +30,7 @@ public class OrderFragment extends BaseFragment {
     @BindView(R.id.order_viewPager)
     ViewPager orderViewPager;
     private Context mContext;
+    private OrderViewPagerAdapter orderViewPagerAdapter;
 
     @Override
     public void onAttach(Activity activity) {
@@ -62,7 +61,7 @@ public class OrderFragment extends BaseFragment {
         super.lazyLoadData();
         final String[] orderTitle = mContext.getResources().getStringArray(R.array.order_title);
         orderViewPager.setOffscreenPageLimit(orderTitle.length - 1);
-        OrderViewPagerAdapter orderViewPagerAdapter = new OrderViewPagerAdapter(getChildFragmentManager(), orderTitle);
+        orderViewPagerAdapter = new OrderViewPagerAdapter(getChildFragmentManager(), orderTitle);
         orderViewPager.setAdapter(orderViewPagerAdapter);
         CommonNavigator commonNavigator = new CommonNavigator(mContext);
         commonNavigator.setAdjustMode(true);
@@ -105,5 +104,13 @@ public class OrderFragment extends BaseFragment {
 
         orderMagicindicator.setNavigator(commonNavigator);
         ViewPagerHelper.bind(orderMagicindicator, orderViewPager);
+    }
+
+    public void onActivityResultOrder(int requestCode) {
+        int currentItem = orderViewPager.getCurrentItem();
+        if(orderViewPagerAdapter != null){
+            OrderItemFragment currentFragment = (OrderItemFragment) orderViewPagerAdapter.getCurrentFragment(currentItem);
+            currentFragment.onActivityResultOrderItem(requestCode);
+        }
     }
 }

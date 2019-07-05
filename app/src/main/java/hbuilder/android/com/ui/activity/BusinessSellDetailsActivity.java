@@ -13,6 +13,15 @@ import hbuilder.android.com.ui.fragment.BusinessSellDetailsFragment;
 public class BusinessSellDetailsActivity extends BaseActivity {
     private static final String TAG = ChangePwdActivity.class.getSimpleName();
 
+    public static void startThis(BaseActivity activity, SellResponse sellResponse,double price,double num,String nickname,int requestCode) {
+        Intent intent = new Intent(activity, BusinessSellDetailsActivity.class);
+        intent.putExtra("sellResponse",sellResponse);
+        intent.putExtra("price",price);
+        intent.putExtra("num",num);
+        intent.putExtra("nickname",nickname);
+        activity.startActivityForResult(intent,requestCode);
+    }
+
     public static void startThis(BaseActivity activity, SellResponse sellResponse,double price,double num,String nickname) {
         Intent intent = new Intent(activity, BusinessSellDetailsActivity.class);
         intent.putExtra("sellResponse",sellResponse);

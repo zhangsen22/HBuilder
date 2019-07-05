@@ -550,4 +550,8 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
                     .show();
         }
     }
+
+    public void onActivityResultOrderItemDetails(int requestCode) {
+        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
+    }
 }

@@ -69,4 +69,8 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     public PropertyFragment getPropertyFragment() {
         return propertyFragment;
     }
+
+    public OrderFragment getOrderFragment() {
+        return orderFragment;
+    }
 }

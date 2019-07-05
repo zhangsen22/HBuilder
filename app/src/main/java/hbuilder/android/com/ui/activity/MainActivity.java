@@ -2,11 +2,15 @@ package hbuilder.android.com.ui.activity;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
-
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
+import com.lxj.xpopup.interfaces.XPopupCallback;
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
@@ -19,6 +23,7 @@ import hbuilder.android.com.presenter.contract.MainContract;
 import hbuilder.android.com.presenter.modle.MainModle;
 import hbuilder.android.com.ui.adapter.MainViewPagerAdapter;
 import hbuilder.android.com.ui.fragment.CenterFragment;
+import hbuilder.android.com.ui.fragment.OrderFragment;
 import hbuilder.android.com.ui.fragment.PropertyFragment;
 import hbuilder.android.com.ui.widget.NoScrollViewPager;
 import hbuilder.android.com.util.SharedPreferencesUtils;
@@ -59,6 +64,12 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     protected void initData() {
+        MyApplication.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                updateApp();
+            }
+        },3000);
         //初始化presenter
         new MainPresenter(this, new MainModle());
         mainPresenter.usdtPrice();
@@ -132,6 +143,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 if(propertyFragment != null){
                     propertyFragment.onActivityResultProperty(requestCode);
                 }
+            }else if(requestCode == Constants.REQUESTCODE_12){
+                OrderFragment orderFragment = mainViewPagerAdapter.getOrderFragment();
+                if(orderFragment != null){
+                    orderFragment.onActivityResultOrder(requestCode);
+                }
             }
         }
     }
@@ -147,5 +163,70 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     public void usdtPriceError() {
         UsdtPriceResponse mUsdtPriceResponse = new UsdtPriceResponse(6.90,6.90);
         SharedPreferencesUtils.putString(Constants.USDTPRICE,GsonUtil.getInstance().objTojson(mUsdtPriceResponse));
+    }
+
+    private void updateApp(){
+        //带确认和取消按钮的弹窗
+        new XPopup.Builder(this)
+//                         .dismissOnTouchOutside(false)
+                // 设置弹窗显示和隐藏的回调监听
+//                         .autoDismiss(false)
+//                        .popupAnimation(PopupAnimation.NoAnimation)
+                .setPopupCallback(new XPopupCallback() {
+                    @Override
+                    public void onShow() {
+                        Log.e("tag", "onShow");
+                    }
+
+                    @Override
+                    public void onDismiss() {
+                        Log.e("tag", "onDismiss");
+                    }
+                }).asConfirm("发现新版本,是否升级?", "",
+                "下次再说", "升级",
+                new OnConfirmListener() {
+                    @Override
+                    public void onConfirm() {
+
+                    }
+                }, null, false)
+                .show();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            initExetTiShi();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void initExetTiShi() {
+        //带确认和取消按钮的弹窗
+        new XPopup.Builder(this)
+//                         .dismissOnTouchOutside(false)
+                // 设置弹窗显示和隐藏的回调监听
+//                         .autoDismiss(false)
+//                        .popupAnimation(PopupAnimation.NoAnimation)
+                .setPopupCallback(new XPopupCallback() {
+                    @Override
+                    public void onShow() {
+                        Log.e("tag", "onShow");
+                    }
+
+                    @Override
+                    public void onDismiss() {
+                        Log.e("tag", "onDismiss");
+                    }
+                }).asConfirm("提示", "确认退出吗?",
+                "否", "是",
+                new OnConfirmListener() {
+                    @Override
+                    public void onConfirm() {
+                        MainActivity.this.finish();
+                    }
+                }, null, false)
+                .show();
     }
 }

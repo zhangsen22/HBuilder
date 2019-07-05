@@ -7,13 +7,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.ui.fragment.OrderItemDetailsFragment;
 
 public class OrderItemViewPagerAdapter extends FragmentPagerAdapter {
 
-    private Fragment mCurrentPrimaryItem = null;
+    private BaseFragment mCurrentPrimaryItem = null;
     private OrderItemDetailsFragment orderItemDetailsFragment;
-    private List<Fragment> fragmentList;
+    private List<BaseFragment> fragmentList;
     private String[] mTitles;
 
     public OrderItemViewPagerAdapter(FragmentManager fm, String[] titles, int type) {
@@ -43,7 +44,8 @@ public class OrderItemViewPagerAdapter extends FragmentPagerAdapter {
         return mTitles[position];
     }
 
-    public Fragment getCurrentFragment() {
+    public BaseFragment getCurrentFragment(int position) {
+        mCurrentPrimaryItem = (BaseFragment) fragmentList.get(position);
         return mCurrentPrimaryItem;
     }
 }
