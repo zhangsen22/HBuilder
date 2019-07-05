@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
 import com.growalong.util.util.TextWatcherUtils;
 import java.text.DecimalFormat;
@@ -125,7 +124,7 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
 
     @Override
     protected void initView(View root) {
-        tvTitle.setText("售出USDT");
+        tvTitle.setText("售出"+MyApplication.appContext.getResources().getString(R.string.inf));
         etBusinessSellNum.addTextChangedListener(new TextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {

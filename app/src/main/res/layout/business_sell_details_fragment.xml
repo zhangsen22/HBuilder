@@ -229,7 +229,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" USDT"
+                    android:text="@string/inf"
+                    android:layout_marginLeft="@dimen/y6"
                     android:textColor="@color/color_666666"
                     android:textSize="11sp"
                     android:gravity="center"/>

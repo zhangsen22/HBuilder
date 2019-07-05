@@ -1,9 +1,10 @@
 package hbuilder.android.com.modle;
 
 public class WalletResponse extends BaseBean{
-
+    //USDT
     private double walletNum;//：22            // 钱包可用资产
     private double walletFreezeNum;//:11        //钱包冻结资产
+    //INF
     private double hotNum;//:33                //交易可用账户资产
     private double hotFreezeNum;//:44            //交易账户冻结资产
 
