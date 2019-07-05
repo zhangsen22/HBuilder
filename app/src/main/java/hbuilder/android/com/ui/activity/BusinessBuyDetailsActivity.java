@@ -7,7 +7,7 @@ import com.growalong.util.util.ActivityUtils;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
 import hbuilder.android.com.modle.BuyBusinessResponse;
-import hbuilder.android.com.presenter.BusinessBuyDetailsModle;
+import hbuilder.android.com.presenter.modle.BusinessBuyDetailsModle;
 import hbuilder.android.com.presenter.BusinessBuyDetailsPresenter;
 import hbuilder.android.com.ui.fragment.BusinessBuyDetailsFragment;
 

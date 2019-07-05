@@ -1,4 +1,4 @@
-package hbuilder.android.com.presenter;
+package hbuilder.android.com.presenter.modle;
 
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.net.retrofit.BaseRetrofitClient;

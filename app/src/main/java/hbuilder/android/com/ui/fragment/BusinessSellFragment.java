@@ -21,7 +21,6 @@ import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
-import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.BuyItem;
 import hbuilder.android.com.modle.SellResponse;
 import hbuilder.android.com.modle.WalletResponse;
@@ -33,7 +32,6 @@ import hbuilder.android.com.ui.activity.BusinessSellActivity;
 import hbuilder.android.com.ui.activity.BusinessSellDetailsActivity;
 import hbuilder.android.com.ui.activity.IdCastPayListActivity;
 import hbuilder.android.com.ui.activity.WebChatListActivity;
-import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
 
 public class BusinessSellFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener, BusinessSellContract.View {

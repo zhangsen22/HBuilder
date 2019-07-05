@@ -20,19 +20,19 @@ public class MainPresenter implements MainContract.Presenter{
 
     @Override
     public void usdtPrice() {
-        mView.showLoading();
+//        mView.showLoading();
         mModel.usdtPrice().observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<UsdtPriceResponse>() {
                     @Override
                     public void onSuccess(UsdtPriceResponse usdtPriceResponse) {
                         mView.usdtPriceSuccess(usdtPriceResponse);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
 
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }

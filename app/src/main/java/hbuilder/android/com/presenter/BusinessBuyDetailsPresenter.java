@@ -4,6 +4,7 @@ import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.net.retrofit.ModelResultObserver;
 import hbuilder.android.com.net.retrofit.exception.ModelException;
 import hbuilder.android.com.presenter.contract.BusinessBuyDetailsContract;
+import hbuilder.android.com.presenter.modle.BusinessBuyDetailsModle;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class BusinessBuyDetailsPresenter implements BusinessBuyDetailsContract.Presenter{
