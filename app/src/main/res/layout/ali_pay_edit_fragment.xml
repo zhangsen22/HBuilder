@@ -45,7 +45,7 @@
             android:textSize="12sp"
             android:inputType="text"
             android:hint="请输入您的真实姓名"
-            android:layout_marginLeft="@dimen/y28"/>
+            android:layout_marginLeft="@dimen/y52"/>
 
     </LinearLayout>
 
@@ -120,7 +120,7 @@
             android:inputType="text"
             android:textSize="10sp"
             android:hint="请输入支付宝用户ID"
-            android:layout_marginLeft="@dimen/y80"/>
+            android:layout_marginLeft="@dimen/y6"/>
 
         <TextView
             android:id="@+id/tv_alipay_getid"
@@ -245,8 +245,7 @@
                     android:inputType="textPassword"
                     android:textSize="10sp"
                     android:hint="请输入资金密码"
-                    android:layout_marginLeft="@dimen/y84"
-                    android:layout_marginRight="@dimen/y38"/>
+                    android:layout_marginLeft="@dimen/y52" />
 
                 <TextView
                     android:id="@+id/tv_forget_alipay_password"

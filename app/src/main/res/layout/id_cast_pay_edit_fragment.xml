@@ -36,7 +36,7 @@
             android:textSize="12sp"
             android:inputType="text"
             android:hint="请输入银行名称"
-            android:layout_marginLeft="@dimen/y28"/>
+            android:layout_marginLeft="@dimen/y52"/>
 
     </LinearLayout>
 
@@ -69,7 +69,7 @@
             android:textSize="12sp"
             android:inputType="text"
             android:hint="请输入所在支行"
-            android:layout_marginLeft="@dimen/y28"/>
+            android:layout_marginLeft="@dimen/y52"/>
 
     </LinearLayout>
 
@@ -102,7 +102,7 @@
             android:textSize="12sp"
             android:inputType="text"
             android:hint="请输入真实姓名"
-            android:layout_marginLeft="@dimen/y28"/>
+            android:layout_marginLeft="@dimen/y52"/>
 
     </LinearLayout>
 
@@ -135,7 +135,7 @@
             android:textSize="12sp"
             android:inputType="number"
             android:hint="请输入银行卡号"
-            android:layout_marginLeft="@dimen/y28"/>
+            android:layout_marginLeft="@dimen/y52"/>
 
     </LinearLayout>
 
@@ -178,7 +178,7 @@
         android:layout_height="@dimen/y90"
         android:orientation="horizontal"
         android:background="@color/common_white"
-        android:paddingLeft="@dimen/y26"
+        android:paddingLeft="@dimen/y40"
         android:paddingRight="@dimen/y26"
         android:gravity="center_vertical"
         android:layout_marginTop="@dimen/y24">
@@ -202,7 +202,7 @@
             android:inputType="textPassword"
             android:textSize="10sp"
             android:hint="请输入资金密码"
-            android:layout_marginLeft="@dimen/y80"/>
+            android:layout_marginLeft="@dimen/y52"/>
 
         <TextView
             android:id="@+id/tv_forget_password"

@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             tools:text=""
-            android:layout_marginLeft="@dimen/y106"
+            android:layout_marginLeft="@dimen/y68"
             android:background="@color/transparent"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
@@ -153,7 +153,7 @@
             android:inputType="textPassword"
             android:textSize="12sp"
             android:hint="请输入资金密码"
-            android:layout_marginLeft="@dimen/y94"
+            android:layout_marginLeft="@dimen/y68"
             android:layout_marginRight="@dimen/y38"/>
 
         <TextView
