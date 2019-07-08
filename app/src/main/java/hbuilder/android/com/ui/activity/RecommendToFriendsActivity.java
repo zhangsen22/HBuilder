@@ -22,7 +22,7 @@ public class RecommendToFriendsActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_recommend_to_friends;
+        return R.layout.activity_content;
     }
 
     @Override

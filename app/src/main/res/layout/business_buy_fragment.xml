@@ -118,7 +118,8 @@
                         android:layout_height="wrap_content"
                         tools:text="684.00-7592.00"
                         android:textSize="13sp"
-                        android:textColor="@color/text" />
+                        android:textColor="@color/text"
+                        android:gravity="center_horizontal"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -174,7 +175,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="价格（CNY）"
+                    android:text="价格(CNY)"
                     android:textSize="11sp"
                     android:textColor="@color/color_666666" />
 
@@ -182,13 +183,14 @@
                     android:id="@+id/et_business_buy_price"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@color/transparent"
                     android:maxLines="1"
                     android:textColor="@color/color_999999"
                     android:textSize="10sp"
                     tools:text="价格（CNY）"
-                    android:layout_marginLeft="@dimen/y40"/>
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/y34"/>
 
             </LinearLayout>
 
@@ -206,7 +208,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="数量（INF）"
+                    android:text="数量(INF)"
                     android:textColor="@color/color_666666"
                     android:textSize="11sp"/>
 
@@ -222,12 +224,12 @@
                     android:textSize="10sp"
                     android:inputType="number|numberDecimal"
                     android:hint="请输入要购买的数量"
-                    android:layout_marginLeft="@dimen/y20"/>
+                    android:layout_marginLeft="@dimen/y44"/>
 
                 <TextView
                     android:id="@+id/tv_num_all"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/y90"
+                    android:layout_height="match_parent"
                     android:text="全部"
                     android:gravity="center_vertical"
                     android:textColor="@color/color_0c6dff"
@@ -249,7 +251,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="金额（CNY）"
+                    android:text="金额(CNY)"
                     android:textColor="@color/color_666666"
                     android:textSize="11sp"/>
 
@@ -270,7 +272,7 @@
                 <TextView
                     android:id="@+id/tv_price_all"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/y90"
+                    android:layout_height="match_parent"
                     android:text="全部"
                     android:gravity="center_vertical"
                     android:textColor="@color/color_0c6dff"

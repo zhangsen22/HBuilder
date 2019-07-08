@@ -22,7 +22,7 @@ public class AddMakeStyleActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_add_make_style;
+        return R.layout.activity_content;
     }
 
     @Override

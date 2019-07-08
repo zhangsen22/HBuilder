@@ -77,7 +77,8 @@
                 android:layout_height="wrap_content"
                 tools:text="684.00-7592.00"
                 android:textSize="13sp"
-                android:textColor="@color/color_666666" />
+                android:textColor="@color/color_666666"
+                android:gravity="center_horizontal"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -128,7 +129,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="价格（CNY）"
+            android:text="价格(CNY)"
             android:textSize="11sp"
             android:textColor="@color/color_666666" />
 
@@ -139,7 +140,7 @@
             tools:text="6.84"
             android:textSize="10sp"
             android:textColor="@color/color_666666"
-            android:layout_marginLeft="@dimen/y54"/>
+            android:layout_marginLeft="@dimen/y40"/>
 
     </LinearLayout>
 
@@ -157,7 +158,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="数量（INF）"
+            android:text="数量(INF)"
             android:textColor="@color/color_666666"
             android:textSize="11sp"/>
 
@@ -165,22 +166,23 @@
             android:id="@+id/et_business_sell_num"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/transparent"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
             android:textSize="10sp"
             android:hint="请输入要购买的数量"
-            android:layout_marginLeft="@dimen/y40"/>
+            android:layout_marginLeft="@dimen/y50"/>
 
         <TextView
             android:id="@+id/tv_num_all"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="全部"
             android:textColor="@color/color_0c6dff"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:gravity="center"/>
 
     </LinearLayout>
 
@@ -198,7 +200,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="金额（CNY）"
+            android:text="金额(CNY)"
             android:textColor="@color/color_666666"
             android:textSize="11sp"/>
 
@@ -206,7 +208,7 @@
             android:id="@+id/et_business_sell_price"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/transparent"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
@@ -218,10 +220,11 @@
         <TextView
             android:id="@+id/tv_price_all"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="全部"
             android:textColor="@color/color_0c6dff"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:gravity="center"/>
 
     </LinearLayout>
 
@@ -319,10 +322,11 @@
         <TextView
             android:id="@+id/tv_add_alipay"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="添加"
             android:textColor="@color/color_1a72fb"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:gravity="center"/>
 
     </LinearLayout>
 
@@ -409,10 +413,11 @@
         <TextView
             android:id="@+id/tv_add_webchat"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="添加"
             android:textColor="@color/color_1a72fb"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:gravity="center"/>
 
     </LinearLayout>
 
@@ -499,10 +504,11 @@
         <TextView
             android:id="@+id/tv_add_idcards"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="添加"
             android:textColor="@color/color_1a72fb"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:gravity="center"/>
 
     </LinearLayout>
 
@@ -581,15 +587,16 @@
                     android:inputType="textPassword"
                     android:textSize="10sp"
                     android:hint="请输入资金密码"
-                    android:layout_marginLeft="@dimen/y80"/>
+                    android:layout_marginLeft="@dimen/y56"/>
 
                 <TextView
                     android:id="@+id/tv_forget_password"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="忘记密码?"
                     android:textColor="@color/color_1a72fb"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:gravity="center"/>
 
             </LinearLayout>
 

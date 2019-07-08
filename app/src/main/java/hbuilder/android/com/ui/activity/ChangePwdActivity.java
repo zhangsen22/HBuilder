@@ -22,7 +22,7 @@ public class ChangePwdActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_change_pwd;
+        return R.layout.activity_content;
     }
 
     @Override

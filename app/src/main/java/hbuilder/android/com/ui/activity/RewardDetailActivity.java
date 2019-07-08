@@ -27,7 +27,7 @@ public class RewardDetailActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_reward_detail;
+        return R.layout.activity_content;
     }
 
     @Override

@@ -20,7 +20,7 @@ public class AliPayListActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_ali_pay_list;
+        return R.layout.activity_content;
     }
 
     @Override

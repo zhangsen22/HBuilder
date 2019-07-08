@@ -19,7 +19,7 @@ public class BalancePassWordActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_balance_pass_word;
+        return R.layout.activity_content;
     }
 
     @Override

@@ -21,7 +21,7 @@ public class BusinessSellActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_business_sell;
+        return R.layout.activity_content;
     }
 
     @Override

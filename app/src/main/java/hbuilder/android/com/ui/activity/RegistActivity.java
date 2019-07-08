@@ -23,7 +23,7 @@ public class RegistActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_regist;
+        return R.layout.activity_content;
     }
 
     @Override

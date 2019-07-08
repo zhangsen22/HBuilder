@@ -20,7 +20,7 @@ public class ForgetPwdActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.forgetpwd_activity;
+        return R.layout.activity_content;
     }
 
     @Override

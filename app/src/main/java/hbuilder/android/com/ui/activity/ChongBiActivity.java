@@ -19,7 +19,7 @@ public class ChongBiActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_chong_bi;
+        return R.layout.activity_content;
     }
 
     @Override

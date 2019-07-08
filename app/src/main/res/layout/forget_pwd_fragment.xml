@@ -19,8 +19,9 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="新密码         "
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="新密码"
             android:textColor="@color/color_666666"
             android:textSize="12sp" />
 
@@ -35,7 +36,7 @@
             android:textSize="12sp"
             android:inputType="textPassword"
             android:hint="6-32位数字、字母或字符"
-            android:layout_marginLeft="@dimen/y28"/>
+            android:layout_marginLeft="@dimen/y76"/>
 
     </LinearLayout>
 
@@ -52,7 +53,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:text="新密码确认"
             android:textColor="@color/color_666666"
             android:textSize="12sp" />
@@ -85,7 +87,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:text="输入手机号"
             android:textColor="@color/color_666666"
             android:textSize="12sp" />
@@ -162,7 +165,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:text="输入验证码"
             android:textColor="@color/color_666666"
             android:textSize="12sp" />
@@ -184,7 +188,8 @@
         <TextView
             android:id="@+id/tv_get_forget_login_smscode"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:text="发送验证码"
             android:textColor="@color/color_999999"
             android:textSize="12sp"

@@ -39,25 +39,6 @@ public class EntrustBuyPresenter implements EntrustBuyContract.Presenter{
     }
 
     @Override
-    public void getInfo() {
-//        mView.showLoading();
-        mModel.getInfo().observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ModelResultObserver<WalletResponse>() {
-                    @Override
-                    public void onSuccess(WalletResponse walletResponse) {
-                        mView.getInfoSuccess(walletResponse);
-//                        mView.hideLoading();
-                    }
-
-                    @Override
-                    public void onFailure(ModelException ex) {
-                        super.onFailure(ex);
-//                        mView.hideLoading();
-                    }
-                });
-    }
-
-    @Override
     public void starLoadData() {
 
     }

@@ -20,7 +20,7 @@ public class OrderDetailsActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_order_details;
+        return R.layout.activity_content;
     }
 
     @Override

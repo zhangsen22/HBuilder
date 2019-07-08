@@ -19,7 +19,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_login;
+        return R.layout.activity_content;
     }
 
     @Override

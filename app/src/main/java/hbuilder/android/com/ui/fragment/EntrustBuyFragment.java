@@ -10,16 +10,13 @@ import android.widget.TextView;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.Md5Utils;
 import com.growalong.util.util.bean.MessageEvent;
-
 import org.greenrobot.eventbus.EventBus;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.R;
 import hbuilder.android.com.modle.BaseBean;
-import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.presenter.EntrustBuyPresenter;
 import hbuilder.android.com.presenter.contract.EntrustBuyContract;
 import hbuilder.android.com.presenter.modle.EntrustBuyModle;
@@ -44,7 +41,6 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
     TextView tvBuyCanKaoJia;
 
     private EntrustBuyPresenter entrustBuyPresenter;
-    private double hotNum;
     private BaseActivity mContext;
 
     public static EntrustBuyFragment newInstance(@Nullable String taskId) {
@@ -75,7 +71,6 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
         super.lazyLoadData();
         //初始化presenter
         new EntrustBuyPresenter(this, new EntrustBuyModle());
-        entrustBuyPresenter.getInfo();
     }
 
     @OnClick({R.id.tv_forget_buy_password, R.id.tv_buy_publish,R.id.tv_buy_cankaojia})
@@ -125,16 +120,6 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
                     return;
                 }
 
-                if (hotNum > 0) {
-                    if (d_expectMaxnum > hotNum) {
-                        ToastUtil.shortShow("请输入您预想的最大售出数量超出了账户可用余额");
-                        return;
-                    }
-                }else {
-                    ToastUtil.shortShow("账户可用余额为零");
-                    return;
-                }
-
                 String moneryPassword = etMoneryBuyPassword.getText().toString().trim();
                 if (TextUtils.isEmpty(moneryPassword)) {
                     ToastUtil.shortShow("请输入资金密码");
@@ -158,13 +143,6 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
     @Override
     public void putUpBuySuccess(BaseBean baseBean) {
         EventBus.getDefault().post(new MessageEvent(2));
-    }
-
-    @Override
-    public void getInfoSuccess(WalletResponse walletResponse) {
-        if (walletResponse != null) {
-            hotNum = walletResponse.getHotNum();
-        }
     }
 
     @Override

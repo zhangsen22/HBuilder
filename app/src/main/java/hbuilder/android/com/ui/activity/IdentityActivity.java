@@ -18,7 +18,7 @@ public class IdentityActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_identity;
+        return R.layout.activity_content;
     }
 
     @Override

@@ -33,7 +33,7 @@ public class BusinessSellDetailsActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_business_sell_details;
+        return R.layout.activity_content;
     }
 
     @Override

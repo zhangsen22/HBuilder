@@ -23,7 +23,7 @@ public class SecurityCenterActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_security_center;
+        return R.layout.activity_content;
     }
 
     @Override

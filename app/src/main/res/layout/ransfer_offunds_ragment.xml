@@ -73,7 +73,8 @@
             android:textColor="@color/color_999999"
             android:textSize="12sp"
             android:hint="请输入您要划转的数量"
-            android:layout_marginLeft="@dimen/y60"/>
+            android:layout_marginLeft="@dimen/y60"
+            android:inputType="number|numberDecimal"/>
 
         <TextView
             android:id="@+id/tv_all"

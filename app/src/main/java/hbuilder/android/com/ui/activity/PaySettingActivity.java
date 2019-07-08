@@ -26,7 +26,7 @@ public class PaySettingActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_pay_setting;
+        return R.layout.activity_content;
     }
 
     @Override

@@ -18,7 +18,7 @@ public class MessageCenterActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_message_center;
+        return R.layout.activity_content;
     }
 
     @Override

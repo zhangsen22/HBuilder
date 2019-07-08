@@ -24,7 +24,7 @@ public class TiBiActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_ti_bi;
+        return R.layout.activity_content;
     }
 
     @Override

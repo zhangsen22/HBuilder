@@ -20,7 +20,7 @@ public class WebChatListActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_web_chat_list;
+        return R.layout.activity_content;
     }
 
     @Override

@@ -7,10 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
-
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
@@ -108,6 +106,7 @@ public class GuaDanFragment extends BaseFragment {
     public void lazyLoadData() {
         super.lazyLoadData();
         GALogger.d(TAG,"GuaDanFragment   is    lazyLoadData");
+        setLoadDataWhenVisible();
         int currentItem = guadanViewPager.getCurrentItem();
         if(guaDanViewPagerAdapter != null){
             BaseFragment currentFragment = guaDanViewPagerAdapter.getCurrentFragment(currentItem);

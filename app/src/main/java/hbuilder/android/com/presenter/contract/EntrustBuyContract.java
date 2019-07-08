@@ -11,13 +11,9 @@ public interface EntrustBuyContract {
     interface Presenter extends IBasePresenter {
         //委托购买
         void putUpBuy(double price, double minNum, double maxNum, String financePwd, long time);
-        //资产查询
-        void getInfo();
     }
     interface View extends IBaseView<Presenter> {
         //委托购买
         void putUpBuySuccess(BaseBean baseBean);
-        //资产查询成功
-        void getInfoSuccess(WalletResponse walletResponse);
     }
 }

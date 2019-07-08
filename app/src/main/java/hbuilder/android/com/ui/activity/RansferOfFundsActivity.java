@@ -25,7 +25,7 @@ public class RansferOfFundsActivity extends BaseActivity {
 
     @Override
     protected int getRootView() {
-        return R.layout.activity_ransfer_of_funds;
+        return R.layout.activity_content;
     }
 
     @Override
