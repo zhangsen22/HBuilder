@@ -81,7 +81,7 @@ public abstract class ModelResultObserver<T> implements Observer<T> {
         GALogger.d("ModelResult", "onFailure() into, " + ex.toString() + "   mMessage   " + ex.mMessage + "   mCode   " + ex.mCode);
         ToastUtil.longShow(ex.mMessage);
         if (ex.mCode == 1 && Looper.myLooper() == Looper.getMainLooper()) {//"账号在别处已经登录"
-            Intent intent = new Intent("android.intent.action.LoginMainActivity");
+            Intent intent = new Intent("android.intent.action.LoginActivity");
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             MyApplication.appContext.startActivity(intent);
             AppManager.getInstance().finishAllActivity(LoginActivity.class);

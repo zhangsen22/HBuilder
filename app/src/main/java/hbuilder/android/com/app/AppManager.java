@@ -74,7 +74,7 @@ public class AppManager {
     }
 
     /**
-     * 结束指定类名的Activity
+     * 获取Activity（堆栈中第一个压入的）
      */
     public Activity getFirstActivity() {
         return activityStack.firstElement();
