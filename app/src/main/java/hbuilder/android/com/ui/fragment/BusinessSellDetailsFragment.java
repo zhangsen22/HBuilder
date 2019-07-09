@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.DateUtil;
 import com.growalong.util.util.GALogger;
+
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
@@ -122,13 +125,13 @@ public class BusinessSellDetailsFragment extends BaseFragment implements Busines
             timer.start();
         }
         tvOrderCode.setText(sellResponse.getTradeId());
-        tvPayPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + price * num + "");
-        tvBiusnessPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + price);
+        tvPayPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) +new DecimalFormat("0.00").format( price * num));
+        tvBiusnessPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(price));
         tvBiusnessNum.setText(num+"");
         tvSellName.setText(nickname);
         tvSellTime.setText(DateUtil.getCurrentDateString3(System.currentTimeMillis()));
         tvShoukuaiCankaoma.setText(sellResponse.getPayCode()+"");
-        tvSellReciveMonery.setText(price * num + "");
+        tvSellReciveMonery.setText(new DecimalFormat("0.00").format(price * num));
     }
 
     @OnClick({R.id.iv_back, R.id.tv_sell_shensu, R.id.tv_sell_fangbi})

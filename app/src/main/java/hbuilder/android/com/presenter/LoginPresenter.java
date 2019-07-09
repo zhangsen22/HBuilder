@@ -4,6 +4,7 @@ import com.growalong.util.util.Md5Utils;
 
 import hbuilder.android.com.app.AccountInfo;
 import hbuilder.android.com.app.AccountManager;
+import hbuilder.android.com.modle.DomainModel;
 import hbuilder.android.com.net.retrofit.ModelResultObserver;
 import hbuilder.android.com.net.retrofit.exception.ModelException;
 import hbuilder.android.com.presenter.contract.LoginContract;
@@ -47,6 +48,22 @@ public class LoginPresenter implements LoginContract.Presenter{
                             mView.hideLoading();
                         }
                         mView.loginError();
+                    }
+                });
+    }
+
+    @Override
+    public void getDomainName() {
+        mModel.getDomainName().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ModelResultObserver<DomainModel>() {
+                    @Override
+                    public void onSuccess(DomainModel domainModel) {
+                        mView.getDomainNameSuccess(domainModel);
+                    }
+
+                    @Override
+                    public void onFailure(ModelException ex) {
+                        super.onFailure(ex);
                     }
                 });
     }

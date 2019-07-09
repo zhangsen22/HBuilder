@@ -1,6 +1,10 @@
 package hbuilder.android.com.net.retrofit;
 
+import com.growalong.util.util.GALogger;
+
 import java.util.concurrent.TimeUnit;
+
+import hbuilder.android.com.MyApplication;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -17,10 +21,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @Version: ${VERSION_NAME}
  */
 public class BaseRetrofitClient {
-
+    private static final String TAG = BaseRetrofitClient.class.getSimpleName();
     private static BaseRetrofitClient sInstance;
     private OkHttpClient mOkHttpClient;
     private Retrofit mRetrofit;
+    private String hostAddress = null;
 
     public static BaseRetrofitClient getInstance() {
         if (null == sInstance) {
@@ -41,7 +46,7 @@ public class BaseRetrofitClient {
      * @param service Retrofit接口类
      * */
     public <T> T create(final Class<T> rxJavaInterface) {
-        if (mRetrofit == null) {
+        if (mRetrofit == null || !hostAddress.equals(MyApplication.getHostAddress())) {
             init();
         }
         return mRetrofit.create(rxJavaInterface);
@@ -54,9 +59,10 @@ public class BaseRetrofitClient {
                 .writeTimeout(15, TimeUnit.SECONDS)
                 .addInterceptor(new MyInterceptor())
                 .build();
-
+        hostAddress = MyApplication.getHostAddress();
+        GALogger.d(TAG, "hostAddress   " + hostAddress);
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(ApiConstants.baseHttp)
+                .baseUrl(hostAddress)
                 //一定要在gsonConverter前面,否则gson会拦截所有的解析方式
 //                .addConverterFactory(NobodyConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

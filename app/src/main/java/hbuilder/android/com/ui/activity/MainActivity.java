@@ -21,6 +21,7 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.AppManager;
 import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.presenter.MainPresenter;
@@ -269,7 +270,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 new OnConfirmListener() {
                     @Override
                     public void onConfirm() {
-                        MainActivity.this.finish();
+                        //退出程序
+                        AppManager.getInstance().appExit();
                     }
                 }, null, false)
                 .show();

@@ -4,6 +4,7 @@ import hbuilder.android.com.app.AccountInfo;
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.modle.BuyBusinessResponse;
 import hbuilder.android.com.modle.BuyResponse;
+import hbuilder.android.com.modle.DomainModel;
 import hbuilder.android.com.modle.FinanceLogResponse;
 import hbuilder.android.com.modle.ImageCodeResponse;
 import hbuilder.android.com.modle.LargeAmountResponse;
@@ -36,6 +37,13 @@ import retrofit2.http.POST;
  * @Version: ${VERSION_NAME}
  */
 public interface ApiServices {
+
+    /**
+     * 获取多域名接口
+     * @return
+     */
+    @POST(ApiConstants.getDomainName)
+    Observable<DomainModel> getDomainName();
 
     /**
      * 获取图片验证码

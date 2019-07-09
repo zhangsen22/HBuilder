@@ -1,11 +1,13 @@
 package hbuilder.android.com.ui.activity;
 
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.View;
 import com.growalong.util.util.ActivityUtils;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
+import hbuilder.android.com.app.AppManager;
 import hbuilder.android.com.presenter.LoginPresenter;
 import hbuilder.android.com.presenter.modle.LoginModle;
 import hbuilder.android.com.ui.fragment.LoginFragment;
@@ -41,5 +43,15 @@ public class LoginActivity extends BaseActivity {
         }
         //初始化presenter
         new LoginPresenter(loginFragment, new LoginModle());
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            //退出程序
+            AppManager.getInstance().appExit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

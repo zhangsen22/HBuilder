@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,6 +12,7 @@ import android.view.WindowManager;
 import com.growalong.util.util.ActivityUtils;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.AppManager;
 import hbuilder.android.com.presenter.LoginPresenter;
 import hbuilder.android.com.presenter.modle.LoginModle;
 import hbuilder.android.com.ui.fragment.SplashFragment;
@@ -62,5 +64,15 @@ public class SplashActivity extends BaseActivity {
         }
         //初始化presenter
         new LoginPresenter(splashFragment, new LoginModle());
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            //退出程序
+            AppManager.getInstance().appExit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

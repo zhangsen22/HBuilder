@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.StringUtils;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountInfo;
 import hbuilder.android.com.app.AccountManager;
+import hbuilder.android.com.modle.DomainModel;
 import hbuilder.android.com.presenter.LoginPresenter;
 import hbuilder.android.com.presenter.contract.LoginContract;
 import hbuilder.android.com.ui.activity.LoginActivity;
@@ -26,8 +29,9 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
     private static final String TAG = SplashFragment.class.getSimpleName();
     private SplashActivity splashActivity;
     private LoginPresenter splashPresenter;
-    private List<String> hostList;
     private ExecutorService pool;
+    private List<String> listDomain;
+    private List<String> usableDomains;
 
     public static SplashFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -49,16 +53,21 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
 
     @Override
     protected void initView(View root) {
-        if(hostList == null){
-            hostList = new ArrayList<>();
-        }
-        hostList.add("app.injbank.com");
     }
 
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
-//        for (int i = 0; i < hostList.size(); i++) {
+        splashPresenter.getDomainName();
+    }
+
+    @Override
+    public void getDomainNameSuccess(DomainModel domainModel) {
+        if(domainModel != null){
+            GALogger.d(TAG,"domainModel     "+domainModel.toString());
+            List<String> gateway = domainModel.getGateway();
+            if(gateway != null && gateway.size() > 0){
+                //        for (int i = 0; i < hostList.size(); i++) {
 //            int finalI = i;
 //            Thread thread = new Thread(new Runnable() {
 //                    @Override
@@ -90,86 +99,39 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
 //            thread.setName(i+"");
 //            thread.start();
 //        }
-        if(pool == null) {
-            pool = Executors.newFixedThreadPool(hostList.size());
-        }
-        for (int i = 0; i < hostList.size(); i++) {
-            pool.execute(new MyThread(i));
-        }
-        stopThread();
-        goApp();
-    }
-
-    class MyThread implements Runnable{
-        private int position;
-
-        public MyThread(int i) {
-            this.position = i;
-        }
-
-      @Override
-      public void run() {
-              InetAddress byName = null;
-              int resCode = -1;
-              try {
-                  byName = InetAddress.getByName(hostList.get(position));
-                  resCode = byName == null ? -1 : 0;
-              } catch (UnknownHostException e) {
-                  resCode = -1;
-                  e.printStackTrace();
-              }catch (Exception e) {
-                  resCode = -1;
-                  e.printStackTrace();
-              } finally {
-                  if (resCode == 0) {
-                      MyApplication.setHostAddress("http://"+hostList.get(position)+":8080/GateServer/");
-                  }
-                  GALogger.d(TAG, "resCode   " + resCode + "    i     " + position +"   host   "+hostList.get(position));
-              }
-          }
-    }
-
-    private void goApp(){
-                if(AccountManager.getInstance().isLogin()){
-            /**
-             * 掉登录接口  成功了去首页
-             */
-            long currentTime = System.currentTimeMillis();
-            String phoneNumber = AccountManager.getInstance().getPhoneNumber();
-            String passWord = AccountManager.getInstance().getPassWord();
-            splashPresenter.login(phoneNumber,passWord,currentTime,false);
-
-        }else {
-            MyApplication.runOnUIThread(new Runnable() {
-                @Override
-                public void run() {
-                    LoginActivity.startThis(splashActivity);
-                    splashActivity.finish();
+                if(usableDomains == null){
+                    usableDomains = new ArrayList<>();
+                }else {
+                    usableDomains.clear();
                 }
-            },3000);
+
+                if(listDomain == null){
+                    listDomain = new ArrayList<>();
+                }else {
+                    listDomain.clear();
+                }
+
+                for (int i = 0; i < gateway.size(); i++) {
+                    String s = StringUtils.submitDomain(gateway.get(i));
+                    if (s != null)
+                        System.err.println(s);
+                    listDomain.add(s);
+                }
+
+                if(pool == null) {
+                    pool = Executors.newFixedThreadPool(gateway.size());
+                }
+
+                for (int i = 0; i < gateway.size(); i++) {
+                    pool.execute(new MyThread(i,gateway,listDomain));
+                }
+                stopThread();
+                if(usableDomains != null && usableDomains.size() > 0){
+                    MyApplication.setHostAddress(usableDomains.get(0));
+                    goApp();
+                }
+            }
         }
-    }
-
-    @Override
-    public void loginSuccess(AccountInfo accountInfo) {
-        MyApplication.runOnUIThread(new Runnable() {
-            @Override
-            public void run() {
-                MainActivity.startThis(splashActivity);
-                splashActivity.finish();
-            }
-        },3000);
-    }
-
-    @Override
-    public void loginError() {
-        MyApplication.runOnUIThread(new Runnable() {
-            @Override
-            public void run() {
-                LoginActivity.startThis(splashActivity);
-                splashActivity.finish();
-            }
-        },3000);
     }
 
     @Override
@@ -210,5 +172,84 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
             }
             GALogger.d(TAG, "end");
         }
+    }
+
+
+    class MyThread implements Runnable{
+        private int position;
+        private  List<String> gateway;
+        private List<String> mListDomain;
+
+        public MyThread(int i, List<String> gateway,List<String> listDomain) {
+            this.position = i;
+            this.gateway = gateway;
+            this.mListDomain = listDomain;
+        }
+
+        @Override
+        public void run() {
+            InetAddress byName = null;
+            int resCode = -1;
+            try {
+                byName = InetAddress.getByName(mListDomain.get(position));
+                resCode = byName == null ? -1 : 0;
+            } catch (UnknownHostException e) {
+                resCode = -1;
+                e.printStackTrace();
+            }catch (Exception e) {
+                resCode = -1;
+                e.printStackTrace();
+            } finally {
+                if (resCode == 0) {
+                    usableDomains.add(gateway.get(position)+"/");
+                }
+                GALogger.d(TAG, "resCode   " + resCode + "    i     " + position +"   host   "+gateway.get(position)+"/");
+            }
+        }
+    }
+
+    private void goApp(){
+        String hostAddress = MyApplication.getHostAddress();
+        GALogger.d(TAG, "hostAddress   " + hostAddress);
+        if(AccountManager.getInstance().isLogin()){
+            /**
+             * 掉登录接口  成功了去首页
+             */
+            long currentTime = System.currentTimeMillis();
+            String phoneNumber = AccountManager.getInstance().getPhoneNumber();
+            String passWord = AccountManager.getInstance().getPassWord();
+            splashPresenter.login(phoneNumber,passWord,currentTime,false);
+
+        }else {
+            MyApplication.runOnUIThread(new Runnable() {
+                @Override
+                public void run() {
+                    LoginActivity.startThis(splashActivity);
+                    splashActivity.finish();
+                }
+            },1000);
+        }
+    }
+
+    @Override
+    public void loginSuccess(AccountInfo accountInfo) {
+        MyApplication.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                MainActivity.startThis(splashActivity);
+                splashActivity.finish();
+            }
+        },3000);
+    }
+
+    @Override
+    public void loginError() {
+        MyApplication.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                LoginActivity.startThis(splashActivity);
+                splashActivity.finish();
+            }
+        },3000);
     }
 }

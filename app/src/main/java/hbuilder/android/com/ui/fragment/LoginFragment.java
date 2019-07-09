@@ -15,6 +15,7 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountInfo;
+import hbuilder.android.com.modle.DomainModel;
 import hbuilder.android.com.presenter.LoginPresenter;
 import hbuilder.android.com.presenter.contract.LoginContract;
 import hbuilder.android.com.ui.activity.ForgetPwdActivity;
@@ -110,6 +111,11 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
     @Override
     public void loginError() {
+
+    }
+
+    @Override
+    public void getDomainNameSuccess(DomainModel domainModel) {
 
     }
 

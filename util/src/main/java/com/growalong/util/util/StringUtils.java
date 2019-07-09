@@ -29,4 +29,31 @@ public class StringUtils {
             Matcher m = p.matcher(nets);
            return m.replaceAll("");
     }
+
+    /**
+     *  正则截取url中的域名
+     * @return
+     */
+    public static String submitDomain(String nets){
+        Pattern p = Pattern.compile("https?://([^:/]+)");
+        Matcher m = p.matcher(nets);
+        if (!m.find()) {
+            return null;
+        }
+        return m.group(1);
+    }
+
+    public static void main(String[] args) throws Exception {
+        List<String> list = new ArrayList<>();
+        list.clear();
+        list.add("http://www.myhost.com:8080/def");
+        list.add("http://www.myhost.com/def");
+        list.add("https://www.myhost.com/def");
+        list.add("https://www.myhost.com:8080/def");
+        for (int i = 0; i < list.size(); i++) {
+                String s = StringUtils.submitDomain(list.get(i));
+                if (s != null)
+                    System.err.println(s);
+        }
+    }
 }

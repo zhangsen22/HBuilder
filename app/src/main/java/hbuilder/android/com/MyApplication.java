@@ -4,9 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.support.multidex.MultiDex;
+
+import com.growalong.util.util.GALogger;
 import com.growalong.util.util.PackageUtil;
 import hbuilder.android.com.crash.CrashHandler;
 import hbuilder.android.com.manager.TinkerManager;
+import hbuilder.android.com.net.retrofit.ApiConstants;
 import hbuilder.android.com.observer.NetworkChangedReceiver;
 
 public class MyApplication extends Application {
@@ -22,6 +25,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        GALogger.d(TAG,"onCreate");
+        setHostAddress(ApiConstants.getGetDomainNameBase);
         appContext = getApplicationContext();
         TinkerManager.getInstance().initTinkerPatch(appContext);
 

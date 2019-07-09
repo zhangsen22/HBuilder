@@ -4,8 +4,8 @@ package hbuilder.android.com.net.retrofit;
  * Created by yangxing on 2018/10/31.
  */
 public class ApiConstants {
-    public static String baseHttp = "http://app.injbank.com:8080/GateServer/";
-
+    public static String getGetDomainNameBase = "http://54.254.190.23:8330/";
+    public static final String getDomainName = "app/config";
     public static final String getImageCode = "user/imageCode";//获取图片验证码
     public static final String senSmsCode = "user/smsCode";//发送验证码
     public static final String regist = "user/regist";//注册
