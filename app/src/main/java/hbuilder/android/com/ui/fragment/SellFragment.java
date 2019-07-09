@@ -11,10 +11,13 @@ import com.growalong.util.util.GALogger;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
-
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Consumer;
 import butterknife.BindView;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
@@ -44,6 +47,7 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
     private boolean isRun;
     private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
+    private List<BuyItem> listTemp;
 
     public static SellFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -151,13 +155,14 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
     public void getSellRefreshSuccess(BuyResponse buyResponse) {
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
-            reverseIdList(billInfo);
-            if(billInfo.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
-                sellFragmentAdapter.setTotalCount(billInfo.size());
+            List<BuyItem> buyItems = removeDuplicate(billInfo);
+            reverseIdList(buyItems);
+            if(buyItems.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+                sellFragmentAdapter.setTotalCount(buyItems.size());
             }else {
                 sellFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
             }
-            sellFragmentAdapter.setList(billInfo);
+            sellFragmentAdapter.setList(buyItems);
         } else {
             emptyAnderrorView();
         }
@@ -174,12 +179,16 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
     public void getSellLoadMoreSuccess(BuyResponse buyResponse) {
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
-            reverseIdList(billInfo);
+            sellFragmentAdapter.getList().addAll(billInfo);
+            List<BuyItem> buyItems = removeDuplicate(sellFragmentAdapter.getList());
+            reverseIdList(buyItems);
             sellFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
-            sellFragmentAdapter.appendList(billInfo);
+            sellFragmentAdapter.getList().clear();
+            sellFragmentAdapter.getOriginalDataList().clear();
+            sellFragmentAdapter.appendList(buyItems);
         }else {
             GALogger.d(TAG,"LoadMore  is  no");
-            reverseIdList(billInfo);
+            reverseIdList(null);
             sellFragmentAdapter.setTotalCount(sellFragmentAdapter.getItemRealCount());
             sellFragmentAdapter.notifyDataSetChanged();
         }
@@ -219,5 +228,42 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
     @Override
     public void onItemClick(@NonNull PowerHolder<BuyItem> holder, @NonNull View itemView, int position, BuyItem item) {
 
+    }
+
+    /**
+     * list集合对象去重
+     * @param list
+     * @return
+     */
+    public  List<BuyItem> removeDuplicate(List<BuyItem> list){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            if(listTemp == null){
+                listTemp = new LinkedList<>();
+            }
+            listTemp.clear();
+            //使用流的distinct()方法进行去重
+            list.stream().distinct().forEach(
+                    new Consumer<BuyItem>(){
+                        @Override
+                        public void accept(BuyItem buyItem) {
+                            if(buyItem != null){
+                                listTemp.add(buyItem);
+                            }
+                        }
+                    }
+            );
+        }else {
+            //set集合保存的是引用不同地址的对象
+            Set<BuyItem> ts = new HashSet<BuyItem>();
+            ts.addAll(list);
+            if(listTemp == null){
+                listTemp = new LinkedList<>(ts);
+            }else {
+                listTemp.clear();
+                listTemp = null;
+                listTemp = new LinkedList<>(ts);
+            }
+        }
+        return listTemp;
     }
 }

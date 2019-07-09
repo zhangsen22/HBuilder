@@ -3,6 +3,8 @@ package hbuilder.android.com.modle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Objects;
+
 public class BuyItem implements Parcelable {
     private long id;//:12312        //挂单id
     private long userid;//:3131     //挂单用户id
@@ -137,6 +139,33 @@ public class BuyItem implements Parcelable {
 
     public int getApiType() {
         return apiType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BuyItem buyItem = (BuyItem) o;
+        return id == buyItem.id &&
+                userid == buyItem.userid &&
+                tradeTimes == buyItem.tradeTimes &&
+                Double.compare(buyItem.tradeSuccRate, tradeSuccRate) == 0 &&
+                Double.compare(buyItem.price, price) == 0 &&
+                Double.compare(buyItem.minNum, minNum) == 0 &&
+                Double.compare(buyItem.maxNum, maxNum) == 0 &&
+                supportAli == buyItem.supportAli &&
+                supportWechat == buyItem.supportWechat &&
+                supportBank == buyItem.supportBank &&
+                puttime == buyItem.puttime &&
+                isLargeAmount == buyItem.isLargeAmount &&
+                apiType == buyItem.apiType &&
+                Objects.equals(nickname, buyItem.nickname);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, userid, nickname, tradeTimes, tradeSuccRate, price, minNum, maxNum, supportAli, supportWechat, supportBank, puttime, isLargeAmount, apiType);
     }
 
     @Override

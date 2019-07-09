@@ -1,5 +1,7 @@
 package hbuilder.android.com.modle;
 
+import java.util.Objects;
+
 public class LargeAmountItem {
 
     private long id;//挂单id
@@ -56,6 +58,30 @@ public class LargeAmountItem {
 
     public long getPuttime() {
         return puttime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LargeAmountItem that = (LargeAmountItem) o;
+        return id == that.id &&
+                userId == that.userId &&
+                hugeSellId == that.hugeSellId &&
+                Double.compare(that.price, price) == 0 &&
+                Double.compare(that.money, money) == 0 &&
+                Double.compare(that.num, num) == 0 &&
+                supportAli == that.supportAli &&
+                supportWechat == that.supportWechat &&
+                supportBank == that.supportBank &&
+                puttime == that.puttime &&
+                Objects.equals(nickname, that.nickname);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, userId, nickname, hugeSellId, price, money, num, supportAli, supportWechat, supportBank, puttime);
     }
 
     @Override

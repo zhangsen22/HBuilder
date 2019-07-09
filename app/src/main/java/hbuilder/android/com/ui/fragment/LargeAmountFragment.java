@@ -13,7 +13,12 @@ import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Consumer;
+
 import butterknife.BindView;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
@@ -43,6 +48,7 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     private boolean isRun;
     private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
+    private List<LargeAmountItem> listTemp;
 
     public static LargeAmountFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -107,13 +113,14 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
         List<LargeAmountItem> billInfo = largeAmountResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
             GALogger.d(TAG,"billInfo.size()    "+billInfo.size());
-            reverseIdList(billInfo);
-            if(billInfo.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
-                largeAmountAdapter.setTotalCount(billInfo.size());
+            List<LargeAmountItem> buyItems = removeDuplicate(billInfo);
+            reverseIdList(buyItems);
+            if(buyItems.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+                largeAmountAdapter.setTotalCount(buyItems.size());
             }else {
                 largeAmountAdapter.setTotalCount(Integer.MAX_VALUE);
             }
-            largeAmountAdapter.setList(billInfo);
+            largeAmountAdapter.setList(buyItems);
         } else {
             emptyAnderrorView();
         }
@@ -135,12 +142,16 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     public void getHugeBillinfoLoadMoreSuccess(LargeAmountResponse largeAmountResponse) {
         List<LargeAmountItem> billInfo = largeAmountResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
-            reverseIdList(billInfo);
+            largeAmountAdapter.getList().addAll(billInfo);
+            List<LargeAmountItem> buyItems = removeDuplicate(largeAmountAdapter.getList());
+            reverseIdList(buyItems);
             largeAmountAdapter.setTotalCount(Integer.MAX_VALUE);
-            largeAmountAdapter.appendList(billInfo);
+            largeAmountAdapter.getList().clear();
+            largeAmountAdapter.getOriginalDataList().clear();
+            largeAmountAdapter.appendList(buyItems);
         }else {
             GALogger.d(TAG,"LoadMore  is  no");
-            reverseIdList(billInfo);
+            reverseIdList(null);
             largeAmountAdapter.setTotalCount(largeAmountAdapter.getItemRealCount());
             largeAmountAdapter.notifyDataSetChanged();
         }
@@ -212,5 +223,42 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     @Override
     public void onItemClick(@NonNull PowerHolder<LargeAmountItem> holder, @NonNull View itemView, int position, LargeAmountItem item) {
 
+    }
+
+    /**
+     * list集合对象去重
+     * @param list
+     * @return
+     */
+    public  List<LargeAmountItem> removeDuplicate(List<LargeAmountItem> list){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            if(listTemp == null){
+                listTemp = new LinkedList<>();
+            }
+            listTemp.clear();
+            //使用流的distinct()方法进行去重
+            list.stream().distinct().forEach(
+                    new Consumer<LargeAmountItem>(){
+                        @Override
+                        public void accept(LargeAmountItem buyItem) {
+                            if(buyItem != null){
+                                listTemp.add(buyItem);
+                            }
+                        }
+                    }
+            );
+        }else {
+            //set集合保存的是引用不同地址的对象
+            Set<LargeAmountItem> ts = new HashSet<LargeAmountItem>();
+            ts.addAll(list);
+            if(listTemp == null){
+                listTemp = new LinkedList<>(ts);
+            }else {
+                listTemp.clear();
+                listTemp = null;
+                listTemp = new LinkedList<>(ts);
+            }
+        }
+        return listTemp;
     }
 }
