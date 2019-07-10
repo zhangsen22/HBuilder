@@ -17,4 +17,13 @@ public class MessageCenterItem {
     public String getContent() {
         return content;
     }
+
+    @Override
+    public String toString() {
+        return "MessageCenterItem{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

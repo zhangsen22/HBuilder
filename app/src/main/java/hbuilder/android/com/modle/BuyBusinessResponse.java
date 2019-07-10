@@ -68,4 +68,14 @@ public class BuyBusinessResponse extends BaseBean implements Parcelable {
     public void setCurrentTime(long currentTime) {
         this.currentTime = currentTime;
     }
+
+    @Override
+    public String toString() {
+        return "BuyBusinessResponse{" +
+                "tradeId='" + tradeId + '\'' +
+                ", payCode=" + payCode +
+                ", currentTime=" + currentTime +
+                ", payee=" + payee +
+                '}';
+    }
 }

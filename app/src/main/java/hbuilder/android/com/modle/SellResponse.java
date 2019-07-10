@@ -59,4 +59,13 @@ public class SellResponse extends BaseBean implements Parcelable {
     public void setCreatTime(long creatTime) {
         this.creatTime = creatTime;
     }
+
+    @Override
+    public String toString() {
+        return "SellResponse{" +
+                "tradeId='" + tradeId + '\'' +
+                ", payCode=" + payCode +
+                ", creatTime=" + creatTime +
+                '}';
+    }
 }

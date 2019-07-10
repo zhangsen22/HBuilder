@@ -6,4 +6,11 @@ public class ImageCodeResponse extends BaseBean{
     public String getImage() {
         return image;
     }
+
+    @Override
+    public String toString() {
+        return "ImageCodeResponse{" +
+                "image='" + image + '\'' +
+                '}';
+    }
 }

@@ -8,4 +8,11 @@ public class MyEntrustinfoResponse extends BaseBean{
     public List<MyEntrustinfoItem> getBillInfo() {
         return billInfo;
     }
+
+    @Override
+    public String toString() {
+        return "MyEntrustinfoResponse{" +
+                "billInfo=" + billInfo +
+                '}';
+    }
 }

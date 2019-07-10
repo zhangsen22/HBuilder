@@ -57,4 +57,21 @@ public class MyEntrustinfoItem {
     public int getStatus() {
         return status;
     }
+
+    @Override
+    public String toString() {
+        return "MyEntrustinfoItem{" +
+                "id=" + id +
+                ", userid=" + userid +
+                ", nickname='" + nickname + '\'' +
+                ", price=" + price +
+                ", minNum=" + minNum +
+                ", maxNum=" + maxNum +
+                ", supportAli=" + supportAli +
+                ", supportWechat=" + supportWechat +
+                ", supportBank=" + supportBank +
+                ", puttime=" + puttime +
+                ", status=" + status +
+                '}';
+    }
 }

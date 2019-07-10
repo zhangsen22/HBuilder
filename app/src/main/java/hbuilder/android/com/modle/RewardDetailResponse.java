@@ -8,4 +8,11 @@ public class RewardDetailResponse extends BaseBean{
     public List<RewardDetailItem> getDetails() {
         return details;
     }
+
+    @Override
+    public String toString() {
+        return "RewardDetailResponse{" +
+                "details=" + details +
+                '}';
+    }
 }

@@ -6,4 +6,11 @@ public class SmsCodeResponse extends BaseBean{
     public String getKey() {
         return key;
     }
+
+    @Override
+    public String toString() {
+        return "SmsCodeResponse{" +
+                "key='" + key + '\'' +
+                '}';
+    }
 }

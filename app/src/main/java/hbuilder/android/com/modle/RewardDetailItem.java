@@ -17,4 +17,13 @@ public class RewardDetailItem {
     public double getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return "RewardDetailItem{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", value=" + value +
+                '}';
+    }
 }

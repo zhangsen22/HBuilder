@@ -21,4 +21,14 @@ public class RegistResponse extends BaseBean{
     public String getWalletAddr() {
         return walletAddr;
     }
+
+    @Override
+    public String toString() {
+        return "RegistResponse{" +
+                "id=" + id +
+                ", invitedCode='" + invitedCode + '\'' +
+                ", downloadUrl='" + downloadUrl + '\'' +
+                ", walletAddr='" + walletAddr + '\'' +
+                '}';
+    }
 }

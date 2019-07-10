@@ -8,4 +8,11 @@ public class BuyResponse extends BaseBean{
     public List<BuyItem> getBillInfo() {
         return billInfo;
     }
+
+    @Override
+    public String toString() {
+        return "BuyResponse{" +
+                "billInfo=" + billInfo +
+                '}';
+    }
 }

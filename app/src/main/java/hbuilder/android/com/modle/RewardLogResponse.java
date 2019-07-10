@@ -119,4 +119,23 @@ public class RewardLogResponse extends BaseBean implements Parcelable {
         dest.writeDouble(totBillReward);
         dest.writeDouble(lastBillReward);
     }
+
+    @Override
+    public String toString() {
+        return "RewardLogResponse{" +
+                "firstTG=" + firstTG +
+                ", secondTG=" + secondTG +
+                ", firstAgentTG=" + firstAgentTG +
+                ", secondAgentTG=" + secondAgentTG +
+                ", generalTG=" + generalTG +
+                ", totTradeReward=" + totTradeReward +
+                ", lastTradeReward=" + lastTradeReward +
+                ", totTGReward=" + totTGReward +
+                ", lastTGReward=" + lastTGReward +
+                ", totAgentReward=" + totAgentReward +
+                ", lastAgentReward=" + lastAgentReward +
+                ", totBillReward=" + totBillReward +
+                ", lastBillReward=" + lastBillReward +
+                '}';
+    }
 }

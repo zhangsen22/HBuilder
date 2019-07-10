@@ -8,4 +8,11 @@ public class MySellOrBuyinfoResponse extends BaseBean{
     public List<MySellOrBuyinfoItem> getInfo() {
         return info;
     }
+
+    @Override
+    public String toString() {
+        return "MySellOrBuyinfoResponse{" +
+                "info=" + info +
+                '}';
+    }
 }

@@ -32,4 +32,16 @@ public class FinanceLogItem {
     public long getSucctime() {
         return succtime;
     }
+
+    @Override
+    public String toString() {
+        return "FinanceLogItem{" +
+                "id=" + id +
+                ", type=" + type +
+                ", num=" + num +
+                ", status=" + status +
+                ", logtime=" + logtime +
+                ", succtime=" + succtime +
+                '}';
+    }
 }

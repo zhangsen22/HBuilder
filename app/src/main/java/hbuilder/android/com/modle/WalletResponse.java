@@ -23,4 +23,14 @@ public class WalletResponse extends BaseBean{
     public double getHotFreezeNum() {
         return hotFreezeNum;
     }
+
+    @Override
+    public String toString() {
+        return "WalletResponse{" +
+                "walletNum=" + walletNum +
+                ", walletFreezeNum=" + walletFreezeNum +
+                ", hotNum=" + hotNum +
+                ", hotFreezeNum=" + hotFreezeNum +
+                '}';
+    }
 }

@@ -27,4 +27,14 @@ public class UsdtPriceResponse extends BaseBean{
     public double getMinSellPrice() {
         return minSellPrice;
     }
+
+    @Override
+    public String toString() {
+        return "UsdtPriceResponse{" +
+                "maxBuyPrice=" + maxBuyPrice +
+                ", minBuyPrice=" + minBuyPrice +
+                ", maxSellPrice=" + maxSellPrice +
+                ", minSellPrice=" + minSellPrice +
+                '}';
+    }
 }

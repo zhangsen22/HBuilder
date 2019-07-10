@@ -9,4 +9,11 @@ public class FinanceLogResponse extends BaseBean{
     public List<FinanceLogItem> getFinanceLog() {
         return financeLog;
     }
+
+    @Override
+    public String toString() {
+        return "FinanceLogResponse{" +
+                "financeLog=" + financeLog +
+                '}';
+    }
 }

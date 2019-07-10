@@ -8,4 +8,11 @@ public class MessageCenterResponse extends BaseBean{
     public List<MessageCenterItem> getMsg() {
         return msg;
     }
+
+    @Override
+    public String toString() {
+        return "MessageCenterResponse{" +
+                "msg=" + msg +
+                '}';
+    }
 }
