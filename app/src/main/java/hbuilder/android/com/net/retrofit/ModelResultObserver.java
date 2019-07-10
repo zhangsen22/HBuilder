@@ -20,6 +20,7 @@ import io.reactivex.disposables.Disposable;
  * @param <T>
  */
 public abstract class ModelResultObserver<T> implements Observer<T> {
+    private static final String TAG = ModelResultObserver.class.getSimpleName();
     protected Disposable mDisposable = null;
 
     protected ModelResultObserver() {
@@ -34,7 +35,7 @@ public abstract class ModelResultObserver<T> implements Observer<T> {
 
     @Override
     public void onNext(T t) {
-
+        GALogger.d(TAG,t.toString());
         onSuccess(t);
         if (t instanceof BaseBean) {
             BaseBean baseBean = (BaseBean) t;
@@ -78,7 +79,7 @@ public abstract class ModelResultObserver<T> implements Observer<T> {
      * 失败时候的处理
      */
     public void onFailure(ModelException ex) {
-        GALogger.d("ModelResult", "onFailure() into, " + ex.toString() + "   mMessage   " + ex.mMessage + "   mCode   " + ex.mCode);
+        GALogger.d(TAG, "onFailure() into, " + ex.toString() + "   mMessage   " + ex.mMessage + "   mCode   " + ex.mCode);
         ToastUtil.longShow(ex.mMessage);
         if (ex.mCode == 1 && Looper.myLooper() == Looper.getMainLooper()) {//"账号在别处已经登录"
             Intent intent = new Intent("android.intent.action.LoginActivity");
