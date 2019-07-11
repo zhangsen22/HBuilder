@@ -9,7 +9,7 @@
 
     <include layout="@layout/title"/>
 
-    <include layout="@layout/line_20_f9f9f9"/>
+    <include layout="@layout/line_20_f9"/>
 
     <ScrollView
         android:layout_width="match_parent"

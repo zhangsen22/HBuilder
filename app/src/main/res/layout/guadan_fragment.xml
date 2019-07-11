@@ -7,7 +7,7 @@
 
     <include layout="@layout/title"/>
 
-    <include layout="@layout/line_20_f9f9f9"/>
+    <include layout="@layout/line_20_f9"/>
 
     <!--如果MagicIndicator需要加背景颜色   需要在其外面嵌套一个父布局  在父布局添加背景颜色-->
     <net.lucode.hackware.magicindicator.MagicIndicator

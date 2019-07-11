@@ -14,6 +14,8 @@ import com.growalong.util.util.GALogger;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import hbuilder.android.com.modle.UsdtPriceResponse;
+import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.observer.NetChangeObserver;
 import hbuilder.android.com.observer.NetworkChangedReceiver;
 import hbuilder.android.com.ui.widget.LoadingDialog;
@@ -220,5 +222,8 @@ public abstract class BaseFragment extends Fragment {
      */
     protected void setRootViewPaddingTop(View view) {
         view.setPadding(0, PhoneInfoUtil.getInstance().getStatusBarHeight(), 0, 0);
+    }
+
+    public void lazyLoadData_now(UsdtPriceResponse usdtPriceResponse, WalletResponse mWalletResponse) {
     }
 }

@@ -159,20 +159,20 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
         //初始化presenter
         new PropertyPresenter(PropertyFragment.this, new PropertyModle());
         propertyPresenter.getInfo();
-        int currentItem = propertyViewPager.getCurrentItem();
-        if (propertyViewPagerAdapter != null) {
-            BaseFragment currentFragment = propertyViewPagerAdapter.getCurrentFragment(currentItem);
-            GALogger.d(TAG, "currentFragment.isVisible()   " + currentFragment.isVisible());
-            if (currentFragment != null && currentFragment.isVisible()) {
-                MyApplication.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        currentFragment.setEnableLazyLoad(true);
-                        currentFragment.lazyLoadData();
-                    }
-                }, 1000);
-            }
-        }
+//        int currentItem = propertyViewPager.getCurrentItem();
+//        if (propertyViewPagerAdapter != null) {
+//            BaseFragment currentFragment = propertyViewPagerAdapter.getCurrentFragment(currentItem);
+//            GALogger.d(TAG, "currentFragment.isVisible()   " + currentFragment.isVisible());
+//            if (currentFragment != null && currentFragment.isVisible()) {
+//                MyApplication.runOnUIThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        currentFragment.setEnableLazyLoad(true);
+//                        currentFragment.lazyLoadData();
+//                    }
+//                }, 1000);
+//            }
+//        }
     }
 
     @Override
@@ -190,16 +190,24 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
                 tvAccountName.setText(MyApplication.appContext.getResources().getString(R.string.text7));
                 tvAccountSp.setText(MyApplication.appContext.getResources().getString(R.string.text9));
                 double walletNum = mWalletResponse.getWalletNum();
+                double walletFreezeNum = mWalletResponse.getWalletFreezeNum();
                 double minSellPrice = usdtPriceResponse.getMinSellPrice();
-                tvAccountMoney1.setText(new DecimalFormat("0.00").format(walletNum));
-                tvAccountMoney2.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(walletNum * minSellPrice));
+                tvAccountMoney1.setText(new DecimalFormat("0.00").format(walletNum+walletFreezeNum));
+                tvAccountMoney2.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format((walletNum+walletFreezeNum) * minSellPrice));
             } else if (i == 1) {
                 goPosition = 2;
                 tvAccountName.setText(MyApplication.appContext.getResources().getString(R.string.text8));
                 tvAccountSp.setText(MyApplication.appContext.getResources().getString(R.string.text10));
                 double hotNum = mWalletResponse.getHotNum();
-                tvAccountMoney1.setText(new DecimalFormat("0.00").format(hotNum));
-                tvAccountMoney2.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(hotNum));
+                double hotFreezeNum = mWalletResponse.getHotFreezeNum();
+                tvAccountMoney1.setText(new DecimalFormat("0.00").format(hotNum+hotFreezeNum));
+                tvAccountMoney2.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(hotNum+hotFreezeNum));
+            }
+
+            int currentItem = propertyViewPager.getCurrentItem();
+            if (propertyViewPagerAdapter != null) {
+                BaseFragment currentFragment = propertyViewPagerAdapter.getCurrentFragment(currentItem);
+                currentFragment.lazyLoadData_now(usdtPriceResponse,mWalletResponse);
             }
         }
     }
