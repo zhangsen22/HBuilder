@@ -7,13 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.growalong.util.util.GALogger;
-
 import java.text.DecimalFormat;
-
-import butterknife.BindView;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.modle.BuyItem;
@@ -45,7 +42,6 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
     }
 
     public class BuyItemHolder extends PowerHolder<BuyItem> {
-        TextView tvNameFirst;
         TextView tvName;
         TextView tvTradetimes;
         TextView tvTradesuccrate;
@@ -58,10 +54,10 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
         ImageView ivAilpay;
         ImageView ivWebpay;
         ImageView ivApiType;
+        LinearLayout llBuy;
 
         public BuyItemHolder(View itemView) {
             super(itemView);
-            tvNameFirst = itemView.findViewById(R.id.tv_name_first);
             tvName = itemView.findViewById(R.id.tv_name);
             ivApiType = itemView.findViewById(R.id.iv_api_type);
             tvTradetimes = itemView.findViewById(R.id.tv_tradetimes);
@@ -74,21 +70,22 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
             ivIdcard = itemView.findViewById(R.id.iv_idcard);
             ivAilpay = itemView.findViewById(R.id.iv_ailpay);
             ivWebpay = itemView.findViewById(R.id.iv_webpay);
+            llBuy = itemView.findViewById(R.id.ll_buy);
         }
 
         @Override
         public void onBind(@NonNull final BuyItem buyItem, int position) {
             if (buyItem != null) {
                 GALogger.d(TAG, "buyItem    " + buyItem.toString());
+                tvBuy.setText("去购买");
                 String nickname = buyItem.getNickname();
                 if (!TextUtils.isEmpty(nickname)) {
-                    tvNameFirst.setText(nickname.subSequence(0, 1));
                     tvName.setText(nickname);
                 }
-                if(buyItem.getApiType() == 1){
+                if (buyItem.getApiType() == 1) {
                     ivApiType.setVisibility(View.VISIBLE);
                     ivApiType.setImageResource(R.mipmap.st);
-                }else {
+                } else {
                     ivApiType.setVisibility(View.GONE);
                 }
                 tvTradetimes.setText(buyItem.getTradeTimes() + "");
@@ -115,7 +112,7 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
                     ivWebpay.setVisibility(View.GONE);
                 }
 
-                tvBuy.setOnClickListener(new View.OnClickListener() {
+                llBuy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         BusinessBuyActivity.startThis(mContext, buyItem);

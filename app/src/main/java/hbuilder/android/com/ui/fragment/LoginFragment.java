@@ -5,13 +5,20 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountInfo;
@@ -36,6 +43,10 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     ImageView ivEye;
     @BindView(R.id.go_login)
     TextView goLogin;
+    @BindView(R.id.fl_login_head)
+    FrameLayout flLoginHead;
+    @BindView(R.id.ll_login_bottom)
+    LinearLayout llLoginBottom;
     private LoginActivity loginActivity;
     private LoginPresenter loginPresenter;
     private boolean isShowPassward = false;
@@ -61,10 +72,11 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
     @Override
     protected void initView(View root) {
-
+        setRootViewPaddingTop(flLoginHead);
+        setRootViewPaddingTop(llLoginBottom);
     }
 
-    @OnClick({R.id.iv_eye, R.id.go_login,R.id.go_regist,R.id.go_forget_pass})
+    @OnClick({R.id.iv_eye, R.id.go_login, R.id.go_regist, R.id.go_forget_pass})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_eye:
@@ -92,7 +104,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
                     return;
                 }
                 long currentTime = System.currentTimeMillis();
-                loginPresenter.login(phone,password,currentTime,true);
+                loginPresenter.login(phone, password, currentTime, true);
                 break;
             case R.id.go_regist:
                 RegistActivity.startThis(loginActivity);

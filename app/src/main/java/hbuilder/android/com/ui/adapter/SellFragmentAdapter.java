@@ -7,12 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.growalong.util.util.GALogger;
-
 import java.text.DecimalFormat;
-
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.modle.BuyItem;
@@ -44,7 +42,6 @@ public class SellFragmentAdapter extends PowerAdapter<BuyItem> {
     }
 
     public class BuyItemHolder extends PowerHolder<BuyItem> {
-        TextView tvNameFirst;
         TextView tvName;
         TextView tvTradetimes;
         TextView tvTradesuccrate;
@@ -54,10 +51,10 @@ public class SellFragmentAdapter extends PowerAdapter<BuyItem> {
         TextView tvSinglePrice;
         TextView tvBuy;
         ImageView ivApiType;
+        LinearLayout llBuy;
 
         public BuyItemHolder(View itemView) {
             super(itemView);
-            tvNameFirst = itemView.findViewById(R.id.tv_name_first);
             tvName = itemView.findViewById(R.id.tv_name);
             ivApiType = itemView.findViewById(R.id.iv_api_type);
             tvTradetimes = itemView.findViewById(R.id.tv_tradetimes);
@@ -67,36 +64,35 @@ public class SellFragmentAdapter extends PowerAdapter<BuyItem> {
             tvMaxPrice = itemView.findViewById(R.id.tv_max_price);
             tvSinglePrice = itemView.findViewById(R.id.tv_single_price);
             tvBuy = itemView.findViewById(R.id.tv_buy);
-            tvNameFirst = itemView.findViewById(R.id.tv_name_first);
+            llBuy = itemView.findViewById(R.id.ll_buy);
         }
 
         @Override
         public void onBind(@NonNull final BuyItem buyItem, int position) {
             if (buyItem != null) {
                 GALogger.d(TAG, "buyItem    " + buyItem.toString());
-                tvBuy.setText("出售");
+                tvBuy.setText("去出售");
                 String nickname = buyItem.getNickname();
                 if (!TextUtils.isEmpty(nickname)) {
-                    tvNameFirst.setText(nickname.subSequence(0, 1));
                     tvName.setText(nickname);
                 }
-                if(buyItem.getApiType() == 1){
+                if (buyItem.getApiType() == 1) {
                     ivApiType.setVisibility(View.VISIBLE);
                     ivApiType.setImageResource(R.mipmap.st);
-                }else {
+                } else {
                     ivApiType.setVisibility(View.GONE);
                 }
                 tvTradetimes.setText(buyItem.getTradeTimes() + "");
                 tvTradesuccrate.setText(buyItem.getTradeSuccRate() + "%");
                 tvNumber.setText(new DecimalFormat("0.00").format(buyItem.getMaxNum()));
-                tvMinPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()));
-                tvMaxPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
-                tvSinglePrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice()));
+                tvMinPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()));
+                tvMaxPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
+                tvSinglePrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice()));
 
-                tvBuy.setOnClickListener(new View.OnClickListener() {
+                llBuy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        BusinessSellActivity.startThis(mContext,buyItem);
+                        BusinessSellActivity.startThis(mContext, buyItem);
                     }
                 });
             }

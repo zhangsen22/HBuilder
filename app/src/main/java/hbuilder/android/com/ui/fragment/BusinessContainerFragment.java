@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
@@ -38,7 +40,9 @@ public class BusinessContainerFragment extends BaseFragment {
     @BindView(R.id.ll_notry_click)
     LinearLayout llNotryClick;
     @BindView(R.id.iv_guadan)
-    TextView ivGuadan;
+    ImageView ivGuadan;
+    @BindView(R.id.ff_business_content)
+    FrameLayout ffBusinessContent;
     private MainActivity mainActivity;
     private BusinessViewPagerAdapter baseFragmentPagerAdapter;
 
@@ -64,7 +68,7 @@ public class BusinessContainerFragment extends BaseFragment {
     @Override
     protected void initView(View root) {
         GALogger.d(TAG, "BusinessContainerFragment   is    initView");
-        setRootViewPaddingTop(root);
+        setRootViewPaddingTop(ffBusinessContent);
         final String[] businessTitle = mainActivity.getResources().getStringArray(R.array.business_title);
         businessViewPager.setOffscreenPageLimit(businessTitle.length - 1);
         baseFragmentPagerAdapter = new BusinessViewPagerAdapter(getChildFragmentManager(), businessTitle);
@@ -80,9 +84,9 @@ public class BusinessContainerFragment extends BaseFragment {
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#333333"));
+                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#f2c4c4"));
                 colorTransitionPagerTitleView.setTextSize(14);
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#FF5100"));
+                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#ffffff"));
                 colorTransitionPagerTitleView.setText(businessTitle[index]);
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -101,9 +105,11 @@ public class BusinessContainerFragment extends BaseFragment {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 1));
-                indicator.setColors(R.color.color_afadad);
-                indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
+                indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 2));
+                indicator.setLineWidth(UIUtil.dip2px(context, 25));
+                indicator.setColors(Color.WHITE);
+                indicator.setYOffset(UIUtil.dip2px(context, 8));
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 return indicator;
             }
         });

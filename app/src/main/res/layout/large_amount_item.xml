@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/common_white"
+    android:layout_marginBottom="@dimen/y14">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,6 +14,7 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/y8"
         android:paddingRight="@dimen/y30"
+        android:paddingLeft="@dimen/y30"
         android:paddingBottom="@dimen/y14">
 
         <LinearLayout
@@ -20,10 +23,13 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="@dimen/y10"
-                android:layout_height="@dimen/y40"
-                android:src="@mipmap/d"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发布时间："
+                android:gravity="center"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_large_amount_time"
@@ -31,9 +37,8 @@
                 android:layout_height="wrap_content"
                 tools:text="2019.04.04"
                 android:gravity="center"
-                android:textColor="@color/color_333333"
-                android:textSize="13sp"
-                android:layout_marginLeft="@dimen/y20"/>
+                android:textColor="@color/color_666666"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -42,8 +47,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/y16"
-            android:layout_marginLeft="@dimen/y30">
+            android:layout_marginTop="@dimen/y16">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -82,7 +86,7 @@
                 android:layout_height="wrap_content"
                 tools:text="12"
                 android:gravity="center"
-                android:textColor="@color/color_ff0000"
+                android:textColor="@color/color_ff5100"
                 android:textSize="12sp" />
 
             <TextView
@@ -100,8 +104,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/y14"
-            android:layout_marginLeft="@dimen/y30">
+            android:layout_marginTop="@dimen/y14">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -131,8 +134,8 @@
                 android:layout_height="wrap_content"
                 android:text="总价："
                 android:gravity="center"
-                android:textColor="@color/color_4e6bcf"
-                android:textSize="14sp" />
+                android:textColor="@color/color_999999"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_all_price"
@@ -140,8 +143,8 @@
                 android:layout_height="wrap_content"
                 tools:text="￥6.83"
                 android:gravity="center"
-                android:textColor="@color/color_4e6bcf"
-                android:textSize="14sp" />
+                android:textColor="@color/color_ff5100"
+                android:textSize="15sp" />
 
         </LinearLayout>
 
@@ -150,8 +153,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/y14"
-            android:layout_marginLeft="@dimen/y30">
+            android:layout_marginTop="@dimen/y14">
 
             <ImageView
                 android:id="@+id/iv_idcard"
@@ -182,21 +184,32 @@
                 android:layout_weight="1"
                 android:layout_height="@dimen/y1"/>
 
-            <TextView
-                android:id="@+id/tv_qianggou"
+            <LinearLayout
+                android:id="@+id/ll_qianggou"
                 android:layout_width="@dimen/y150"
                 android:layout_height="@dimen/y50"
-                android:background="@mipmap/i"
-                android:layout_marginLeft="@dimen/y18"
-                android:text="抢购"
-                android:textSize="12sp"
-                android:textColor="@color/common_white"
-                android:gravity="center"/>
+                android:orientation="horizontal"
+                android:gravity="right|center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/y18"
+                    android:text="去抢购"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_333333"
+                    android:gravity="center"/>
+
+                <ImageView
+                    android:layout_width="@dimen/y12"
+                    android:layout_height="@dimen/y20"
+                    android:src="@mipmap/c"
+                    android:layout_marginLeft="@dimen/y10"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <include layout="@layout/line_f9"/>
 
 </LinearLayout>

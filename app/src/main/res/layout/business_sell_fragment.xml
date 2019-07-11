@@ -8,7 +8,7 @@
 
     <include layout="@layout/title"/>
 
-    <include layout="@layout/line"/>
+    <include layout="@layout/line_20_f9"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -180,7 +180,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="全部"
-            android:textColor="@color/color_0c6dff"
+            android:textColor="@color/color_ff5100"
             android:textSize="12sp"
             android:gravity="center"/>
 
@@ -222,7 +222,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="全部"
-            android:textColor="@color/color_0c6dff"
+            android:textColor="@color/color_ff5100"
             android:textSize="12sp"
             android:gravity="center"/>
 
@@ -324,7 +324,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="添加"
-            android:textColor="@color/color_1a72fb"
+            android:textColor="@color/color_ff5100"
             android:textSize="12sp"
             android:gravity="center"/>
 
@@ -415,7 +415,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="添加"
-            android:textColor="@color/color_1a72fb"
+            android:textColor="@color/color_ff5100"
             android:textSize="12sp"
             android:gravity="center"/>
 
@@ -506,7 +506,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="添加"
-            android:textColor="@color/color_1a72fb"
+            android:textColor="@color/color_ff5100"
             android:textSize="12sp"
             android:gravity="center"/>
 
@@ -594,7 +594,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="忘记密码?"
-                    android:textColor="@color/color_1a72fb"
+                    android:textColor="@color/color_ff5100"
                     android:textSize="12sp"
                     android:gravity="center"/>
 
@@ -615,7 +615,7 @@
                 android:id="@+id/tv_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/n"
+                android:background="@mipmap/cl"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/y38"
                 android:text="下  单"

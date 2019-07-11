@@ -7,13 +7,19 @@
     android:orientation="vertical">
 
     <!--如果MagicIndicator需要加背景颜色   需要在其外面嵌套一个父布局  在父布局添加背景颜色-->
+    <FrameLayout
+        android:id="@+id/ff_business_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ce">
+
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/business_magicindicator"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y92"
         android:layout_gravity="center_horizontal"/>
 
-    <include layout="@layout/line"/>
+    </FrameLayout>
 
     <ImageView
         android:layout_width="match_parent"
@@ -25,7 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y76"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:background="@color/common_white">
 
         <ImageView
             android:layout_width="@dimen/y30"
@@ -52,7 +59,7 @@
 
     </LinearLayout>
 
-    <include layout="@layout/line"/>
+    <include layout="@layout/line_f9"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -64,19 +71,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-        <TextView
+        <ImageView
             android:id="@+id/iv_guadan"
             android:layout_width="@dimen/y96"
             android:layout_height="@dimen/y96"
             android:background="@mipmap/bv"
             android:layout_gravity="bottom|right"
             android:layout_marginRight="@dimen/y52"
-            android:text="@string/text5"
             android:gravity="center"
-            android:textColor="@color/common_white"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:paddingRight="@dimen/y6"
             android:layout_marginBottom="@dimen/y28"/>
 
     </FrameLayout>

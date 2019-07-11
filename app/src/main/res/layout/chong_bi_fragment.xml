@@ -10,7 +10,7 @@
 
     <include layout="@layout/title"/>
 
-    <include layout="@layout/line"/>
+    <include layout="@layout/line_20_f9"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -91,7 +91,7 @@
             android:textSize="14sp"
             android:textColor="@color/common_white"
             android:gravity="center"
-            android:background="@mipmap/ay"
+            android:background="@mipmap/n"
             android:textIsSelectable="true"
             android:layout_marginTop="@dimen/y18"
             android:layout_marginBottom="@dimen/y18"/>
@@ -123,7 +123,7 @@
             android:layout_height="wrap_content"
             android:text="复制地址"
             android:textSize="14sp"
-            android:textColor="@color/color_0c6dff"
+            android:textColor="@color/color_ff5100"
             android:background="@mipmap/bk"
             android:gravity="center"
             android:layout_marginTop="@dimen/y28"

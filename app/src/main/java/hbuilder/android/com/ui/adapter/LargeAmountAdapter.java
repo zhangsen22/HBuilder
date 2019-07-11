@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.DateUtil;
 import java.text.DecimalFormat;
@@ -49,7 +50,7 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
         ImageView ivIdcard;
         ImageView ivAilpay;
         ImageView ivWebpay;
-        TextView tvQianggou;
+        LinearLayout llQianggou;
         public LargeAmountItemHolder(View itemView) {
             super(itemView);
             tvLargeAmountTime = itemView.findViewById(R.id.tv_large_amount_time);
@@ -60,7 +61,7 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
             ivIdcard = itemView.findViewById(R.id.iv_idcard);
             ivAilpay = itemView.findViewById(R.id.iv_ailpay);
             ivWebpay = itemView.findViewById(R.id.iv_webpay);
-            tvQianggou = itemView.findViewById(R.id.tv_qianggou);
+            llQianggou = itemView.findViewById(R.id.ll_qianggou);
         }
 
         @Override
@@ -88,7 +89,7 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
                 }else {
                     ivWebpay.setVisibility(View.GONE);
                 }
-                tvQianggou.setOnClickListener(new View.OnClickListener() {
+                llQianggou.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         BuyItem buyItem = new BuyItem(largeAmountItem.getId(), largeAmountItem.getNickname(), largeAmountItem.getPrice(), largeAmountItem.getNum(), largeAmountItem.getNum(), largeAmountItem.isSupportAli(), largeAmountItem.isSupportWechat(), largeAmountItem.isSupportBank(),true);
