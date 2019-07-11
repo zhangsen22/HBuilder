@@ -3,16 +3,16 @@ package hbuilder.android.com.presenter;
 import hbuilder.android.com.modle.RewardLogResponse;
 import hbuilder.android.com.net.retrofit.ModelResultObserver;
 import hbuilder.android.com.net.retrofit.exception.ModelException;
-import hbuilder.android.com.presenter.contract.TradingAccountContract;
-import hbuilder.android.com.presenter.modle.TradingAccountModle;
+import hbuilder.android.com.presenter.contract.AwardDetailsContract;
+import hbuilder.android.com.presenter.modle.AwardDetailsModle;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class TradingAccountPresenter implements TradingAccountContract.Presenter{
+public class AwardDetailsPresenter implements AwardDetailsContract.Presenter{
 
-    private TradingAccountContract.View mView;
-    private TradingAccountModle mModel;
+    private AwardDetailsContract.View mView;
+    private AwardDetailsModle mModel;
 
-    public TradingAccountPresenter(TradingAccountContract.View view, TradingAccountModle model){
+    public AwardDetailsPresenter(AwardDetailsContract.View view, AwardDetailsModle model){
         mView = view;
         mModel = model;
         mView.setPresenter(this);

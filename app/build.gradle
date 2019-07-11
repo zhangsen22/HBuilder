@@ -68,7 +68,7 @@ dependencies {
     implementation rootProject.ext.dependencies.design
     implementation rootProject.ext.dependencies.multidex
     implementation rootProject.ext.dependencies.exifinterface
-        implementation rootProject.ext.dependencies.supportV4
+    implementation rootProject.ext.dependencies.supportV4
     //RxJava和Retrofit网络请求
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
     implementation rootProject.ext.dependencies.okHttp3

@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,8 +17,11 @@ import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 import com.lxj.xpopup.interfaces.XPopupCallback;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
@@ -26,6 +31,7 @@ import hbuilder.android.com.presenter.CenterPresenter;
 import hbuilder.android.com.presenter.contract.CenterContract;
 import hbuilder.android.com.presenter.modle.CenterModle;
 import hbuilder.android.com.ui.activity.AddMakeStyleActivity;
+import hbuilder.android.com.ui.activity.AwardDetailsActivity;
 import hbuilder.android.com.ui.activity.IdentityActivity;
 import hbuilder.android.com.ui.activity.LoginActivity;
 import hbuilder.android.com.ui.activity.MainActivity;
@@ -43,14 +49,10 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
     ImageView ivEdit;
     @BindView(R.id.tv_account)
     TextView tvAccount;
-    @BindView(R.id.tv_is_sm)
-    TextView tvIsSm;
-    @BindView(R.id.tv_is_add_pay)
-    TextView tvIsAddPay;
-    @BindView(R.id.tv_center_anquan)
-    TextView tvCenterAnquan;
-    @BindView(R.id.tv_shenfencard)
-    TextView tvShenfencard;
+    @BindView(R.id.ll_center_anquan)
+    LinearLayout tvCenterAnquan;
+    @BindView(R.id.ll_shenfencard)
+    LinearLayout tvShenfencard;
     @BindView(R.id.ll_add_sk_type)
     LinearLayout llAddSkType;
     @BindView(R.id.ll_tj_friend)
@@ -71,6 +73,8 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
     ImageView ivRoletype;
     @BindView(R.id.iv_apitype)
     ImageView ivApitype;
+    @BindView(R.id.ll_award_details)
+    LinearLayout llAwardDetails;
     private MainActivity mainActivity;
     private CenterPresenter presenter;
 
@@ -94,7 +98,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
 
     @Override
     protected void initView(View root) {
-        GALogger.d(TAG,"CenterFragment   is    initView");
+        GALogger.d(TAG, "CenterFragment   is    initView");
         setRootViewPaddingTop(llCenterBg);
     }
 
@@ -107,7 +111,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
         initUserInfo();
     }
 
-    @OnClick({R.id.iv_edit, R.id.tv_center_anquan, R.id.tv_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.ll_jc_gl, R.id.ll_lx_kf, R.id.ll_center_message, R.id.tv_logout})
+    @OnClick({R.id.iv_edit, R.id.ll_center_anquan, R.id.ll_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.ll_jc_gl, R.id.ll_lx_kf, R.id.ll_center_message, R.id.tv_logout,R.id.ll_award_details})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_edit:
@@ -129,13 +133,13 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                                 })
                         .show();
                 break;
-            case R.id.tv_center_anquan:
+            case R.id.ll_center_anquan:
                 SecurityCenterActivity.startThis(mainActivity);
                 break;
-            case R.id.tv_shenfencard:
+            case R.id.ll_shenfencard:
                 int iDstatus = AccountManager.getInstance().getIDstatus();//0未验证，1等待人工审核 2 已验证 99 验证失败
-                if(iDstatus == 0 || iDstatus == 99){
-                    IdentityActivity.startThis(mainActivity,Constants.REQUESTCODE_10);
+                if (iDstatus == 0 || iDstatus == 99) {
+                    IdentityActivity.startThis(mainActivity, Constants.REQUESTCODE_10);
                 }
                 break;
             case R.id.ll_add_sk_type:
@@ -148,7 +152,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                 WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.JIAOCHENGGONGLUO, true);
                 break;
             case R.id.ll_lx_kf:
-                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.KEFU,true);
+                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.KEFU, true);
                 break;
             case R.id.ll_center_message:
                 MessageCenterActivity.startThis(mainActivity);
@@ -180,6 +184,9 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                             }
                         }, null, false)
                         .show();
+                break;
+            case R.id.ll_award_details:
+                AwardDetailsActivity.startThis(mainActivity);
                 break;
         }
     }
@@ -213,39 +220,22 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
         tvUsername.setText(AccountManager.getInstance().getNickname());
         tvAccount.setText(AccountManager.getInstance().getPhoneNumber());
         tvVersionCode.setText(PackageUtil.getAppVersionName(MyApplication.appContext));
-        if(AccountManager.getInstance().getRoleType() == 2){
+        if (AccountManager.getInstance().getRoleType() == 2) {
             ivRoletype.setImageResource(R.mipmap.bs);
             ivRoletype.setVisibility(View.VISIBLE);
-        }else if(AccountManager.getInstance().getRoleType() == 1){
+        } else if (AccountManager.getInstance().getRoleType() == 1) {
             ivRoletype.setImageResource(R.mipmap.an);
             ivRoletype.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             ivRoletype.setVisibility(View.GONE);
         }
 
-        if(AccountManager.getInstance().getApiType() == 1){
+        if (AccountManager.getInstance().getApiType() == 1) {
             ivApitype.setImageResource(R.mipmap.st);
             ivApitype.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             ivApitype.setVisibility(View.GONE);
         }
-
-        if (AccountManager.getInstance().isHaveAliPayee() || AccountManager.getInstance().isHaveBankPayee() || AccountManager.getInstance().isHaveWechatPayee()) {
-            tvIsAddPay.setText("已添加收款方式");
-        } else {
-            tvIsAddPay.setText("未添收款方式");
-        }
-        int iDstatus = AccountManager.getInstance().getIDstatus();//0未验证，1等待人工审核 2 已验证 99 验证失败
-        if (iDstatus == 0) {
-            tvIsSm.setText("未验证");
-        } else if (iDstatus == 1) {
-            tvIsSm.setText("等待人工审核");
-        } else if (iDstatus == 2) {
-            tvIsSm.setText("已验证");
-        } else if (iDstatus == 99) {
-            tvIsSm.setText("验证失败");
-        } else {
-            tvIsSm.setText("未知错误");
-        }
     }
+
 }

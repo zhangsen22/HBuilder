@@ -4,7 +4,7 @@ import hbuilder.android.com.IBasePresenter;
 import hbuilder.android.com.IBaseView;
 import hbuilder.android.com.modle.RewardLogResponse;
 
-public interface TradingAccountContract {
+public interface AwardDetailsContract {
     interface Presenter extends IBasePresenter {
         //获取奖励记录
         void rewardLog();
