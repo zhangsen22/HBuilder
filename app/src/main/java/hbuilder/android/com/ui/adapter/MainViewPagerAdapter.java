@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import hbuilder.android.com.ui.fragment.BusinessContainerFragment;
 import hbuilder.android.com.ui.fragment.CenterFragment;
-import hbuilder.android.com.ui.fragment.GuaDanFragment;
 import hbuilder.android.com.ui.fragment.OrderFragment;
 import hbuilder.android.com.ui.fragment.PropertyFragment;
 
@@ -15,7 +14,6 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     private Fragment mCurrentPrimaryItem = null;
     private BusinessContainerFragment businessContainerFragment;
-    private GuaDanFragment guaDanFragment;
     private OrderFragment orderFragment;
     private PropertyFragment propertyFragment;
     private CenterFragment centerFragment;
@@ -30,10 +28,6 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
             businessContainerFragment = BusinessContainerFragment.newInstance("");
         }
         fragmentList.add(businessContainerFragment);
-        if(guaDanFragment == null){
-            guaDanFragment = GuaDanFragment.newInstance("");
-        }
-        fragmentList.add(guaDanFragment);
         if(orderFragment == null){
             orderFragment = OrderFragment.newInstance("");
         }

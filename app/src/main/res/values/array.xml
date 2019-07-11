@@ -2,9 +2,9 @@
 <resources>
 
     <string-array name="business_title">
-        <item>购买</item>
-        <item>出售</item>
-        <item>大额抢单</item>
+        <item>我要购买</item>
+        <item>我要出售</item>
+        <item>大宗交易</item>
     </string-array>
 
     <string-array name="guadan_title">

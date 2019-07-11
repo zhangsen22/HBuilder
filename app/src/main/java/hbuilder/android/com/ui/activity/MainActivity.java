@@ -41,8 +41,6 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     NoScrollViewPager noscrollViewPager;
     @BindView(R.id.rb_business)
     RadioButton rbBusiness;
-    @BindView(R.id.rb_guadan)
-    RadioButton rbGuadan;
     @BindView(R.id.rb_order)
     RadioButton rbOrder;
     @BindView(R.id.rb_property)
@@ -89,10 +87,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         mainPresenter.usdtPrice();
         mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         noscrollViewPager.setAdapter(mainViewPagerAdapter);
-        noscrollViewPager.setOffscreenPageLimit(4);
+        noscrollViewPager.setOffscreenPageLimit(3);
     }
 
-    @OnClick({R.id.rb_business, R.id.rb_guadan, R.id.rb_order, R.id.rb_property, R.id.rb_center})
+    @OnClick({R.id.rb_business,R.id.rb_order, R.id.rb_property, R.id.rb_center})
     public void onViewClicked(View view) {
         int currentItem = noscrollViewPager.getCurrentItem();
         switch (view.getId()) {
@@ -101,24 +99,19 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                     noscrollViewPager.setCurrentItem(0, false);
                 }
                 break;
-            case R.id.rb_guadan:
+            case R.id.rb_order:
                 if (currentItem != 1) {
                     noscrollViewPager.setCurrentItem(1, false);
                 }
                 break;
-            case R.id.rb_order:
+            case R.id.rb_property:
                 if (currentItem != 2) {
                     noscrollViewPager.setCurrentItem(2, false);
                 }
                 break;
-            case R.id.rb_property:
+            case R.id.rb_center:
                 if (currentItem != 3) {
                     noscrollViewPager.setCurrentItem(3, false);
-                }
-                break;
-            case R.id.rb_center:
-                if (currentItem != 4) {
-                    noscrollViewPager.setCurrentItem(4, false);
                 }
                 break;
         }

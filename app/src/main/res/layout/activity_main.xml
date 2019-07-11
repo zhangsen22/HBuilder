@@ -34,13 +34,6 @@
             android:text="交易"
             android:checked="true" />
 
-
-        <RadioButton
-            android:id="@+id/rb_guadan"
-            android:drawableTop="@drawable/guadan"
-            style="@style/button_tag_style"
-            android:text="挂单" />
-
         <RadioButton
             android:id="@+id/rb_order"
             android:drawableTop="@drawable/order"
@@ -51,7 +44,7 @@
             android:id="@+id/rb_property"
             android:drawableTop="@drawable/property"
             style="@style/button_tag_style"
-            android:text="资产" />
+            android:text="钱包" />
 
         <RadioButton
             android:id="@+id/rb_center"

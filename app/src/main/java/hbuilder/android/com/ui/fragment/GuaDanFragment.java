@@ -1,12 +1,13 @@
 package hbuilder.android.com.ui.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -18,9 +19,11 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.ui.activity.GuaDanActivity;
 import hbuilder.android.com.ui.adapter.GuaDanViewPagerAdapter;
 
 public class GuaDanFragment extends BaseFragment {
@@ -29,8 +32,12 @@ public class GuaDanFragment extends BaseFragment {
     MagicIndicator guadanMagicindicator;
     @BindView(R.id.guadan_viewPager)
     ViewPager guadanViewPager;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     private GuaDanViewPagerAdapter guaDanViewPagerAdapter;
-    private Context mContext;
+    private GuaDanActivity guaDanActivity;
 
     public static GuaDanFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -40,10 +47,11 @@ public class GuaDanFragment extends BaseFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mContext = activity;
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        guaDanActivity = (GuaDanActivity) getActivity();
     }
+
 
     @Override
     protected int getRootView() {
@@ -52,14 +60,14 @@ public class GuaDanFragment extends BaseFragment {
 
     @Override
     protected void initView(View root) {
-        GALogger.d(TAG,"GuaDanFragment   is    initView");
-        setRootViewPaddingTop(root);
-        final String[] guadanTitle = mContext.getResources().getStringArray(R.array.guadan_title);
-        guadanViewPager.setOffscreenPageLimit(guadanTitle.length-1);
-        guaDanViewPagerAdapter = new GuaDanViewPagerAdapter(getChildFragmentManager(),guadanTitle);
+        GALogger.d(TAG, "GuaDanFragment   is    initView");
+        tvTitle.setText(MyApplication.appContext.getResources().getString(R.string.text5));
+        final String[] guadanTitle = guaDanActivity.getResources().getStringArray(R.array.guadan_title);
+        guadanViewPager.setOffscreenPageLimit(guadanTitle.length - 1);
+        guaDanViewPagerAdapter = new GuaDanViewPagerAdapter(getChildFragmentManager(), guadanTitle);
         guadanViewPager.setAdapter(guaDanViewPagerAdapter);
 
-        CommonNavigator commonNavigator = new CommonNavigator(mContext);
+        CommonNavigator commonNavigator = new CommonNavigator(guaDanActivity);
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
@@ -91,9 +99,9 @@ public class GuaDanFragment extends BaseFragment {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext,1));
+                indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 1));
                 indicator.setColors(R.color.color_afadad);
-                indicator.setMode(LinePagerIndicator.MODE_MATCH_EDGE);
+                indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
                 return indicator;
             }
         });
@@ -105,16 +113,11 @@ public class GuaDanFragment extends BaseFragment {
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
-        GALogger.d(TAG,"GuaDanFragment   is    lazyLoadData");
-        setLoadDataWhenVisible();
-        int currentItem = guadanViewPager.getCurrentItem();
-        if(guaDanViewPagerAdapter != null){
-            BaseFragment currentFragment = guaDanViewPagerAdapter.getCurrentFragment(currentItem);
-            GALogger.d(TAG,"currentFragment.isVisible()   "+currentFragment.isVisible());
-            if(currentFragment != null && currentFragment.isVisible()){
-                currentFragment.setEnableLazyLoad(true);
-                currentFragment.lazyLoadData();
-            }
-        }
+        GALogger.d(TAG, "GuaDanFragment   is    lazyLoadData");
+    }
+
+    @OnClick(R.id.iv_back)
+    public void onViewClicked() {
+        guaDanActivity.finish();
     }
 }

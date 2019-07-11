@@ -64,13 +64,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-        <ImageView
+        <TextView
             android:id="@+id/iv_guadan"
             android:layout_width="@dimen/y96"
             android:layout_height="@dimen/y96"
-            android:src="@mipmap/bv"
+            android:background="@mipmap/bv"
             android:layout_gravity="bottom|right"
             android:layout_marginRight="@dimen/y52"
+            android:text="@string/text5"
+            android:gravity="center"
+            android:textColor="@color/common_white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:paddingRight="@dimen/y6"
             android:layout_marginBottom="@dimen/y28"/>
 
     </FrameLayout>

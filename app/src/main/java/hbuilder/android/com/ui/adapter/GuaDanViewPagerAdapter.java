@@ -26,7 +26,6 @@ public class GuaDanViewPagerAdapter extends FragmentPagerAdapter {
         }
         if(entrustSaleFragment == null){
             entrustSaleFragment = EntrustSaleFragment.newInstance("");
-            entrustSaleFragment.setEnableLazyLoad(false);
         }
         fragmentList.add(entrustSaleFragment);
         if(entrustBuyFragment == null){

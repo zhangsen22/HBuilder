@@ -11,5 +11,6 @@
     <string name="text2">二级推广总数</string>
     <string name="text3">一级代理总数</string>
     <string name="text4">二级代理总数</string>
+    <string name="text5">挂单</string>
     <string name="ren">人</string>
 </resources>
