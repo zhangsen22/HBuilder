@@ -4,7 +4,7 @@ import hbuilder.android.com.IBasePresenter;
 import hbuilder.android.com.IBaseView;
 import hbuilder.android.com.modle.FinanceLogResponse;
 
-public interface WalletAccountContract {
+public interface FinancialRecordsContract {
     interface Presenter extends IBasePresenter {
         void financeLogRefresh(long minId);
         void financeLogLoadMore(long minId);

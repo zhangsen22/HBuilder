@@ -4,30 +4,4 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y128"
-        android:background="@color/color_f9f9f9">
-
-        <TextView
-            android:id="@+id/tv_transfer_of_funds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/common_white"
-            android:text="资金划转"
-            android:background="@mipmap/x"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:paddingBottom="@dimen/y6"/>
-
-    </FrameLayout>
-
-
-</LinearLayout>
 </ScrollView>

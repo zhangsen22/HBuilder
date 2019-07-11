@@ -12,5 +12,10 @@
     <string name="text3">一级代理总数</string>
     <string name="text4">二级代理总数</string>
     <string name="text5">挂单</string>
+    <string name="text6">财务记录</string>
+    <string name="text7">币币账户</string>
+    <string name="text8">场外账户</string>
+    <string name="text9">币币资产折合</string>
+    <string name="text10">场外资产折合</string>
     <string name="ren">人</string>
 </resources>

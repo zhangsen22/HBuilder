@@ -3,16 +3,16 @@ package hbuilder.android.com.presenter;
 import hbuilder.android.com.modle.FinanceLogResponse;
 import hbuilder.android.com.net.retrofit.ModelResultObserver;
 import hbuilder.android.com.net.retrofit.exception.ModelException;
-import hbuilder.android.com.presenter.contract.WalletAccountContract;
-import hbuilder.android.com.presenter.modle.WalletAccountModle;
+import hbuilder.android.com.presenter.contract.FinancialRecordsContract;
+import hbuilder.android.com.presenter.modle.FinancialRecordsModle;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class WalletAccountPresenter implements WalletAccountContract.Presenter{
+public class FinancialRecordsPresenter implements FinancialRecordsContract.Presenter{
 
-    private WalletAccountContract.View mView;
-    private WalletAccountModle mModel;
+    private FinancialRecordsContract.View mView;
+    private FinancialRecordsModle mModel;
 
-    public WalletAccountPresenter(WalletAccountContract.View view, WalletAccountModle model){
+    public FinancialRecordsPresenter(FinancialRecordsContract.View view, FinancialRecordsModle model){
         mView = view;
         mModel = model;
         mView.setPresenter(this);

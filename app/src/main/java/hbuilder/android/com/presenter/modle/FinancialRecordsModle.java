@@ -8,7 +8,7 @@ import hbuilder.android.com.net.retrofit.service.ApiServices;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
-public class WalletAccountModle {
+public class FinancialRecordsModle {
 
     /**
      * 获取财务记录

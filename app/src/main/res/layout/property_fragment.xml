@@ -6,144 +6,181 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <!--如果MagicIndicator需要加背景颜色   需要在其外面嵌套一个父布局  在父布局添加背景颜色-->
-    <net.lucode.hackware.magicindicator.MagicIndicator
-        android:id="@+id/property_magicindicator"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
-        android:layout_gravity="center_horizontal"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y20"
-        android:background="@color/color_f9f9f9"/>
-
     <LinearLayout
+        android:id="@+id/ll_property_bg"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y198"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="可用资产"
-            android:textColor="@color/color_666666"
-            android:textSize="14sp" />
+        android:background="@mipmap/ak"
+        android:gravity="center_horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/y36"
-            android:layout_marginTop="@dimen/y28">
+            android:layout_marginTop="@dimen/y36">
+
+            <View
+                android:layout_width="@dimen/y26"
+                android:layout_height="@dimen/y26"
+                android:layout_marginLeft="@dimen/y40"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/y1"/>
+
+            <TextView
+                android:id="@+id/tv_account_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="场外账户"
+                android:textColor="@color/common_white"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/y1"/>
 
             <ImageView
-                android:id="@+id/iv_waller_iamge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:src="@mipmap/p"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="@dimen/y22">
-
-                <TextView
-                    android:id="@+id/tv_available_monery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_666666"
-                    tools:text="567863.0836"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tv_available_rmb_monery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="≈14938.84CNY"
-                    android:textColor="@color/color_999999"
-                    android:textSize="12sp"
-                    android:layout_marginTop="@dimen/y16"/>
-
-            </LinearLayout>
+                android:id="@+id/iv_financial_records"
+                android:layout_width="@dimen/y46"
+                android:layout_height="@dimen/y46"
+                android:padding="@dimen/y10"
+                android:layout_marginRight="@dimen/y40"
+                android:src="@mipmap/bz"/>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-        <ImageView
-            android:layout_width="@dimen/y2"
-            android:layout_height="@dimen/y90"
-            android:src="@mipmap/m" />
+        <TextView
+            android:id="@+id/tv_account_sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="场外资产折合"
+            android:textColor="@color/common_white"
+            android:textSize="12sp"
+            android:layout_marginTop="@dimen/y28"/>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/y28">
+
+            <TextView
+                android:id="@+id/tv_account_money1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="0.00000000"
+                android:textColor="@color/common_white"
+                android:textSize="24sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="冻结资产"
-                android:textColor="@color/color_666666"
-                android:textSize="14sp" />
+                android:text="BTC"
+                android:textColor="@color/common_white"
+                android:textSize="24sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/y34">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/y36"
-                android:layout_marginTop="@dimen/y28">
+                android:text="≈"
+                android:textColor="@color/common_white"
+                android:textSize="15sp"
+                android:gravity="center"/>
 
-                <ImageView
-                    android:id="@+id/iv_waller_iamge1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:src="@mipmap/p"/>
+            <TextView
+                android:id="@+id/tv_account_money2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="0.00"
+                android:textColor="@color/common_white"
+                android:textSize="15sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="@dimen/y22">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CNY"
+                android:textColor="@color/common_white"
+                android:textSize="15sp" />
 
-                    <TextView
-                        android:id="@+id/tv_freeze_monery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_666666"
-                        tools:text="567863.0836"
-                        android:textSize="14sp" />
+        </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_freeze_rmb_monery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="≈14938.84CNY"
-                        android:textColor="@color/color_999999"
-                        android:textSize="12sp"
-                        android:layout_marginTop="@dimen/y16"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/y36"
+            android:paddingLeft="@dimen/y32"
+            android:paddingRight="@dimen/y32"
+            android:layout_marginBottom="@dimen/y44">
 
-                </LinearLayout>
+            <TextView
+                android:id="@+id/tv_account_chongbi"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="充币"
+                android:textColor="@color/common_white"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:background="@mipmap/ca"/>
 
-            </LinearLayout>
+            <View
+                android:layout_width="@dimen/y26"
+                android:layout_height="@dimen/y1"/>
+
+            <TextView
+                android:id="@+id/tv_account_tibi"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="提币"
+                android:textColor="@color/common_white"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:background="@mipmap/ca"/>
+
+            <View
+                android:layout_width="@dimen/y26"
+                android:layout_height="@dimen/y1"/>
+
+            <TextView
+                android:id="@+id/tv_account_zjhz"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="资产划转"
+                android:textColor="@color/common_white"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:background="@mipmap/ca"/>
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <!--如果MagicIndicator需要加背景颜色   需要在其外面嵌套一个父布局  在父布局添加背景颜色-->
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/property_magicindicator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y92"
+        android:layout_gravity="center_horizontal"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/property_viewPager"

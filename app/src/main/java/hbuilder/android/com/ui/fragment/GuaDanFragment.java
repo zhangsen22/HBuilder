@@ -78,9 +78,9 @@ public class GuaDanFragment extends BaseFragment {
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#808080"));
+                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#333333"));
                 colorTransitionPagerTitleView.setTextSize(14);
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#4e6bcf"));
+                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#FF5100"));
                 colorTransitionPagerTitleView.setText(guadanTitle[index]);
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
