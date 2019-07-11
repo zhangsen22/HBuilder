@@ -93,7 +93,7 @@ public class BusinessSellDetailsFragment extends BaseFragment implements Busines
 
     @Override
     protected void initView(View root) {
-        tvTitle.setText("出售"+MyApplication.appContext.getResources().getString(R.string.inf));
+        tvTitle.setText("出售"+MyApplication.appContext.getResources().getString(R.string.nbc));
     }
 
     @Override

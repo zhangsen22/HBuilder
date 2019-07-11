@@ -174,7 +174,7 @@
                        <TextView
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
-                           android:text="@string/inf"
+                           android:text="@string/nbc"
                            android:textColor="@color/color_666666"
                            android:textSize="11sp"
                            android:layout_marginLeft="@dimen/y6"/>

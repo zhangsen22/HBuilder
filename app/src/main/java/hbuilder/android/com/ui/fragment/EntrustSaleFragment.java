@@ -249,7 +249,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     public void getInfoSuccess(WalletResponse walletResponse) {
         if (walletResponse != null) {
             hotNum = walletResponse.getHotNum();
-            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.inf));
+            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.nbc));
         }
     }
 
