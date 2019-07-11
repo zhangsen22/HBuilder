@@ -8,21 +8,23 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.qrcode.utils.QRCodeUtil;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
-import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.ui.activity.RecommendToFriendsActivity;
-import hbuilder.android.com.util.FileUtils;
 import hbuilder.android.com.util.ToastUtil;
 
 public class RecommendToFriendsFragment extends BaseFragment {
@@ -39,8 +41,10 @@ public class RecommendToFriendsFragment extends BaseFragment {
     TextView tvDownloadUrl;
     @BindView(R.id.tv_duplicate)
     TextView tvDuplicate;
-    @BindView(R.id.tv_save_zing)
-    TextView tvSaveZing;
+    @BindView(R.id.tv_yaoqinglianjie)
+    TextView tvYaoqinglianjie;
+    @BindView(R.id.tuijianjiangli)
+    TextView tuijianjiangli;
     private RecommendToFriendsActivity recommendToFriendsActivity;
     private Bitmap qrImage;
     private Bitmap bitmap;
@@ -76,12 +80,12 @@ public class RecommendToFriendsFragment extends BaseFragment {
         String downloadUrl = AccountManager.getInstance().getDownloadUrl();
         bitmap = BitmapFactory.decodeResource(MyApplication.appContext.getResources(), R.drawable.ic_launcher_round);
         qrImage = QRCodeUtil.createQRCodeBitmap(downloadUrl, 650, 650, "UTF-8",
-                "H", "1", Color.BLACK, Color.WHITE, bitmap, 0.2F, null);
+                "H", "1", Color.BLACK, Color.WHITE, bitmap, 0.3F, null);
         tvZingImg.setImageBitmap(qrImage);
         tvDownloadUrl.setText(downloadUrl);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_duplicate, R.id.tv_save_zing})
+    @OnClick({R.id.iv_back, R.id.tv_duplicate,R.id.tv_yaoqinglianjie, R.id.tuijianjiangli})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -110,24 +114,20 @@ public class RecommendToFriendsFragment extends BaseFragment {
 //                获取剪切板数据
 //                ClipboardManager.getPrimaryClip();
                 break;
-            case R.id.tv_save_zing:
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        FileUtils.saveBitmapToGallery(qrImage, Constants.FILTER_IMAGE_PATH);
-                    }
-                }).start();
+            case R.id.tv_yaoqinglianjie:
+                break;
+            case R.id.tuijianjiangli:
                 break;
         }
     }
 
     @Override
     public void onDestroyView() {
-        if(qrImage != null && !qrImage.isRecycled()){
+        if (qrImage != null && !qrImage.isRecycled()) {
             qrImage.recycle();
             qrImage = null;
         }
-        if(bitmap != null && !bitmap.isRecycled()){
+        if (bitmap != null && !bitmap.isRecycled()) {
             bitmap.recycle();
             bitmap = null;
         }
