@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,7 +19,9 @@ import com.growalong.util.util.BitmapUtils;
 import com.growalong.util.util.GALogger;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
@@ -56,6 +61,10 @@ public class RegistFragment extends BaseFragment implements RegistContract.View 
     CheckBox cbAgree;
     @BindView(R.id.tv_yonghuxieyi)
     TextView tvYonghuxieyi;
+    @BindView(R.id.fl_regist_head)
+    FrameLayout flRegistHead;
+    @BindView(R.id.ll_regist_bottom)
+    LinearLayout llRegistBottom;
 
     private RegistActivity registActivity;
     private RegistPresenter registPresenter;
@@ -85,7 +94,8 @@ public class RegistFragment extends BaseFragment implements RegistContract.View 
 
     @Override
     protected void initView(View root) {
-
+        setRootViewPaddingTop(flRegistHead);
+        setRootViewPaddingTop(llRegistBottom);
     }
 
     @Override
@@ -104,7 +114,7 @@ public class RegistFragment extends BaseFragment implements RegistContract.View 
                 public void onTick(long millisUntilFinished) {
                     //如果是Fragment 就判断getActivity() 是否为NULL
                     //如果是Activity 就判断!activity.isFinishing() 是否为NULL
-                    if(registActivity != null) {
+                    if (registActivity != null) {
                         int left = (int) ((millisUntilFinished - 1000) / 1000);
                         GALogger.d(TAG, "left       " + left);
                         if (left > 0) {
@@ -148,7 +158,7 @@ public class RegistFragment extends BaseFragment implements RegistContract.View 
         hideLoadingDialog();
     }
 
-    @OnClick({R.id.tv_getsms_code, R.id.tv_regist, R.id.iv_image_code,R.id.tv_yonghuxieyi})
+    @OnClick({R.id.tv_getsms_code, R.id.tv_regist, R.id.iv_image_code, R.id.tv_yonghuxieyi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_image_code:
@@ -213,20 +223,20 @@ public class RegistFragment extends BaseFragment implements RegistContract.View 
                     return;
                 }
 
-                if(!cbAgree.isChecked()){
+                if (!cbAgree.isChecked()) {
                     ToastUtil.shortShow("是否同意用户协议");
                     return;
                 }
 
                 try {
-                    GALogger.d(TAG, " 参数   " + phone1 + "     " + yaoqingNumber1 + "         " + imageNumber1 + "         " + smsNumber + "         " + Base64.encodeBase64String(RSAUtil.encryptByPublicKey(password, publicKey)) + "         " + System.currentTimeMillis()+ "    "+publicKey);
+                    GALogger.d(TAG, " 参数   " + phone1 + "     " + yaoqingNumber1 + "         " + imageNumber1 + "         " + smsNumber + "         " + Base64.encodeBase64String(RSAUtil.encryptByPublicKey(password, publicKey)) + "         " + System.currentTimeMillis() + "    " + publicKey);
                     registPresenter.registerAndLogin(phone1, yaoqingNumber1, imageNumber1, smsNumber, Base64.encodeBase64String(RSAUtil.encryptByPublicKey(password, publicKey)), System.currentTimeMillis(), password);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.tv_yonghuxieyi:
-                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.USERXIEYI,true);
+                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.USERXIEYI, true);
                 break;
         }
     }
@@ -234,7 +244,7 @@ public class RegistFragment extends BaseFragment implements RegistContract.View 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(timer != null){
+        if (timer != null) {
             timer.cancel();
             timer = null;
         }

@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:text="删除"
             android:textSize="12sp"
-            android:textColor="@color/color_1a72fb"
+            android:textColor="@color/color_ff5100"
             android:layout_marginLeft="@dimen/y20"/>
 
     </LinearLayout>
@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             tools:text="20000"
             android:textSize="12sp"
-            android:textColor="@color/color_666666"/>
+            android:textColor="@color/color_ff5100"/>
 
         <View
             android:layout_width="0dp"
@@ -126,7 +126,7 @@
             android:layout_height="wrap_content"
             tools:text="20"
             android:textSize="12sp"
-            android:textColor="@color/color_666666"/>
+            android:textColor="@color/color_ff5100"/>
 
     </LinearLayout>
 

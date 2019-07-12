@@ -9,11 +9,12 @@
 
     <include layout="@layout/title"/>
 
+    <include layout="@layout/line_20_f9"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/y100"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/y20"
         android:background="@color/common_white"
         android:gravity="center">
 
@@ -79,9 +80,10 @@
         <TextView
             android:id="@+id/tv_all"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:text="全部"
-            android:textColor="@color/color_0c6dff"
+            android:textColor="@color/color_ff5100"
             android:textSize="12sp"/>
 
     </LinearLayout>
@@ -164,7 +166,7 @@
             android:id="@+id/tv_publish_zhuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/n"
+            android:background="@mipmap/cl"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/y50"
             android:text="确认划转"

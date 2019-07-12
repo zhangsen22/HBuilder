@@ -224,7 +224,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
             ivRoletype.setImageResource(R.mipmap.bs);
             ivRoletype.setVisibility(View.VISIBLE);
         } else if (AccountManager.getInstance().getRoleType() == 1) {
-            ivRoletype.setImageResource(R.mipmap.an);
+            ivRoletype.setImageResource(R.mipmap.st);
             ivRoletype.setVisibility(View.VISIBLE);
         } else {
             ivRoletype.setVisibility(View.GONE);

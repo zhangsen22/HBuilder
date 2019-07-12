@@ -7,11 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
@@ -34,8 +34,6 @@ public class GuaDanFragment extends BaseFragment {
     ViewPager guadanViewPager;
     @BindView(R.id.iv_back)
     ImageView ivBack;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
     private GuaDanViewPagerAdapter guaDanViewPagerAdapter;
     private GuaDanActivity guaDanActivity;
 
@@ -61,7 +59,6 @@ public class GuaDanFragment extends BaseFragment {
     @Override
     protected void initView(View root) {
         GALogger.d(TAG, "GuaDanFragment   is    initView");
-        tvTitle.setText(MyApplication.appContext.getResources().getString(R.string.text5));
         final String[] guadanTitle = guaDanActivity.getResources().getStringArray(R.array.guadan_title);
         guadanViewPager.setOffscreenPageLimit(guadanTitle.length - 1);
         guaDanViewPagerAdapter = new GuaDanViewPagerAdapter(getChildFragmentManager(), guadanTitle);
@@ -99,9 +96,11 @@ public class GuaDanFragment extends BaseFragment {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 1));
-                indicator.setColors(R.color.color_afadad);
-                indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
+                indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 2));
+                indicator.setLineWidth(UIUtil.dip2px(context, 25));
+                indicator.setColors(Color.parseColor("#FF5100"));
+                indicator.setYOffset(UIUtil.dip2px(context, 8));
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 return indicator;
             }
         });

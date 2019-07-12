@@ -10,6 +10,7 @@ import android.view.View;
 import com.growalong.util.util.DensityUtil;
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
@@ -86,9 +87,9 @@ public class OrderItemFragment extends BaseFragment {
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#808080"));
+                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#333333"));
                 colorTransitionPagerTitleView.setTextSize(14);
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#4e6bcf"));
+                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#FF5100"));
                 colorTransitionPagerTitleView.setText(orderItemTitle[index]);
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -107,9 +108,11 @@ public class OrderItemFragment extends BaseFragment {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext,1));
-                indicator.setColors(R.color.color_afadad);
-                indicator.setMode(LinePagerIndicator.MODE_MATCH_EDGE);
+                indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 2));
+                indicator.setLineWidth(UIUtil.dip2px(context, 25));
+                indicator.setColors(Color.parseColor("#FF5100"));
+                indicator.setYOffset(UIUtil.dip2px(context, 8));
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 return indicator;
             }
         });

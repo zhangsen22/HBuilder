@@ -12,14 +12,15 @@
         android:orientation="horizontal"
         android:paddingTop="@dimen/y20"
         android:paddingRight="@dimen/y30"
-        android:paddingBottom="@dimen/y24">
+        android:paddingBottom="@dimen/y24"
+        android:background="@color/common_white">
 
         <TextView
             android:id="@+id/tv_order_sell_shuoming"
             android:layout_width="@dimen/y42"
             android:layout_height="@dimen/y42"
             tools:text="卖"
-            tools:background="@mipmap/af"
+            tools:background="@mipmap/aj"
             android:textSize="12sp"
             android:textColor="@color/common_white"
             android:gravity="center"/>
@@ -43,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="CNY"
             android:textSize="14sp"
-            android:textColor="@color/color_ff0000"
+            android:textColor="@color/color_ff5100"
             android:gravity="center" />
 
         <TextView

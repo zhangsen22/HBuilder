@@ -127,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="如何获取支付宝ID"
-            android:textColor="@color/color_1a72fb"
+            android:textColor="@color/color_ff5100"
             android:textSize="10sp" />
 
     </LinearLayout>
@@ -149,7 +149,7 @@
         android:id="@+id/tv_alipay_scewm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/n"
+        android:background="@mipmap/cl"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/y28"
         android:text="生成验证二维码"
@@ -252,7 +252,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="忘记密码?"
-                    android:textColor="@color/color_1a72fb"
+                    android:textColor="@color/color_ff5100"
                     android:textSize="10sp" />
 
             </LinearLayout>
@@ -261,7 +261,7 @@
                 android:id="@+id/tv_alipay_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/n"
+                android:background="@mipmap/cl"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/y38"
                 android:text="确 定"

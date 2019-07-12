@@ -64,7 +64,7 @@ public class OrderEntrustDetailsAdapter extends PowerAdapter<MyEntrustinfoItem> 
                 tvBuySell.setBackgroundResource(R.mipmap.aj);
             }else if(childType == 2){
                 tvBuySell.setText("卖");
-                tvBuySell.setBackgroundResource(R.mipmap.af);
+                tvBuySell.setBackgroundResource(R.mipmap.aj);
             }
 
             long puttime = myEntrustinfoItem.getPuttime();

@@ -10,7 +10,7 @@
 
     <include layout="@layout/title"/>
 
-    <include layout="@layout/line"/>
+    <include layout="@layout/line_20_f9"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,8 +28,7 @@
                 android:paddingLeft="@dimen/y26"
                 android:paddingRight="@dimen/y26"
                 android:gravity="center_vertical"
-                android:background="@color/common_white"
-                android:layout_marginTop="@dimen/y20">
+                android:background="@color/common_white">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -172,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:text="全部"
                     android:textSize="12sp"
-                    android:textColor="@color/color_0c6dff"
+                    android:textColor="@color/color_ff5100"
                     android:gravity="center" />
 
             </LinearLayout>
@@ -283,7 +282,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="忘记密码?"
-                    android:textColor="@color/color_1a72fb"
+                    android:textColor="@color/color_ff5100"
                     android:textSize="10sp" />
 
             </LinearLayout>
@@ -318,7 +317,7 @@
                     android:layout_height="wrap_content"
                     tools:text="0.0000"
                     android:textSize="12sp"
-                    android:textColor="@color/color_0c6dff"
+                    android:textColor="@color/color_ff5100"
                     android:gravity="center" />
 
                 <TextView
@@ -326,7 +325,7 @@
                     android:layout_height="wrap_content"
                     android:text=" USDT"
                     android:textSize="12sp"
-                    android:textColor="@color/color_0c6dff"
+                    android:textColor="@color/color_ff5100"
                     android:gravity="center" />
 
             </LinearLayout>
@@ -335,7 +334,7 @@
                 android:id="@+id/tv_queding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/n"
+                android:background="@mipmap/cl"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/y38"
                 android:text="确 认"
