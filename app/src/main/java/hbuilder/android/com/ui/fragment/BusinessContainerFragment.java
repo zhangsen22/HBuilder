@@ -5,12 +5,20 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.holder.Holder;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
+
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -20,8 +28,14 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
@@ -43,6 +57,8 @@ public class BusinessContainerFragment extends BaseFragment {
     ImageView ivGuadan;
     @BindView(R.id.ff_business_content)
     FrameLayout ffBusinessContent;
+    @BindView(R.id.banner)
+    ConvenientBanner banner;
     private MainActivity mainActivity;
     private BusinessViewPagerAdapter baseFragmentPagerAdapter;
 
@@ -69,6 +85,20 @@ public class BusinessContainerFragment extends BaseFragment {
     protected void initView(View root) {
         GALogger.d(TAG, "BusinessContainerFragment   is    initView");
         setRootViewPaddingTop(ffBusinessContent);
+        initBanner();;
+
+
+
+
+
+
+
+
+
+
+
+
+
         final String[] businessTitle = mainActivity.getResources().getStringArray(R.array.business_title);
         businessViewPager.setOffscreenPageLimit(businessTitle.length - 1);
         baseFragmentPagerAdapter = new BusinessViewPagerAdapter(getChildFragmentManager(), businessTitle);
@@ -140,6 +170,45 @@ public class BusinessContainerFragment extends BaseFragment {
             case R.id.iv_guadan:
                 GuaDanActivity.startThis(mainActivity);
                 break;
+        }
+    }
+
+    private void initBanner() {
+        List<Integer> imgs = new ArrayList<>();
+        imgs.add(R.mipmap.banner);
+        imgs.add(R.mipmap.banner);
+        imgs.add(R.mipmap.banner);
+        imgs.add(R.mipmap.banner);
+        banner.setHorizontalScrollBarEnabled(false);
+        banner.setPages(new CBViewHolderCreator<LocalImageHolderView>(){
+
+            @Override
+            public LocalImageHolderView createHolder() {
+                return new LocalImageHolderView();
+            }
+        }, imgs).setPageIndicator(new int[]{R.drawable.shape_banner_no, R.drawable.shape_banner_yes})
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL).startTurning(2000)
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+
+                    }
+                });
+    }
+
+    public class LocalImageHolderView implements Holder<Integer> {
+        private ImageView imageView;
+
+        @Override
+        public View createView(Context context) {
+            imageView = new ImageView(context);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            return imageView;
+        }
+
+        @Override
+        public void UpdateUI(Context context, int position, Integer data) {
+            imageView.setImageResource(data);
         }
     }
 }

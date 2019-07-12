@@ -98,4 +98,6 @@ dependencies {
     implementation files('libs/googleBase64.jar')
 
     implementation rootProject.ext.dependencies.eventbus
+    //轮播图
+    implementation 'com.bigkoo:convenientbanner:2.0.5'
 }
