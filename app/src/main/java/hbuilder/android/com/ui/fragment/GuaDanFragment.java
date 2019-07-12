@@ -86,9 +86,9 @@ public class GuaDanFragment extends BaseFragment {
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#333333"));
+                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#f2c4c4"));
                 colorTransitionPagerTitleView.setTextSize(14);
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#FF5100"));
+                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#ffffff"));
                 colorTransitionPagerTitleView.setText(guadanTitle[index]);
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -109,7 +109,7 @@ public class GuaDanFragment extends BaseFragment {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 2));
                 indicator.setLineWidth(UIUtil.dip2px(context, 25));
-                indicator.setColors(Color.parseColor("#FF5100"));
+                indicator.setColors(Color.WHITE);
                 indicator.setYOffset(UIUtil.dip2px(context, 8));
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 return indicator;

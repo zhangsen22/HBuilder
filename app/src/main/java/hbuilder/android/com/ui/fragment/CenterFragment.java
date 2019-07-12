@@ -4,24 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.PackageUtil;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 import com.lxj.xpopup.interfaces.XPopupCallback;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
@@ -32,13 +26,13 @@ import hbuilder.android.com.presenter.contract.CenterContract;
 import hbuilder.android.com.presenter.modle.CenterModle;
 import hbuilder.android.com.ui.activity.AddMakeStyleActivity;
 import hbuilder.android.com.ui.activity.AwardDetailsActivity;
+import hbuilder.android.com.ui.activity.HelpAndKefuActivity;
 import hbuilder.android.com.ui.activity.IdentityActivity;
 import hbuilder.android.com.ui.activity.LoginActivity;
 import hbuilder.android.com.ui.activity.MainActivity;
 import hbuilder.android.com.ui.activity.MessageCenterActivity;
 import hbuilder.android.com.ui.activity.RecommendToFriendsActivity;
 import hbuilder.android.com.ui.activity.SecurityCenterActivity;
-import hbuilder.android.com.ui.activity.WebViewActivity;
 import hbuilder.android.com.util.ToastUtil;
 
 public class CenterFragment extends BaseFragment implements CenterContract.View {
@@ -57,8 +51,6 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
     LinearLayout llAddSkType;
     @BindView(R.id.ll_tj_friend)
     LinearLayout llTjFriend;
-    @BindView(R.id.ll_jc_gl)
-    LinearLayout llJcGl;
     @BindView(R.id.ll_lx_kf)
     LinearLayout llLxKf;
     @BindView(R.id.ll_center_message)
@@ -111,7 +103,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
         initUserInfo();
     }
 
-    @OnClick({R.id.iv_edit, R.id.ll_center_anquan, R.id.ll_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.ll_jc_gl, R.id.ll_lx_kf, R.id.ll_center_message, R.id.tv_logout,R.id.ll_award_details})
+    @OnClick({R.id.iv_edit, R.id.ll_center_anquan, R.id.ll_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.ll_lx_kf, R.id.ll_center_message, R.id.tv_logout,R.id.ll_award_details})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_edit:
@@ -148,10 +140,8 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
             case R.id.ll_tj_friend:
                 RecommendToFriendsActivity.startThis(mainActivity);
                 break;
-            case R.id.ll_jc_gl:
-                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.JIAOCHENGGONGLUO, true);
-                break;
             case R.id.ll_lx_kf:
+                HelpAndKefuActivity.startThis(mainActivity);
 //                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.KEFU, true);
                 break;
             case R.id.ll_center_message:
