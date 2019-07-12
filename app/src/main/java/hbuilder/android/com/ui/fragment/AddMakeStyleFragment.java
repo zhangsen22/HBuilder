@@ -3,6 +3,7 @@ package hbuilder.android.com.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +36,8 @@ public class AddMakeStyleFragment extends BaseFragment {
     TextView tvWebchat;
     @BindView(R.id.ll_webchat_click)
     LinearLayout llWebchatClick;
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     private AddMakeStyleActivity addMakeStyleActivity;
 
     public static AddMakeStyleFragment newInstance(@Nullable String taskId) {
@@ -57,7 +60,7 @@ public class AddMakeStyleFragment extends BaseFragment {
 
     @Override
     protected void initView(View root) {
-
+        setRootViewPaddingTop(flTitleComtent);
     }
 
     @Override

@@ -27,7 +27,6 @@ public class ChangePwdActivity extends BaseActivity {
 
     @Override
     protected void initView(View mRootView) {
-        setRootViewPaddingTop();
     }
 
     @Override

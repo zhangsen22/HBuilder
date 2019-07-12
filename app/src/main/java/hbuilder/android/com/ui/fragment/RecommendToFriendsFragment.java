@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,8 @@ import hbuilder.android.com.util.ToastUtil;
 
 public class RecommendToFriendsFragment extends BaseFragment {
     private static final String TAG = RecommendToFriendsFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -69,13 +72,13 @@ public class RecommendToFriendsFragment extends BaseFragment {
 
     @Override
     protected void initView(View root) {
-
+        setRootViewPaddingTop(flTitleComtent);
+        tvTitle.setText("推荐给好友");
     }
 
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
-        tvTitle.setText("推荐给好友");
         tvYqm.setText(AccountManager.getInstance().getInvitedCode());
         String downloadUrl = AccountManager.getInstance().getDownloadUrl();
         bitmap = BitmapFactory.decodeResource(MyApplication.appContext.getResources(), R.drawable.ic_launcher_round);

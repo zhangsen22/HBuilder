@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ import hbuilder.android.com.util.ToastUtil;
 
 public class BusinessBuyFragment extends BaseFragment implements BusinessBuyContract.View, CompoundButton.OnCheckedChangeListener {
     private static final String TAG = BusinessBuyFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -101,6 +104,7 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("购买"+MyApplication.appContext.getResources().getString(R.string.nbc));
         if(!buyItem.isLargeAmount()) {
             etBusinessBuyNum.addTextChangedListener(new TextWatcherUtils() {

@@ -171,6 +171,10 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         mRootView.setPadding(0, mStatusBarHeight, 0, 0);
     }
 
+    protected void setRootViewPaddingTop(View view) {
+        view.setPadding(0, mStatusBarHeight, 0, 0);
+    }
+
     /**
      * 返回桌面
      */

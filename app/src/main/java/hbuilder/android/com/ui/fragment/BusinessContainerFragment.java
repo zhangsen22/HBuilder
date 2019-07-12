@@ -85,20 +85,7 @@ public class BusinessContainerFragment extends BaseFragment {
     protected void initView(View root) {
         GALogger.d(TAG, "BusinessContainerFragment   is    initView");
         setRootViewPaddingTop(ffBusinessContent);
-        initBanner();;
-
-
-
-
-
-
-
-
-
-
-
-
-
+        initBanner();
         final String[] businessTitle = mainActivity.getResources().getStringArray(R.array.business_title);
         businessViewPager.setOffscreenPageLimit(businessTitle.length - 1);
         baseFragmentPagerAdapter = new BusinessViewPagerAdapter(getChildFragmentManager(), businessTitle);

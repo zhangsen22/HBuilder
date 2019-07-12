@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.Md5Utils;
@@ -23,6 +24,8 @@ import hbuilder.android.com.util.ToastUtil;
 
 public class IdCastPayEditFragment extends BaseFragment implements IdCastContract.View {
     private static final String TAG = IdCastPayEditFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -66,6 +69,7 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("银行卡设置");
     }
 

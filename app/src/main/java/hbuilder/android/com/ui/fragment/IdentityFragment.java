@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +44,8 @@ import top.zibin.luban.OnCompressListener;
 
 public class IdentityFragment extends BaseFragment implements IdentityContract.View, CompoundButton.OnCheckedChangeListener {
     private static final String TAG = IdentityFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -94,6 +97,7 @@ public class IdentityFragment extends BaseFragment implements IdentityContract.V
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("身份认证");
         identityCbMan.setOnCheckedChangeListener(this);
         identityCbWoman.setOnCheckedChangeListener(this);

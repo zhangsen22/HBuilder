@@ -15,41 +15,29 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.qrcode.Constant;
 import com.example.qrcode.ScannerActivity;
-import com.example.qrcode.utils.CommonUtils;
 import com.example.qrcode.utils.QRCodeUtil;
-import com.google.zxing.Result;
-import com.growalong.util.util.BitmapUtils;
 import com.growalong.util.util.GALogger;
-import com.growalong.util.util.ImageUtil;
 import com.growalong.util.util.Md5Utils;
-import java.io.File;
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.finalteam.rxgalleryfinal.RxGalleryFinal;
-import cn.finalteam.rxgalleryfinal.imageloader.ImageLoaderType;
-import cn.finalteam.rxgalleryfinal.rxbus.RxBusResultDisposable;
-import cn.finalteam.rxgalleryfinal.rxbus.event.ImageRadioResultEvent;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
-import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.presenter.WebChatEditPresenter;
 import hbuilder.android.com.presenter.contract.WebChatEditContract;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
-import hbuilder.android.com.ui.activity.WebViewActivity;
-import hbuilder.android.com.util.FileUtils;
 import hbuilder.android.com.util.ToastUtil;
-import top.zibin.luban.CompressionPredicate;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
 
 public class WebChatEditFragment extends BaseFragment implements WebChatEditContract.View {
     private static final String TAG = WebChatEditFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -66,14 +54,9 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
     TextView tvForgetPassword;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
-    @BindView(R.id.tv_howget_dyewm)
-    TextView tvHowgetDyewm;
-    @BindView(R.id.iv_dianyuan_webchat_image)
-    ImageView ivDianyuanWebchatImage;
     private PaySettingActivity paySettingActivity;
     private WebChatEditPresenter presenter;
     private String sIdcardFront;
-    private String dianyuanCode;
     private Bitmap qrImage;
     private Bitmap bitmap;
 
@@ -97,6 +80,7 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("微信设置");
     }
 
@@ -126,7 +110,7 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
         hideLoadingDialog();
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_webchat_image, R.id.tv_forget_password, R.id.tv_submit,R.id.tv_howget_dyewm, R.id.iv_dianyuan_webchat_image})
+    @OnClick({R.id.iv_back, R.id.iv_webchat_image, R.id.tv_forget_password, R.id.tv_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -141,42 +125,6 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
                 break;
             case R.id.tv_forget_password:
                 BalancePassWordActivity.startThis(paySettingActivity);
-                break;
-            case R.id.tv_howget_dyewm:
-                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.HOWGETDIANYUANERWEIMA,true);
-                break;
-            case R.id.iv_dianyuan_webchat_image:
-                //自定义方法的单选
-                RxGalleryFinal
-                        .with(paySettingActivity)
-                        .image()//图片
-                        .radio()//单选
-                        .imageLoader(ImageLoaderType.GLIDE)
-                        .subscribe(new RxBusResultDisposable<ImageRadioResultEvent>() {
-                            @Override
-                            protected void onEvent(ImageRadioResultEvent imageRadioResultEvent) throws Exception {
-                                //图片选择结果
-                                String path = imageRadioResultEvent.getResult().getOriginalPath();
-                                GALogger.d(TAG, "path === " + path);
-                                if (!TextUtils.isEmpty(path)) {
-                                    //对获取到的二维码照片进行压缩
-                                    Bitmap bitmap = CommonUtils.compressPicture(path);
-                                    Result result = QRCodeUtil.decodeFromPicture(bitmap);
-                                    if(result == null){
-                                        ToastUtil.shortShow("请添加二维码图片");
-                                        return;
-                                    }else {
-                                        String text = result.getText();
-                                        if (TextUtils.isEmpty(text)) {
-                                            ToastUtil.shortShow("请添加二维码图片");
-                                            return;
-                                        }
-                                    }
-                                    initLuBan(path);
-                                }
-                            }
-                        })
-                        .openGallery();
                 break;
             case R.id.tv_submit:
                 String wenchatName = etWenchatName.getText().toString().trim();
@@ -196,18 +144,13 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
                     return;
                 }
 
-                if(TextUtils.isEmpty(dianyuanCode)){
-                    ToastUtil.shortShow("请上传店员收款码");
-                    return;
-                }
-
                 String forgetPassword = etForgetPassword.getText().toString().trim();
                 if (TextUtils.isEmpty(forgetPassword)) {
                     ToastUtil.shortShow("请输入资金密码");
                     return;
                 }
                 long currentTime = System.currentTimeMillis();
-                presenter.wechat(0, wenchatName, webchatCode, sIdcardFront, dianyuanCode, Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
+                presenter.wechat(0, wenchatName, webchatCode, sIdcardFront, "", Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
                 break;
         }
     }
@@ -269,44 +212,5 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
             ivWebchatImage.setImageBitmap(qrImage);
             ivWebchatImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
-    }
-
-    private void initLuBan(String path) {
-        Luban.with(MyApplication.appContext)
-                .load(path)
-                .ignoreBy(1 * 1024)//1.0M 以下不压缩
-                .setTargetDir(FileUtils.getTempPath(MyApplication.appContext))
-                .filter(new CompressionPredicate() {
-                    @Override
-                    public boolean apply(String path) {
-                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
-                    }
-                })
-                .setCompressListener(new OnCompressListener() {
-                    @Override
-                    public void onStart() {
-                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                        showLoadingDialog();
-                    }
-
-                    @Override
-                    public void onSuccess(File file) {
-                        // TODO 压缩成功后调用，返回压缩后的图片文件
-                        hideLoadingDialog();
-                        try {
-                            Bitmap bitmap = ImageUtil.fileToBitmap(file);
-                            ivDianyuanWebchatImage.setImageBitmap(bitmap);
-                            ivDianyuanWebchatImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                            dianyuanCode = BitmapUtils.bitmapToBase64(bitmap);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        // TODO 当压缩过程出现问题时调用
-                    }
-                }).launch();
     }
 }

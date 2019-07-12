@@ -27,7 +27,7 @@ public class AddMakeStyleActivity extends BaseActivity {
 
     @Override
     protected void initView(View mRootView) {
-        setRootViewPaddingTop();
+
     }
 
     @Override

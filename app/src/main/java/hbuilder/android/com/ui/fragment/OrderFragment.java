@@ -6,9 +6,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
+
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -18,7 +23,10 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
@@ -31,6 +39,8 @@ public class OrderFragment extends BaseFragment {
     MagicIndicator orderMagicindicator;
     @BindView(R.id.order_viewPager)
     ViewPager orderViewPager;
+    @BindView(R.id.ff_order_content)
+    FrameLayout ffOrderContent;
     private Context mContext;
     private OrderViewPagerAdapter orderViewPagerAdapter;
 
@@ -54,8 +64,8 @@ public class OrderFragment extends BaseFragment {
 
     @Override
     protected void initView(View root) {
-        GALogger.d(TAG,"OrderFragment   is    initView");
-        setRootViewPaddingTop(root);
+        GALogger.d(TAG, "OrderFragment   is    initView");
+        setRootViewPaddingTop(ffOrderContent);
     }
 
     @Override
@@ -76,9 +86,9 @@ public class OrderFragment extends BaseFragment {
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#333333"));
+                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#f2c4c4"));
                 colorTransitionPagerTitleView.setTextSize(14);
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#FF5100"));
+                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#ffffff"));
                 colorTransitionPagerTitleView.setText(orderTitle[index]);
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -99,7 +109,7 @@ public class OrderFragment extends BaseFragment {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 2));
                 indicator.setLineWidth(UIUtil.dip2px(context, 25));
-                indicator.setColors(Color.parseColor("#FF5100"));
+                indicator.setColors(Color.WHITE);
                 indicator.setYOffset(UIUtil.dip2px(context, 8));
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 return indicator;
@@ -111,15 +121,15 @@ public class OrderFragment extends BaseFragment {
     }
 
     public void onActivityResultOrder(int requestCode) {
-        if(requestCode == Constants.REQUESTCODE_12){
+        if (requestCode == Constants.REQUESTCODE_12) {
             int currentItem = orderViewPager.getCurrentItem();
-            if(orderViewPagerAdapter != null){
+            if (orderViewPagerAdapter != null) {
                 OrderItemFragment currentFragment = (OrderItemFragment) orderViewPagerAdapter.getCurrentFragment(currentItem);
                 currentFragment.onActivityResultOrderItem(requestCode);
             }
-        }else if(requestCode == Constants.REQUESTCODE_13 || requestCode == Constants.REQUESTCODE_14){
-            orderViewPager.setCurrentItem(2,false);
-            if(orderViewPagerAdapter != null){
+        } else if (requestCode == Constants.REQUESTCODE_13 || requestCode == Constants.REQUESTCODE_14) {
+            orderViewPager.setCurrentItem(2, false);
+            if (orderViewPagerAdapter != null) {
                 OrderItemFragment currentFragment = (OrderItemFragment) orderViewPagerAdapter.getCurrentFragment(2);
                 currentFragment.onActivityResultOrderItem(requestCode);
             }

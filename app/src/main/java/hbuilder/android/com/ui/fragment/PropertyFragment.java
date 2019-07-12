@@ -14,6 +14,7 @@ import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
@@ -65,6 +66,8 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     TextView tvAccountChongbi;
     @BindView(R.id.tv_account_zjhz)
     TextView tvAccountZjhz;
+    @BindView(R.id.tv_bi_type)
+    TextView tvBiType;
     private PropertyViewPagerAdapter propertyViewPagerAdapter;
     private PropertyPresenter propertyPresenter;
     private MainActivity mainActivity;
@@ -129,9 +132,11 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 1));
-                indicator.setColors(R.color.color_afadad);
-                indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
+                indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 2));
+                indicator.setLineWidth(UIUtil.dip2px(context, 25));
+                indicator.setColors(Color.parseColor("#FF5100"));
+                indicator.setYOffset(UIUtil.dip2px(context, 8));
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 return indicator;
             }
         });
@@ -192,22 +197,24 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
                 double walletNum = mWalletResponse.getWalletNum();
                 double walletFreezeNum = mWalletResponse.getWalletFreezeNum();
                 double minSellPrice = usdtPriceResponse.getMinSellPrice();
-                tvAccountMoney1.setText(new DecimalFormat("0.00").format(walletNum+walletFreezeNum));
-                tvAccountMoney2.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format((walletNum+walletFreezeNum) * minSellPrice));
+                tvAccountMoney1.setText(new DecimalFormat("0.00").format(walletNum + walletFreezeNum));
+                tvAccountMoney2.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format((walletNum + walletFreezeNum) * minSellPrice));
+                tvBiType.setText(MyApplication.appContext.getResources().getString(R.string.usdt));
             } else if (i == 1) {
                 goPosition = 2;
                 tvAccountName.setText(MyApplication.appContext.getResources().getString(R.string.text8));
                 tvAccountSp.setText(MyApplication.appContext.getResources().getString(R.string.text10));
                 double hotNum = mWalletResponse.getHotNum();
                 double hotFreezeNum = mWalletResponse.getHotFreezeNum();
-                tvAccountMoney1.setText(new DecimalFormat("0.00").format(hotNum+hotFreezeNum));
-                tvAccountMoney2.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(hotNum+hotFreezeNum));
+                tvAccountMoney1.setText(new DecimalFormat("0.00").format(hotNum + hotFreezeNum));
+                tvAccountMoney2.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(hotNum + hotFreezeNum));
+                tvBiType.setText(MyApplication.appContext.getResources().getString(R.string.nbc));
             }
 
             int currentItem = propertyViewPager.getCurrentItem();
             if (propertyViewPagerAdapter != null) {
                 BaseFragment currentFragment = propertyViewPagerAdapter.getCurrentFragment(currentItem);
-                currentFragment.lazyLoadData_now(usdtPriceResponse,mWalletResponse);
+                currentFragment.lazyLoadData_now(usdtPriceResponse, mWalletResponse);
             }
         }
     }
@@ -258,7 +265,7 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
                 ChongBiActivity.startThis(mainActivity);
                 break;
             case R.id.tv_account_zjhz:
-                RansferOfFundsActivity.startThis(mainActivity,goPosition,Constants.REQUESTCODE_11);
+                RansferOfFundsActivity.startThis(mainActivity, goPosition, Constants.REQUESTCODE_11);
                 break;
         }
     }

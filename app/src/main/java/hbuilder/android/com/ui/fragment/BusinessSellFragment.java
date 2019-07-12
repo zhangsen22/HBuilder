@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +36,8 @@ import hbuilder.android.com.util.ToastUtil;
 
 public class BusinessSellFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener, BusinessSellContract.View {
     private static final String TAG = BusinessSellFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -124,6 +127,7 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("售出"+MyApplication.appContext.getResources().getString(R.string.nbc));
         etBusinessSellNum.addTextChangedListener(new TextWatcherUtils() {
             @Override

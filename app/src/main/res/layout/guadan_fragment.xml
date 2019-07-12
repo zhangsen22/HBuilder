@@ -7,10 +7,11 @@
 
     <!--如果MagicIndicator需要加背景颜色   需要在其外面嵌套一个父布局  在父布局添加背景颜色-->
     <LinearLayout
+        android:id="@+id/ll_guadan_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/common_white">
+        android:background="@mipmap/ce">
 
         <ImageView
             android:id="@+id/iv_back"

@@ -152,7 +152,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                 WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.JIAOCHENGGONGLUO, true);
                 break;
             case R.id.ll_lx_kf:
-                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.KEFU, true);
+//                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.KEFU, true);
                 break;
             case R.id.ll_center_message:
                 MessageCenterActivity.startThis(mainActivity);

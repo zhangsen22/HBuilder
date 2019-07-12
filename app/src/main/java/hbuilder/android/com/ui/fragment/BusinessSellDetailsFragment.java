@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.DateUtil;
@@ -27,6 +28,8 @@ import hbuilder.android.com.util.ToastUtil;
 
 public class BusinessSellDetailsFragment extends BaseFragment implements BusinessSellDetailsContract.View {
     private static final String TAG = BusinessSellDetailsFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -93,6 +96,7 @@ public class BusinessSellDetailsFragment extends BaseFragment implements Busines
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("出售"+MyApplication.appContext.getResources().getString(R.string.nbc));
     }
 

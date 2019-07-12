@@ -32,7 +32,6 @@ public class RewardDetailActivity extends BaseActivity {
 
     @Override
     protected void initView(View mRootView) {
-        setRootViewPaddingTop();
     }
 
     @Override

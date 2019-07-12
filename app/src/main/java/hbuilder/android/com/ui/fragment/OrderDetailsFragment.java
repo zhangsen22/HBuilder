@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.BitmapUtils;
@@ -29,6 +30,8 @@ import hbuilder.android.com.util.ToastUtil;
 
 public class OrderDetailsFragment extends BaseFragment {
     private static final String TAG = OrderDetailsFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -86,6 +89,7 @@ public class OrderDetailsFragment extends BaseFragment {
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("订单详情");
     }
 

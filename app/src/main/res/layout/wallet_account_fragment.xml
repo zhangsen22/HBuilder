@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="USDT"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textColor="@color/color_333333"/>
 
                 <LinearLayout
@@ -104,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NBC"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textColor="@color/color_333333"/>
 
                 <LinearLayout
@@ -178,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BTC"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textColor="@color/color_333333"/>
 
                 <LinearLayout
@@ -250,7 +250,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ETH"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textColor="@color/color_333333"/>
 
                 <LinearLayout
@@ -322,7 +322,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="EOS"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textColor="@color/color_333333"/>
 
                 <LinearLayout
@@ -394,7 +394,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BCH"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textColor="@color/color_333333"/>
 
                 <LinearLayout

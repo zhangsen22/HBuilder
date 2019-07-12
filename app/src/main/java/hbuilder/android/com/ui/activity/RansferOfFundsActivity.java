@@ -30,7 +30,6 @@ public class RansferOfFundsActivity extends BaseActivity {
 
     @Override
     protected void initView(View mRootView) {
-        setRootViewPaddingTop();
     }
 
     @Override

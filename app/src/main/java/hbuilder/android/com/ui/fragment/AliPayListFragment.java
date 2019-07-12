@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
@@ -44,6 +45,8 @@ import hbuilder.android.com.util.ToastUtil;
 public class AliPayListFragment extends BaseFragment implements AliPayListContract.View, OnLoadMoreListener, PowerAdapter.OnEmptyClickListener, PowerAdapter.OnErrorClickListener, AdapterLoader.OnItemClickListener<AliPayPayeeItemModel>,AliPayListAdapter.OnAliPayCheckListener {
     private static final String TAG = IdCastPayListFragment.class.getSimpleName();
     private static AliPayListActivity aliPayListActivity;
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -53,7 +56,6 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
     @BindView(R.id.tv_submit_forget_login)
     TextView tvSubmitForgetLogin;
     private AliPayListPresenter presenter;
-
     private RecyclerView mRecyclerView;
     private AliPayListAdapter aliPayListAdapter;
     private Runnable refreshAction;
@@ -82,6 +84,7 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("支付宝收款设置");
         alipayPullRefreshRecycler.setId(R.id.recycleView);
         alipayPullRefreshRecycler.setHeaderLayout(new RecycleViewLoadingLayout(MyApplication.appContext));

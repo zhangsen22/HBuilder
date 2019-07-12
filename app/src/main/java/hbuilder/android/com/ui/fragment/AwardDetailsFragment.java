@@ -3,6 +3,7 @@ package hbuilder.android.com.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ import hbuilder.android.com.ui.activity.RewardDetailActivity;
 
 public class AwardDetailsFragment extends BaseFragment implements AwardDetailsContract.View {
     private static final String TAG = AwardDetailsFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -72,6 +75,7 @@ public class AwardDetailsFragment extends BaseFragment implements AwardDetailsCo
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("奖励明细");
     }
 

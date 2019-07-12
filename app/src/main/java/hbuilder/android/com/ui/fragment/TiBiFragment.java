@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.qrcode.Constant;
@@ -34,6 +35,8 @@ import hbuilder.android.com.util.ToastUtil;
 
 public class TiBiFragment extends BaseFragment implements TiBiContract.View {
     private static final String TAG = TiBiFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -84,6 +87,7 @@ public class TiBiFragment extends BaseFragment implements TiBiContract.View {
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("提币");
         tvBiType.setText("USDT");
         etBiNum.addTextChangedListener(new TextWatcherUtils(){

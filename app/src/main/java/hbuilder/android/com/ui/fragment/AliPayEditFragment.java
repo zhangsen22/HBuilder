@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.qrcode.Constant;
@@ -69,6 +70,8 @@ public class AliPayEditFragment extends BaseFragment implements AliPayEditContra
     private Bitmap bitmapLog;
     private Bitmap qrImage1;
     private String sIdcardFront;
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
 
     public static AliPayEditFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -90,6 +93,7 @@ public class AliPayEditFragment extends BaseFragment implements AliPayEditContra
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("支付宝设置");
     }
 

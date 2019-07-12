@@ -31,7 +31,6 @@ public class PaySettingActivity extends BaseActivity {
 
     @Override
     protected void initView(View mRootView) {
-        setRootViewPaddingTop();
     }
 
     @Override

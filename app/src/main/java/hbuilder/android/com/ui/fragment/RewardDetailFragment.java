@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,6 +43,8 @@ import hbuilder.android.com.ui.adapter.poweradapter.PowerHolder;
  */
 public class RewardDetailFragment extends BaseFragment implements RewardDetailContract.View, OnLoadMoreListener, PowerAdapter.OnEmptyClickListener, PowerAdapter.OnErrorClickListener, AdapterLoader.OnItemClickListener<RewardDetailItem> {
     private static final String TAG = RewardDetailFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.tv_all_jiangli)
     TextView tvAllJiangli;
     @BindView(R.id.tv_last_jiangli)
@@ -98,6 +101,7 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         rewardDetailspullRefreshRecycler.setId(R.id.recycleView);
         rewardDetailspullRefreshRecycler.setHeaderLayout(new RecycleViewLoadingLayout(MyApplication.appContext));
         mRecyclerView = rewardDetailspullRefreshRecycler.getRefreshableView();

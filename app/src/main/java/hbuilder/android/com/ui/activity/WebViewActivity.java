@@ -32,13 +32,16 @@ import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.growalong.util.util.CommonTools;
 import com.growalong.util.util.GALogger;
+
 import java.io.File;
 import java.lang.ref.WeakReference;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
@@ -64,6 +67,8 @@ public class WebViewActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.web_view)
     WebView mWebView;
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
 
     private String mUrl;
     private boolean mIsCantainGoback;//是否包含多级web界面跳转
@@ -102,14 +107,14 @@ public class WebViewActivity extends BaseActivity {
                     }
                     if (mWebView.canGoBack()) {
                         mWebView.goBack();
-                    }else {
+                    } else {
                         finish();
                     }
                 } else {
                     if (mBackStatus == 2) {
                         if (mWebView.canGoBack()) {
                             mWebView.goBack();
-                        }else {
+                        } else {
                             finish();
                         }
                     }
@@ -125,7 +130,7 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected void initView(View mRootView) {
-        setRootViewPaddingTop();
+        setRootViewPaddingTop(flTitleComtent);
         mUrl = getIntent().getStringExtra(WEB_VIEW_URL);
         mIsCantainGoback = getIntent().getBooleanExtra(IS_CONTAIN_GOBACK, false);
         GALogger.d(TAG, "mUrl == " + mUrl);

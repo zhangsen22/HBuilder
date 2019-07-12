@@ -85,14 +85,14 @@
                 android:id="@+id/iv_roletype"
                 android:layout_width="@dimen/y58"
                 android:layout_height="@dimen/y26"
-                tools:src="@mipmap/an"
+                tools:src="@mipmap/bs"
                 android:layout_marginLeft="@dimen/y24"/>
 
             <ImageView
                 android:id="@+id/iv_apitype"
                 android:layout_width="@dimen/y58"
                 android:layout_height="@dimen/y26"
-                tools:src="@mipmap/an"
+                tools:src="@mipmap/bs"
                 android:layout_marginLeft="@dimen/y24"/>
 
         </LinearLayout>
@@ -345,7 +345,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="客服中心"
+            android:text="帮助与客服"
             android:textSize="13sp"
             android:textColor="@color/color_666666"
             android:gravity="center"

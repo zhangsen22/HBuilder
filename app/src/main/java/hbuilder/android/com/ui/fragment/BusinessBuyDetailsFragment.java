@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.DateUtil;
@@ -32,6 +33,8 @@ import hbuilder.android.com.util.ToastUtil;
 
 public class BusinessBuyDetailsFragment extends BaseFragment implements BusinessBuyDetailsContract.View {
     private static final String TAG = BusinessBuyDetailsFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -101,6 +104,7 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("购买"+MyApplication.appContext.getResources().getString(R.string.nbc));
     }
 

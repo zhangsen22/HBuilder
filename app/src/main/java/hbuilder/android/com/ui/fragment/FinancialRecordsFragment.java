@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
@@ -36,6 +37,8 @@ import hbuilder.android.com.ui.adapter.poweradapter.PowerHolder;
 
 public class FinancialRecordsFragment extends BaseFragment implements FinancialRecordsContract.View, OnLoadMoreListener, PowerAdapter.OnEmptyClickListener, PowerAdapter.OnErrorClickListener, AdapterLoader.OnItemClickListener<FinanceLogItem> {
     private static final String TAG = FinancialRecordsFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -72,6 +75,7 @@ public class FinancialRecordsFragment extends BaseFragment implements FinancialR
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText(MyApplication.appContext.getResources().getString(R.string.text6));
         walletaccountPullRefreshRecycler.setId(R.id.recycleView);
         walletaccountPullRefreshRecycler.setHeaderLayout(new RecycleViewLoadingLayout(MyApplication.appContext));

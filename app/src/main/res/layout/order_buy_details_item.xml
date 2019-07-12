@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CNY"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:textColor="@color/color_ff5100"
             android:gravity="center" />
 
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="/INF"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:textColor="@color/color_666666"
             android:gravity="center"/>
 
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="2019-04-03 17:02:01"
-            android:textSize="11sp"
+            android:textSize="13sp"
             android:textColor="@color/color_999999"
             android:gravity="center"
             android:layout_marginLeft="@dimen/y18"/>
@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="等待对方付款"
-            android:textSize="11sp"
+            android:textSize="13sp"
             android:textColor="@color/color_666666"
             android:gravity="center" />
 
@@ -102,7 +102,7 @@
                             android:layout_height="wrap_content"
                             android:text="价格："
                             android:textColor="@color/color_666666"
-                            android:textSize="11sp"/>
+                            android:textSize="12sp"/>
 
                         <TextView
                             android:id="@+id/tv_order_sell_price"
@@ -110,14 +110,14 @@
                             android:layout_height="wrap_content"
                             tools:text="6.87"
                             android:textColor="@color/color_666666"
-                            android:textSize="11sp"/>
+                            android:textSize="12sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="CNY"
                             android:textColor="@color/color_666666"
-                            android:textSize="11sp"/>
+                            android:textSize="12sp"/>
 
                     </LinearLayout>
 
@@ -132,7 +132,7 @@
                            android:layout_height="wrap_content"
                            android:text="总额："
                            android:textColor="@color/color_666666"
-                           android:textSize="11sp"/>
+                           android:textSize="12sp"/>
 
                        <TextView
                            android:id="@+id/tv_order_sell_amount"
@@ -140,14 +140,14 @@
                            android:layout_height="wrap_content"
                            tools:text="6.87"
                            android:textColor="@color/color_666666"
-                           android:textSize="11sp"/>
+                           android:textSize="12sp"/>
 
                        <TextView
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:text="CNY"
                            android:textColor="@color/color_666666"
-                           android:textSize="11sp"/>
+                           android:textSize="12sp"/>
 
                    </LinearLayout>
 
@@ -162,7 +162,7 @@
                            android:layout_height="wrap_content"
                            android:text="数量："
                            android:textColor="@color/color_666666"
-                           android:textSize="11sp"/>
+                           android:textSize="12sp"/>
 
                        <TextView
                            android:id="@+id/tv_order_sell_paycode"
@@ -170,14 +170,14 @@
                            android:layout_height="wrap_content"
                            tools:text="6.87"
                            android:textColor="@color/color_666666"
-                           android:textSize="11sp"/>
+                           android:textSize="12sp"/>
 
                        <TextView
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:text="@string/nbc"
                            android:textColor="@color/color_666666"
-                           android:textSize="11sp"
+                           android:textSize="12sp"
                            android:layout_marginLeft="@dimen/y6"/>
 
                    </LinearLayout>
@@ -204,7 +204,7 @@
                            android:layout_height="wrap_content"
                            tools:text="14:09：15后可申诉"
                            android:textColor="@color/color_999999"
-                           android:textSize="10sp"
+                           android:textSize="12sp"
                            android:gravity="center"
                            android:layout_gravity="right"
                            android:visibility="gone"/>
@@ -215,7 +215,7 @@
                            android:layout_height="wrap_content"
                            android:text="申诉"
                            android:textColor="@color/a1"
-                           android:textSize="10sp"
+                           android:textSize="12sp"
                            android:gravity="center"
                            android:layout_gravity="right"
                            android:background="@drawable/a1"
@@ -237,7 +237,7 @@
                            android:layout_height="wrap_content"
                            tools:text="14:59后自动取消订单"
                            android:textColor="@color/color_999999"
-                           android:textSize="10sp"
+                           android:textSize="12sp"
                            android:gravity="center"
                            android:layout_gravity="right"
                             android:visibility="gone"/>
@@ -255,7 +255,7 @@
                                android:layout_height="wrap_content"
                                android:text="去付款"
                                android:textColor="@color/common_white"
-                               android:textSize="10sp"
+                               android:textSize="12sp"
                                android:gravity="center"
                                android:background="@mipmap/ai"/>
 
@@ -266,7 +266,7 @@
                                android:layout_height="wrap_content"
                                android:text="取消订单"
                                android:textColor="@color/color_ff5100"
-                               android:textSize="10sp"
+                               android:textSize="12sp"
                                android:gravity="center"
                                android:background="@drawable/a1"
                                android:layout_marginLeft="@dimen/y10"/>

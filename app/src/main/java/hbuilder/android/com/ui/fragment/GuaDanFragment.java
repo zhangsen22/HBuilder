@@ -5,10 +5,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
+
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -18,8 +23,11 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
@@ -34,6 +42,8 @@ public class GuaDanFragment extends BaseFragment {
     ViewPager guadanViewPager;
     @BindView(R.id.iv_back)
     ImageView ivBack;
+    @BindView(R.id.ll_guadan_content)
+    LinearLayout llGuadanContent;
     private GuaDanViewPagerAdapter guaDanViewPagerAdapter;
     private GuaDanActivity guaDanActivity;
 
@@ -59,6 +69,7 @@ public class GuaDanFragment extends BaseFragment {
     @Override
     protected void initView(View root) {
         GALogger.d(TAG, "GuaDanFragment   is    initView");
+        setRootViewPaddingTop(llGuadanContent);
         final String[] guadanTitle = guaDanActivity.getResources().getStringArray(R.array.guadan_title);
         guadanViewPager.setOffscreenPageLimit(guadanTitle.length - 1);
         guaDanViewPagerAdapter = new GuaDanViewPagerAdapter(getChildFragmentManager(), guadanTitle);

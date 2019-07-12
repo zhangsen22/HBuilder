@@ -3,6 +3,7 @@ package hbuilder.android.com.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +17,8 @@ import hbuilder.android.com.ui.activity.SecurityCenterActivity;
 
 public class SecurityCenterFragment extends BaseFragment {
     private static final String TAG = SecurityCenterFragment.class.getSimpleName();
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -46,7 +49,7 @@ public class SecurityCenterFragment extends BaseFragment {
 
     @Override
     protected void initView(View root) {
-
+        setRootViewPaddingTop(flTitleComtent);
     }
 
     @Override
