@@ -68,7 +68,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     private boolean isUseIvWebchat;
     private boolean isUseIvIdcards;
     private EntrustSalePresenter entrustSalePresenter;
-    private double hotNum;
+    private double hotNum = 0;
     private BaseActivity mContext;
 
     public static EntrustSaleFragment newInstance(@Nullable String taskId) {

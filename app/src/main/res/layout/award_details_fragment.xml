@@ -11,7 +11,7 @@
 
         <include layout="@layout/title"/>
 
-        <include layout="@layout/line_20_f9"/>
+        <include layout="@layout/line_10_f9"/>
 
         <LinearLayout
             android:id="@+id/ll_business_reward"

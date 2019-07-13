@@ -8,7 +8,7 @@
 
     <include layout="@layout/title"/>
 
-    <include layout="@layout/line_20_f9"/>
+    <include layout="@layout/line_10_f9"/>
 
     <com.handmark.pulltorefresh.library.PullToRefreshRecyclerView
         android:id="@+id/message_center_refresh_recycler"
