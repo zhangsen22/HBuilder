@@ -21,10 +21,9 @@
             android:gravity="center_vertical"
             android:paddingRight="@dimen/y40"
             android:paddingLeft="@dimen/y40"
-            android:paddingTop="@dimen/y36"
-            android:paddingBottom="@dimen/y46"
-            android:background="@color/common_white"
-            android:layout_marginBottom="@dimen/y10">
+            android:paddingTop="@dimen/y20"
+            android:paddingBottom="@dimen/y24"
+            android:background="@color/common_white">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -124,6 +123,8 @@
 
         </LinearLayout>
 
+        <include layout="@layout/line_f9"/>
+
         <LinearLayout
             android:id="@+id/ll_guadan_reward"
             android:layout_width="match_parent"
@@ -132,10 +133,9 @@
             android:gravity="center_vertical"
             android:paddingRight="@dimen/y40"
             android:paddingLeft="@dimen/y40"
-            android:paddingTop="@dimen/y36"
-            android:paddingBottom="@dimen/y46"
-            android:background="@color/common_white"
-            android:layout_marginBottom="@dimen/y10">
+            android:paddingTop="@dimen/y20"
+            android:paddingBottom="@dimen/y24"
+            android:background="@color/common_white">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -235,6 +235,8 @@
 
         </LinearLayout>
 
+        <include layout="@layout/line_f9"/>
+
         <LinearLayout
             android:id="@+id/ll_tuigunang_reward"
             android:layout_width="match_parent"
@@ -243,10 +245,9 @@
             android:gravity="center_vertical"
             android:paddingRight="@dimen/y40"
             android:paddingLeft="@dimen/y40"
-            android:paddingTop="@dimen/y36"
-            android:paddingBottom="@dimen/y46"
-            android:background="@color/common_white"
-            android:layout_marginBottom="@dimen/y10">
+            android:paddingTop="@dimen/y20"
+            android:paddingBottom="@dimen/y24"
+            android:background="@color/common_white">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -346,6 +347,8 @@
 
         </LinearLayout>
 
+        <include layout="@layout/line_f9"/>
+
         <LinearLayout
             android:id="@+id/ll_daili_reward"
             android:layout_width="match_parent"
@@ -354,8 +357,8 @@
             android:gravity="center_vertical"
             android:paddingRight="@dimen/y40"
             android:paddingLeft="@dimen/y40"
-            android:paddingTop="@dimen/y36"
-            android:paddingBottom="@dimen/y46"
+            android:paddingTop="@dimen/y20"
+            android:paddingBottom="@dimen/y24"
             android:background="@color/common_white">
 
             <LinearLayout
@@ -455,5 +458,7 @@
                 android:layout_marginLeft="@dimen/y20"/>
 
         </LinearLayout>
+
     </LinearLayout>
+
 </ScrollView>
