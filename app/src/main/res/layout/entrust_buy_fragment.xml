@@ -5,15 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <include layout="@layout/line"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/y92"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24">
+        android:paddingLeft="@dimen/y24"
+        android:background="@color/common_white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,7 +28,7 @@
             android:layout_height="match_parent"
             tools:text=""
             android:layout_marginLeft="@dimen/y68"
-            android:background="@color/transparent"
+            android:textCursorDrawable="@drawable/my_cursor"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
@@ -68,7 +67,8 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24">
+        android:paddingLeft="@dimen/y24"
+        android:background="@color/common_white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
             android:id="@+id/et_expect_buy_minnum"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
+            android:textCursorDrawable="@drawable/my_cursor"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
@@ -100,7 +100,8 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24">
+        android:paddingLeft="@dimen/y24"
+        android:background="@color/common_white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -113,13 +114,13 @@
             android:id="@+id/et_expect_buy_maxnum"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
+            android:textCursorDrawable="@drawable/my_cursor"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
             android:inputType="number"
             android:textSize="12sp"
-            android:hint="至少挂单1200 INF"
+            android:hint="至少挂单1200 NBC"
             android:layout_marginLeft="@dimen/y16"/>
 
     </LinearLayout>
@@ -132,7 +133,8 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24">
+        android:paddingLeft="@dimen/y24"
+        android:background="@color/common_white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -146,7 +148,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
+            android:textCursorDrawable="@drawable/my_cursor"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"

@@ -11,12 +11,29 @@
         android:layout_height="@dimen/y672"
         android:background="@mipmap/bo">
 
-        <ImageView
-            android:layout_width="@dimen/y222"
-            android:layout_height="@dimen/y256"
-            android:src="@mipmap/bp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/y144"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y144" />
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/y150"
+                android:layout_height="@dimen/y150"
+                android:src="@mipmap/cu"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/common_white"
+                android:textSize="30sp"
+                android:layout_marginTop="@dimen/y60"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
 
     </FrameLayout>
 
@@ -32,7 +49,7 @@
 
                 <View
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/y460"/>
+                    android:layout_height="@dimen/y450"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,7 +78,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:background="@color/transparent"
+                        android:textCursorDrawable="@drawable/my_cursor"
                         android:inputType="phone"
                         android:maxLength="11"
                         android:maxLines="1"
@@ -94,7 +111,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:background="@color/transparent"
+                        android:textCursorDrawable="@drawable/my_cursor"
                         android:inputType="textPassword"
                         android:maxLength="11"
                         android:maxLines="1"
@@ -108,9 +125,10 @@
 
                     <ImageView
                         android:id="@+id/iv_eye"
-                        android:layout_width="@dimen/y50"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:src="@mipmap/yincang"/>
+                        android:src="@mipmap/yincang"
+                        android:layout_marginRight="@dimen/y60"/>
 
                 </LinearLayout>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,8 +10,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <include layout="@layout/line"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,7 +65,7 @@
             android:layout_height="match_parent"
             tools:text=""
             android:layout_marginLeft="@dimen/y68"
-            android:background="@color/transparent"
+            android:textCursorDrawable="@drawable/my_cursor"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
@@ -119,7 +117,7 @@
             android:id="@+id/et_expect_minnum"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
+            android:textCursorDrawable="@drawable/my_cursor"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
@@ -152,7 +150,7 @@
             android:id="@+id/et_expect_maxnum"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
+            android:textCursorDrawable="@drawable/my_cursor"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
@@ -363,12 +361,12 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
             android:inputType="textPassword"
             android:textSize="12sp"
+            android:textCursorDrawable="@drawable/my_cursor"
             android:hint="请输入资金密码"
             android:layout_marginLeft="@dimen/y68"
             android:layout_marginRight="@dimen/y38"/>
@@ -417,4 +415,4 @@
     </LinearLayout>
 
 </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

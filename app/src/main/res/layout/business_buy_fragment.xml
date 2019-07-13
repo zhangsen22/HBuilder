@@ -8,7 +8,7 @@
 
     <include layout="@layout/title"/>
 
-    <include layout="@layout/line"/>
+    <include layout="@layout/line_20_f9"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -217,7 +217,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@color/transparent"
+                    android:textCursorDrawable="@drawable/my_cursor"
                     android:maxLines="1"
                     android:textColorHint="@color/color_999999"
                     android:textColor="@color/text"
@@ -260,7 +260,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="@color/transparent"
+                    android:textCursorDrawable="@drawable/my_cursor"
                     android:maxLines="1"
                     android:textColorHint="@color/color_999999"
                     android:textColor="@color/text"
