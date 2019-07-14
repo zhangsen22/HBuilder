@@ -5,15 +5,16 @@ import hbuilder.android.com.util.FileUtils;
 /**
  */
 public class Constants {
+    public static final String HTML_BASE = "https://down.xnbc999.top";//h5域名
     //二维码图片保存本地的路径
     public static final String FILTER_IMAGE_PATH = FileUtils.getFilterImageDir() + "filter_image.jpg";
     public static final String FILTERCHONGBI_IMAGE_PATH = FileUtils.getFilterImageDir() + "chongbi_filter_image.jpg";
-    public static final String JIAOCHENGGONGLUO = "https://down.no-time.cn/teacher2.html";
-    public static final String HOWGETALIPAYID = "https://down.no-time.cn/aliid.htm";
-    public static final String NOTIFYCLICK = "https://down.no-time.cn/msg.html";
-    public static final String USERXIEYI = "https://down.no-time.cn/userpro.html";
-    public static final String KEFU = "https://down.no-time.cn/service.html";
-    public static final String HOWGETDIANYUANERWEIMA = "https://down.no-time.cn/wxqr.htm";
+    public static final String JIAOCHENGGONGLUO = HTML_BASE+"/teacher2.html";
+    public static final String HOWGETALIPAYID = HTML_BASE+"/aliid.htm";
+    public static final String NOTIFYCLICK = HTML_BASE+"/msg.html";
+    public static final String USERXIEYI = HTML_BASE+"/userpro.html";
+    public static final String KEFU = HTML_BASE+"/service.html";
+    public static final String HOWGETDIANYUANERWEIMA = HTML_BASE+"/wxqr.htm";
     public static final String SESSIONID = "sessionid";
     public static final String USDTPRICE = "Usdt_Price";
     /**
