@@ -396,14 +396,14 @@
                 android:textColor="@color/color_999999"
                 android:lineSpacingExtra="@dimen/y6"
                 android:textSize="10sp"
-                android:text="阅读并同意本人承诺所有提交审核的材料，包括姓名、\n证件照片以及其他证明没有盗用其他人的身份数据。"/>
+                android:text="阅读并同意本人承诺所有提交审核的材料，包括姓名、证件照片以及其他证明没有盗用其他人的身份数据。"/>
 
             <include layout="@layout/a1"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="·手持证件照片您需要了解:\n·您需要手持有效的中国证件原件和写明平台名称、当时时间的字\n条进行照片拍摄。\n·照片要清晰地显示您的脸，确保不被遮挡、证件号码必须清楚可\n读。\n·图像须为高分辨率，但不能超过2MB。\n·您可以上传JPG\JPEG\PNG\BMP\PDF格式的文件， 任何不清\n楚、篡改过、低分辨率或质量差的图象都将被拒绝。"
+                android:text="·手持证件照片您需要了解:\n·您需要手持有效的中国证件原件和写明平台名称、当时时间的字条进行照片拍摄。\n·照片要清晰地显示您的脸，确保不被遮挡、证件号码必须清楚可读。\n·图像须为高分辨率，但不能超过2MB。\n·您可以上传JPG\JPEG\PNG\BMP\PDF格式的文件， 任何不清楚、篡改过、低分辨率或质量差的图象都将被拒绝。"
                 android:textColor="@color/color_666666"
                 android:textSize="10sp"
                 android:lineSpacingExtra="@dimen/y6"

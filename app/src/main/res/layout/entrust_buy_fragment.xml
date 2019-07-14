@@ -34,10 +34,7 @@
             android:textColor="@color/color_999999"
             android:textSize="12sp"
             android:inputType="number|numberDecimal"
-            tools:hint="交易价格请限于6.98 ~ 7.02之间"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:text="1.00"/>
+            tools:hint="交易价格请限于6.98 ~ 7.02之间" />
 
         <TextView
             android:id="@+id/tv_buy_cankaojia"

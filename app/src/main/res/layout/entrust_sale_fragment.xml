@@ -71,10 +71,7 @@
             android:textColor="@color/color_999999"
             android:textSize="12sp"
             android:inputType="number|numberDecimal"
-            tools:hint="交易价格请限于6.95 ~ 6.99"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:text="1.00"/>
+            tools:hint="交易价格请限于6.95 ~ 6.99" />
 
         <TextView
             android:id="@+id/tv_sale_cankaojia"
@@ -156,7 +153,7 @@
             android:textColor="@color/color_999999"
             android:inputType="number"
             android:textSize="12sp"
-            android:hint="至少挂单1200 INF"
+            android:hint="至少挂单1200 NBC"
             android:layout_marginLeft="@dimen/y16"/>
 
     </LinearLayout>
@@ -180,7 +177,7 @@
             android:id="@+id/tv_user_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="3.00INF"
+            tools:text="3.00"
             android:textColor="@color/color_999999"
             android:textSize="12sp" />
 

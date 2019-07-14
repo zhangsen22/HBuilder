@@ -9,11 +9,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
 import com.growalong.util.util.bean.MessageEvent;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.text.DecimalFormat;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,7 +21,9 @@ import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.BaseBean;
+import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.presenter.EntrustSalePresenter;
 import hbuilder.android.com.presenter.contract.EntrustSaleContract;
@@ -31,6 +32,7 @@ import hbuilder.android.com.ui.activity.AliPayListActivity;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.IdCastPayListActivity;
 import hbuilder.android.com.ui.activity.WebChatListActivity;
+import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
 
 public class EntrustSaleFragment extends BaseFragment implements EntrustSaleContract.View {
@@ -63,13 +65,14 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     ImageView ivWebchat;
     @BindView(R.id.iv_idcards)
     ImageView ivIdcards;
-
     private boolean isUseIvAlipay;
     private boolean isUseIvWebchat;
     private boolean isUseIvIdcards;
     private EntrustSalePresenter entrustSalePresenter;
     private double hotNum = 0;
     private BaseActivity mContext;
+    private double minSellPrice;
+    private double maxSellPrice;
 
     public static EntrustSaleFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -91,6 +94,12 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
 
     @Override
     protected void initView(View root) {
+        UsdtPriceResponse usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
+        if(usdtPriceResponse != null){
+            minSellPrice = usdtPriceResponse.getMinSellPrice();
+            maxSellPrice = usdtPriceResponse.getMaxSellPrice();
+            etBusinessPrice.setHint("交易价格请限于"+new DecimalFormat("0.00").format(minSellPrice)+" ~ "+new DecimalFormat("0.00").format(maxSellPrice));
+        }
         GALogger.d(TAG,"EntrustSaleFragment    is    initView");
         GALogger.d(TAG,"mEnableLazyLoad   "+mEnableLazyLoad+"   mIsCreateView   "+mIsCreateView+"  getUserVisibleHint()  "+getUserVisibleHint()+"   mIsLoadData   "+mIsLoadData);
     }
@@ -172,15 +181,15 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                     return;
                 }
 
-//                if(minSellPrice > 0 && maxSellPrice > 0 && minSellPrice <= maxSellPrice){
-//                    if(d_businessPrice < minSellPrice || d_businessPrice > maxSellPrice){
-//                        ToastUtil.shortShow("交易价格请限于" + minSellPrice + " - " + maxSellPrice + "之间");
-//                        return;
-//                    }
-//                }else {
-//                    ToastUtil.shortShow("请获取交易价格区间");
-//                    return;
-//                }
+                if(minSellPrice > 0 && maxSellPrice > 0 && minSellPrice <= maxSellPrice){
+                    if(d_businessPrice < minSellPrice || d_businessPrice > maxSellPrice){
+                        ToastUtil.shortShow("交易价格请限于" + minSellPrice + " - " + maxSellPrice + "之间");
+                        return;
+                    }
+                }else {
+                    ToastUtil.shortShow("请获取交易价格区间");
+                    return;
+                }
 
                 String expectMinnum = etExpectMinnum.getText().toString().trim();
                 if (TextUtils.isEmpty(expectMinnum)) {

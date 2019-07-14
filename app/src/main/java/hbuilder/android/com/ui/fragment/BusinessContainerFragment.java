@@ -163,9 +163,7 @@ public class BusinessContainerFragment extends BaseFragment {
     private void initBanner() {
         List<Integer> imgs = new ArrayList<>();
         imgs.add(R.mipmap.banner);
-        imgs.add(R.mipmap.banner);
-        imgs.add(R.mipmap.banner);
-        imgs.add(R.mipmap.banner);
+        imgs.add(R.mipmap.banner1);
         banner.setHorizontalScrollBarEnabled(false);
         banner.setPages(new CBViewHolderCreator<LocalImageHolderView>(){
 

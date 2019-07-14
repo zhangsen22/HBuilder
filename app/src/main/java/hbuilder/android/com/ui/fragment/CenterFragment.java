@@ -4,18 +4,24 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.PackageUtil;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 import com.lxj.xpopup.interfaces.XPopupCallback;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
@@ -67,6 +73,10 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
     ImageView ivApitype;
     @BindView(R.id.ll_award_details)
     LinearLayout llAwardDetails;
+    @BindView(R.id.view1)
+    View view1;
+    @BindView(R.id.view2)
+    View view2;
     private MainActivity mainActivity;
     private CenterPresenter presenter;
 
@@ -103,7 +113,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
         initUserInfo();
     }
 
-    @OnClick({R.id.iv_edit, R.id.ll_center_anquan, R.id.ll_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.ll_lx_kf, R.id.ll_center_message, R.id.tv_logout,R.id.ll_award_details})
+    @OnClick({R.id.iv_edit, R.id.ll_center_anquan, R.id.ll_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.ll_lx_kf, R.id.ll_center_message, R.id.tv_logout, R.id.ll_award_details})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_edit:
@@ -218,6 +228,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
             ivRoletype.setVisibility(View.VISIBLE);
         } else {
             ivRoletype.setVisibility(View.GONE);
+            view1.setVisibility(View.GONE);
         }
 
         if (AccountManager.getInstance().getApiType() == 1) {
@@ -225,7 +236,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
             ivApitype.setVisibility(View.VISIBLE);
         } else {
             ivApitype.setVisibility(View.GONE);
+            view2.setVisibility(View.GONE);
         }
     }
-
 }

@@ -9,7 +9,6 @@
 
     <include layout="@layout/title"/>
 
-    <include layout="@layout/line_f9"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -270,7 +269,8 @@
             android:textSize="13sp"
             android:textColor="@color/common_white"
             android:gravity="center"
-            android:background="@mipmap/cc"/>
+            android:background="@mipmap/cc"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

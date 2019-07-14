@@ -8,19 +8,24 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
 import com.growalong.util.util.bean.MessageEvent;
 import org.greenrobot.eventbus.EventBus;
+import java.text.DecimalFormat;
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.BaseBean;
+import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.presenter.EntrustBuyPresenter;
 import hbuilder.android.com.presenter.contract.EntrustBuyContract;
 import hbuilder.android.com.presenter.modle.EntrustBuyModle;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
+import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
 
 public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContract.View {
@@ -39,6 +44,8 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
     TextView tvBuyPublish;
     @BindView(R.id.tv_buy_cankaojia)
     TextView tvBuyCanKaoJia;
+    private double minBuyPrice;
+    private double maxBuyPrice;
 
     private EntrustBuyPresenter entrustBuyPresenter;
     private BaseActivity mContext;
@@ -63,7 +70,12 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
 
     @Override
     protected void initView(View root) {
-
+        UsdtPriceResponse usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
+        if(usdtPriceResponse != null){
+            minBuyPrice = usdtPriceResponse.getMinBuyPrice();
+            maxBuyPrice = usdtPriceResponse.getMaxBuyPrice();
+            etBusinessBuyPrice.setHint("交易价格请限于"+new DecimalFormat("0.00").format(minBuyPrice)+" ~ "+new DecimalFormat("0.00").format(maxBuyPrice));
+        }
     }
 
     @Override
@@ -88,6 +100,16 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
                 double d_businessPrice = Double.parseDouble(businessPrice);
                 if (d_businessPrice <= 0) {
                     ToastUtil.shortShow("交易价格不能小于零");
+                    return;
+                }
+
+                if(minBuyPrice > 0 && maxBuyPrice > 0 && minBuyPrice <= maxBuyPrice){
+                    if(d_businessPrice < minBuyPrice || d_businessPrice > maxBuyPrice){
+                        ToastUtil.shortShow("交易价格请限于" + minBuyPrice + " - " + maxBuyPrice + "之间");
+                        return;
+                    }
+                }else {
+                    ToastUtil.shortShow("请获取交易价格区间");
                     return;
                 }
 
