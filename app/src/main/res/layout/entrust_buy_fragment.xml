@@ -27,7 +27,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             tools:text=""
-            android:layout_marginLeft="@dimen/y68"
+            android:layout_marginLeft="@dimen/y80"
             android:textCursorDrawable="@drawable/my_cursor"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
@@ -70,7 +70,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="最小数量(INF)"
+            android:text="最小数量(NBC)"
             android:textColor="@color/color_666666"
             android:textSize="12sp" />
 
@@ -103,7 +103,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="最大数量(INF)"
+            android:text="最大数量(NBC)"
             android:textColor="@color/color_666666"
             android:textSize="12sp" />
 
@@ -152,7 +152,7 @@
             android:inputType="textPassword"
             android:textSize="12sp"
             android:hint="请输入资金密码"
-            android:layout_marginLeft="@dimen/y68"
+            android:layout_marginLeft="@dimen/y80"
             android:layout_marginRight="@dimen/y38"/>
 
         <TextView

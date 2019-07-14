@@ -102,6 +102,22 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
         }
         GALogger.d(TAG,"EntrustSaleFragment    is    initView");
         GALogger.d(TAG,"mEnableLazyLoad   "+mEnableLazyLoad+"   mIsCreateView   "+mIsCreateView+"  getUserVisibleHint()  "+getUserVisibleHint()+"   mIsLoadData   "+mIsLoadData);
+        if(AccountManager.getInstance().isHaveAliPayee()){
+            tvAddAlipay.setText("更改");
+        }else {
+            tvAddAlipay.setText("添加");
+        }
+        if(AccountManager.getInstance().isHaveBankPayee()){
+            tvAddIdcards.setText("更改");
+        }else {
+            tvAddIdcards.setText("添加");
+        }
+        if(AccountManager.getInstance().isHaveWechatPayee()){
+            tvAddWebchat.setText("更改");
+        }else {
+            tvAddWebchat.setText("添加");
+        }
+
     }
 
     @Override

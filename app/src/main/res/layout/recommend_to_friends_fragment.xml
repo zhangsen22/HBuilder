@@ -63,7 +63,7 @@
                     android:id="@+id/tv_download_url"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="WWW.uieyfeuiyweihf.com"
+                    android:text="https://reg.xnbc999.pro/reg.jsp?code="
                     android:textSize="14sp"
                     android:textColor="@color/color_333333"
                     android:gravity="center"
@@ -165,7 +165,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="直推用户享受成交单金额1%的\n交易奖励；二级推广享受成交单\n金额0.05%的交易奖励。"
+                    android:text="直推用户享受成交单金额1%的交易奖励；二级推广享受成交单金额0.05%的交易奖励。"
                     android:textSize="12sp"
                     android:textColor="@color/color_666666"
                     android:layout_marginTop="@dimen/y22"
@@ -204,7 +204,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="直推10人注册可申请成为代理，\n代理享受所有下级成交单金额\n0.1%的交易奖励。"
+                        android:text="直推10人注册可申请成为代理，代理享受所有下级成交单金额0.1%的交易奖励。"
                         android:textSize="12sp"
                         android:textColor="@color/color_666666"
                         android:layout_marginTop="@dimen/y22"

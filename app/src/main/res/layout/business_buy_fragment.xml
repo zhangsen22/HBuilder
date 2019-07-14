@@ -190,7 +190,7 @@
                     android:textSize="10sp"
                     tools:text="价格（CNY）"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/y34"/>
+                    android:layout_marginLeft="@dimen/y46"/>
 
             </LinearLayout>
 
@@ -224,7 +224,7 @@
                     android:textSize="10sp"
                     android:inputType="number|numberDecimal"
                     android:hint="请输入要购买的数量"
-                    android:layout_marginLeft="@dimen/y44"/>
+                    android:layout_marginLeft="@dimen/y40"/>
 
                 <TextView
                     android:id="@+id/tv_num_all"
@@ -267,7 +267,7 @@
                     android:textSize="10sp"
                     android:inputType="number|numberDecimal"
                     android:hint="请输入要购买的金额"
-                    android:layout_marginLeft="@dimen/y34"/>
+                    android:layout_marginLeft="@dimen/y40"/>
 
                 <TextView
                     android:id="@+id/tv_price_all"

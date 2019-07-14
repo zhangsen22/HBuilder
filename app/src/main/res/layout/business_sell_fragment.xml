@@ -140,7 +140,7 @@
             tools:text="6.84"
             android:textSize="10sp"
             android:textColor="@color/color_666666"
-            android:layout_marginLeft="@dimen/y40"/>
+            android:layout_marginLeft="@dimen/y46"/>
 
     </LinearLayout>
 
@@ -173,7 +173,7 @@
             android:textColor="@color/color_999999"
             android:textSize="10sp"
             android:hint="请输入要购买的数量"
-            android:layout_marginLeft="@dimen/y50"/>
+            android:layout_marginLeft="@dimen/y40"/>
 
         <TextView
             android:id="@+id/tv_num_all"
@@ -337,7 +337,8 @@
         android:background="@color/common_white"
         android:paddingLeft="@dimen/y26"
         android:paddingRight="@dimen/y26"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -428,7 +429,8 @@
         android:background="@color/common_white"
         android:paddingLeft="@dimen/y26"
         android:paddingRight="@dimen/y26"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -519,7 +521,8 @@
         android:background="@color/common_white"
         android:paddingLeft="@dimen/y26"
         android:paddingRight="@dimen/y26"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
