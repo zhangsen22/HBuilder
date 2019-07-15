@@ -8,9 +8,11 @@ import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
 import hbuilder.android.com.app.AppManager;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.presenter.LoginPresenter;
 import hbuilder.android.com.presenter.modle.LoginModle;
 import hbuilder.android.com.ui.fragment.LoginFragment;
+import hbuilder.android.com.util.SharedPreferencesUtils;
 
 public class LoginActivity extends BaseActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -33,6 +35,9 @@ public class LoginActivity extends BaseActivity {
     protected void initData() {
         if(AccountManager.getInstance().isLogin()){
             AccountManager.getInstance().logout();
+        }
+        if(SharedPreferencesUtils.has(Constants.SESSIONID)){
+            SharedPreferencesUtils.remove(Constants.SESSIONID);
         }
         LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);

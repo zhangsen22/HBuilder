@@ -138,7 +138,8 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
                 webChatListActivity.finish();
                 break;
             case R.id.tv_submit_forget_login:
-                PaySettingActivity.startThis(webChatListActivity,2,102);
+                ToastUtil.shortShow("暂未开放");
+//                PaySettingActivity.startThis(webChatListActivity,2,102);
                 break;
         }
     }

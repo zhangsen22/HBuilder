@@ -44,20 +44,21 @@ public class MyInterceptor implements Interceptor {
         }
 
         okhttp3.Response response = chain.proceed(requestBuild.build());
-
-        /**
-         * 保存sessionId
-         */
-        Headers headers =response.headers();//response为okhttp请求后的响应
-        List cookies = headers.values("Set-Cookie");
-        if(cookies != null && cookies.size() > 0){
-            String session = (String) cookies.get(0);
-            String sessionid = session.substring(0,session.indexOf(";"));
-            SharedPreferencesUtils.putString(Constants.SESSIONID,sessionid);
-            GALogger.d(TAG, "sessionid   is have   "+sessionid);
-        }else {
-            GALogger.d(TAG, "sessionid   is  no   have");
-        }
+            /**
+             * 保存sessionId
+             */
+            Headers headers = response.headers();//response为okhttp请求后的响应
+            List cookies = headers.values("Set-Cookie");
+            if (cookies != null && cookies.size() > 0) {
+                String session = (String) cookies.get(0);
+                String sessionid = session.substring(0, session.indexOf(";"));
+                if(url.contains(ApiConstants.login)) {
+                    SharedPreferencesUtils.putString(Constants.SESSIONID, sessionid);
+                }
+                GALogger.d(TAG, "sessionid   is have   " + sessionid);
+            } else {
+                GALogger.d(TAG, "sessionid   is  no   have");
+            }
 //        String responseEncodeBody =response.body().string();
 //        GALogger.d(TAG, "before response==" + responseEncodeBody);
 //        GALogger.d(TAG, "response.code()" + response.toString());

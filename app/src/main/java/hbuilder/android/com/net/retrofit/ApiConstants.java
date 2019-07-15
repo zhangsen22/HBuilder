@@ -4,7 +4,9 @@ package hbuilder.android.com.net.retrofit;
  * Created by yangxing on 2018/10/31.
  */
 public class ApiConstants {
-    public static String getGetDomainNameBase = "http://54.254.190.23:8330/";
+    //app访问的初始地址
+//    public static String getGetDomainNameBase = "http://54.254.190.23:8330/";
+    public static String getGetDomainNameBase = "https://d.xotc.fun/";
     public static final String getDomainName = "app/config";
     public static final String getImageCode = "user/imageCode";//获取图片验证码
     public static final String senSmsCode = "user/smsCode";//发送验证码
