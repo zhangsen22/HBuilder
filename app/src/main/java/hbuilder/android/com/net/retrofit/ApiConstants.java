@@ -6,7 +6,8 @@ package hbuilder.android.com.net.retrofit;
 public class ApiConstants {
     //app访问的初始地址
 //    public static String getGetDomainNameBase = "http://54.254.190.23:8330/";
-    public static String getGetDomainNameBase = "https://d.xotc.fun/";
+        public static String getGetDomainNameBase = "https://d.xotc.fun/";
+    public static String HTTP_DOWNLOAD_BASE = "https://down.xnbc999.top/";//apk下载地址域名
     public static final String getDomainName = "app/config";
     public static final String getImageCode = "user/imageCode";//获取图片验证码
     public static final String senSmsCode = "user/smsCode";//发送验证码
@@ -46,4 +47,6 @@ public class ApiConstants {
     public static final String wechat = "user/paysetup/wechat";//微信收款设置
     public static final String detelePay = "user/paysetup/delete";//删除收款设置
     public static final String setDefaultPay = "user/paysetup/setDefault";//设置默认收款设置
+    public static final String DOWNLOADAPK = "c2c.apk";//设置默认收款设置
+
 }

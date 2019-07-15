@@ -2,10 +2,10 @@ package hbuilder.android.com.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.StringUtils;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -18,12 +18,14 @@ import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountInfo;
 import hbuilder.android.com.app.AccountManager;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.DomainModel;
 import hbuilder.android.com.presenter.LoginPresenter;
 import hbuilder.android.com.presenter.contract.LoginContract;
 import hbuilder.android.com.ui.activity.LoginActivity;
 import hbuilder.android.com.ui.activity.MainActivity;
 import hbuilder.android.com.ui.activity.SplashActivity;
+import hbuilder.android.com.util.SharedPreferencesUtils;
 
 public class SplashFragment extends BaseFragment implements LoginContract.View {
     private static final String TAG = SplashFragment.class.getSimpleName();
@@ -65,6 +67,10 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
     public void getDomainNameSuccess(DomainModel domainModel) {
         if(domainModel != null){
             GALogger.d(TAG,"domainModel     "+domainModel.toString());
+            String version = domainModel.getVersion();
+            if(!TextUtils.isEmpty(version)){
+                SharedPreferencesUtils.putString(Constants.VERSION, version.replaceAll("(?i)v",""));
+            }
             List<String> gateway = domainModel.getGateway();
             if(gateway != null && gateway.size() > 0){
                 //        for (int i = 0; i < hostList.size(); i++) {

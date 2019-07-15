@@ -23,9 +23,12 @@ import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.net.retrofit.ApiConstants;
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Streaming;
 
 /**
  * @ProjectName: videochat
@@ -526,4 +529,12 @@ public interface ApiServices {
             ,@Field("id") long id
             ,@Field("financePwd") String financePwd
             ,@Field("time") long time);
+
+    /**
+     * 下载apk
+     * @return
+     */
+    @Streaming
+    @GET(ApiConstants.DOWNLOADAPK)
+    Observable<ResponseBody> download();
 }

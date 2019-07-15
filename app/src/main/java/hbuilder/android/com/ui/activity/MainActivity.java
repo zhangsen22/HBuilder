@@ -7,8 +7,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import com.growalong.util.util.AppPublicUtils;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
+import com.growalong.util.util.PackageUtil;
 import com.growalong.util.util.bean.MessageEvent;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
@@ -23,6 +26,7 @@ import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AppManager;
 import hbuilder.android.com.app.Constants;
+import hbuilder.android.com.downloads.DownloadUtils;
 import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.presenter.MainPresenter;
 import hbuilder.android.com.presenter.contract.MainContract;
@@ -79,7 +83,12 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         MyApplication.runOnUIThread(new Runnable() {
             @Override
             public void run() {
-                updateApp();
+                String version = SharedPreferencesUtils.getString(Constants.VERSION);
+                int i = AppPublicUtils.compareVersion(PackageUtil.getAppVersionName(MyApplication.appContext), version);
+                GALogger.d(TAG,"   i   "+i);
+                if(i == -1){
+                    updateApp();
+                }
             }
         }, 3000);
         //初始化presenter
@@ -226,7 +235,13 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 new OnConfirmListener() {
                     @Override
                     public void onConfirm() {
-
+                        if (!DownloadUtils.getInstance().getIsDownloading()) {
+                            /**
+                             * @param appUpdateStatus 升级状态 1:有新版本,2:强制升级
+                             */
+                            DownloadUtils.getInstance().initDownload(null, false);
+                            DownloadUtils.getInstance().download();
+                        }
                     }
                 }, null, false)
                 .show();
