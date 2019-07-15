@@ -209,7 +209,7 @@
             android:id="@+id/iv_alipay"
             android:layout_width="@dimen/y30"
             android:layout_height="@dimen/y30"
-            android:src="@mipmap/o"/>
+            android:src="@mipmap/cv"/>
 
         <ImageView
             android:layout_width="@dimen/y34"
@@ -256,7 +256,7 @@
             android:id="@+id/iv_webchat"
             android:layout_width="@dimen/y30"
             android:layout_height="@dimen/y30"
-            android:src="@mipmap/o"/>
+            android:src="@mipmap/cv"/>
 
         <ImageView
             android:layout_width="@dimen/y34"
@@ -303,7 +303,7 @@
             android:id="@+id/iv_idcards"
             android:layout_width="@dimen/y30"
             android:layout_height="@dimen/y30"
-            android:src="@mipmap/o"/>
+            android:src="@mipmap/cv"/>
 
         <ImageView
             android:layout_width="@dimen/y34"

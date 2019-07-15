@@ -147,9 +147,9 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                 boolean haveAliPayee = AccountManager.getInstance().isHaveAliPayee();
                 if (haveAliPayee) {
                     if(isUseIvAlipay){
-                        ivAlipay.setImageResource(R.mipmap.o);
+                        ivAlipay.setImageResource(R.mipmap.cv);
                     }else {
-                        ivAlipay.setImageResource(R.mipmap.bb);
+                        ivAlipay.setImageResource(R.mipmap.cw);
                     }
                     isUseIvAlipay = !isUseIvAlipay;
                 }else {
@@ -160,9 +160,9 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                 boolean haveWechatPayee = AccountManager.getInstance().isHaveWechatPayee();
                 if (haveWechatPayee) {
                     if(isUseIvWebchat){
-                        ivWebchat.setImageResource(R.mipmap.o);
+                        ivWebchat.setImageResource(R.mipmap.cv);
                     }else {
-                        ivWebchat.setImageResource(R.mipmap.bb);
+                        ivWebchat.setImageResource(R.mipmap.cw);
                     }
                     isUseIvWebchat = !isUseIvWebchat;
                 }else {
@@ -173,9 +173,9 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                 boolean haveBankPayee = AccountManager.getInstance().isHaveBankPayee();
                 if (haveBankPayee) {
                     if(isUseIvIdcards){
-                        ivIdcards.setImageResource(R.mipmap.o);
+                        ivIdcards.setImageResource(R.mipmap.cv);
                     }else {
-                        ivIdcards.setImageResource(R.mipmap.bb);
+                        ivIdcards.setImageResource(R.mipmap.cw);
                     }
                     isUseIvIdcards = !isUseIvIdcards;
                 }else {
