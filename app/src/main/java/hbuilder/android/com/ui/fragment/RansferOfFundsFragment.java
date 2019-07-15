@@ -54,6 +54,8 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
     TextView etHuazhuanMore;
     @BindView(R.id.tv_publish_zhuan)
     TextView tvPublishZhuan;
+    @BindView(R.id.tv_deteils)
+    TextView tvDeteils;
     private RansferOfFundsActivity ransferOfFundsActivity;
     private int fromType;
     private double walletNum;
@@ -86,41 +88,41 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("资金划转");
-        etHuazhuanNum.addTextChangedListener(new TextWatcherUtils(){
+        etHuazhuanNum.addTextChangedListener(new TextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
                 super.afterTextChanged(s);
                 if (!TextUtils.isEmpty(s.toString())) {
                     double num = Double.parseDouble(s.toString());
-                    if(num <= 0){
+                    if (num <= 0) {
                         ToastUtil.shortShow("划转数量不能小于0");
-                        if(usdtPriceResponse != null) {
+                        if (usdtPriceResponse != null) {
                             etHuazhuanMore.setText(new DecimalFormat("0.00").format(0) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(0 * usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.nbc));
                         }
                         return;
                     }
-                    if(fromType == 1){
-                        if(num > walletNum){
+                    if (fromType == 1) {
+                        if (num > walletNum) {
                             ToastUtil.shortShow("超出了最大划转数量");
-                            if(usdtPriceResponse != null) {
+                            if (usdtPriceResponse != null) {
                                 etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(walletNum * usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.nbc));
                             }
                             return;
                         }
 
-                        if(usdtPriceResponse != null) {
+                        if (usdtPriceResponse != null) {
                             etHuazhuanMore.setText(new DecimalFormat("0.00").format(num) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(num * usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.nbc));
                         }
-                    }else if(fromType == 2){
-                        if(num > hotNum){
+                    } else if (fromType == 2) {
+                        if (num > hotNum) {
                             ToastUtil.shortShow("超出了最大划转数量");
-                            if(usdtPriceResponse != null) {
+                            if (usdtPriceResponse != null) {
                                 etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.nbc) + " ≈ " + new DecimalFormat("0.00").format(hotNum / usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.usdt));
                             }
                             return;
                         }
 
-                        if(usdtPriceResponse != null) {
+                        if (usdtPriceResponse != null) {
                             etHuazhuanMore.setText(new DecimalFormat("0.00").format(num) + MyApplication.appContext.getResources().getString(R.string.nbc) + " ≈ " + new DecimalFormat("0.00").format(num / usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.usdt));
                         }
                     }
@@ -142,45 +144,45 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
                 ransferOfFundsActivity.finish();
                 break;
             case R.id.tv_all:
-                if(fromType == 1){
+                if (fromType == 1) {
                     etHuazhuanNum.setText(new DecimalFormat("0.000000").format(walletNum));
-                }else if(fromType == 2){
+                } else if (fromType == 2) {
                     etHuazhuanNum.setText(new DecimalFormat("0.000000").format(hotNum));
                 }
                 break;
             case R.id.tv_publish_zhuan:
                 String huazhuanNum = etHuazhuanNum.getText().toString().trim();
-                if(TextUtils.isEmpty(huazhuanNum)){
+                if (TextUtils.isEmpty(huazhuanNum)) {
                     ToastUtil.shortShow("请输入划转数量");
                     return;
                 }
                 double d_huazhuanNum = Double.parseDouble(huazhuanNum);
-                if(d_huazhuanNum <= 0){
-                    if(TextUtils.isEmpty(huazhuanNum)){
+                if (d_huazhuanNum <= 0) {
+                    if (TextUtils.isEmpty(huazhuanNum)) {
                         ToastUtil.shortShow("请输入划转数量");
                         return;
                     }
                 }
 
-                if(fromType == 1){
-                    if(d_huazhuanNum > walletNum){
+                if (fromType == 1) {
+                    if (d_huazhuanNum > walletNum) {
                         ToastUtil.shortShow("超出了最大划转数量");
                         return;
                     }
-                }else if(fromType == 2){
-                    if(d_huazhuanNum > hotNum){
+                } else if (fromType == 2) {
+                    if (d_huazhuanNum > hotNum) {
                         ToastUtil.shortShow("超出了最大划转数量");
                         return;
                     }
                 }
 
                 String huazhuanPassword = etHuazhuanPassword.getText().toString().trim();
-                if(TextUtils.isEmpty(huazhuanPassword)){
+                if (TextUtils.isEmpty(huazhuanPassword)) {
                     ToastUtil.shortShow("请输入资金密码");
                     return;
                 }
                 long currentTime = System.currentTimeMillis();
-                presenter.transfer(fromType,d_huazhuanNum,Md5Utils.getMD5(huazhuanPassword+currentTime),currentTime);
+                presenter.transfer(fromType, d_huazhuanNum, Md5Utils.getMD5(huazhuanPassword + currentTime), currentTime);
                 break;
         }
     }
@@ -197,16 +199,18 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
             walletNum = walletResponse.getWalletNum();
             hotNum = walletResponse.getHotNum();
         }
-        if(fromType == 1){
-            tvLeft.setText("币币账户" +"  (" +MyApplication.appContext.getResources().getString(R.string.usdt)+")");
-            tvRight.setText("场外账户" + "  (" +MyApplication.appContext.getResources().getString(R.string.nbc)+")");
-            if(usdtPriceResponse != null) {
+        if (fromType == 1) {
+            tvLeft.setText("币币账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.usdt) + ")");
+            tvRight.setText("场外账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.nbc) + ")");
+            tvDeteils.setText(MyApplication.appContext.getResources().getString(R.string.text11));
+            if (usdtPriceResponse != null) {
                 etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(walletNum * usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.nbc));
             }
-            }else if(fromType == 2){
-            tvLeft.setText("场外账户" + "  (" +MyApplication.appContext.getResources().getString(R.string.nbc)+")");
-            tvRight.setText("币币账户" + "  (" +MyApplication.appContext.getResources().getString(R.string.usdt)+")");
-            if(usdtPriceResponse != null) {
+        } else if (fromType == 2) {
+            tvLeft.setText("场外账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.nbc) + ")");
+            tvRight.setText("币币账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.usdt) + ")");
+            tvDeteils.setText(MyApplication.appContext.getResources().getString(R.string.text12));
+            if (usdtPriceResponse != null) {
                 etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.nbc) + " ≈ " + new DecimalFormat("0.00").format(hotNum / usdtPriceResponse.getMinSellPrice()) + MyApplication.appContext.getResources().getString(R.string.usdt));
             }
         }

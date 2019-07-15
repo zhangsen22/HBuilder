@@ -1,5 +1,6 @@
 package hbuilder.android.com.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,6 +14,7 @@ import hbuilder.android.com.presenter.LoginPresenter;
 import hbuilder.android.com.presenter.modle.LoginModle;
 import hbuilder.android.com.ui.fragment.LoginFragment;
 import hbuilder.android.com.util.SharedPreferencesUtils;
+import io.reactivex.functions.Consumer;
 
 public class LoginActivity extends BaseActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -28,7 +30,18 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initView(View mRootView) {
+        mRxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (aBoolean) {
 
+                        } else {
+                            finish();
+                        }
+                    }
+                });
     }
 
     @Override
