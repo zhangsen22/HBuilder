@@ -215,6 +215,16 @@
             android:configChanges="screenSize|keyboardHidden|orientation|fontScale|locale|uiMode|screenLayout|layoutDirection"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="hbuilder.android.com.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
