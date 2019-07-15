@@ -87,9 +87,7 @@
             android:layout_height="@dimen/y96"
             android:background="@mipmap/bv"
             android:layout_gravity="bottom|right"
-            android:layout_marginRight="@dimen/y52"
-            android:gravity="center"
-            android:layout_marginBottom="@dimen/y28"/>
+            android:gravity="center" />
 
     </FrameLayout>
 
