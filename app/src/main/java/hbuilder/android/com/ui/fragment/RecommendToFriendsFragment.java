@@ -95,6 +95,7 @@ public class RecommendToFriendsFragment extends BaseFragment {
                 recommendToFriendsActivity.finish();
                 break;
             case R.id.tv_duplicate:
+            case R.id.tv_yaoqinglianjie:
                 //获取剪贴板管理器：
                 ClipboardManager cm = (ClipboardManager) recommendToFriendsActivity.getSystemService(Context.CLIPBOARD_SERVICE);
                 // 创建普通字符型ClipData
@@ -116,8 +117,6 @@ public class RecommendToFriendsFragment extends BaseFragment {
 //
 //                获取剪切板数据
 //                ClipboardManager.getPrimaryClip();
-                break;
-            case R.id.tv_yaoqinglianjie:
                 break;
             case R.id.tuijianjiangli:
                 break;

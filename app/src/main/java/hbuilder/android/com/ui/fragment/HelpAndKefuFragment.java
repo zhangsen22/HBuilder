@@ -15,6 +15,7 @@ import hbuilder.android.com.R;
 import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.ui.activity.HelpAndKefuActivity;
 import hbuilder.android.com.ui.activity.WebViewActivity;
+import hbuilder.android.com.util.ToastUtil;
 
 public class HelpAndKefuFragment extends BaseFragment {
     private static final String TAG = HelpAndKefuFragment.class.getSimpleName();
@@ -75,8 +76,10 @@ public class HelpAndKefuFragment extends BaseFragment {
                 helpAndKefuActivity.finish();
                 break;
             case R.id.ll_kefu_webchat:
+                ToastUtil.longShow("XOTC001");
                 break;
             case R.id.ll_kefu_tb:
+                ToastUtil.longShow("XOTC001");
                 break;
             case R.id.ll_jiaocheng:
                 WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.JIAOCHENGGONGLUO, true);
