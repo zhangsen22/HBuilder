@@ -39,7 +39,7 @@ public class MyInterceptor implements Interceptor {
 //                .addHeader("token", token)
 //                .addHeader("adminUserId", "")
                 ;
-        if(!TextUtils.isEmpty(sessionId)){
+        if(!TextUtils.isEmpty(sessionId) && !url.contains(ApiConstants.login)){
             requestBuild.addHeader("cookie", sessionId);
         }
 

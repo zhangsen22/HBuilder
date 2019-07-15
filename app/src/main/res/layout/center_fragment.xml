@@ -129,8 +129,8 @@
         android:layout_marginTop="@dimen/y10">
 
         <ImageView
-            android:layout_width="@dimen/y40"
-            android:layout_height="@dimen/y40"
+            android:layout_width="@dimen/y30"
+            android:layout_height="@dimen/y30"
             android:src="@mipmap/at"/>
 
         <TextView
@@ -167,8 +167,8 @@
         android:background="@color/common_white">
 
         <ImageView
-            android:layout_width="@dimen/y40"
-            android:layout_height="@dimen/y40"
+            android:layout_width="@dimen/y30"
+            android:layout_height="@dimen/y30"
             android:src="@mipmap/as"/>
 
         <TextView
@@ -204,8 +204,8 @@
         android:background="@color/common_white">
 
         <ImageView
-            android:layout_width="@dimen/y40"
-            android:layout_height="@dimen/y40"
+            android:layout_width="@dimen/y30"
+            android:layout_height="@dimen/y30"
             android:src="@mipmap/bx" />
 
         <TextView
@@ -242,8 +242,8 @@
         android:background="@color/common_white">
 
         <ImageView
-            android:layout_width="@dimen/y40"
-            android:layout_height="@dimen/y40"
+            android:layout_width="@dimen/y30"
+            android:layout_height="@dimen/y30"
             android:src="@mipmap/by"/>
 
         <TextView
@@ -280,8 +280,8 @@
         android:background="@color/common_white">
 
         <ImageView
-            android:layout_width="@dimen/y40"
-            android:layout_height="@dimen/y40"
+            android:layout_width="@dimen/y30"
+            android:layout_height="@dimen/y30"
             android:src="@mipmap/bw"/>
 
         <TextView
@@ -318,8 +318,8 @@
         android:background="@color/common_white">
 
         <ImageView
-            android:layout_width="@dimen/y40"
-            android:layout_height="@dimen/y40"
+            android:layout_width="@dimen/y30"
+            android:layout_height="@dimen/y30"
             android:src="@mipmap/av"/>
 
         <TextView
@@ -394,8 +394,8 @@
         android:background="@color/common_white">
 
         <ImageView
-            android:layout_width="@dimen/y40"
-            android:layout_height="@dimen/y40"
+            android:layout_width="@dimen/y30"
+            android:layout_height="@dimen/y30"
             android:src="@mipmap/ax"/>
 
         <TextView
