@@ -12,16 +12,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
-
 import com.growalong.util.util.GALogger;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
-
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AppManager;
@@ -38,7 +35,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
@@ -159,7 +155,6 @@ public class DownloadUtils {
                             i.setDataAndType(Uri.parse("file://" + filePath),
                                     "application/vnd.android.package-archive");
                         }
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         MyApplication.appContext.startActivity(i);
 
                     }
@@ -222,7 +217,7 @@ public class DownloadUtils {
 
             @Override
             public void onProgress(int progress) {
-
+                GALogger.d(TAG,"progress   "+progress);
                 int pro = (int) ((double) progress / fileSize * 100);
 
                 Message message = Message.obtain();
