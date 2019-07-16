@@ -207,15 +207,17 @@
 
         <ImageView
             android:id="@+id/iv_alipay"
-            android:layout_width="@dimen/y30"
-            android:layout_height="@dimen/y30"
-            android:src="@mipmap/cv"/>
+            android:layout_width="@dimen/y56"
+            android:layout_height="@dimen/y92"
+            android:src="@mipmap/cv"
+            android:paddingTop="@dimen/y30"
+            android:paddingBottom="@dimen/y30"
+            android:paddingRight="@dimen/y26"/>
 
         <ImageView
             android:layout_width="@dimen/y34"
             android:layout_height="@dimen/y34"
-            android:src="@mipmap/g"
-            android:layout_marginLeft="@dimen/y26"/>
+            android:src="@mipmap/g" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -254,15 +256,17 @@
 
         <ImageView
             android:id="@+id/iv_webchat"
-            android:layout_width="@dimen/y30"
-            android:layout_height="@dimen/y30"
-            android:src="@mipmap/cv"/>
+            android:layout_width="@dimen/y56"
+            android:layout_height="@dimen/y92"
+            android:src="@mipmap/cv"
+            android:paddingTop="@dimen/y30"
+            android:paddingBottom="@dimen/y30"
+            android:paddingRight="@dimen/y26"/>
 
         <ImageView
             android:layout_width="@dimen/y34"
             android:layout_height="@dimen/y34"
-            android:src="@mipmap/h"
-            android:layout_marginLeft="@dimen/y26"/>
+            android:src="@mipmap/h" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -301,15 +305,17 @@
 
         <ImageView
             android:id="@+id/iv_idcards"
-            android:layout_width="@dimen/y30"
-            android:layout_height="@dimen/y30"
-            android:src="@mipmap/cv"/>
+            android:layout_width="@dimen/y56"
+            android:layout_height="@dimen/y92"
+            android:src="@mipmap/cv"
+            android:paddingTop="@dimen/y30"
+            android:paddingBottom="@dimen/y30"
+            android:paddingRight="@dimen/y26"/>
 
         <ImageView
             android:layout_width="@dimen/y34"
             android:layout_height="@dimen/y34"
-            android:src="@mipmap/f"
-            android:layout_marginLeft="@dimen/y26"/>
+            android:src="@mipmap/f" />
 
         <TextView
             android:layout_width="wrap_content"
