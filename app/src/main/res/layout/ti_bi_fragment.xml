@@ -154,7 +154,7 @@
                     android:textColor="@color/color_999999"
                     android:textSize="12sp"
                     android:inputType="numberDecimal|number"
-                    android:hint="最小提币数量195"
+                    android:hint="最小提币数量200"
                     android:layout_marginLeft="@dimen/y126"/>
 
                 <TextView
@@ -348,7 +348,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="·最小提币数量为：195USDT，提币手续费为2USDT。\n·为保障资金安全，当您账户的安全策略变更、密码更改，我们会对提币进行人工审核。\n·请务必确认电脑及浏览器安全，防止信息被篡改或泄露。"
+                android:text="·最小提币数量为：200USDT，提币手续费为2USDT。\n·为保障资金安全，当您账户的安全策略变更、密码更改，我们会对提币进行人工审核。\n·请务必确认电脑及浏览器安全，防止信息被篡改或泄露。"
                 android:textSize="12sp"
                 android:textColor="@color/color_999999"
                 android:lineSpacingExtra="@dimen/y6"
