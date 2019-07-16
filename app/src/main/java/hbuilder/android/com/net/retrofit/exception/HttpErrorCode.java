@@ -1,11 +1,13 @@
 package hbuilder.android.com.net.retrofit.exception;
 
+import com.growalong.util.util.GALogger;
 import hbuilder.android.com.BuildConfig;
 
 /**
  * HTTP API 错误代码
  */
 public class HttpErrorCode {
+    private static final String TAG = HttpErrorCode.class.getSimpleName();
     /**
      * 根据错误代码获取错误字符串
      *
@@ -14,6 +16,7 @@ public class HttpErrorCode {
      * @return 返回对应描述的string
      */
     public static String getErrorMessage(int error, String errordesc) {
+        GALogger.d(TAG,"error    "+error);
         String resString = errordesc;
         if (error == 1) {
             if(BuildConfig.DEBUG){
@@ -280,8 +283,10 @@ public class HttpErrorCode {
             }else {
                 resString = "刷单配置错误";
             }
-        }else {
-            resString = "未知错误";
+        }else if(error == 1009){
+            resString = "网络异常,请检查网络设置";
+        } else {
+            resString = "服务器异常";
         }
         return resString;
     }

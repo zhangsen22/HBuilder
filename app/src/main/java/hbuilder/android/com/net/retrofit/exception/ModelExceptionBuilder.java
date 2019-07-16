@@ -1,5 +1,8 @@
 package hbuilder.android.com.net.retrofit.exception;
 
+import com.growalong.util.util.NetWorkUtil;
+
+import hbuilder.android.com.MyApplication;
 import retrofit2.HttpException;
 
 /**
@@ -23,7 +26,13 @@ public class ModelExceptionBuilder {
             return m;
         } else {
             ModelException m = new ModelException(e);
-            m.mMessage = "未知错误";
+            if (NetWorkUtil.isNetworkConnected(MyApplication.appContext)) {
+                String errorDesc = HttpErrorCode.getErrorMessage(m.mCode, m.mMessage);
+                m.mMessage = errorDesc;
+            }else {
+                String errorDesc = HttpErrorCode.getErrorMessage(1009, m.mMessage);
+                m.mMessage = errorDesc;
+            }
             return m;
         }
     }
