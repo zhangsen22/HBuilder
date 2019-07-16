@@ -84,7 +84,7 @@
             android:textColor="@color/color_999999"
             android:textSize="12sp"
             android:inputType="number"
-            android:hint="请输入您预想的最小售出数量"
+            android:hint="请输入您预想的最小购买数量"
             android:layout_marginLeft="@dimen/y16"/>
 
     </LinearLayout>
