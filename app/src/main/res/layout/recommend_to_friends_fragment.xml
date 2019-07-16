@@ -152,7 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="@dimen/y110">
+                android:layout_marginLeft="@dimen/y80">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -165,7 +165,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="直推用户享受成交单金额0.1%的交易奖励；二级推广享受成交单金额0.05%的交易奖励。"
+                    android:text="获得直推用户交易单金额0.1%的交易奖励，获得二级用户成交单金额0.05%的交易奖励。"
                     android:textSize="12sp"
                     android:textColor="@color/color_666666"
                     android:layout_marginTop="@dimen/y22"
@@ -191,7 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginLeft="@dimen/y110">
+                    android:layout_marginLeft="@dimen/y80">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -204,7 +204,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="直推10人注册可申请成为代理，代理享受所有下级成交单金额0.1%的交易奖励。"
+                        android:text="直推20人注册并有效挂单即可申请成为一级代理，一级代理获得所有伞下成员成交单金额0.2%的代理奖励，一级代理可发展二级代理，其获得一级代理所有收益的10％奖励。（挂单奖励分润体同上）"
                         android:textSize="12sp"
                         android:textColor="@color/color_666666"
                         android:layout_marginTop="@dimen/y22"
