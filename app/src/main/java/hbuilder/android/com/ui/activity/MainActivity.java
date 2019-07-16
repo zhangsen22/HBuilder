@@ -188,13 +188,13 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         GALogger.d(TAG, "type    " + type);
         switch (type) {
             case 1:
-                noscrollViewPager.setCurrentItem(2, false);
-                changeRadioButton(2);
+                noscrollViewPager.setCurrentItem(1, false);
+                changeRadioButton(1);
                 onActivityResult(Constants.REQUESTCODE_13, RESULT_OK, null);
                 break;
             case 2:
-                noscrollViewPager.setCurrentItem(2, false);
-                changeRadioButton(2);
+                noscrollViewPager.setCurrentItem(1, false);
+                changeRadioButton(1);
                 onActivityResult(Constants.REQUESTCODE_14, RESULT_OK, null);
                 break;
         }
@@ -209,8 +209,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void usdtPriceError() {
-        UsdtPriceResponse mUsdtPriceResponse = new UsdtPriceResponse(6.90, 6.90);
-        SharedPreferencesUtils.putString(Constants.USDTPRICE, GsonUtil.getInstance().objTojson(mUsdtPriceResponse));
+//        UsdtPriceResponse mUsdtPriceResponse = new UsdtPriceResponse(6.90, 6.90);
+//        SharedPreferencesUtils.putString(Constants.USDTPRICE, GsonUtil.getInstance().objTojson(mUsdtPriceResponse));
     }
 
     private void updateApp() {

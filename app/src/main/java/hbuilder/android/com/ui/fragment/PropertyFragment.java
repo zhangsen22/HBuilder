@@ -196,7 +196,7 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
                 tvAccountSp.setText(MyApplication.appContext.getResources().getString(R.string.text9));
                 double walletNum = mWalletResponse.getWalletNum();
                 double walletFreezeNum = mWalletResponse.getWalletFreezeNum();
-                double minSellPrice = usdtPriceResponse.getMinSellPrice();
+                double minSellPrice = usdtPriceResponse.getMinSellUsdtPrice();
                 tvAccountMoney1.setText(new DecimalFormat("0.00").format(walletNum + walletFreezeNum));
                 tvAccountMoney2.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format((walletNum + walletFreezeNum) * minSellPrice));
                 tvBiType.setText(MyApplication.appContext.getResources().getString(R.string.usdt));

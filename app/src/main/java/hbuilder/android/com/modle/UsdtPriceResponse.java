@@ -6,11 +6,7 @@ public class UsdtPriceResponse extends BaseBean{
     private double minBuyPrice;//:6.75    //最低买价
     private double maxSellPrice;//:6.76    //最高卖价
     private double minSellPrice;//:6.75    //最低卖价
-
-    public UsdtPriceResponse(double maxSellPrice, double minSellPrice) {
-        this.maxSellPrice = maxSellPrice;
-        this.minSellPrice = minSellPrice;
-    }
+    private double minSellUsdtPrice;//usdt实时价格
 
     public double getMaxBuyPrice() {
         return maxBuyPrice;
@@ -28,6 +24,10 @@ public class UsdtPriceResponse extends BaseBean{
         return minSellPrice;
     }
 
+    public double getMinSellUsdtPrice() {
+        return minSellUsdtPrice;
+    }
+
     @Override
     public String toString() {
         return "UsdtPriceResponse{" +
@@ -35,6 +35,7 @@ public class UsdtPriceResponse extends BaseBean{
                 ", minBuyPrice=" + minBuyPrice +
                 ", maxSellPrice=" + maxSellPrice +
                 ", minSellPrice=" + minSellPrice +
+                ", minSellUsdtPrice=" + minSellUsdtPrice +
                 '}';
     }
 }
