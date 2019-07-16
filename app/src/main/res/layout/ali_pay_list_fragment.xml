@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:background="@mipmap/cl"
         android:layout_gravity="center_horizontal"
-        android:text="添加新支付宝"
+        android:text="@string/text22"
         android:gravity="center"
         android:textColor="@color/common_white"
         android:textSize="14sp"

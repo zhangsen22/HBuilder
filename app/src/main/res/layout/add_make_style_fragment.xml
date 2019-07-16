@@ -193,6 +193,6 @@
         android:textSize="10sp"
         android:textColor="@color/color_666666"
         android:lineSpacingExtra="@dimen/y10"
-        android:text="·请至少添加微信收款方式，才能进行法币交易。\n·默认微信和支付宝收款限额5000，收款笔数限制10笔。"/>
+        android:text="@string/text13"/>
 
 </LinearLayout>
