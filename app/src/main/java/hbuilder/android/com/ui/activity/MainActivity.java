@@ -216,7 +216,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     private void updateApp() {
         //带确认和取消按钮的弹窗
         new XPopup.Builder(this)
-//                         .dismissOnTouchOutside(false)
+                .dismissOnBackPressed(false)
+                .dismissOnTouchOutside(false)
                 // 设置弹窗显示和隐藏的回调监听
 //                         .autoDismiss(false)
 //                        .popupAnimation(PopupAnimation.NoAnimation)

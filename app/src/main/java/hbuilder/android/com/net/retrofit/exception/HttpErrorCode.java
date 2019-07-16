@@ -286,7 +286,9 @@ public class HttpErrorCode {
         }else if(error == 1009){
             resString = "网络异常,请检查网络设置";
         } else {
-            resString = "服务器异常";
+            if(BuildConfig.DEBUG) {
+                resString = "服务器异常";
+            }
         }
         return resString;
     }
