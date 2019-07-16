@@ -233,19 +233,29 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
                     LoginActivity.startThis(splashActivity);
                     splashActivity.finish();
                 }
-            },1000);
+            },3000);
         }
     }
 
     @Override
     public void loginSuccess(AccountInfo accountInfo) {
-        MainActivity.startThis(splashActivity);
-        splashActivity.finish();
+        MyApplication.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                MainActivity.startThis(splashActivity);
+                splashActivity.finish();
+            }
+        },3000);
     }
 
     @Override
     public void loginError() {
-        LoginActivity.startThis(splashActivity);
-        splashActivity.finish();
+        MyApplication.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                LoginActivity.startThis(splashActivity);
+                splashActivity.finish();
+            }
+        },3000);
     }
 }
