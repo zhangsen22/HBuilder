@@ -26,13 +26,13 @@ import hbuilder.android.com.presenter.contract.CenterContract;
 import hbuilder.android.com.presenter.modle.CenterModle;
 import hbuilder.android.com.ui.activity.AddMakeStyleActivity;
 import hbuilder.android.com.ui.activity.AwardDetailsActivity;
-import hbuilder.android.com.ui.activity.HelpAndKefuActivity;
 import hbuilder.android.com.ui.activity.IdentityActivity;
 import hbuilder.android.com.ui.activity.LoginActivity;
 import hbuilder.android.com.ui.activity.MainActivity;
 import hbuilder.android.com.ui.activity.MessageCenterActivity;
 import hbuilder.android.com.ui.activity.RecommendToFriendsActivity;
 import hbuilder.android.com.ui.activity.SecurityCenterActivity;
+import hbuilder.android.com.ui.activity.WebViewActivity;
 import hbuilder.android.com.util.ToastUtil;
 
 public class CenterFragment extends BaseFragment implements CenterContract.View {
@@ -147,8 +147,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                 RecommendToFriendsActivity.startThis(mainActivity);
                 break;
             case R.id.ll_lx_kf:
-                HelpAndKefuActivity.startThis(mainActivity);
-//                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.KEFU, true);
+                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.KEFUANDHELP, true);
                 break;
             case R.id.ll_center_message:
                 MessageCenterActivity.startThis(mainActivity);
