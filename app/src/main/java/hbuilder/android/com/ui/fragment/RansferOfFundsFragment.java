@@ -29,8 +29,8 @@ import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
 
 /**
- * 1  form  钱包账户
- * 2  from  交易账户
+ * 1  form  币币账户
+ * 2  from  场外账户
  */
 
 public class RansferOfFundsFragment extends BaseFragment implements RansferOfFundsContract.View {
@@ -96,34 +96,31 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
                     double num = Double.parseDouble(s.toString());
                     if (num <= 0) {
                         ToastUtil.shortShow("划转数量不能小于0");
-                        if (usdtPriceResponse != null) {
-                            etHuazhuanMore.setText(new DecimalFormat("0.00").format(0) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(0 * usdtPriceResponse.getMinSellUsdtPrice()) + MyApplication.appContext.getResources().getString(R.string.nbc));
-                        }
                         return;
                     }
                     if (fromType == 1) {
                         if (num > walletNum) {
                             ToastUtil.shortShow("超出了最大划转数量");
                             if (usdtPriceResponse != null) {
-                                etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(walletNum * usdtPriceResponse.getMinSellUsdtPrice()) + MyApplication.appContext.getResources().getString(R.string.nbc));
+                                etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(walletNum * usdtPriceResponse.getMinSellUsdtPrice()/usdtPriceResponse.getApiConvertLowerAmount()) + MyApplication.appContext.getResources().getString(R.string.nbc));
                             }
                             return;
                         }
 
                         if (usdtPriceResponse != null) {
-                            etHuazhuanMore.setText(new DecimalFormat("0.00").format(num) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(num * usdtPriceResponse.getMinSellUsdtPrice()) + MyApplication.appContext.getResources().getString(R.string.nbc));
+                            etHuazhuanMore.setText(new DecimalFormat("0.00").format(num) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(num * usdtPriceResponse.getMinSellUsdtPrice()/usdtPriceResponse.getApiConvertLowerAmount()) + MyApplication.appContext.getResources().getString(R.string.nbc));
                         }
                     } else if (fromType == 2) {
                         if (num > hotNum) {
                             ToastUtil.shortShow("超出了最大划转数量");
                             if (usdtPriceResponse != null) {
-                                etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.nbc) + " ≈ " + new DecimalFormat("0.00").format(hotNum / usdtPriceResponse.getMinSellUsdtPrice()) + MyApplication.appContext.getResources().getString(R.string.usdt));
+                                etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.nbc) + " ≈ " + new DecimalFormat("0.00").format(hotNum / usdtPriceResponse.getMinSellUsdtPrice()*usdtPriceResponse.getApiConvertLowerAmount()) + MyApplication.appContext.getResources().getString(R.string.usdt));
                             }
                             return;
                         }
 
                         if (usdtPriceResponse != null) {
-                            etHuazhuanMore.setText(new DecimalFormat("0.00").format(num) + MyApplication.appContext.getResources().getString(R.string.nbc) + " ≈ " + new DecimalFormat("0.00").format(num / usdtPriceResponse.getMinSellUsdtPrice()) + MyApplication.appContext.getResources().getString(R.string.usdt));
+                            etHuazhuanMore.setText(new DecimalFormat("0.00").format(num) + MyApplication.appContext.getResources().getString(R.string.nbc) + " ≈ " + new DecimalFormat("0.00").format(num / usdtPriceResponse.getMinSellUsdtPrice()*usdtPriceResponse.getApiConvertLowerAmount()) + MyApplication.appContext.getResources().getString(R.string.usdt));
                         }
                     }
                 }
@@ -204,14 +201,14 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
             tvRight.setText("场外账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.nbc) + ")");
             tvDeteils.setText(MyApplication.appContext.getResources().getString(R.string.text11));
             if (usdtPriceResponse != null) {
-                etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(walletNum * usdtPriceResponse.getMinSellUsdtPrice()) + MyApplication.appContext.getResources().getString(R.string.nbc));
+                etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(walletNum * usdtPriceResponse.getMinSellUsdtPrice()/usdtPriceResponse.getApiConvertLowerAmount()) + MyApplication.appContext.getResources().getString(R.string.nbc));
             }
         } else if (fromType == 2) {
             tvLeft.setText("场外账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.nbc) + ")");
             tvRight.setText("币币账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.usdt) + ")");
             tvDeteils.setText(MyApplication.appContext.getResources().getString(R.string.text12));
             if (usdtPriceResponse != null) {
-                etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.nbc) + " ≈ " + new DecimalFormat("0.00").format(hotNum / usdtPriceResponse.getMinSellUsdtPrice()) + MyApplication.appContext.getResources().getString(R.string.usdt));
+                etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.nbc) + " ≈ " + new DecimalFormat("0.00").format(hotNum / usdtPriceResponse.getMinSellUsdtPrice()*usdtPriceResponse.getApiConvertLowerAmount()) + MyApplication.appContext.getResources().getString(R.string.usdt));
             }
         }
     }

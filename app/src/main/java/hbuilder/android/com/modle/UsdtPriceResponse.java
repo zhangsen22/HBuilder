@@ -7,6 +7,7 @@ public class UsdtPriceResponse extends BaseBean{
     private double maxSellPrice;//:6.76    //最高卖价
     private double minSellPrice;//:6.75    //最低卖价
     private double minSellUsdtPrice;//usdt实时价格
+    private double apiConvertLowerAmount;//usdt nbc互转浮动值(已经用1减过了 可以直接用)
 
     public double getMaxBuyPrice() {
         return maxBuyPrice;
@@ -28,6 +29,10 @@ public class UsdtPriceResponse extends BaseBean{
         return minSellUsdtPrice;
     }
 
+    public double getApiConvertLowerAmount() {
+        return apiConvertLowerAmount;
+    }
+
     @Override
     public String toString() {
         return "UsdtPriceResponse{" +
@@ -36,6 +41,7 @@ public class UsdtPriceResponse extends BaseBean{
                 ", maxSellPrice=" + maxSellPrice +
                 ", minSellPrice=" + minSellPrice +
                 ", minSellUsdtPrice=" + minSellUsdtPrice +
+                ", apiConvertLowerAmount=" + apiConvertLowerAmount +
                 '}';
     }
 }
