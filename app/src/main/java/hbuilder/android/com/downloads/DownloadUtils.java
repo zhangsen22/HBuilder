@@ -113,7 +113,7 @@ public class DownloadUtils {
      *
      */
     public void download() {
-        final String filePath = FileUtils.getAPKCacheDir()+ "builder_update.apk";
+        final String filePath = FileUtils.getAPKCacheDir()+ "xotc.apk";
         mIsDownloading = true;
         retrofit.create(ApiServices.class)
                 .download()
