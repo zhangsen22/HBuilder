@@ -139,14 +139,14 @@ public class PackageUtil {
         return null;
     }
 
-    public static String getHandSetInfo(Context context) {
-        String handSetInfo =
-                "手机型号:" + Build.MODEL +
-                        ",SDK版本:" + Build.VERSION.SDK +
-                        ",系统版本:" + Build.VERSION.RELEASE +
-                        ",软件版本:" + getAppVersionName(context);
-        return handSetInfo;
-    }
+//    public static String getHandSetInfo(Context context) {
+//        String handSetInfo =
+//                "手机型号:" + Build.MODEL +
+//                        ",SDK版本:" + Build.VERSION.SDK +
+//                        ",系统版本:" + Build.VERSION.RELEASE +
+//                        ",软件版本:" + getAppVersionName(context);
+//        return handSetInfo;
+//    }
 
     public static String getChannelId() {
 

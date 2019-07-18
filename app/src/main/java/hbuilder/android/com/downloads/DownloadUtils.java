@@ -13,6 +13,9 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import com.growalong.util.util.GALogger;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -173,20 +176,18 @@ public class DownloadUtils {
         if (file.exists()) {
             file.delete();
         }
-
-        FileOutputStream fos = null;
+        BufferedInputStream in=null;
+        BufferedOutputStream out=null;
         try {
-            fos = new FileOutputStream(file);
-
-            byte[] b = new byte[1024];
-
-            int len;
-            while ((len = inputString.read(b)) != -1) {
-                fos.write(b, 0, len);
+            in=new BufferedInputStream(inputString);
+            out=new BufferedOutputStream(new FileOutputStream(file));
+            int len=-1;
+            byte[] b=new byte[1024];
+            while((len=in.read(b))!=-1){
+                out.write(b,0,len);
             }
-            inputString.close();
-            fos.close();
-
+            in.close();
+            out.close();
         } catch (FileNotFoundException e) {
             mIsDownloading = false;
             if (listener != null) {
