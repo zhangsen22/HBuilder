@@ -1,8 +1,7 @@
 package hbuilder.android.com.app;
-
 import hbuilder.android.com.util.FileUtils;
-
 /**
+ * 静态变量类
  */
 public class Constants {
     public static final String HTML_BASE = "https://down.xnbc999.top/";//h5域名和apk下载地址域名
@@ -13,6 +12,7 @@ public class Constants {
     public static final String NOTIFYCLICK = HTML_BASE+"msg.html";
     public static final String USERXIEYI = HTML_BASE+"userpro.html";
     public static final String KEFUANDHELP = HTML_BASE+"help.html";
+    public static final String WEBCHATTG = HTML_BASE+"service.html";//微信和tg按钮
     public static final String SESSIONID = "sessionid";
     public static final String USDTPRICE = "Usdt_Price";
     public static final String VERSION = "version";
