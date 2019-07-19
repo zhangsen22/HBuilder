@@ -63,8 +63,6 @@ public class BaseRetrofitClient {
         GALogger.d(TAG, "hostAddress   " + hostAddress);
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(hostAddress)
-                //一定要在gsonConverter前面,否则gson会拦截所有的解析方式
-//                .addConverterFactory(NobodyConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io())) //Observable will execute on the 'io' scheduler
                 .callFactory(mOkHttpClient)

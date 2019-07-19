@@ -6,6 +6,7 @@ import android.view.View;
 import com.growalong.util.util.ActivityUtils;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.presenter.AliPayListPresenter;
 import hbuilder.android.com.presenter.modle.AliPayListModle;
 import hbuilder.android.com.ui.fragment.AliPayListFragment;
@@ -43,7 +44,7 @@ public class AliPayListActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(resultCode == RESULT_OK){
-            if(requestCode == 100){
+            if(requestCode == Constants.REQUESTCODE_15){
                 aliPayListFragment.onActivityResultF();
             }
         }

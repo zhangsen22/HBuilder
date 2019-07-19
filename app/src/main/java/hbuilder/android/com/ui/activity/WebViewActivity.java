@@ -35,19 +35,18 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.growalong.util.util.CommonTools;
 import com.growalong.util.util.GALogger;
-
+import com.growalong.util.wegit.BGAProgressBar;
 import java.io.File;
 import java.lang.ref.WeakReference;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.util.CommonFunction;
+import static android.view.View.VISIBLE;
 
 /**
  * 所有WebView的显示 (可用于显示点击底部广告Banner条打开的网页)
@@ -69,6 +68,8 @@ public class WebViewActivity extends BaseActivity {
     WebView mWebView;
     @BindView(R.id.fl_title_comtent)
     FrameLayout flTitleComtent;
+    @BindView(R.id.pb_main_demo4)
+    BGAProgressBar pbMainDemo4;
 
     private String mUrl;
     private boolean mIsCantainGoback;//是否包含多级web界面跳转
@@ -140,7 +141,7 @@ public class WebViewActivity extends BaseActivity {
         mWebChromeClient = new WebChromeClientImpl(this);
 
         mWebView.requestFocus();
-        mWebView.setVisibility(View.VISIBLE);
+        mWebView.setVisibility(VISIBLE);
         mWebView.getSettings().setPluginState(PluginState.ON);
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -160,7 +161,7 @@ public class WebViewActivity extends BaseActivity {
 
     }
 
-    static class WebChromeClientImpl extends WebChromeClient {
+    public class WebChromeClientImpl extends WebChromeClient {
         private WeakReference<WebViewActivity> mActivity;
 
         public WebChromeClientImpl(WebViewActivity activity) {
@@ -173,6 +174,18 @@ public class WebViewActivity extends BaseActivity {
             if (activity.isDestroyed()) {
                 return;
             }
+            if (newProgress == 100) {
+                pbMainDemo4.setProgress(100);
+                MyApplication.runOnUIThread(runnable, 200);//0.2秒后隐藏进度条
+            } else if (pbMainDemo4.getVisibility() == View.INVISIBLE) {
+                pbMainDemo4.setVisibility(VISIBLE);
+            }
+            //设置初始进度10，这样会显得效果真一点，总不能从1开始吧
+            if (newProgress < 10) {
+                newProgress = 10;
+            }
+            //不断更新进度
+            pbMainDemo4.setProgress(newProgress);
             GALogger.d(TAG, "newProgress: " + newProgress);
         }
 
@@ -709,4 +722,14 @@ public class WebViewActivity extends BaseActivity {
 //        intent.putExtra("slide_user_id", idBean.user_id);
 //        startActivity(intent);
     }
+
+    /**
+     *刷新界面（此处为加载完成后进度消失）
+     */
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            pbMainDemo4.setVisibility(View.INVISIBLE);
+        }
+    };
 }

@@ -25,6 +25,7 @@ import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.AliPayPayeeItemModel;
 import hbuilder.android.com.modle.AliPayPayeeItemModelPayee;
 import hbuilder.android.com.modle.AliPayPayeeModel;
@@ -202,7 +203,7 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
                 aliPayListActivity.finish();
                 break;
             case R.id.tv_submit_forget_login:
-                PaySettingActivity.startThis(aliPayListActivity,1,100);
+                PaySettingActivity.startThis(aliPayListActivity,1,Constants.REQUESTCODE_15);
                 break;
         }
     }

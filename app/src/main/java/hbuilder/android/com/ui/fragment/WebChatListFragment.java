@@ -26,6 +26,7 @@ import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.modle.PaySetupModelWebChat;
 import hbuilder.android.com.modle.WeChatPayeeItemModel;
@@ -138,8 +139,8 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
                 webChatListActivity.finish();
                 break;
             case R.id.tv_submit_forget_login:
-                ToastUtil.shortShow("暂未开放");
-//                PaySettingActivity.startThis(webChatListActivity,2,102);
+                //id:0                //如果为新加,设为0,如果为修改,此处为修改的收款方式的id
+                PaySettingActivity.startThis(webChatListActivity,2,Constants.REQUESTCODE_17);
                 break;
         }
     }

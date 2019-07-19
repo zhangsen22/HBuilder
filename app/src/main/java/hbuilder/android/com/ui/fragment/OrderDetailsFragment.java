@@ -113,7 +113,7 @@ public class OrderDetailsFragment extends BaseFragment {
                 tvOrderDetailsStatus.setText("已关闭");
             }
             tvOrderDetailsPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(orderDetailsModle.getNum()*orderDetailsModle.getPrice()));
-            tvOrderDetailsSingleprice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(orderDetailsModle.getPrice()));
+            tvOrderDetailsSingleprice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.0000").format(orderDetailsModle.getPrice()));
             tvOrderDetailsNum.setText(new DecimalFormat("0.00").format(orderDetailsModle.getNum()));
             tvOrderDetailsTime.setText(DateUtil.getCurrentDateString3(orderDetailsModle.getCreateTime()));
             tvOrderDetailsCankaoma.setText(orderDetailsModle.getPayCode()+"");

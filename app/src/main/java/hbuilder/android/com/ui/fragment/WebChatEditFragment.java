@@ -22,7 +22,10 @@ import com.example.qrcode.Constant;
 import com.example.qrcode.ScannerActivity;
 import com.example.qrcode.utils.QRCodeUtil;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
+import com.lxj.xpopup.XPopup;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
@@ -32,6 +35,8 @@ import hbuilder.android.com.presenter.WebChatEditPresenter;
 import hbuilder.android.com.presenter.contract.WebChatEditContract;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
+import hbuilder.android.com.ui.widget.CenterErWeiMaPopupView;
+import hbuilder.android.com.ui.widget.WenChatBindingPopupView;
 import hbuilder.android.com.util.ToastUtil;
 
 public class WebChatEditFragment extends BaseFragment implements WebChatEditContract.View {
@@ -91,8 +96,15 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
 
     @Override
     public void wechatSuccess(String name, String account, String base64Img) {
-        paySettingActivity.setResult(Activity.RESULT_OK);
-        paySettingActivity.finish();
+        new XPopup.Builder(getContext())
+                .dismissOnBackPressed(false)
+                .dismissOnTouchOutside(false)
+                .hasStatusBarShadow(true) //启用状态栏阴影
+                .asCustom(new WenChatBindingPopupView(getContext()))
+                .show();
+
+//        paySettingActivity.setResult(Activity.RESULT_OK);
+//        paySettingActivity.finish();
     }
 
     @Override

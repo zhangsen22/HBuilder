@@ -25,6 +25,7 @@ import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.BankPayeeItemModel;
 import hbuilder.android.com.modle.BankPayeeItemModelPayee;
 import hbuilder.android.com.modle.BankPayeeModel;
@@ -135,7 +136,7 @@ public class IdCastPayListFragment extends BaseFragment implements IdCastPayList
                 idCastPayListActivity.finish();
                 break;
             case R.id.tv_submit_forget_login:
-                PaySettingActivity.startThis(idCastPayListActivity, 3,101);
+                PaySettingActivity.startThis(idCastPayListActivity, 3,Constants.REQUESTCODE_16);
                 break;
         }
     }
