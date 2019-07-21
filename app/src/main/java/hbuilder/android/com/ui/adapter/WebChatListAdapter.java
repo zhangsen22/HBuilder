@@ -96,7 +96,7 @@ public class WebChatListAdapter extends PowerAdapter<WeChatPayeeItemModel> {
                 }else {
                     if (watchStop) {
                         tvWebchatCheck.setVisibility(View.GONE);
-                        tvShuoming.setText("已失效");
+                        tvShuoming.setText("绑定中");
                         tvShuoming.setTextColor(mContext.getResources().getColor(R.color.color_ff0000));
                         tvReedit.setVisibility(View.VISIBLE);
                     } else {
