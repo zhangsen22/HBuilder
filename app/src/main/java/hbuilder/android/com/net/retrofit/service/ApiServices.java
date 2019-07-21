@@ -7,6 +7,7 @@ import hbuilder.android.com.modle.BuyResponse;
 import hbuilder.android.com.modle.DomainModel;
 import hbuilder.android.com.modle.FinanceLogResponse;
 import hbuilder.android.com.modle.ImageCodeResponse;
+import hbuilder.android.com.modle.InvitationResponse;
 import hbuilder.android.com.modle.LargeAmountResponse;
 import hbuilder.android.com.modle.MessageCenterResponse;
 import hbuilder.android.com.modle.MyEntrustinfoResponse;
@@ -21,6 +22,8 @@ import hbuilder.android.com.modle.SellResponse;
 import hbuilder.android.com.modle.SmsCodeResponse;
 import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.modle.WalletResponse;
+import hbuilder.android.com.modle.WebChatEditModle;
+import hbuilder.android.com.modle.WechatLoginModle;
 import hbuilder.android.com.net.retrofit.ApiConstants;
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -492,13 +495,13 @@ public interface ApiServices {
      */
     @FormUrlEncoded
     @POST(ApiConstants.wechat)
-    Observable<BaseBean> wechat(@Field("id") long id
-            ,@Field("name") String name
-            ,@Field("account") String account
-            ,@Field("base64Img") String base64Img
-            ,@Field("empBase64Img") String empBase64Img
-            ,@Field("financePwd") String financePwd
-            ,@Field("time") long time);
+    Observable<WebChatEditModle> wechat(@Field("id") long id
+            , @Field("name") String name
+            , @Field("account") String account
+            , @Field("base64Img") String base64Img
+            , @Field("empBase64Img") String empBase64Img
+            , @Field("financePwd") String financePwd
+            , @Field("time") long time);
 
     /**
      * 删除收款设置
@@ -537,4 +540,22 @@ public interface ApiServices {
     @Streaming
     @GET(ApiConstants.DOWNLOADAPK)
     Observable<ResponseBody> download();
+
+    /**
+     * 微信登录
+     * @param paymentId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.wechatLogin)
+    Observable<WechatLoginModle> wechatLogin(@Field("paymentId") long paymentId);
+
+    /**
+     * 推荐奖励
+     * @param upUserId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.recommendReward)
+    Observable<InvitationResponse> recommendReward(@Field("upUserId") long upUserId);
 }

@@ -5,8 +5,8 @@ package hbuilder.android.com.net.retrofit;
  */
 public class ApiConstants {
     //app访问的初始地址
-//    public static String getGetDomainNameBase = "http://54.254.190.23:8330/";//测试环境
-        public static String getGetDomainNameBase = "https://d.xotc.fun/";//线上环境
+    public static String getGetDomainNameBase = "http://54.254.190.23:8330/";//测试环境
+//        public static String getGetDomainNameBase = "https://d.xotc.fun/";//线上环境
     public static final String getDomainName = "app/config";
     public static final String getImageCode = "user/imageCode";//获取图片验证码
     public static final String senSmsCode = "user/smsCode";//发送验证码
@@ -47,5 +47,6 @@ public class ApiConstants {
     public static final String detelePay = "user/paysetup/delete";//删除收款设置
     public static final String setDefaultPay = "user/paysetup/setDefault";//设置默认收款设置
     public static final String DOWNLOADAPK = "xotc.apk";//设置默认收款设置
-
+    public static final String wechatLogin = "wechatLogin";//微信登录
+    public static final String recommendReward = "trade/recommendReward";//推荐奖励
 }

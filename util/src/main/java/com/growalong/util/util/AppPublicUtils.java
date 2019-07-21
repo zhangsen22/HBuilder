@@ -2,7 +2,9 @@ package com.growalong.util.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.InputType;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 public class AppPublicUtils {
     private static final String TAG = AppPublicUtils.class.getSimpleName();
@@ -94,4 +96,15 @@ public class AppPublicUtils {
 
  }
 
+    /**
+     * 设置EditText是否可编辑
+     * @param editText
+     * @param mode true:可编辑   false:不可编辑
+     */
+ public static void setEditTextEnable(EditText editText,boolean mode){
+        editText.setFocusable(mode);
+        editText.setFocusableInTouchMode(mode);
+        editText.setLongClickable(mode);
+        editText.setInputType(mode ? InputType.TYPE_CLASS_TEXT:InputType.TYPE_NULL);
+ }
 }

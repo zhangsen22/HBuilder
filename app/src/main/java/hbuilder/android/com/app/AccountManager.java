@@ -141,6 +141,9 @@ public class AccountManager {
 //            mSharedPreferences.edit().putString(PASSWORD, passWord).apply();
 //            return this;
 //    }
+    public long getUserId() {
+        return getAccountInfo().getId();
+    }
 
     public int getIDstatus() {
         return getAccountInfo().getIDstatus();
