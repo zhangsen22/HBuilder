@@ -152,7 +152,7 @@ public class FinancialRecordsFragment extends BaseFragment implements FinancialR
             financialRecordsAdapter.appendList(financeLog);
         } else {
             GALogger.d(TAG, "LoadMore  is  no");
-            reverseIdList(financeLog);
+            reverseIdList(null);
             financialRecordsAdapter.setTotalCount(financialRecordsAdapter.getItemRealCount());
             financialRecordsAdapter.notifyDataSetChanged();
         }
@@ -167,10 +167,10 @@ public class FinancialRecordsFragment extends BaseFragment implements FinancialR
         if (billInfo == null) {
             return;
         }
-        for (FinanceLogItem buyItem : billInfo) {
+        FinanceLogItem buyItem = billInfo.get(billInfo.size() - 1);
+        if(buyItem != null && buyItem.getId() > 0) {
             idList.add(buyItem.getId());
         }
-        Collections.reverse(idList);
     }
 
     @Override

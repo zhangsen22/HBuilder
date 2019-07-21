@@ -211,7 +211,7 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
             rewardDetailAdapter.appendList(details);
         } else {
             GALogger.d(TAG, "LoadMore  is  no");
-            reverseIdList(details);
+            reverseIdList(null);
             rewardDetailAdapter.setTotalCount(rewardDetailAdapter.getItemRealCount());
             rewardDetailAdapter.notifyDataSetChanged();
         }
@@ -226,10 +226,10 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
         if (billInfo == null) {
             return;
         }
-        for (RewardDetailItem buyItem : billInfo) {
+        RewardDetailItem buyItem = billInfo.get(billInfo.size() - 1);
+        if(buyItem != null && buyItem.getId() > 0) {
             idList.add(buyItem.getId());
         }
-        Collections.reverse(idList);
     }
 
     @Override

@@ -145,8 +145,8 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
     public void getBuyRefreshSuccess(BuyResponse buyResponse) {
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
+            reverseIdList(billInfo);
             List<BuyItem> buyItems = removeDuplicate(billInfo);
-            reverseIdList(buyItems);
             if(buyItems.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
                 buyFragmentAdapter.setTotalCount(buyItems.size());
             }else {
@@ -174,9 +174,9 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
     public void getBuyLoadMoreSuccess(BuyResponse buyResponse) {
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
+            reverseIdList(billInfo);
             buyFragmentAdapter.getList().addAll(billInfo);
             List<BuyItem> buyItems = removeDuplicate(buyFragmentAdapter.getList());
-            reverseIdList(buyItems);
             buyFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
             buyFragmentAdapter.getList().clear();
             buyFragmentAdapter.getOriginalDataList().clear();
@@ -198,10 +198,10 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
         if(billInfo == null){
             return;
         }
-        for (BuyItem buyItem: billInfo) {
+        BuyItem buyItem = billInfo.get(billInfo.size() - 1);
+        if(buyItem != null && buyItem.getId() > 0) {
             idList.add(buyItem.getId());
         }
-        Collections.reverse(idList);
     }
 
     @Override

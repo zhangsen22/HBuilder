@@ -25,6 +25,7 @@ import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
+import hbuilder.android.com.ui.activity.InvitationRewardFirstActivity;
 import hbuilder.android.com.ui.activity.RecommendToFriendsActivity;
 import hbuilder.android.com.util.ToastUtil;
 
@@ -119,6 +120,7 @@ public class RecommendToFriendsFragment extends BaseFragment {
 //                ClipboardManager.getPrimaryClip();
                 break;
             case R.id.tuijianjiangli:
+                InvitationRewardFirstActivity.startThis(recommendToFriendsActivity);
                 break;
         }
     }

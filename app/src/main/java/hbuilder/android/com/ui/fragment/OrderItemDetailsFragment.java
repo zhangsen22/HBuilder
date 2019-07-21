@@ -244,7 +244,7 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
             orderSellDetailsAdapter.appendList(info);
         }else {
             GALogger.d(TAG,"LoadMore  is  no");
-            reverseIdsellIdList(info);
+            reverseIdsellIdList(null);
             orderSellDetailsAdapter.setTotalCount(orderSellDetailsAdapter.getItemRealCount());
             orderSellDetailsAdapter.notifyDataSetChanged();
         }
@@ -259,10 +259,10 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
         if(billInfo == null){
             return;
         }
-        for (MySellOrBuyinfoItem buyItem: billInfo) {
+        MySellOrBuyinfoItem buyItem = billInfo.get(billInfo.size() - 1);
+        if(buyItem != null && buyItem.getId() > 0) {
             sellIdList.add(buyItem.getId());
         }
-        Collections.reverse(sellIdList);
     }
 
     @Override
@@ -304,7 +304,7 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
             orderBuyDetailsAdapter.appendList(info);
         }else {
             GALogger.d(TAG,"LoadMore  is  no");
-            reverseIdbuyIdList(info);
+            reverseIdbuyIdList(null);
             orderBuyDetailsAdapter.setTotalCount(orderBuyDetailsAdapter.getItemRealCount());
             orderBuyDetailsAdapter.notifyDataSetChanged();
         }
@@ -319,10 +319,10 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
         if(billInfo == null){
             return;
         }
-        for (MySellOrBuyinfoItem buyItem: billInfo) {
+        MySellOrBuyinfoItem buyItem = billInfo.get(billInfo.size() - 1);
+        if(buyItem != null && buyItem.getId() > 0) {
             buyIdList.add(buyItem.getId());
         }
-        Collections.reverse(buyIdList);
     }
 
     @Override
@@ -364,7 +364,7 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
             orderEntrustDetailsAdapter.appendList(billInfo);
         }else {
             GALogger.d(TAG,"LoadMore  is  no");
-            reverseIdentrustIdList(billInfo);
+            reverseIdentrustIdList(null);
             orderEntrustDetailsAdapter.setTotalCount(orderEntrustDetailsAdapter.getItemRealCount());
             orderEntrustDetailsAdapter.notifyDataSetChanged();
         }
@@ -379,10 +379,10 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
         if(billInfo == null){
             return;
         }
-        for (MyEntrustinfoItem buyItem: billInfo) {
+        MyEntrustinfoItem buyItem = billInfo.get(billInfo.size() - 1);
+        if(buyItem != null && buyItem.getId() > 0) {
             entrustIdList.add(buyItem.getId());
         }
-        Collections.reverse(entrustIdList);
     }
 
     @Override

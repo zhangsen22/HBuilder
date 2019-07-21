@@ -212,12 +212,20 @@
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="hbuilder.android.com.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <activity android:name=".ui.activity.InvitationRewardFirstActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation|fontScale|locale|uiMode|screenLayout|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".ui.activity.InvitationRewardSecondActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation|fontScale|locale|uiMode|screenLayout|layoutDirection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
     </application>
 
 </manifest>

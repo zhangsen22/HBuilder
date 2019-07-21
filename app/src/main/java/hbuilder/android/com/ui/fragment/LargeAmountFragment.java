@@ -113,8 +113,8 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
         List<LargeAmountItem> billInfo = largeAmountResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
             GALogger.d(TAG,"billInfo.size()    "+billInfo.size());
+            reverseIdList(billInfo);
             List<LargeAmountItem> buyItems = removeDuplicate(billInfo);
-            reverseIdList(buyItems);
             if(buyItems.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
                 largeAmountAdapter.setTotalCount(buyItems.size());
             }else {
@@ -142,9 +142,9 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     public void getHugeBillinfoLoadMoreSuccess(LargeAmountResponse largeAmountResponse) {
         List<LargeAmountItem> billInfo = largeAmountResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
+            reverseIdList(billInfo);
             largeAmountAdapter.getList().addAll(billInfo);
             List<LargeAmountItem> buyItems = removeDuplicate(largeAmountAdapter.getList());
-            reverseIdList(buyItems);
             largeAmountAdapter.setTotalCount(Integer.MAX_VALUE);
             largeAmountAdapter.getList().clear();
             largeAmountAdapter.getOriginalDataList().clear();
@@ -166,10 +166,10 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
         if(billInfo == null){
             return;
         }
-        for (LargeAmountItem buyItem: billInfo) {
+        LargeAmountItem buyItem = billInfo.get(billInfo.size() - 1);
+        if(buyItem != null && buyItem.getId() > 0) {
             idList.add(buyItem.getId());
         }
-        Collections.reverse(idList);
     }
 
     @Override
