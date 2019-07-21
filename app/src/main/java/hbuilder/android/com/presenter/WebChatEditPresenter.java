@@ -1,6 +1,9 @@
 package hbuilder.android.com.presenter;
 
-import hbuilder.android.com.modle.BaseBean;
+import android.text.TextUtils;
+
+import hbuilder.android.com.modle.WebChatEditModle;
+import hbuilder.android.com.modle.WechatLoginModle;
 import hbuilder.android.com.net.retrofit.ModelResultObserver;
 import hbuilder.android.com.net.retrofit.exception.ModelException;
 import hbuilder.android.com.presenter.contract.WebChatEditContract;
@@ -27,10 +30,10 @@ public class WebChatEditPresenter implements WebChatEditContract.Presenter{
     public void wechat(long id,final String name, final String account, final String base64Img, String empBase64Img, String financePwd, long time) {
         mView.showLoading();
         mModel.wechat(id,name,account,base64Img,empBase64Img,financePwd,time).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ModelResultObserver<BaseBean>() {
+                .subscribe(new ModelResultObserver<WebChatEditModle>() {
                     @Override
-                    public void onSuccess(BaseBean baseBean) {
-                        mView.wechatSuccess(name,account,base64Img);
+                    public void onSuccess(WebChatEditModle webChatEditModle) {
+                        mView.wechatSuccess(webChatEditModle);
                         mView.hideLoading();
                     }
 
@@ -38,6 +41,32 @@ public class WebChatEditPresenter implements WebChatEditContract.Presenter{
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void wechatLogin(long paymentId) {
+        mModel.wechatLogin(paymentId).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ModelResultObserver<WechatLoginModle>() {
+                    @Override
+                    public void onSuccess(WechatLoginModle wechatLoginModle) {
+                        if(wechatLoginModle != null){
+                            String loginCode = wechatLoginModle.getLoginCode();
+                            if(!TextUtils.isEmpty(loginCode)){
+                                mView.wechatLoginSuccess(wechatLoginModle);
+                            }else {
+                                mView.wechatLoginError();
+                            }
+                        }else {
+                            mView.wechatLoginError();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(ModelException ex) {
+                        super.onFailure(ex);
+                        mView.wechatLoginError();
                     }
                 });
     }

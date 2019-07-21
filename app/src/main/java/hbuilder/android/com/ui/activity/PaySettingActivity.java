@@ -5,6 +5,7 @@ import android.view.View;
 import com.growalong.util.util.ActivityUtils;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
+import hbuilder.android.com.modle.WeChatPayeeItemModelPayee;
 import hbuilder.android.com.presenter.AliPayEditPresenter;
 import hbuilder.android.com.presenter.IdCastPresenter;
 import hbuilder.android.com.presenter.WebChatEditPresenter;
@@ -21,6 +22,13 @@ public class PaySettingActivity extends BaseActivity {
     public static void startThis(BaseActivity activity,int type,int requestCode) {
         Intent intent = new Intent(activity, PaySettingActivity.class);
         intent.putExtra("type",type);
+        activity.startActivityForResult(intent,requestCode);
+    }
+
+    public static void startThis(BaseActivity activity, int type, WeChatPayeeItemModelPayee weChatPayeeItemModelPayee, int requestCode) {
+        Intent intent = new Intent(activity, PaySettingActivity.class);
+        intent.putExtra("type",type);
+        intent.putExtra("weChatPayeeItemModelPayee",weChatPayeeItemModelPayee);
         activity.startActivityForResult(intent,requestCode);
     }
 
@@ -47,10 +55,11 @@ public class PaySettingActivity extends BaseActivity {
             //初始化presenter
             new AliPayEditPresenter(aliPayEditFragment, new PaySettingModle());
         }else if(type == 2){
+            WeChatPayeeItemModelPayee weChatPayeeItemModelPayee = getIntent().getParcelableExtra("weChatPayeeItemModelPayee");
             webChatEditFragment = (WebChatEditFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.contentFrame);
             if (webChatEditFragment == null) {
-                webChatEditFragment = WebChatEditFragment.newInstance("");
+                webChatEditFragment = WebChatEditFragment.newInstance(weChatPayeeItemModelPayee);
                 ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                         webChatEditFragment, R.id.contentFrame);
             }

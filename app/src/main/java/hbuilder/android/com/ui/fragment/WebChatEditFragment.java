@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -17,26 +19,31 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.qrcode.Constant;
 import com.example.qrcode.ScannerActivity;
 import com.example.qrcode.utils.QRCodeUtil;
+import com.growalong.util.util.AppPublicUtils;
 import com.growalong.util.util.GALogger;
-import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
 import com.lxj.xpopup.XPopup;
-
+import com.lxj.xpopup.core.BasePopupView;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.modle.WeChatPayeeItemModelPayee;
+import hbuilder.android.com.modle.WebChatEditModle;
+import hbuilder.android.com.modle.WechatLoginModle;
 import hbuilder.android.com.presenter.WebChatEditPresenter;
 import hbuilder.android.com.presenter.contract.WebChatEditContract;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
-import hbuilder.android.com.ui.widget.CenterErWeiMaPopupView;
 import hbuilder.android.com.ui.widget.WenChatBindingPopupView;
+import hbuilder.android.com.ui.widget.WenChatSaoPopupView;
 import hbuilder.android.com.util.ToastUtil;
 
 public class WebChatEditFragment extends BaseFragment implements WebChatEditContract.View {
@@ -59,14 +66,23 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
     TextView tvForgetPassword;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    @BindView(R.id.ll_forget_password)
+    LinearLayout llForgetPassword;
     private PaySettingActivity paySettingActivity;
     private WebChatEditPresenter presenter;
     private String sIdcardFront;
     private Bitmap qrImage;
     private Bitmap bitmap;
+    private WeChatPayeeItemModelPayee weChatPayeeItemModelPayee = null;
+    private long id = 0;
+    private Handler mHandler;
+    private BasePopupView show = null;
+    private BasePopupView showSaoYiSao = null;
+    private int reconnectionCount = 0;
 
-    public static WebChatEditFragment newInstance(@Nullable String taskId) {
+    public static WebChatEditFragment newInstance(@Nullable WeChatPayeeItemModelPayee weChatPayeeItemModelPayee) {
         Bundle arguments = new Bundle();
+        arguments.putParcelable("weChatPayeeItemModelPayee", weChatPayeeItemModelPayee);
         WebChatEditFragment fragment = new WebChatEditFragment();
         fragment.setArguments(arguments);
         return fragment;
@@ -76,6 +92,7 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         paySettingActivity = (PaySettingActivity) getActivity();
+        weChatPayeeItemModelPayee = getArguments().getParcelable("weChatPayeeItemModelPayee");
     }
 
     @Override
@@ -87,6 +104,28 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("微信设置");
+        mHandler = new Handler(Looper.getMainLooper());
+        bitmap = BitmapFactory.decodeResource(MyApplication.appContext.getResources(), R.drawable.ic_launcher_round);
+        if (weChatPayeeItemModelPayee == null) {
+            id = 0;
+        } else {
+            llForgetPassword.setVisibility(View.GONE);
+            tvSubmit.setVisibility(View.GONE);
+            id = weChatPayeeItemModelPayee.getId();
+            String name = weChatPayeeItemModelPayee.getName();
+            if (!TextUtils.isEmpty(name)) {
+                etWenchatName.setText(name);
+                AppPublicUtils.setEditTextEnable(etWenchatName, false);
+            }
+            String account = weChatPayeeItemModelPayee.getAccount();
+            if (!TextUtils.isEmpty(account)) {
+                etWebchatCode.setText(account);
+                AppPublicUtils.setEditTextEnable(etWebchatCode, false);
+            }
+            String base64Img = weChatPayeeItemModelPayee.getBase64Img();
+            creatCode(base64Img);
+            webChatGoLogin();
+        }
     }
 
     @Override
@@ -95,16 +134,43 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
     }
 
     @Override
-    public void wechatSuccess(String name, String account, String base64Img) {
-        new XPopup.Builder(getContext())
+    public void wechatSuccess(WebChatEditModle webChatEditModle) {
+        if (webChatEditModle != null) {
+            id = webChatEditModle.getPaymentId();
+            webChatGoLogin();
+        }
+    }
+
+    @Override
+    public void wechatLoginSuccess(WechatLoginModle wechatLoginModle) {
+        mHandler.removeCallbacksAndMessages(null);
+        if (show != null) {
+            if (show.isShow()) {
+                show.dismiss();
+            }
+            show = null;
+        }
+        showSaoYiSao = new XPopup.Builder(getContext())
                 .dismissOnBackPressed(false)
                 .dismissOnTouchOutside(false)
                 .hasStatusBarShadow(true) //启用状态栏阴影
-                .asCustom(new WenChatBindingPopupView(getContext()))
-                .show();
+                .asCustom(new WenChatSaoPopupView(getContext(), wechatLoginModle.getLoginCode(), new OnConfirmListener() {
+                    @Override
+                    public void onConfirm() {
+                        paySettingActivity.setResult(Activity.RESULT_OK);
+                        paySettingActivity.finish();
+                    }
+                })).show();
+    }
 
-//        paySettingActivity.setResult(Activity.RESULT_OK);
-//        paySettingActivity.finish();
+    @Override
+    public void wechatLoginError() {
+        if (reconnectionCount >= 5) {
+            paySettingActivity.setResult(Activity.RESULT_OK);
+            paySettingActivity.finish();
+        } else {
+            webChatGoLogin();
+        }
     }
 
     @Override
@@ -162,7 +228,7 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
                     return;
                 }
                 long currentTime = System.currentTimeMillis();
-                presenter.wechat(0, wenchatName, webchatCode, sIdcardFront, "", Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
+                presenter.wechat(id, wenchatName, webchatCode, sIdcardFront, "", Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
                 break;
         }
     }
@@ -176,6 +242,19 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
         if (bitmap != null && !bitmap.isRecycled()) {
             bitmap.recycle();
             bitmap = null;
+        }
+        mHandler.removeCallbacksAndMessages(null);
+        if (show != null) {
+            if (show.isShow()) {
+                show.dismiss();
+            }
+            show = null;
+        }
+        if (showSaoYiSao != null) {
+            if (showSaoYiSao.isShow()) {
+                showSaoYiSao.dismiss();
+            }
+            showSaoYiSao = null;
         }
         super.onDestroyView();
     }
@@ -216,13 +295,40 @@ public class WebChatEditFragment extends BaseFragment implements WebChatEditCont
         String type = data.getStringExtra(Constant.EXTRA_RESULT_CODE_TYPE);
         String content = data.getStringExtra(Constant.EXTRA_RESULT_CONTENT);
         GALogger.d(TAG, "codeType:" + type + "-----content:" + content);
+        creatCode(content);
+    }
+
+    private void creatCode(String content) {
         if (!TextUtils.isEmpty(content)) {
-            bitmap = BitmapFactory.decodeResource(MyApplication.appContext.getResources(), R.drawable.ic_launcher_round);
             qrImage = QRCodeUtil.createQRCodeBitmap(content, 650, 650, "UTF-8",
                     "H", "1", Color.BLACK, Color.WHITE, bitmap, 0.2F, null);
             sIdcardFront = content;
             ivWebchatImage.setImageBitmap(qrImage);
             ivWebchatImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
+    }
+
+    private void webChatGoLogin() {
+        mHandler.removeCallbacksAndMessages(null);
+        if (id <= 0) {
+            return;
+        }
+        if (show == null) {
+            show = new XPopup.Builder(getContext())
+                    .dismissOnBackPressed(false)
+                    .dismissOnTouchOutside(false)
+                    .hasStatusBarShadow(true) //启用状态栏阴影
+                    .asCustom(new WenChatBindingPopupView(getContext()));
+        }
+        if (!show.isShow()) {
+            show.show();
+        }
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                reconnectionCount += 1;
+                presenter.wechatLogin(id);
+            }
+        }, 2000);
     }
 }

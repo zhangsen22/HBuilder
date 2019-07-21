@@ -134,6 +134,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_forget_password"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y90"
         android:orientation="horizontal"

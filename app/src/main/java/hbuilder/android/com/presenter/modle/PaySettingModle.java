@@ -1,6 +1,8 @@
 package hbuilder.android.com.presenter.modle;
 
 import hbuilder.android.com.modle.BaseBean;
+import hbuilder.android.com.modle.WebChatEditModle;
+import hbuilder.android.com.modle.WechatLoginModle;
 import hbuilder.android.com.net.retrofit.BaseRetrofitClient;
 import hbuilder.android.com.net.retrofit.exception.ModelExceptionMap;
 import hbuilder.android.com.net.retrofit.exception.ServerExceptionMap;
@@ -56,11 +58,24 @@ public class PaySettingModle{
      * @param time
      * @return
      */
-    public Observable<BaseBean> wechat(long id,String name,String account,String base64Img,String empBase64Img,String financePwd,long time){
+    public Observable<WebChatEditModle> wechat(long id,String name,String account,String base64Img,String empBase64Img,String financePwd,long time){
         return BaseRetrofitClient.getInstance().create(ApiServices.class)
                 .wechat(id,name,account,base64Img,empBase64Img,financePwd,time)
                 .subscribeOn(Schedulers.io())
-                .map(new ServerExceptionMap<BaseBean>())
-                .onErrorResumeNext(new ModelExceptionMap<BaseBean>());
+                .map(new ServerExceptionMap<WebChatEditModle>())
+                .onErrorResumeNext(new ModelExceptionMap<WebChatEditModle>());
+    }
+
+    /**
+     * 微信登录
+     * @param paymentId
+     * @return
+     */
+    public Observable<WechatLoginModle> wechatLogin(long paymentId){
+        return BaseRetrofitClient.getInstance().create(ApiServices.class)
+                .wechatLogin(paymentId,System.currentTimeMillis())
+                .subscribeOn(Schedulers.io())
+                .map(new ServerExceptionMap<WechatLoginModle>())
+                .onErrorResumeNext(new ModelExceptionMap<WechatLoginModle>());
     }
 }

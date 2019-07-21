@@ -1,7 +1,6 @@
 package hbuilder.android.com.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +17,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnInputConfirmListener;
-
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -37,16 +35,12 @@ import hbuilder.android.com.presenter.contract.WebChatListContract;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
 import hbuilder.android.com.ui.activity.WebChatListActivity;
 import hbuilder.android.com.ui.adapter.WebChatListAdapter;
-import hbuilder.android.com.ui.adapter.poweradapter.AdapterLoader;
-import hbuilder.android.com.ui.adapter.poweradapter.AdapterSelect;
-import hbuilder.android.com.ui.adapter.poweradapter.ISelect;
 import hbuilder.android.com.ui.adapter.poweradapter.LoadMoreScrollListener;
 import hbuilder.android.com.ui.adapter.poweradapter.OnLoadMoreListener;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerAdapter;
-import hbuilder.android.com.ui.adapter.poweradapter.PowerHolder;
 import hbuilder.android.com.util.ToastUtil;
 
-public class WebChatListFragment extends BaseFragment implements WebChatListContract.View, OnLoadMoreListener, PowerAdapter.OnEmptyClickListener, PowerAdapter.OnErrorClickListener, AdapterLoader.OnItemClickListener<WeChatPayeeItemModel>,WebChatListAdapter.OnWebChatCheckListener {
+public class WebChatListFragment extends BaseFragment implements WebChatListContract.View, OnLoadMoreListener, PowerAdapter.OnEmptyClickListener, PowerAdapter.OnErrorClickListener, WebChatListAdapter.OnWebChatCheckListener {
     private static final String TAG = IdCastPayListFragment.class.getSimpleName();
     private static WebChatListActivity webChatListActivity;
     @BindView(R.id.fl_title_comtent)
@@ -108,7 +102,6 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
         webChatListAdapter.setLoadMoreListener(this);
         webChatListAdapter.setEmptyClickListener(this);
         webChatListAdapter.setErrorClickListener(this);
-        webChatListAdapter.setOnItemClickListener(this);
 
         refreshAction = new Runnable() {
             @Override
@@ -140,7 +133,7 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
                 break;
             case R.id.tv_submit_forget_login:
                 //id:0                //如果为新加,设为0,如果为修改,此处为修改的收款方式的id
-                PaySettingActivity.startThis(webChatListActivity,2,Constants.REQUESTCODE_17);
+                PaySettingActivity.startThis(webChatListActivity,2,null,Constants.REQUESTCODE_17);
                 break;
         }
     }
@@ -245,10 +238,6 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
     }
 
     @Override
-    public void onItemClick(@NonNull PowerHolder<WeChatPayeeItemModel> holder, @NonNull View itemView, int position, WeChatPayeeItemModel item) {
-    }
-
-    @Override
     public void onEmptyClick(View view) {
 
     }
@@ -259,9 +248,7 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
     }
 
     @Override
-    public void onWebChatCheck(int position, WeChatPayeeItemModel weChatPayeeItemModel) {
-        WeChatPayeeItemModelPayee payee = weChatPayeeItemModel.getPayee();
-        if(payee != null) {
+    public void onWebChatCheck(int position, WeChatPayeeItemModelPayee payee) {
             new XPopup.Builder(getContext())
                     .dismissOnBackPressed(false)
                     .dismissOnTouchOutside(false)
@@ -280,13 +267,10 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
                                 }
                             })
                     .show();
-        }
     }
 
     @Override
-    public void onWebChatDelete(int position, WeChatPayeeItemModel weChatPayeeItemModel) {
-        WeChatPayeeItemModelPayee payee = weChatPayeeItemModel.getPayee();
-        if(payee != null) {
+    public void onWebChatDelete(int position, WeChatPayeeItemModelPayee payee) {
             new XPopup.Builder(getContext())
                     .dismissOnBackPressed(false)
                     .dismissOnTouchOutside(false)
@@ -305,7 +289,12 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
                                 }
                             })
                     .show();
-        }
+    }
+
+    @Override
+    public void onWebChatEdit(int position, WeChatPayeeItemModelPayee payee) {
+        //id:0                //如果为新加,设为0,如果为修改,此处为修改的收款方式的id
+        PaySettingActivity.startThis(webChatListActivity,2,payee,Constants.REQUESTCODE_17);
     }
 
     public void onActivityResultF() {

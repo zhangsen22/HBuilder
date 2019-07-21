@@ -1,12 +1,10 @@
 package hbuilder.android.com.modle;
 
-import hbuilder.android.com.ui.adapter.poweradapter.AbsSelect;
-
-public class WeChatPayeeItemModel extends AbsSelect{
+public class WeChatPayeeItemModel{
 
     private WeChatPayeeItemModelPayee payee;
     private double leftMoney;
-    private long leftTimes;
+    private int leftTimes;
 
     public WeChatPayeeItemModelPayee getPayee() {
         return payee;
@@ -16,7 +14,7 @@ public class WeChatPayeeItemModel extends AbsSelect{
         return leftMoney;
     }
 
-    public long getLeftTimes() {
+    public int getLeftTimes() {
         return leftTimes;
     }
 

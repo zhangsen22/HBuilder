@@ -1,6 +1,5 @@
 package hbuilder.android.com.ui.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -15,7 +14,6 @@ import org.greenrobot.eventbus.EventBus;
 import java.text.DecimalFormat;
 import butterknife.BindView;
 import butterknife.OnClick;
-import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.Constants;
@@ -25,6 +23,7 @@ import hbuilder.android.com.presenter.EntrustBuyPresenter;
 import hbuilder.android.com.presenter.contract.EntrustBuyContract;
 import hbuilder.android.com.presenter.modle.EntrustBuyModle;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
+import hbuilder.android.com.ui.activity.GuaDanActivity;
 import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
 
@@ -48,7 +47,7 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
     private double maxBuyPrice;
 
     private EntrustBuyPresenter entrustBuyPresenter;
-    private BaseActivity mContext;
+    private GuaDanActivity guaDanActivity;
 
     public static EntrustBuyFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -58,9 +57,9 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mContext = (BaseActivity) activity;
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        guaDanActivity = (GuaDanActivity) getActivity();
     }
 
     @Override
@@ -89,7 +88,7 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_forget_buy_password:
-                BalancePassWordActivity.startThis(mContext);
+                BalancePassWordActivity.startThis(guaDanActivity);
                 break;
             case R.id.tv_buy_publish:
                 String businessPrice = etBusinessBuyPrice.getText().toString().trim();
@@ -165,6 +164,7 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
     @Override
     public void putUpBuySuccess(BaseBean baseBean) {
         EventBus.getDefault().post(new MessageEvent(2));
+        guaDanActivity.finish();
     }
 
     @Override
