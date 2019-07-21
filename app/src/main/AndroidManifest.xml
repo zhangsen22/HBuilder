@@ -156,9 +156,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name="com.example.qrcode.BarcodeActivity"
-            android:theme="@style/MyAppTheme" />
-        <activity
             android:name=".ui.activity.PaySettingActivity"
             android:configChanges="screenSize|keyboardHidden|orientation|fontScale|locale|uiMode|screenLayout|layoutDirection"
             android:screenOrientation="portrait"

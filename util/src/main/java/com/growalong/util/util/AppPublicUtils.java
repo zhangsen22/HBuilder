@@ -1,5 +1,9 @@
 package com.growalong.util.util;
 
+import android.app.Activity;
+import android.content.Context;
+import android.view.WindowManager;
+
 public class AppPublicUtils {
     private static final String TAG = AppPublicUtils.class.getSimpleName();
 
@@ -57,4 +61,37 @@ public class AppPublicUtils {
             return diff > 0 ? 1 : -1;
         }
     }
+
+    /**
+     * 显示与隐藏状态栏的代码如下
+     * getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN) //隐藏状态栏
+     * getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN) //显示状态栏
+     * @param enable
+     */
+    public static void fullscreen(Activity activity,boolean enable) {
+
+    if (enable) { //隐藏状态栏
+
+      WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+
+ lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+
+        activity.getWindow().setAttributes(lp);
+
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+ } else { //显示状态栏
+
+ WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+
+ lp.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        activity.getWindow().setAttributes(lp);
+
+        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+ }
+
+ }
+
 }

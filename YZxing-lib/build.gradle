@@ -28,5 +28,6 @@ dependencies {
     implementation rootProject.ext.dependencies.appcompatV7
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     api files('libs/core-3.3.0.jar')
+    implementation project(path: ':util')
 }
 

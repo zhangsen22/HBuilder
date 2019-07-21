@@ -17,11 +17,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.qrcode.camera.CameraManager;
 import com.example.qrcode.decode.InactivityTimer;
@@ -32,6 +32,7 @@ import com.example.qrcode.utils.UriUtils;
 import com.example.qrcode.view.ScannerView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
+import com.growalong.util.util.AppPublicUtils;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -52,8 +53,7 @@ public class ScannerActivity extends AppCompatActivity implements SurfaceHolder.
     public final int PERMISSION_REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 0X11;
     public final int REQUEST_CODE_GET_PIC_URI = 0X12;
     private final int MESSAGE_DECODE_FROM_BITMAP = 0;
-
-    private Toolbar mToolBar;
+    private TextView mTvPhoto;
     private ScannerView mScannerView;
     private SurfaceView mSurfaceView;
 
@@ -97,6 +97,7 @@ public class ScannerActivity extends AppCompatActivity implements SurfaceHolder.
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_scanner);
+        AppPublicUtils.fullscreen(ScannerActivity.this,true);
         initView();
         hasSurface = false;
         Intent intent = getIntent();
@@ -177,35 +178,6 @@ public class ScannerActivity extends AppCompatActivity implements SurfaceHolder.
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (isEnableScanFromPicture) {
-            getMenuInflater().inflate(R.menu.menu_scan, menu);
-            return true;
-        } else {
-            return super.onCreateOptionsMenu(menu);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.scan_from_picture) {
-            //先申请权限
-            int checked = ContextCompat.checkSelfPermission(ScannerActivity.this
-                    , Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            if (checked == PackageManager.PERMISSION_GRANTED) {
-                goPicture();
-            } else {
-                ActivityCompat.requestPermissions(ScannerActivity.this
-                        , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
-            }
-        } else if (itemId == R.id.encode_barcode) {
-            startActivity(new Intent(ScannerActivity.this, BarcodeActivity.class));
-        }
-        return true;
-    }
-
     private void goPicture() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
@@ -213,18 +185,25 @@ public class ScannerActivity extends AppCompatActivity implements SurfaceHolder.
     }
 
     private void initView() {
-        mToolBar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolBar.setTitle("二维码/条形码");
-        mToolBar.setTitleTextColor(Color.WHITE);
-        setSupportActionBar(mToolBar);
-        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mTvPhoto = findViewById(R.id.tv_photo);
         mSurfaceView = (SurfaceView) findViewById(R.id.surface);
         mScannerView = (ScannerView) findViewById(R.id.scan_view);
+        mTvPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isEnableScanFromPicture) {
+                    //先申请权限
+                    int checked = ContextCompat.checkSelfPermission(ScannerActivity.this
+                            , Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    if (checked == PackageManager.PERMISSION_GRANTED) {
+                        goPicture();
+                    } else {
+                        ActivityCompat.requestPermissions(ScannerActivity.this
+                                , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
+                    }
+                }
+            }
+        });
     }
 
 
