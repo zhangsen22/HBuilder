@@ -11,7 +11,7 @@ public class WeChatPayeeItemModelPayee implements Parcelable {
     private String base64Img;//:"rewr"        //微信收款二维码
     private boolean locked;
     private boolean watchUnbind;// 是否已经解除监控
-    private boolean watchStop;//是否扫描二维码 true:没扫描     false:已扫描
+    private boolean watchStop;//是否已经扫描二维码并且登录了 true:没扫描或者扫了没有登录上     false:已扫描并且登陆上了
 
 
     protected WeChatPayeeItemModelPayee(Parcel in) {
