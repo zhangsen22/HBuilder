@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?><!--默认主题-->
 <resources>
 
-    <color name="gallery_default_color_toolbar_bg">#2A2A2F</color>
+    <color name="gallery_default_color_toolbar_bg">#ffffff</color>
     <dimen name="gallery_default_toolbar_height">@dimen/abc_action_bar_default_height_material
     </dimen>
     <drawable name="gallery_default_toolbar_close_image">@drawable/gallery_ic_cross</drawable>
     <color name="gallery_default_toolbar_widget_color">#ffffff</color>
     <dimen name="gallery_default_toolbar_over_button_text_size">12sp</dimen>
-    <color name="gallery_default_toolbar_over_button_text_color">#ffffff</color>
+    <color name="gallery_default_toolbar_over_button_text_color">#000000</color>
     <dimen name="gallery_default_toolbar_text_size">@dimen/abc_text_size_title_material_toolbar
     </dimen>
     <dimen name="gallery_default_toolbar_divider_height">0.3dp</dimen>
     <dimen name="gallery_default_toolbar_bottom_margin">1dp</dimen>
     <color name="gallery_default_toolbar_divider_bg">#151515</color>
-    <color name="gallery_default_toolbar_text_color">#ffffff</color>
+    <color name="gallery_default_toolbar_text_color">#000000</color>
     <color name="gallery_default_color_toolbar_text">#fff</color>
     <color name="gallery_default_color_toolbar_icon">#fff</color>
     <color name="gallery_default_color_statusbar">#151515</color>

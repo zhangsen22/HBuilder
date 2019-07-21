@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:background="#EF2B2C30"
+        android:background="#ffffff"
         android:clickable="true"
         android:gravity="center_vertical">
 
