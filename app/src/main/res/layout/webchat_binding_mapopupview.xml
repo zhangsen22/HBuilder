@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/color_333333"
         android:textSize="15sp"
-        tools:text="绑定申请中"
+        android:text="绑定申请中"
         android:layout_marginTop="@dimen/y70" />
 
     <View
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/color_ff5100"
         android:textSize="12sp"
-        tools:text="请耐心等待绑定二维码"
+        android:text="请耐心等待绑定二维码"
         android:layout_marginTop="@dimen/y40"
         android:layout_marginBottom="@dimen/y36"/>
 

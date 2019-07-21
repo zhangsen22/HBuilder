@@ -10,6 +10,41 @@
 
     <include layout="@layout/line_10_f9"/>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y86"
+        android:background="@color/common_white"
+        android:paddingLeft="@dimen/y40"
+        android:paddingRight="@dimen/y40">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="昵称"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机号"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="挂单金额"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_gravity="right|center_vertical"/>
+
+    </FrameLayout>
+
+    <include layout="@layout/line_f9"/>
+
     <com.handmark.pulltorefresh.library.PullToRefreshRecyclerView
         android:id="@+id/invitation_first_refresh_recycler"
         android:layout_width="match_parent"

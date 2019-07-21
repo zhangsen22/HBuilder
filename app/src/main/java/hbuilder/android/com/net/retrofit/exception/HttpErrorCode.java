@@ -37,6 +37,12 @@ public class HttpErrorCode {
             }else {
                 resString = "通讯频率过快";
             }
+        }else if(error == 4){
+            if(BuildConfig.DEBUG){
+                resString = error+" : 服务器繁忙";
+            }else {
+                resString = "服务器繁忙";
+            }
         }else if(error == 10){
             if(BuildConfig.DEBUG){
                 resString = error+" : 资金不足";

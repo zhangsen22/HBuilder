@@ -143,14 +143,23 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void onStart() {
+        GALogger.d(TAG,TAG+"    is    onStart");
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         super.onStart();
-        EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop() {
+    protected void onStop() {
+        GALogger.d(TAG,TAG+"    is    onStop");
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
         EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @Override
@@ -185,7 +194,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
         int type = event.getType();
-        GALogger.d(TAG, "type    " + type);
+        GALogger.d(TAG, "type    is" + type);
         switch (type) {
             case 1:
                 noscrollViewPager.setCurrentItem(1, false);

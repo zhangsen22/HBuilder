@@ -548,7 +548,7 @@ public interface ApiServices {
      */
     @FormUrlEncoded
     @POST(ApiConstants.wechatLogin)
-    Observable<WechatLoginModle> wechatLogin(@Field("paymentId") long paymentId);
+    Observable<WechatLoginModle> wechatLogin(@Field("paymentId") long paymentId, @Field("time") long time);
 
     /**
      * 推荐奖励
