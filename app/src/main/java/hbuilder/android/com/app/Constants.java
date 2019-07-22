@@ -16,6 +16,7 @@ public class Constants {
     public static final String SESSIONID = "sessionid";
     public static final String USDTPRICE = "Usdt_Price";
     public static final String VERSION = "version";
+    public static final String WXPAYLOCK = "wxPayLock";
     /**
      * android 8.0以上通知栏渠道ID
      */
@@ -30,5 +31,6 @@ public class Constants {
     public static final int REQUESTCODE_15 = 15;
     public static final int REQUESTCODE_16 = 16;
     public static final int REQUESTCODE_17 = 17;
+    public static final int REQUESTCODE_18 = 18;
     public static final int RECYCLEVIEW_TOTALCOUNT = 10;
 }

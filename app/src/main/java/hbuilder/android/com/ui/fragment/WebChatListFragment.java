@@ -38,6 +38,7 @@ import hbuilder.android.com.ui.adapter.WebChatListAdapter;
 import hbuilder.android.com.ui.adapter.poweradapter.LoadMoreScrollListener;
 import hbuilder.android.com.ui.adapter.poweradapter.OnLoadMoreListener;
 import hbuilder.android.com.ui.adapter.poweradapter.PowerAdapter;
+import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
 
 public class WebChatListFragment extends BaseFragment implements WebChatListContract.View, OnLoadMoreListener, PowerAdapter.OnEmptyClickListener, PowerAdapter.OnErrorClickListener, WebChatListAdapter.OnWebChatCheckListener {
@@ -132,8 +133,13 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
                 webChatListActivity.finish();
                 break;
             case R.id.tv_submit_forget_login:
-                //id:0                //如果为新加,设为0,如果为修改,此处为修改的收款方式的id
-                PaySettingActivity.startThis(webChatListActivity,2,null,Constants.REQUESTCODE_17);
+                boolean wxPayLock = SharedPreferencesUtils.getBoolean(Constants.WXPAYLOCK, false);
+                if(wxPayLock){
+                    ToastUtil.shortShow(MyApplication.appContext.getResources().getString(R.string.text33));
+                }else {
+                    //id:0                //如果为新加,设为0,如果为修改,此处为修改的收款方式的id
+                    PaySettingActivity.startThis(webChatListActivity,2,null,Constants.REQUESTCODE_17);
+                }
                 break;
         }
     }

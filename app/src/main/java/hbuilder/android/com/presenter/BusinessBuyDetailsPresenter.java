@@ -31,7 +31,12 @@ public class BusinessBuyDetailsPresenter implements BusinessBuyDetailsContract.P
 
                     @Override
                     public void onFailure(ModelException ex) {
-                        super.onFailure(ex);
+                        int mCode = ex.mCode;
+                        if(mCode == 119){
+                            mView.goOrderMySellComplete();
+                        }else {
+                            super.onFailure(ex);
+                        }
                         mView.hideLoading();
                     }
                 });
@@ -50,7 +55,12 @@ public class BusinessBuyDetailsPresenter implements BusinessBuyDetailsContract.P
 
                     @Override
                     public void onFailure(ModelException ex) {
-                        super.onFailure(ex);
+                        int mCode = ex.mCode;
+                        if(mCode == 119){
+                            mView.goOrderMySellComplete();
+                        }else {
+                            super.onFailure(ex);
+                        }
                         mView.hideLoading();
                     }
                 });

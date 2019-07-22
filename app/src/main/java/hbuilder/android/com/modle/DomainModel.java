@@ -13,6 +13,7 @@ public class DomainModel extends BaseBean{
 
     private List<String> gateway;
     private String version;
+    private boolean wxPayLock;//是否锁定微信支付  true:锁定  不让看  不显示  false:相反
 
     public List<String> getGateway() {
         return gateway;
@@ -22,11 +23,16 @@ public class DomainModel extends BaseBean{
         return version;
     }
 
+    public boolean isWxPayLock() {
+        return wxPayLock;
+    }
+
     @Override
     public String toString() {
         return "DomainModel{" +
                 "gateway=" + gateway +
                 ", version='" + version + '\'' +
+                ", wxPayLock=" + wxPayLock +
                 '}';
     }
 }

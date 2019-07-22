@@ -13,5 +13,6 @@ public interface BusinessBuyDetailsContract {
     interface View extends IBaseView<Presenter> {
         void ordercancelSuccess(BaseBean baseBean);
         void manualPaySuccess(BaseBean baseBean);
+        void goOrderMySellComplete();//订单已付款  订单完成   跳转订单我的卖出页面
     }
 }

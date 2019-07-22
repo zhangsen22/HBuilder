@@ -182,7 +182,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 if (propertyFragment != null) {
                     propertyFragment.onActivityResultProperty(requestCode);
                 }
-            } else if (requestCode == Constants.REQUESTCODE_12 || requestCode == Constants.REQUESTCODE_13 || requestCode == Constants.REQUESTCODE_14) {
+            } else if (requestCode == Constants.REQUESTCODE_12 || requestCode == Constants.REQUESTCODE_13 || requestCode == Constants.REQUESTCODE_14 || requestCode == Constants.REQUESTCODE_18) {
                 OrderFragment orderFragment = mainViewPagerAdapter.getOrderFragment();
                 if (orderFragment != null) {
                     orderFragment.onActivityResultOrder(requestCode);
@@ -205,6 +205,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 noscrollViewPager.setCurrentItem(1, false);
                 changeRadioButton(1);
                 onActivityResult(Constants.REQUESTCODE_14, RESULT_OK, null);
+                break;
+            case 3:
+                noscrollViewPager.setCurrentItem(1, false);
+                changeRadioButton(1);
+                onActivityResult(Constants.REQUESTCODE_18, RESULT_OK, null);
                 break;
         }
     }

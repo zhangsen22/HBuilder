@@ -9,6 +9,7 @@ public class MessageEvent {
     /**
      * 1:挂单 委托出售  切换到我的委托订单页  刷新
      * 2:挂单 委托购买  切换到我的委托订单页  刷新
+     * 3:在BusinessBuyDetailsFragment中点击取消订单或者我已付款  code=119  跳转订单里的我的卖出里的已完成页面
      */
     private int type;
 

@@ -68,9 +68,11 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
         if(domainModel != null){
             GALogger.d(TAG,"domainModel     "+domainModel.toString());
             String version = domainModel.getVersion();
+            boolean wxPayLock = domainModel.isWxPayLock();
             if(!TextUtils.isEmpty(version)){
                 SharedPreferencesUtils.putString(Constants.VERSION, version.replaceAll("(?i)v",""));
             }
+            SharedPreferencesUtils.putBoolean(Constants.WXPAYLOCK, wxPayLock);
             List<String> gateway = domainModel.getGateway();
             if(gateway != null && gateway.size() > 0){
                 //        for (int i = 0; i < hostList.size(); i++) {

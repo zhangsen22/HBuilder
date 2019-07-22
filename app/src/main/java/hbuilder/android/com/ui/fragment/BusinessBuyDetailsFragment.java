@@ -12,9 +12,13 @@ import android.widget.TextView;
 import com.growalong.util.util.DateUtil;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
+import com.growalong.util.util.bean.MessageEvent;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.XPopupCallback;
+
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
@@ -263,6 +267,12 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
 
     @Override
     public void manualPaySuccess(BaseBean baseBean) {
+        businessBuyDetailsActivity.finish();
+    }
+
+    @Override
+    public void goOrderMySellComplete() {
+        EventBus.getDefault().post(new MessageEvent(3));
         businessBuyDetailsActivity.finish();
     }
 

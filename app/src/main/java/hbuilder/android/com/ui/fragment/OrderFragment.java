@@ -133,6 +133,12 @@ public class OrderFragment extends BaseFragment {
                 OrderItemFragment currentFragment = (OrderItemFragment) orderViewPagerAdapter.getCurrentFragment(2);
                 currentFragment.onActivityResultOrderItem(requestCode);
             }
+        }else if(requestCode == Constants.REQUESTCODE_18){
+            orderViewPager.setCurrentItem(0, false);
+            if (orderViewPagerAdapter != null) {
+                OrderItemFragment currentFragment = (OrderItemFragment) orderViewPagerAdapter.getCurrentFragment(0);
+                currentFragment.onActivityResultOrderItem(requestCode);
+            }
         }
     }
 }
