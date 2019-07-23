@@ -4,7 +4,7 @@ import hbuilder.android.com.util.FileUtils;
  * 静态变量类
  */
 public class Constants {
-    public static final String HTML_BASE = "https://down.xnbc999.top/";//h5域名和apk下载地址域名
+    public static final String HTML_BASE = "https://down.co8888.top/";//h5域名和apk下载地址域名
     //二维码图片保存本地的路径
     public static final String FILTER_IMAGE_PATH = FileUtils.getFilterImageDir() + "filter_image.jpg";
     public static final String FILTERCHONGBI_IMAGE_PATH = FileUtils.getFilterImageDir() + "chongbi_filter_image.jpg";
