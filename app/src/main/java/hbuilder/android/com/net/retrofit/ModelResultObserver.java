@@ -3,16 +3,25 @@ package hbuilder.android.com.net.retrofit;
 import android.content.Intent;
 import android.os.Looper;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.Md5Utils;
 
 import hbuilder.android.com.MyApplication;
+import hbuilder.android.com.app.AccountInfo;
+import hbuilder.android.com.app.AccountManager;
 import hbuilder.android.com.app.AppManager;
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.net.retrofit.exception.ModelException;
 import hbuilder.android.com.net.retrofit.exception.ModelExceptionBuilder;
+import hbuilder.android.com.net.retrofit.exception.ModelExceptionMap;
+import hbuilder.android.com.net.retrofit.exception.ServerExceptionMap;
+import hbuilder.android.com.net.retrofit.service.ApiServices;
+import hbuilder.android.com.service.KillSelfService;
 import hbuilder.android.com.ui.activity.LoginActivity;
 import hbuilder.android.com.util.ToastUtil;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 封装 Observer 统一返回方法
@@ -80,12 +89,38 @@ public abstract class ModelResultObserver<T> implements Observer<T> {
      */
     public void onFailure(ModelException ex) {
         GALogger.d(TAG, "onFailure() into, " + ex.toString() + "   mMessage   " + ex.mMessage + "   mCode   " + ex.mCode);
-        ToastUtil.longShow(ex.mMessage);
         if (ex.mCode == 1 && Looper.myLooper() == Looper.getMainLooper()) {//"账号在别处已经登录"
-            Intent intent = new Intent("android.intent.action.LoginActivity");
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            MyApplication.appContext.startActivity(intent);
-            AppManager.getInstance().finishAllActivity(LoginActivity.class);
+            /**
+             * 掉登录接口
+             */
+            long currentTime = System.currentTimeMillis();
+            String phoneNumber = AccountManager.getInstance().getPhoneNumber();
+            String passWord = AccountManager.getInstance().getPassWord();
+            BaseRetrofitClient.getInstance().create(ApiServices.class)
+                    .login(phoneNumber, Md5Utils.getMD5(passWord+currentTime),currentTime)
+                    .subscribeOn(Schedulers.io())
+                    .map(new ServerExceptionMap<AccountInfo>())
+                    .onErrorResumeNext(new ModelExceptionMap<AccountInfo>()).observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new ModelResultObserver<AccountInfo>() {
+                        @Override
+                        public void onSuccess(AccountInfo accountInfo) {
+                            accountInfo.setPhoneNumber(phoneNumber);
+                            accountInfo.setPassword(passWord);
+                            AccountManager.getInstance().saveAccountInfoFormModel(accountInfo);
+                            ToastUtil.longShow("请重复上次操作");
+                        }
+
+                        @Override
+                        public void onFailure(ModelException ex) {
+                            super.onFailure(ex);
+                            Intent intent = new Intent("android.intent.action.LoginActivity");
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            MyApplication.appContext.startActivity(intent);
+                            AppManager.getInstance().finishAllActivity(LoginActivity.class);
+                        }
+                    });
+        }else {
+            ToastUtil.longShow(ex.mMessage);
         }
     }
 }

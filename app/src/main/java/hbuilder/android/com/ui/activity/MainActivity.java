@@ -2,6 +2,7 @@ package hbuilder.android.com.ui.activity;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -228,6 +229,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     }
 
     private void updateApp() {
+        String h5_down_address = MyApplication.getH5_down_Address();
+        if(TextUtils.isEmpty(h5_down_address)){
+            return;
+        }
         //带确认和取消按钮的弹窗
         new XPopup.Builder(this)
                 .dismissOnBackPressed(false)

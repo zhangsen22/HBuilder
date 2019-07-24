@@ -75,7 +75,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler{
                 e.printStackTrace();
             }
             //退出程序
-            AppManager.getInstance().appExit();
+            AppManager.getInstance().finishAllActivity(null);
            mContext.startService(new Intent(MyApplication.appContext,KillSelfService.class));
         }
     }
