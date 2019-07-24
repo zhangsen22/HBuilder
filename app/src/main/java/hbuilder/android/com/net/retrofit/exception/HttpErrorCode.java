@@ -103,6 +103,12 @@ public class HttpErrorCode {
             }else {
                 resString = "昵称重复";
             }
+        }else if(error == 130){
+            if(BuildConfig.DEBUG){
+                resString = error+" : 此收款方式已设置过,不能重复设置";
+            }else {
+                resString = "此收款方式已设置过,不能重复设置";
+            }
         }else if(error == 132){
             if(BuildConfig.DEBUG){
                 resString = error+" : 添加店员二维码失败";

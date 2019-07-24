@@ -73,6 +73,13 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
                 SharedPreferencesUtils.putString(Constants.VERSION, version.replaceAll("(?i)v",""));
             }
             SharedPreferencesUtils.putBoolean(Constants.WXPAYLOCK, wxPayLock);
+            List<String> downLoad = domainModel.getDownLoad();
+            if(downLoad  != null && downLoad.size() > 0){
+                String s = downLoad.get(0);
+                if(!TextUtils.isEmpty(s)){
+                    MyApplication.setH5_down_Address(s);
+                }
+            }
             List<String> gateway = domainModel.getGateway();
             if(gateway != null && gateway.size() > 0){
                 //        for (int i = 0; i < hostList.size(); i++) {

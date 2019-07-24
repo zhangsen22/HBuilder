@@ -93,7 +93,7 @@ public class DownloadUtils {
                 .build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.HTML_BASE)
+                .baseUrl(MyApplication.getH5_down_Address())
                 .client(httpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .build();

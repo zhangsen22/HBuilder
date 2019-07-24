@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.support.multidex.MultiDex;
-
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.PackageUtil;
 import hbuilder.android.com.crash.CrashHandler;
@@ -17,6 +16,7 @@ public class MyApplication extends Application {
     public static volatile Handler applicationHandler;
     public static volatile Context appContext;
     public static volatile String hostAddress;
+    public static volatile String h5_down_Address;//h5域名和apk下载地址域名
 
     /**
      * 由于在onCreate替换真正的Application,
@@ -77,5 +77,13 @@ public class MyApplication extends Application {
 
     public static void setHostAddress(String hostAddress) {
         MyApplication.hostAddress = hostAddress;
+    }
+
+    public static String getH5_down_Address() {
+        return h5_down_Address;
+    }
+
+    public static void setH5_down_Address(String h5_down_Address) {
+        MyApplication.h5_down_Address = h5_down_Address;
     }
 }

@@ -1,18 +1,18 @@
 package hbuilder.android.com.app;
+import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.util.FileUtils;
 /**
  * 静态变量类
  */
 public class Constants {
-    public static final String HTML_BASE = "https://down.co8888.top/";//h5域名和apk下载地址域名
     //二维码图片保存本地的路径
     public static final String FILTER_IMAGE_PATH = FileUtils.getFilterImageDir() + "filter_image.jpg";
     public static final String FILTERCHONGBI_IMAGE_PATH = FileUtils.getFilterImageDir() + "chongbi_filter_image.jpg";
-    public static final String HOWGETALIPAYID = HTML_BASE+"aliid.htm";//如何获取支付宝id
-    public static final String NOTIFYCLICK = HTML_BASE+"msg.html";
-    public static final String USERXIEYI = HTML_BASE+"userpro.html";
-    public static final String KEFUANDHELP = HTML_BASE+"help.html";
-    public static final String WEBCHATTG = HTML_BASE+"service.html";//微信和tg按钮
+    public static final String HOWGETALIPAYID = MyApplication.getH5_down_Address()+"aliid.htm";//如何获取支付宝id
+    public static final String NOTIFYCLICK = MyApplication.getH5_down_Address()+"msg.html";
+    public static final String USERXIEYI = MyApplication.getH5_down_Address()+"userpro.html";
+    public static final String KEFUANDHELP = MyApplication.getH5_down_Address()+"help.html";
+    public static final String WEBCHATTG = MyApplication.getH5_down_Address()+"service.html";//微信和tg按钮
     public static final String SESSIONID = "sessionid";
     public static final String USDTPRICE = "Usdt_Price";
     public static final String VERSION = "version";
