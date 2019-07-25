@@ -204,7 +204,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="直推20人注册并有效挂单即可申请成为一级代理，一级代理获得所有伞下成员成交单金额0.2%的代理奖励，一级代理可发展二级代理，其获得一级代理所有收益的10％奖励。（挂单奖励分润体同上）"
+                        android:text="直推20人注册并有效挂单即可申请成为一级代理，一级代理获得所有伞下成员成交单金额0.2%的代理奖励，一级代理可发展二级代理，其获得一级代理所有收益的50％奖励。（挂单奖励分润体同上）"
                         android:textSize="12sp"
                         android:textColor="@color/color_666666"
                         android:layout_marginTop="@dimen/y22"

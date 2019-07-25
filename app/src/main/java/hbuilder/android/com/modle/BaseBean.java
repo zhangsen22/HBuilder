@@ -15,21 +15,21 @@ package hbuilder.android.com.modle;
 
 public class BaseBean {
     private int ret; //0代表成功，其他见下方错误码
-    private String msgg;
+    private String message;
 
     public int getRet() {
         return ret;
     }
 
     public String getMsgg() {
-        return msgg;
+        return message;
     }
 
     @Override
     public String toString() {
         return "BaseBean{" +
                 "ret=" + ret +
-                ", msg='" + msgg + '\'' +
+                ", message='" + message + '\'' +
                 '}';
     }
 }

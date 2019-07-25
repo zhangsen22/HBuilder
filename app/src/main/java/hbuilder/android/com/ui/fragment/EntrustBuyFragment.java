@@ -73,7 +73,7 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
         if(usdtPriceResponse != null){
             minBuyPrice = usdtPriceResponse.getMinBuyPrice();
             maxBuyPrice = usdtPriceResponse.getMaxBuyPrice();
-            etBusinessBuyPrice.setHint("交易价格请限于"+new DecimalFormat("0.00").format(minBuyPrice)+" ~ "+new DecimalFormat("0.00").format(maxBuyPrice));
+            etBusinessBuyPrice.setHint("交易价格请限于"+new DecimalFormat("0.000").format(minBuyPrice)+" ~ "+new DecimalFormat("0.000").format(maxBuyPrice));
         }
     }
 

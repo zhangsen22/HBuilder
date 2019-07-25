@@ -231,7 +231,7 @@ public class HttpErrorCode {
             }
         }else if(error == 500){
             if(BuildConfig.DEBUG){
-                resString = error+resString;
+                resString = error+" : "+resString;
             }else {
                 resString = resString;
             }

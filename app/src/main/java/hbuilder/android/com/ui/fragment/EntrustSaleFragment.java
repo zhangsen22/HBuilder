@@ -97,7 +97,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
         if(usdtPriceResponse != null){
             minSellPrice = usdtPriceResponse.getMinSellPrice();
             maxSellPrice = usdtPriceResponse.getMaxSellPrice();
-            etBusinessPrice.setHint("交易价格请限于"+new DecimalFormat("0.00").format(minSellPrice)+" ~ "+new DecimalFormat("0.00").format(maxSellPrice));
+            etBusinessPrice.setHint("交易价格请限于"+new DecimalFormat("0.000").format(minSellPrice)+" ~ "+new DecimalFormat("0.000").format(maxSellPrice));
         }
         GALogger.d(TAG,"EntrustSaleFragment    is    initView");
         GALogger.d(TAG,"mEnableLazyLoad   "+mEnableLazyLoad+"   mIsCreateView   "+mIsCreateView+"  getUserVisibleHint()  "+getUserVisibleHint()+"   mIsLoadData   "+mIsLoadData);
