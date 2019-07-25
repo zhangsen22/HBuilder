@@ -304,6 +304,11 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
     }
 
     public void onActivityResultF() {
-        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
+        MyApplication.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
+            }
+        },250);
     }
 }
