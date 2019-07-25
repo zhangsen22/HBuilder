@@ -100,7 +100,7 @@ public class IdCastPayListAdapter extends PowerAdapter<BankPayeeItemModel> {
                     }
                 }
             }
-            tvIdcastLastmoney.setText(new DecimalFormat("0.00").format(bankPayeeItemModel.getLeftMoney()));
+            tvIdcastLastmoney.setText(new DecimalFormat("0.00").format(bankPayeeItemModel.getLeftMoney()/100));
             tvIdcastLastnum.setText(bankPayeeItemModel.getLeftTimes() + "");
             tvPayDelete.setOnClickListener(new View.OnClickListener() {
                 @Override

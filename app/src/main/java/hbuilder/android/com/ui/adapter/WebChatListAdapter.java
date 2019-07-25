@@ -80,7 +80,7 @@ public class WebChatListAdapter extends PowerAdapter<WeChatPayeeItemModel> {
         @Override
         public void onBind(@NonNull final WeChatPayeeItemModel weChatPayeeItemModel, final int position) {
             GALogger.d(TAG, "position           " + position);
-            tvWebchatLastmoney.setText(new DecimalFormat("0.00").format(weChatPayeeItemModel.getLeftMoney()));
+            tvWebchatLastmoney.setText(new DecimalFormat("0.00").format(weChatPayeeItemModel.getLeftMoney()/100));
             tvWebchatLastnum.setText(weChatPayeeItemModel.getLeftTimes() + "");
             WeChatPayeeItemModelPayee payee = weChatPayeeItemModel.getPayee();
             if(payee != null){

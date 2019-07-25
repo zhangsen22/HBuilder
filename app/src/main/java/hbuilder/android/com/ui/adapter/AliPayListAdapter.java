@@ -101,7 +101,7 @@ public class AliPayListAdapter extends PowerAdapter<AliPayPayeeItemModel> {
                     }
                 }
             }
-            tvAlipayLastmoney.setText(new DecimalFormat("0.00").format(aliPayPayeeItemModel.getLeftMoney()));
+            tvAlipayLastmoney.setText(new DecimalFormat("0.00").format(aliPayPayeeItemModel.getLeftMoney()/100));
             tvAlipayLastnum.setText(aliPayPayeeItemModel.getLeftTimes() + "");
             tvPayDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
