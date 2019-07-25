@@ -229,7 +229,13 @@ public class HttpErrorCode {
             }else {
                 resString = "你不是交易双方任何一人，或者交易不是等待放币状态，或者交易付款后不足10分钟，如非以上原因请联系客服";
             }
-        }else if(error == 900){
+        }else if(error == 500){
+            if(BuildConfig.DEBUG){
+                resString = error+resString;
+            }else {
+                resString = resString;
+            }
+        } else if(error == 900){
             if(BuildConfig.DEBUG){
                 resString = error+" : 修改用户资金失败,没找到用户";
             }else {
