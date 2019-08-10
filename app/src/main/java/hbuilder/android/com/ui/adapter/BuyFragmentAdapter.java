@@ -93,7 +93,7 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
                 tvNumber.setText(new DecimalFormat("0.00").format(buyItem.getMaxNum()));
                 tvMinPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()));
                 tvMaxPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
-                tvSinglePrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice()));
+                tvSinglePrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + buyItem.getPrice());
                 if (buyItem.isSupportBank()) {
                     ivIdcard.setVisibility(View.VISIBLE);
                 } else {
