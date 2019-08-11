@@ -184,9 +184,9 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
             llWebchat.setVisibility(View.GONE);
         }
         ivBuyName.setText(buyItem.getNickname());
-        tvBusinessBuyPrice.setText(new DecimalFormat("0.00").format(buyItem.getPrice()));
+        tvBusinessBuyPrice.setText(buyItem.getPrice()+"");
         tvBusinessBuyNum.setText(buyItem.getMaxNum() + "");
-        etBusinessBuyPrice.setText(new DecimalFormat("0.00").format(buyItem.getPrice()));
+        etBusinessBuyPrice.setText(buyItem.getPrice()+"");
 
         if(buyItem.isLargeAmount()){
             tvBusinessBuyMore.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
