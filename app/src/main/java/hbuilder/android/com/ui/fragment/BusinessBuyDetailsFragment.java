@@ -19,6 +19,8 @@ import com.lxj.xpopup.interfaces.XPopupCallback;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
@@ -116,7 +118,7 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
     public void lazyLoadData() {
         super.lazyLoadData();
         tvOrderCode.setText(buyBusinessResponse.getTradeId());
-        tvPayPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + price * num + "");
+        tvPayPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format( price * num ));
         tvBiusnessPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + price);
         tvBiusnessNum.setText(num + "");
         createTime = buyBusinessResponse.getCurrentTime();
