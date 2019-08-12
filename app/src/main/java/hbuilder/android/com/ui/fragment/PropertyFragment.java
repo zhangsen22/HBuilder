@@ -226,7 +226,9 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
 
     public void onActivityResultProperty(int requestCode) {
         GALogger.d(TAG, "requestCode == " + requestCode);
-        propertyPresenter.getInfo();
+        if(propertyPresenter != null) {
+            propertyPresenter.getInfo();
+        }
     }
 
     @Override

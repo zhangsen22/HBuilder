@@ -324,12 +324,6 @@
                     android:textColor="@color/color_999999"
                     android:textSize="13sp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/bh"
-                    android:layout_marginLeft="@dimen/y12"/>
-
             </LinearLayout>
 
             <include layout="@layout/line_f9"/>
@@ -364,10 +358,11 @@
                     android:textSize="13sp" />
 
                 <ImageView
+                    android:id="@+id/iv_copy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/bg"
-                    android:layout_marginLeft="@dimen/y16"/>
+                    android:src="@mipmap/bh"
+                    android:layout_marginLeft="@dimen/y12"/>
 
             </LinearLayout>
 

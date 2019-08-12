@@ -1,5 +1,8 @@
 package hbuilder.android.com.ui.fragment;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -73,6 +76,8 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
     ImageView tvPayImage;
     @BindView(R.id.iv_popview)
     ImageView ivPopview;
+    @BindView(R.id.iv_copy)
+    ImageView ivCopy;
     private BusinessBuyDetailsActivity businessBuyDetailsActivity;
     private BusinessBuyDetailsPresenter presenter;
     private BuyBusinessResponse buyBusinessResponse;
@@ -146,10 +151,10 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
                 }
             } else if (type == 3) {
                 tvPayTypeName.setText("银行账户");
-                tvShoukuaiTypeName.setText("银行账户");
                 tvPayImage.setImageResource(R.mipmap.f);
                 BankPayee bankPayee = GsonUtil.getInstance().getServerBean(payee, BankPayee.class);
                 if (bankPayee != null) {
+                    tvShoukuaiTypeName.setText(bankPayee.getBankName());
                     tvShoukuaiName.setText(bankPayee.getName());
                     tvShoukuaiAccount.setText(bankPayee.getAccount());
                     ivPopview.setVisibility(View.GONE);
@@ -189,7 +194,7 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
         }
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_cancel_order, R.id.tv_re_pay,R.id.iv_popview})
+    @OnClick({R.id.iv_back, R.id.tv_cancel_order, R.id.tv_re_pay,R.id.iv_popview,R.id.iv_copy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -230,6 +235,19 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
                         .hasStatusBarShadow(true) //启用状态栏阴影
                         .asCustom(new CenterErWeiMaPopupView(getContext(),type,GsonUtil.getInstance().objTojson(buyBusinessResponse.getPayee())))
                         .show();
+                break;
+            case R.id.iv_copy:
+                String trim = tvShoukuaiAccount.getText().toString().trim();
+                if(TextUtils.isEmpty(trim)){
+                    return;
+                }
+                //获取剪贴板管理器：
+                ClipboardManager cm = (ClipboardManager) businessBuyDetailsActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                // 创建普通字符型ClipData
+                ClipData mClipData = ClipData.newPlainText("Label", trim);
+                // 将ClipData内容放到系统剪贴板里。
+                cm.setPrimaryClip(mClipData);
+                ToastUtil.shortShow("已复制到剪贴板");
                 break;
         }
     }

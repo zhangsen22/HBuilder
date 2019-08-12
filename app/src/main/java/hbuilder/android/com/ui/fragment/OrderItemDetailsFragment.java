@@ -552,6 +552,8 @@ public class OrderItemDetailsFragment extends BaseFragment implements OnLoadMore
     }
 
     public void onActivityResultOrderItemDetails(int requestCode) {
-        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
+        if(mRecyclerView != null && presenter != null) {
+            mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
+        }
     }
 }
