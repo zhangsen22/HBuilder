@@ -51,10 +51,11 @@
             android:layout_marginLeft="@dimen/y40"/>
 
         <TextView
+            android:id="@+id/tv_gonggao"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="XOTC交易所疯狂大派送"
+            tools:text="XOTC交易所疯狂大派送"
             android:layout_marginLeft="@dimen/y20"
             android:textSize="11sp"
             android:textColor="@color/color_666666"

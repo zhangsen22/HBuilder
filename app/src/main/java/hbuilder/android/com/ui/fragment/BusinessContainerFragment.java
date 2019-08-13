@@ -5,20 +5,18 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
+import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
-
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -28,24 +26,26 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.Constants;
+import hbuilder.android.com.modle.BulletinListItem;
+import hbuilder.android.com.modle.BulletinListResponse;
+import hbuilder.android.com.presenter.BusinessContainerPresenter;
+import hbuilder.android.com.presenter.contract.BusinessContainerContract;
+import hbuilder.android.com.presenter.modle.BusinessContainerModle;
+import hbuilder.android.com.ui.activity.BulletinActivity;
 import hbuilder.android.com.ui.activity.GuaDanActivity;
 import hbuilder.android.com.ui.activity.MainActivity;
 import hbuilder.android.com.ui.activity.WebViewActivity;
 import hbuilder.android.com.ui.adapter.BusinessViewPagerAdapter;
 
-public class BusinessContainerFragment extends BaseFragment {
+public class BusinessContainerFragment extends BaseFragment implements BusinessContainerContract.View {
     private static final String TAG = BusinessContainerFragment.class.getSimpleName();
     @BindView(R.id.business_magicindicator)
     MagicIndicator businessMagicindicator;
@@ -59,8 +59,12 @@ public class BusinessContainerFragment extends BaseFragment {
     FrameLayout ffBusinessContent;
     @BindView(R.id.banner)
     ConvenientBanner banner;
+    @BindView(R.id.tv_gonggao)
+    TextView tvGonggao;
     private MainActivity mainActivity;
     private BusinessViewPagerAdapter baseFragmentPagerAdapter;
+    private BusinessContainerPresenter presenter;
+    private ArrayList<BulletinListItem> bulletinList;
 
     public static BusinessContainerFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -139,6 +143,9 @@ public class BusinessContainerFragment extends BaseFragment {
     public void lazyLoadData() {
         super.lazyLoadData();
         setLoadDataWhenVisible();
+        //初始化presenter
+        new BusinessContainerPresenter(this, new BusinessContainerModle());
+        presenter.bulletinList();
         int currentItem = businessViewPager.getCurrentItem();
         if (baseFragmentPagerAdapter != null) {
             BaseFragment currentFragment = baseFragmentPagerAdapter.getCurrentFragment(currentItem);
@@ -152,7 +159,9 @@ public class BusinessContainerFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_notry_click:
-                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.NOTIFYCLICK, true);
+                if(bulletinList != null && bulletinList.size() > 0){
+                    BulletinActivity.startThis(mainActivity,bulletinList);
+                }
                 break;
             case R.id.iv_guadan:
                 GuaDanActivity.startThis(mainActivity);
@@ -165,7 +174,7 @@ public class BusinessContainerFragment extends BaseFragment {
         imgs.add(R.mipmap.banner);
         imgs.add(R.mipmap.banner1);
         banner.setHorizontalScrollBarEnabled(false);
-        banner.setPages(new CBViewHolderCreator<LocalImageHolderView>(){
+        banner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
 
             @Override
             public LocalImageHolderView createHolder() {
@@ -179,6 +188,42 @@ public class BusinessContainerFragment extends BaseFragment {
 
                     }
                 });
+    }
+
+    @Override
+    public void bulletinListSuccess(BulletinListResponse bulletinListResponse) {
+        if (bulletinListResponse != null) {
+            if(bulletinList == null){
+                bulletinList = new ArrayList<>();
+            }
+            bulletinList.clear();
+            List<BulletinListItem> list = bulletinListResponse.getList();
+            if (list != null && list.size() > 0) {
+                bulletinList.addAll(list);
+                BulletinListItem bulletinListItem = list.get(0);
+                if (bulletinListItem != null) {
+                    String title = bulletinListItem.getTitle();
+                    if (!TextUtils.isEmpty(title)) {
+                        tvGonggao.setText(title);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void setPresenter(BusinessContainerContract.Presenter presenter) {
+        this.presenter = (BusinessContainerPresenter) presenter;
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 
     public class LocalImageHolderView implements Holder<Integer> {

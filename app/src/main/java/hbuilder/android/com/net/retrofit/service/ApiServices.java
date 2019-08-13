@@ -2,6 +2,7 @@ package hbuilder.android.com.net.retrofit.service;
 
 import hbuilder.android.com.app.AccountInfo;
 import hbuilder.android.com.modle.BaseBean;
+import hbuilder.android.com.modle.BulletinListResponse;
 import hbuilder.android.com.modle.BuyBusinessResponse;
 import hbuilder.android.com.modle.BuyResponse;
 import hbuilder.android.com.modle.DomainModel;
@@ -558,4 +559,11 @@ public interface ApiServices {
     @FormUrlEncoded
     @POST(ApiConstants.recommendReward)
     Observable<InvitationResponse> recommendReward(@Field("upUserId") long upUserId);
+
+    /**
+     * 公告
+     * @return
+     */
+    @POST(ApiConstants.bulletinList)
+    Observable<BulletinListResponse> bulletinList();
 }
