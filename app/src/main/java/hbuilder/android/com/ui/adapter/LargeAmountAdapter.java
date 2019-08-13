@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.growalong.util.util.DateUtil;
+
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.modle.BuyItem;
@@ -65,7 +68,7 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
         @Override
         public void onBind(@NonNull LargeAmountItem largeAmountItem, int position) {
             if(largeAmountItem != null){
-                tvLargeAmountTime.setText(largeAmountItem.getNickname());
+                tvLargeAmountTime.setText(DateUtil.getCurrentDateString3(largeAmountItem.getPuttime()));
                 tvLargeAmountPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+largeAmountItem.getPrice());
                 tvLargeAmountLastNum.setText("1");
                 tvLargeAmountNum.setText(largeAmountItem.getNum()+"");
