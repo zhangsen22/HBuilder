@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.growalong.util.util.DateUtil;
-import java.text.DecimalFormat;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
 import hbuilder.android.com.modle.BuyItem;
@@ -71,7 +69,7 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
                 tvLargeAmountPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+largeAmountItem.getPrice());
                 tvLargeAmountLastNum.setText("1");
                 tvLargeAmountNum.setText(largeAmountItem.getNum()+"");
-                tvAllPrice.setText(largeAmountItem.getMoney()+"");
+                tvAllPrice.setText((largeAmountItem.getMoney()/100)+"");
                 if(largeAmountItem.isSupportBank()){
                     ivIdcard.setVisibility(View.VISIBLE);
                 }else {
