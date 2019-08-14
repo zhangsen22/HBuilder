@@ -104,4 +104,5 @@ dependencies {
     implementation rootProject.ext.dependencies.eventbus
     //轮播图
     implementation 'com.bigkoo:convenientbanner:2.0.5'
+    implementation 'org.apache.httpcomponents:httpcore:4.4.4'
 }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.DateUtil;
 import com.growalong.util.util.GALogger;
@@ -19,11 +20,8 @@ import com.growalong.util.util.bean.MessageEvent;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.XPopupCallback;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.text.DecimalFormat;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
@@ -78,6 +76,24 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
     ImageView ivPopview;
     @BindView(R.id.iv_copy)
     ImageView ivCopy;
+    @BindView(R.id.ll_shoukuanfangshi)
+    LinearLayout llShoukuanfangshi;
+    @BindView(R.id.tv_bank_name)
+    TextView tvBankName;
+    @BindView(R.id.iv_copy_bankname)
+    ImageView ivCopyBankname;
+    @BindView(R.id.ll_bankname)
+    LinearLayout llBankname;
+    @BindView(R.id.tv_zhibank_name)
+    TextView tvZhibankName;
+    @BindView(R.id.iv_copy_zhibank_name)
+    ImageView ivCopyZhibankName;
+    @BindView(R.id.ll_zhibankname)
+    LinearLayout llZhibankname;
+    @BindView(R.id.iv_copy_username)
+    ImageView ivCopyUsername;
+    @BindView(R.id.iv_copy_tuijianma)
+    ImageView ivCopyTuijianma;
     private BusinessBuyDetailsActivity businessBuyDetailsActivity;
     private BusinessBuyDetailsPresenter presenter;
     private BuyBusinessResponse buyBusinessResponse;
@@ -116,20 +132,21 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("购买"+MyApplication.appContext.getResources().getString(R.string.nbc));
+        tvTitle.setText("购买" + MyApplication.appContext.getResources().getString(R.string.nbc));
     }
 
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
         tvOrderCode.setText(buyBusinessResponse.getTradeId());
-        tvPayPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format( price * num ));
+        tvPayPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(price * num));
         tvBiusnessPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + price);
         tvBiusnessNum.setText(num + "");
         createTime = buyBusinessResponse.getCurrentTime();
         String payee = GsonUtil.getInstance().objTojson(buyBusinessResponse.getPayee());
         if (!TextUtils.isEmpty(payee)) {
             if (type == 1) {
+                llShoukuanfangshi.setVisibility(View.VISIBLE);
                 tvPayTypeName.setText("支付宝");
                 tvShoukuaiTypeName.setText("支付宝");
                 tvPayImage.setImageResource(R.mipmap.g);
@@ -137,9 +154,9 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
                 if (aliPayee != null) {
                     tvShoukuaiName.setText(aliPayee.getName());
                     tvShoukuaiAccount.setText(aliPayee.getAccount());
-                    ivPopview.setVisibility(View.VISIBLE);
                 }
             } else if (type == 2) {
+                llShoukuanfangshi.setVisibility(View.VISIBLE);
                 tvPayTypeName.setText("微信");
                 tvShoukuaiTypeName.setText("微信");
                 tvPayImage.setImageResource(R.mipmap.h);
@@ -147,17 +164,18 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
                 if (wechatPayee != null) {
                     tvShoukuaiName.setText(wechatPayee.getName());
                     tvShoukuaiAccount.setText(wechatPayee.getAccount());
-                    ivPopview.setVisibility(View.VISIBLE);
                 }
             } else if (type == 3) {
-                tvPayTypeName.setText("银行账户");
+                llBankname.setVisibility(View.VISIBLE);
+                llZhibankname.setVisibility(View.VISIBLE);
+                tvPayTypeName.setText("银行卡");
                 tvPayImage.setImageResource(R.mipmap.f);
                 BankPayee bankPayee = GsonUtil.getInstance().getServerBean(payee, BankPayee.class);
                 if (bankPayee != null) {
-                    tvShoukuaiTypeName.setText(bankPayee.getBankName());
+                    tvBankName.setText(bankPayee.getBankName());
+                    tvZhibankName.setText(bankPayee.getSubName());
                     tvShoukuaiName.setText(bankPayee.getName());
                     tvShoukuaiAccount.setText(bankPayee.getAccount());
-                    ivPopview.setVisibility(View.GONE);
                 }
             }
 
@@ -194,7 +212,7 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
         }
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_cancel_order, R.id.tv_re_pay,R.id.iv_popview,R.id.iv_copy})
+    @OnClick({R.id.iv_back, R.id.tv_cancel_order, R.id.tv_re_pay, R.id.iv_popview, R.id.iv_copy, R.id.iv_copy_bankname, R.id.iv_copy_zhibank_name, R.id.iv_copy_username,R.id.iv_copy_tuijianma})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -233,12 +251,12 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
             case R.id.iv_popview:
                 new XPopup.Builder(getContext())
                         .hasStatusBarShadow(true) //启用状态栏阴影
-                        .asCustom(new CenterErWeiMaPopupView(getContext(),type,GsonUtil.getInstance().objTojson(buyBusinessResponse.getPayee())))
+                        .asCustom(new CenterErWeiMaPopupView(getContext(), type, GsonUtil.getInstance().objTojson(buyBusinessResponse.getPayee())))
                         .show();
                 break;
             case R.id.iv_copy:
                 String trim = tvShoukuaiAccount.getText().toString().trim();
-                if(TextUtils.isEmpty(trim)){
+                if (TextUtils.isEmpty(trim)) {
                     return;
                 }
                 //获取剪贴板管理器：
@@ -247,6 +265,58 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
                 ClipData mClipData = ClipData.newPlainText("Label", trim);
                 // 将ClipData内容放到系统剪贴板里。
                 cm.setPrimaryClip(mClipData);
+                ToastUtil.shortShow("已复制到剪贴板");
+                break;
+            case R.id.iv_copy_bankname:
+                String trim1 = tvBankName.getText().toString().trim();
+                if (TextUtils.isEmpty(trim1)) {
+                    return;
+                }
+                //获取剪贴板管理器：
+                ClipboardManager cm1 = (ClipboardManager) businessBuyDetailsActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                // 创建普通字符型ClipData
+                ClipData mClipData1 = ClipData.newPlainText("Label", trim1);
+                // 将ClipData内容放到系统剪贴板里。
+                cm1.setPrimaryClip(mClipData1);
+                ToastUtil.shortShow("已复制到剪贴板");
+                break;
+            case R.id.iv_copy_zhibank_name:
+                String trim2 = tvZhibankName.getText().toString().trim();
+                if (TextUtils.isEmpty(trim2)) {
+                    return;
+                }
+                //获取剪贴板管理器：
+                ClipboardManager cm2 = (ClipboardManager) businessBuyDetailsActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                // 创建普通字符型ClipData
+                ClipData mClipData2 = ClipData.newPlainText("Label", trim2);
+                // 将ClipData内容放到系统剪贴板里。
+                cm2.setPrimaryClip(mClipData2);
+                ToastUtil.shortShow("已复制到剪贴板");
+                break;
+            case R.id.iv_copy_username:
+                String trim3 = tvShoukuaiName.getText().toString().trim();
+                if (TextUtils.isEmpty(trim3)) {
+                    return;
+                }
+                //获取剪贴板管理器：
+                ClipboardManager cm3 = (ClipboardManager) businessBuyDetailsActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                // 创建普通字符型ClipData
+                ClipData mClipData3 = ClipData.newPlainText("Label", trim3);
+                // 将ClipData内容放到系统剪贴板里。
+                cm3.setPrimaryClip(mClipData3);
+                ToastUtil.shortShow("已复制到剪贴板");
+                break;
+            case R.id.iv_copy_tuijianma:
+                String trim4 = tvShoukuaiCankaoma.getText().toString().trim();
+                if (TextUtils.isEmpty(trim4)) {
+                    return;
+                }
+                //获取剪贴板管理器：
+                ClipboardManager cm4 = (ClipboardManager) businessBuyDetailsActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                // 创建普通字符型ClipData
+                ClipData mClipData4 = ClipData.newPlainText("Label", trim4);
+                // 将ClipData内容放到系统剪贴板里。
+                cm4.setPrimaryClip(mClipData4);
                 ToastUtil.shortShow("已复制到剪贴板");
                 break;
         }
@@ -269,7 +339,7 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
                     public void onDismiss() {
                         Log.e("tag", "onDismiss");
                     }
-                }).asConfirm("你确定要退出购买"+MyApplication.appContext.getResources().getString(R.string.nbc)+"吗?", "",
+                }).asConfirm("你确定要退出购买" + MyApplication.appContext.getResources().getString(R.string.nbc) + "吗?", "",
                 "取消", "确定",
                 new OnConfirmListener() {
                     @Override
@@ -317,7 +387,7 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
 
     @Override
     public void onDestroyView() {
-        if(timer != null){
+        if (timer != null) {
             timer.cancel();
             timer = null;
         }
