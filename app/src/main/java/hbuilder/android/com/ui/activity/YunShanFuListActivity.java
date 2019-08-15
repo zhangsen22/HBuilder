@@ -1,0 +1,37 @@
+package hbuilder.android.com.ui.activity;
+
+import android.content.Intent;
+import android.view.View;
+import com.growalong.util.util.ActivityUtils;
+import hbuilder.android.com.BaseActivity;
+import hbuilder.android.com.R;
+import hbuilder.android.com.ui.fragment.YunShanFuListFragment;
+
+public class YunShanFuListActivity extends BaseActivity {
+    private static final String TAG = YunShanFuListActivity.class.getSimpleName();
+    private YunShanFuListFragment yunShanFuListFragment;
+
+    public static void startThis(BaseActivity activity) {
+        activity.startActivity(new Intent(activity, YunShanFuListActivity.class));
+    }
+
+    @Override
+    protected int getRootView() {
+        return R.layout.activity_content;
+    }
+
+    @Override
+    protected void initView(View mRootView) {
+    }
+
+    @Override
+    protected void initData() {
+        yunShanFuListFragment = (YunShanFuListFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.contentFrame);
+        if (yunShanFuListFragment == null) {
+            yunShanFuListFragment = YunShanFuListFragment.newInstance("");
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    yunShanFuListFragment, R.id.contentFrame);
+        }
+    }
+}

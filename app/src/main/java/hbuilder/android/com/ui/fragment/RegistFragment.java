@@ -114,7 +114,7 @@ public class RegistFragment extends BaseFragment implements RegistContract.View 
                         if (left > 0) {
                             tvGetsmsCode.setText(left + "秒");
                             tvGetsmsCode.setClickable(false);
-                            tvGetsmsCode.setTextColor(MyApplication.appContext.getResources().getColor(R.color.color_737373));
+                            tvGetsmsCode.setTextColor(MyApplication.appContext.getResources().getColor(R.color.common_white));
                         } else {
                             tvGetsmsCode.setClickable(true);
                             tvGetsmsCode.setText("获取验证码");

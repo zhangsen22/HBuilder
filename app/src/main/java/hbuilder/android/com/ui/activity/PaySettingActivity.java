@@ -13,6 +13,7 @@ import hbuilder.android.com.presenter.modle.PaySettingModle;
 import hbuilder.android.com.ui.fragment.AliPayEditFragment;
 import hbuilder.android.com.ui.fragment.IdCastPayEditFragment;
 import hbuilder.android.com.ui.fragment.WebChatEditFragment;
+import hbuilder.android.com.ui.fragment.YunShanFunEditFragment;
 
 public class PaySettingActivity extends BaseActivity {
     private static final String TAG = PaySettingActivity.class.getSimpleName();
@@ -75,6 +76,14 @@ public class PaySettingActivity extends BaseActivity {
             }
             //初始化presenter
             new IdCastPresenter(idCastPayEditFragment, new PaySettingModle());
+        }else if(type == 4){
+            YunShanFunEditFragment yunShanFunEditFragment = (YunShanFunEditFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.contentFrame);
+            if (yunShanFunEditFragment == null) {
+                yunShanFunEditFragment = YunShanFunEditFragment.newInstance("");
+                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                        yunShanFunEditFragment, R.id.contentFrame);
+            }
         }
     }
 
