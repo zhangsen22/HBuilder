@@ -12,13 +12,10 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
-
 import butterknife.BindView;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
@@ -231,34 +228,34 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
      * @return
      */
     public  List<LargeAmountItem> removeDuplicate(List<LargeAmountItem> list){
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            if(listTemp == null){
-                listTemp = new LinkedList<>();
-            }
-            listTemp.clear();
-            //使用流的distinct()方法进行去重
-            list.stream().distinct().forEach(
-                    new Consumer<LargeAmountItem>(){
-                        @Override
-                        public void accept(LargeAmountItem buyItem) {
-                            if(buyItem != null){
-                                listTemp.add(buyItem);
-                            }
-                        }
-                    }
-            );
-        }else {
-            //set集合保存的是引用不同地址的对象
-            Set<LargeAmountItem> ts = new HashSet<LargeAmountItem>();
-            ts.addAll(list);
-            if(listTemp == null){
-                listTemp = new LinkedList<>(ts);
-            }else {
-                listTemp.clear();
-                listTemp = null;
-                listTemp = new LinkedList<>(ts);
-            }
-        }
-        return listTemp;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+//            if(listTemp == null){
+//                listTemp = new LinkedList<>();
+//            }
+//            listTemp.clear();
+//            //使用流的distinct()方法进行去重
+//            list.stream().distinct().forEach(
+//                    new Consumer<LargeAmountItem>(){
+//                        @Override
+//                        public void accept(LargeAmountItem buyItem) {
+//                            if(buyItem != null){
+//                                listTemp.add(buyItem);
+//                            }
+//                        }
+//                    }
+//            );
+//        }else {
+//            //set集合保存的是引用不同地址的对象
+//            Set<LargeAmountItem> ts = new HashSet<LargeAmountItem>();
+//            ts.addAll(list);
+//            if(listTemp == null){
+//                listTemp = new LinkedList<>(ts);
+//            }else {
+//                listTemp.clear();
+//                listTemp = null;
+//                listTemp = new LinkedList<>(ts);
+//            }
+//        }
+        return list;
     }
 }
