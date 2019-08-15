@@ -15,6 +15,7 @@ public class BusinessBuyActivity extends BaseActivity {
     private static final String TAG = BusinessBuyActivity.class.getSimpleName();
     public static void startThis(Context context, BuyItem buyItem) {
         Intent intent = new Intent(context, BusinessBuyActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("buyItem",buyItem);
         context.startActivity(intent);
     }
