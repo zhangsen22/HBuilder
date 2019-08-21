@@ -1,10 +1,12 @@
 package hbuilder.android.com.ui.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import com.growalong.util.util.ActivityUtils;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.WeChatPayeeItemModelPayee;
 import hbuilder.android.com.modle.YunShanFuPayeeItemModelPayee;
 import hbuilder.android.com.presenter.AliPayEditPresenter;
@@ -114,6 +116,12 @@ public class PaySettingActivity extends BaseActivity {
                 case 102:
                     if (data == null) return;
                     yunShanFunEditFragment.onActivityResultF(requestCode,resultCode,data);
+                    break;
+                case Constants.REQUESTCODE_20:
+                    String cookieRes = data.getStringExtra("cookieRes");
+                    if(!TextUtils.isEmpty(cookieRes)){
+                        yunShanFunEditFragment.setCookie(cookieRes);
+                    }
                     break;
                 default:
                     break;

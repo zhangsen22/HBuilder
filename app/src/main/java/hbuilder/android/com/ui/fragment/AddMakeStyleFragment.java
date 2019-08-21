@@ -114,6 +114,11 @@ public class AddMakeStyleFragment extends BaseFragment {
         } else {
             tvWebchat.setText("未绑定");
         }
+        if (AccountManager.getInstance().isHaveCloudPayee()) {
+            tvYunshanfu.setText("已绑定");
+        } else {
+            tvYunshanfu.setText("未绑定");
+        }
         GALogger.d(TAG, "onResume  ........");
     }
 }

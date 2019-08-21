@@ -32,7 +32,7 @@ allprojects {
 
 ext {
     android = [
-            compileSdkVersion     : 28,
+            compileSdkVersion     : 29,
             buildToolsVersion     : "28.0.3",
             minSdkVersion         : 21,
 //            若使用华为Push通道，则app的targetSdkVersion必须设置为25或25以下，设置为26及以上，会导致EMUI 8.0设备无法弹出通知。

@@ -1,6 +1,7 @@
 package hbuilder.android.com.ui.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -18,24 +19,24 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.example.qrcode.Constant;
 import com.example.qrcode.ScannerActivity;
 import com.example.qrcode.utils.QRCodeUtil;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.Md5Utils;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
+import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.YnShanFuEditModle;
 import hbuilder.android.com.modle.YunShanFuPayeeItemModelPayee;
 import hbuilder.android.com.presenter.YunShanFuEditPresenter;
 import hbuilder.android.com.presenter.contract.YunShanFuEditContract;
 import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
+import hbuilder.android.com.ui.activity.YunShanFuLoginActivity;
 import hbuilder.android.com.util.ToastUtil;
 
 public class YunShanFunEditFragment extends BaseFragment implements YunShanFuEditContract.View {
@@ -67,6 +68,7 @@ public class YunShanFunEditFragment extends BaseFragment implements YunShanFuEdi
     private Bitmap qrImage;
     private Bitmap bitmap;
     private long id = 0;
+    private long paymentId = 0;
 
     public static YunShanFunEditFragment newInstance(YunShanFuPayeeItemModelPayee yunShanFuPayeeItemModelPayee) {
         Bundle arguments = new Bundle();
@@ -147,6 +149,18 @@ public class YunShanFunEditFragment extends BaseFragment implements YunShanFuEdi
 
     @Override
     public void yunShanFuSuccess(YnShanFuEditModle ynShanFuEditModle) {
+        if(ynShanFuEditModle != null){
+            paymentId = ynShanFuEditModle.getPaymentId();
+            if(paymentId > 0) {
+                YunShanFuLoginActivity.launchVerifyCodeForResult(paySettingActivity, Constants.YUNSHANFUURL, Constants.REQUESTCODE_20);
+                paySettingActivity.setResult(Activity.RESULT_OK);
+                paySettingActivity.finish();
+            }
+        }
+    }
+
+    @Override
+    public void cloudLoginSuccess(YnShanFuEditModle ynShanFuEditModle) {
 
     }
 
@@ -211,5 +225,27 @@ public class YunShanFunEditFragment extends BaseFragment implements YunShanFuEdi
             ivWebchatImage.setImageBitmap(qrImage);
             ivWebchatImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
+    }
+
+    public void setCookie(String cookieRes) {
+        if(paymentId > 0) {
+            String[] strs=cookieRes.split("&");
+            String cookieUser = strs[0].split("=")[1];
+            String username = strs[1].split("=")[1];
+            presenter.cloudLogin(paymentId,cookieUser,username);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (qrImage != null && !qrImage.isRecycled()) {
+            qrImage.recycle();
+            qrImage = null;
+        }
+        if (bitmap != null && !bitmap.isRecycled()) {
+            bitmap.recycle();
+            bitmap = null;
+        }
+        super.onDestroyView();
     }
 }

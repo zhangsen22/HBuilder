@@ -37,6 +37,25 @@ public class YunShanFuEditPresenter implements YunShanFuEditContract.Presenter{
                 });
     }
 
+    @Override
+    public void cloudLogin(long paymentId, String cookieUser, String username) {
+        mView.showLoading();
+        mModel.cloudLogin(paymentId,cookieUser,username).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ModelResultObserver<YnShanFuEditModle>() {
+                    @Override
+                    public void onSuccess(YnShanFuEditModle ynShanFuEditModle) {
+                        mView.cloudLoginSuccess(ynShanFuEditModle);
+                        mView.hideLoading();
+                    }
+
+                    @Override
+                    public void onFailure(ModelException ex) {
+                        super.onFailure(ex);
+                        mView.hideLoading();
+                    }
+                });
+    }
+
 
     @Override
     public void starLoadData() {

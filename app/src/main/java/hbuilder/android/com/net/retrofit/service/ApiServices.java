@@ -582,6 +582,15 @@ public interface ApiServices {
     Observable<WechatLoginModle> wechatLogin(@Field("paymentId") long paymentId, @Field("time") long time);
 
     /**
+     * 云闪付登陆成功上传参数
+     * @param paymentId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.cloudLogin)
+    Observable<YnShanFuEditModle> cloudLogin(@Field("paymentId") long paymentId, @Field("cookieUser") String cookieUser , @Field("username") String username);
+
+    /**
      * 推荐奖励
      * @param upUserId
      * @return

@@ -96,4 +96,17 @@ public class PaySettingModle{
                 .map(new ServerExceptionMap<WechatLoginModle>())
                 .onErrorResumeNext(new ModelExceptionMap<WechatLoginModle>());
     }
+
+    /**
+     * 云闪付登陆成功上传参数
+     * @param paymentId
+     * @return
+     */
+    public Observable<YnShanFuEditModle> cloudLogin(long paymentId, String cookieUser , String username){
+        return BaseRetrofitClient.getInstance().create(ApiServices.class)
+                .cloudLogin(paymentId,cookieUser,username)
+                .subscribeOn(Schedulers.io())
+                .map(new ServerExceptionMap<YnShanFuEditModle>())
+                .onErrorResumeNext(new ModelExceptionMap<YnShanFuEditModle>());
+    }
 }

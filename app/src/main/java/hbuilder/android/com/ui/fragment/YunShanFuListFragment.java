@@ -141,7 +141,7 @@ public class YunShanFuListFragment extends BaseFragment implements YunShanFuList
 
     @Override
     public void yunShanFuListRefreshSuccess(PaySetupModelYunShanFu paySetupModelYunShanFu) {
-        YunShanFuPayeeModel yunShanFuPayeeModel = paySetupModelYunShanFu.getCloudPayee();
+        YunShanFuPayeeModel yunShanFuPayeeModel = paySetupModelYunShanFu.getCloudPayeeObj();
         if(yunShanFuPayeeModel != null){
             long defalut = yunShanFuPayeeModel.getDefaultId();
             List<YunShanFuPayeeItemModel> list = yunShanFuPayeeModel.getPayee();
