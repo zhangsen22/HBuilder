@@ -44,7 +44,7 @@ import hbuilder.android.com.ui.adapter.poweradapter.PowerHolder;
 import hbuilder.android.com.util.ToastUtil;
 
 public class AliPayListFragment extends BaseFragment implements AliPayListContract.View, OnLoadMoreListener, PowerAdapter.OnEmptyClickListener, PowerAdapter.OnErrorClickListener, AdapterLoader.OnItemClickListener<AliPayPayeeItemModel>,AliPayListAdapter.OnAliPayCheckListener {
-    private static final String TAG = IdCastPayListFragment.class.getSimpleName();
+    private static final String TAG = AliPayListFragment.class.getSimpleName();
     private static AliPayListActivity aliPayListActivity;
     @BindView(R.id.fl_title_comtent)
     FrameLayout flTitleComtent;

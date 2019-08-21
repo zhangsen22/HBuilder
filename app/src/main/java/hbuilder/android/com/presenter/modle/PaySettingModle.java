@@ -3,6 +3,7 @@ package hbuilder.android.com.presenter.modle;
 import hbuilder.android.com.modle.BaseBean;
 import hbuilder.android.com.modle.WebChatEditModle;
 import hbuilder.android.com.modle.WechatLoginModle;
+import hbuilder.android.com.modle.YnShanFuEditModle;
 import hbuilder.android.com.net.retrofit.BaseRetrofitClient;
 import hbuilder.android.com.net.retrofit.exception.ModelExceptionMap;
 import hbuilder.android.com.net.retrofit.exception.ServerExceptionMap;
@@ -64,6 +65,23 @@ public class PaySettingModle{
                 .subscribeOn(Schedulers.io())
                 .map(new ServerExceptionMap<WebChatEditModle>())
                 .onErrorResumeNext(new ModelExceptionMap<WebChatEditModle>());
+    }
+
+    /**
+     * 云闪付收款设置
+     * @param name
+     * @param account
+     * @param base64Img
+     * @param financePwd
+     * @param time
+     * @return
+     */
+    public Observable<YnShanFuEditModle> cloud(long id, String name, String account, String base64Img, String financePwd, long time){
+        return BaseRetrofitClient.getInstance().create(ApiServices.class)
+                .cloud(id,name,account,base64Img,financePwd,time)
+                .subscribeOn(Schedulers.io())
+                .map(new ServerExceptionMap<YnShanFuEditModle>())
+                .onErrorResumeNext(new ModelExceptionMap<YnShanFuEditModle>());
     }
 
     /**

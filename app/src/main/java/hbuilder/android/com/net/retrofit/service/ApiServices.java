@@ -16,6 +16,7 @@ import hbuilder.android.com.modle.MySellOrBuyinfoResponse;
 import hbuilder.android.com.modle.PaySetupModelAliPay;
 import hbuilder.android.com.modle.PaySetupModelBank;
 import hbuilder.android.com.modle.PaySetupModelWebChat;
+import hbuilder.android.com.modle.PaySetupModelYunShanFu;
 import hbuilder.android.com.modle.RegistResponse;
 import hbuilder.android.com.modle.RewardDetailResponse;
 import hbuilder.android.com.modle.RewardLogResponse;
@@ -25,6 +26,7 @@ import hbuilder.android.com.modle.UsdtPriceResponse;
 import hbuilder.android.com.modle.WalletResponse;
 import hbuilder.android.com.modle.WebChatEditModle;
 import hbuilder.android.com.modle.WechatLoginModle;
+import hbuilder.android.com.modle.YnShanFuEditModle;
 import hbuilder.android.com.net.retrofit.ApiConstants;
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -437,6 +439,16 @@ public interface ApiServices {
 
     /**
      * 获取自己的收款信息
+     * 云闪付
+     * @param type
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.paysetup)
+    Observable<PaySetupModelYunShanFu> paysetupYunShanFu(@Field("type") int type);
+
+    /**
+     * 获取自己的收款信息
      * 微信
      * @param type
      * @return
@@ -501,6 +513,24 @@ public interface ApiServices {
             , @Field("account") String account
             , @Field("base64Img") String base64Img
             , @Field("empBase64Img") String empBase64Img
+            , @Field("financePwd") String financePwd
+            , @Field("time") long time);
+
+    /**
+     * 云闪付收款设置
+     * @param name
+     * @param account
+     * @param base64Img
+     * @param financePwd
+     * @param time
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.cloud)
+    Observable<YnShanFuEditModle> cloud(@Field("id") long id
+            , @Field("name") String name
+            , @Field("account") String account
+            , @Field("base64Img") String base64Img
             , @Field("financePwd") String financePwd
             , @Field("time") long time);
 

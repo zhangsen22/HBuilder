@@ -83,38 +83,38 @@
 
     </LinearLayout>
 
-            <include layout="@layout/line_f9"/>
+            <!--<include layout="@layout/line_f9"/>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y90"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingRight="@dimen/y40"
-                android:paddingLeft="@dimen/y40"
-                android:background="@color/common_white">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/y90"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:paddingRight="@dimen/y40"-->
+                <!--android:paddingLeft="@dimen/y40"-->
+                <!--android:background="@color/common_white">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="手 机 号"
-                    android:textColor="@color/color_666666"
-                    android:textSize="12sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="手 机 号"-->
+                    <!--android:textColor="@color/color_666666"-->
+                    <!--android:textSize="12sp" />-->
 
-                <EditText
-                    android:id="@+id/et_yunshanfu_phonename"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textCursorDrawable="@drawable/my_cursor"
-                    android:maxLines="1"
-                    android:textColorHint="@color/color_999999"
-                    android:textColor="@color/color_999999"
-                    android:textSize="12sp"
-                    android:inputType="text"
-                    android:hint="请输入手机号"
-                    android:layout_marginLeft="@dimen/y28"/>
+                <!--<EditText-->
+                    <!--android:id="@+id/et_yunshanfu_phonename"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:textCursorDrawable="@drawable/my_cursor"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:textColorHint="@color/color_999999"-->
+                    <!--android:textColor="@color/color_999999"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:inputType="text"-->
+                    <!--android:hint="请输入手机号"-->
+                    <!--android:layout_marginLeft="@dimen/y28"/>-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
             <TextView
                 android:layout_width="wrap_content"

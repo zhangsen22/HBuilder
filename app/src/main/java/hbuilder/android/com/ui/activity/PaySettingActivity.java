@@ -6,9 +6,11 @@ import com.growalong.util.util.ActivityUtils;
 import hbuilder.android.com.BaseActivity;
 import hbuilder.android.com.R;
 import hbuilder.android.com.modle.WeChatPayeeItemModelPayee;
+import hbuilder.android.com.modle.YunShanFuPayeeItemModelPayee;
 import hbuilder.android.com.presenter.AliPayEditPresenter;
 import hbuilder.android.com.presenter.IdCastPresenter;
 import hbuilder.android.com.presenter.WebChatEditPresenter;
+import hbuilder.android.com.presenter.YunShanFuEditPresenter;
 import hbuilder.android.com.presenter.modle.PaySettingModle;
 import hbuilder.android.com.ui.fragment.AliPayEditFragment;
 import hbuilder.android.com.ui.fragment.IdCastPayEditFragment;
@@ -19,6 +21,7 @@ public class PaySettingActivity extends BaseActivity {
     private static final String TAG = PaySettingActivity.class.getSimpleName();
     private WebChatEditFragment webChatEditFragment;
     private AliPayEditFragment aliPayEditFragment;
+    private YunShanFunEditFragment yunShanFunEditFragment;
 
     public static void startThis(BaseActivity activity,int type,int requestCode) {
         Intent intent = new Intent(activity, PaySettingActivity.class);
@@ -30,6 +33,13 @@ public class PaySettingActivity extends BaseActivity {
         Intent intent = new Intent(activity, PaySettingActivity.class);
         intent.putExtra("type",type);
         intent.putExtra("weChatPayeeItemModelPayee",weChatPayeeItemModelPayee);
+        activity.startActivityForResult(intent,requestCode);
+    }
+
+    public static void startThisYunShanFu(BaseActivity activity, int type, YunShanFuPayeeItemModelPayee yunShanFuPayeeItemModelPayee, int requestCode) {
+        Intent intent = new Intent(activity, PaySettingActivity.class);
+        intent.putExtra("type",type);
+        intent.putExtra("yunShanFuPayeeItemModelPayee",yunShanFuPayeeItemModelPayee);
         activity.startActivityForResult(intent,requestCode);
     }
 
@@ -77,13 +87,15 @@ public class PaySettingActivity extends BaseActivity {
             //初始化presenter
             new IdCastPresenter(idCastPayEditFragment, new PaySettingModle());
         }else if(type == 4){
-            YunShanFunEditFragment yunShanFunEditFragment = (YunShanFunEditFragment) getSupportFragmentManager()
+            YunShanFuPayeeItemModelPayee yunShanFuPayeeItemModelPayee = getIntent().getParcelableExtra("yunShanFuPayeeItemModelPayee");
+            yunShanFunEditFragment = (YunShanFunEditFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.contentFrame);
             if (yunShanFunEditFragment == null) {
-                yunShanFunEditFragment = YunShanFunEditFragment.newInstance("");
+                yunShanFunEditFragment = YunShanFunEditFragment.newInstance(yunShanFuPayeeItemModelPayee);
                 ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                         yunShanFunEditFragment, R.id.contentFrame);
             }
+            new YunShanFuEditPresenter(yunShanFunEditFragment, new PaySettingModle());
         }
     }
 
@@ -98,6 +110,10 @@ public class PaySettingActivity extends BaseActivity {
                 case 101:
                     if (data == null) return;
                     aliPayEditFragment.onActivityResultF(requestCode,resultCode,data);
+                    break;
+                case 102:
+                    if (data == null) return;
+                    yunShanFunEditFragment.onActivityResultF(requestCode,resultCode,data);
                     break;
                 default:
                     break;
