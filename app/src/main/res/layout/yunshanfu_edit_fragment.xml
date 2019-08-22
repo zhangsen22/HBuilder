@@ -116,15 +116,6 @@
 
             <!--</LinearLayout>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="请先联系客服获取大商户权限再进行添加"
-                android:textSize="10sp"
-                android:textColor="@color/color_ff0000"
-                android:layout_marginTop="@dimen/y28"
-                android:layout_marginLeft="@dimen/y28"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
