@@ -68,7 +68,7 @@ public class YunShanFunEditFragment extends BaseFragment implements YunShanFuEdi
     private Bitmap qrImage;
     private Bitmap bitmap;
     private long id = 0;
-    private long paymentId = 0;
+    private boolean isRefreshData = false;
 
     public static YunShanFunEditFragment newInstance(YunShanFuPayeeItemModelPayee yunShanFuPayeeItemModelPayee) {
         Bundle arguments = new Bundle();
@@ -106,6 +106,9 @@ public class YunShanFunEditFragment extends BaseFragment implements YunShanFuEdi
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
+                if(isRefreshData){
+                    paySettingActivity.setResult(Activity.RESULT_OK);
+                }
                 paySettingActivity.finish();
                 break;
             case R.id.iv_webchat_image:
@@ -150,18 +153,12 @@ public class YunShanFunEditFragment extends BaseFragment implements YunShanFuEdi
     @Override
     public void yunShanFuSuccess(YnShanFuEditModle ynShanFuEditModle) {
         if(ynShanFuEditModle != null){
-            paymentId = ynShanFuEditModle.getPaymentId();
+            long paymentId = ynShanFuEditModle.getPaymentId();
             if(paymentId > 0) {
-                YunShanFuLoginActivity.launchVerifyCodeForResult(paySettingActivity, Constants.YUNSHANFUURL, Constants.REQUESTCODE_20);
-                paySettingActivity.setResult(Activity.RESULT_OK);
-                paySettingActivity.finish();
+                YunShanFuLoginActivity.launchVerifyCodeForResult(paySettingActivity, Constants.YUNSHANFUURL,paymentId,Constants.REQUESTCODE_20);
+                isRefreshData = true;
             }
         }
-    }
-
-    @Override
-    public void cloudLoginSuccess(YnShanFuEditModle ynShanFuEditModle) {
-
     }
 
     @Override
@@ -227,15 +224,6 @@ public class YunShanFunEditFragment extends BaseFragment implements YunShanFuEdi
         }
     }
 
-    public void setCookie(String cookieRes) {
-        if(paymentId > 0) {
-            String[] strs=cookieRes.split("&");
-            String cookieUser = strs[0].split("=")[1];
-            String username = strs[1].split("=")[1];
-            presenter.cloudLogin(paymentId,cookieUser,username);
-        }
-    }
-
     @Override
     public void onDestroyView() {
         if (qrImage != null && !qrImage.isRecycled()) {
@@ -247,5 +235,17 @@ public class YunShanFunEditFragment extends BaseFragment implements YunShanFuEdi
             bitmap = null;
         }
         super.onDestroyView();
+    }
+
+    public void onActivityBack(int requestCode, int resultCode, Intent data) {
+        paySettingActivity.setResult(Activity.RESULT_OK);
+        paySettingActivity.finish();
+    }
+
+    public void onkeyDown() {
+        if(isRefreshData){
+            paySettingActivity.setResult(Activity.RESULT_OK);
+        }
+        paySettingActivity.finish();
     }
 }

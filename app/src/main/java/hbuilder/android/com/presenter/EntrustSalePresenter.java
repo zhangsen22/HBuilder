@@ -19,9 +19,9 @@ public class EntrustSalePresenter implements EntrustSaleContract.Presenter{
     }
 
     @Override
-    public void putUpSell(double price, double minNum, double maxNum, boolean supporAli, boolean supportWechat, boolean supportBank, String financePwd, long time) {
+    public void putUpSell(double price, double minNum, double maxNum, boolean supporAli, boolean supportWechat, boolean supportBank, boolean supportCloud,String financePwd, long time) {
         mView.showLoading();
-        mModel.putUpSell(price,minNum,maxNum,supporAli,supportWechat,supportBank,financePwd,time).observeOn(AndroidSchedulers.mainThread())
+        mModel.putUpSell(price,minNum,maxNum,supporAli,supportWechat,supportBank,supportCloud,financePwd,time).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<BaseBean>() {
                     @Override
                     public void onSuccess(BaseBean baseBean) {

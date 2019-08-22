@@ -3,29 +3,29 @@ package hbuilder.android.com.presenter;
 import hbuilder.android.com.modle.YnShanFuEditModle;
 import hbuilder.android.com.net.retrofit.ModelResultObserver;
 import hbuilder.android.com.net.retrofit.exception.ModelException;
-import hbuilder.android.com.presenter.contract.YunShanFuEditContract;
+import hbuilder.android.com.presenter.contract.YunShanFuLoginContract;
 import hbuilder.android.com.presenter.modle.PaySettingModle;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class YunShanFuEditPresenter implements YunShanFuEditContract.Presenter{
+public class YunShanFuLoginPresenter implements YunShanFuLoginContract.Presenter{
 
-    private YunShanFuEditContract.View mView;
+    private YunShanFuLoginContract.View mView;
     private PaySettingModle mModel;
 
-    public YunShanFuEditPresenter(YunShanFuEditContract.View view, PaySettingModle model){
+    public YunShanFuLoginPresenter(YunShanFuLoginContract.View view, PaySettingModle model){
         mView = view;
         mModel = model;
         mView.setPresenter(this);
     }
 
     @Override
-    public void yunshanfu(long id, String name, String account, String base64Img, String financePwd, long time) {
+    public void cloudLogin(long paymentId, String cookieUser, String username) {
         mView.showLoading();
-        mModel.cloud(id,name,account,base64Img,financePwd,time).observeOn(AndroidSchedulers.mainThread())
+        mModel.cloudLogin(paymentId,cookieUser,username).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<YnShanFuEditModle>() {
                     @Override
                     public void onSuccess(YnShanFuEditModle ynShanFuEditModle) {
-                        mView.yunShanFuSuccess(ynShanFuEditModle);
+                        mView.cloudLoginSuccess(ynShanFuEditModle);
                         mView.hideLoading();
                     }
 
@@ -36,6 +36,7 @@ public class YunShanFuEditPresenter implements YunShanFuEditContract.Presenter{
                     }
                 });
     }
+
 
     @Override
     public void starLoadData() {

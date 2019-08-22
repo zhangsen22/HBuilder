@@ -1,7 +1,7 @@
 package hbuilder.android.com.ui.activity;
 
 import android.content.Intent;
-import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import com.growalong.util.util.ActivityUtils;
 import hbuilder.android.com.BaseActivity;
@@ -24,6 +24,7 @@ public class PaySettingActivity extends BaseActivity {
     private WebChatEditFragment webChatEditFragment;
     private AliPayEditFragment aliPayEditFragment;
     private YunShanFunEditFragment yunShanFunEditFragment;
+    private int type;
 
     public static void startThis(BaseActivity activity,int type,int requestCode) {
         Intent intent = new Intent(activity, PaySettingActivity.class);
@@ -56,7 +57,7 @@ public class PaySettingActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        int type = getIntent().getIntExtra("type", 1);
+        type = getIntent().getIntExtra("type", 1);
         if(type == 1){//1为支付宝，2为微信，3为银行账户
             aliPayEditFragment = (AliPayEditFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.contentFrame);
@@ -118,10 +119,8 @@ public class PaySettingActivity extends BaseActivity {
                     yunShanFunEditFragment.onActivityResultF(requestCode,resultCode,data);
                     break;
                 case Constants.REQUESTCODE_20:
-                    String cookieRes = data.getStringExtra("cookieRes");
-                    if(!TextUtils.isEmpty(cookieRes)){
-                        yunShanFunEditFragment.setCookie(cookieRes);
-                    }
+                    if (data == null) return;
+                    yunShanFunEditFragment.onActivityBack(requestCode,resultCode,data);
                     break;
                 default:
                     break;
@@ -129,5 +128,18 @@ public class PaySettingActivity extends BaseActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            if(type == 4){
+                if(yunShanFunEditFragment != null){
+                    yunShanFunEditFragment.onkeyDown();
+                }
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

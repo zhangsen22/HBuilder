@@ -3,18 +3,26 @@ package hbuilder.android.com.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
 import com.growalong.util.util.bean.MessageEvent;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.text.DecimalFormat;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
@@ -31,6 +39,7 @@ import hbuilder.android.com.ui.activity.BalancePassWordActivity;
 import hbuilder.android.com.ui.activity.GuaDanActivity;
 import hbuilder.android.com.ui.activity.IdCastPayListActivity;
 import hbuilder.android.com.ui.activity.WebChatListActivity;
+import hbuilder.android.com.ui.activity.YunShanFuListActivity;
 import hbuilder.android.com.util.SharedPreferencesUtils;
 import hbuilder.android.com.util.ToastUtil;
 
@@ -64,9 +73,14 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     ImageView ivWebchat;
     @BindView(R.id.iv_idcards)
     ImageView ivIdcards;
+    @BindView(R.id.iv_yunshanfu)
+    ImageView ivYunshanfu;
+    @BindView(R.id.tv_add_yunshanfu)
+    TextView tvAddYunshanfu;
     private boolean isUseIvAlipay;
     private boolean isUseIvWebchat;
     private boolean isUseIvIdcards;
+    private boolean isUseIvCloud;
     private GuaDanActivity guaDanActivity;
     private EntrustSalePresenter entrustSalePresenter;
     private double hotNum = 0;
@@ -94,43 +108,47 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     @Override
     protected void initView(View root) {
         UsdtPriceResponse usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
-        if(usdtPriceResponse != null){
+        if (usdtPriceResponse != null) {
             minSellPrice = usdtPriceResponse.getMinSellPrice();
             maxSellPrice = usdtPriceResponse.getMaxSellPrice();
-            etBusinessPrice.setHint("交易价格请限于"+new DecimalFormat("0.000").format(minSellPrice)+" ~ "+new DecimalFormat("0.000").format(maxSellPrice));
+            etBusinessPrice.setHint("交易价格请限于" + new DecimalFormat("0.000").format(minSellPrice) + " ~ " + new DecimalFormat("0.000").format(maxSellPrice));
         }
-        GALogger.d(TAG,"EntrustSaleFragment    is    initView");
-        GALogger.d(TAG,"mEnableLazyLoad   "+mEnableLazyLoad+"   mIsCreateView   "+mIsCreateView+"  getUserVisibleHint()  "+getUserVisibleHint()+"   mIsLoadData   "+mIsLoadData);
-        if(AccountManager.getInstance().isHaveAliPayee()){
+        GALogger.d(TAG, "EntrustSaleFragment    is    initView");
+        GALogger.d(TAG, "mEnableLazyLoad   " + mEnableLazyLoad + "   mIsCreateView   " + mIsCreateView + "  getUserVisibleHint()  " + getUserVisibleHint() + "   mIsLoadData   " + mIsLoadData);
+        if (AccountManager.getInstance().isHaveAliPayee()) {
             tvAddAlipay.setText("更改");
-        }else {
+        } else {
             tvAddAlipay.setText("添加");
         }
-        if(AccountManager.getInstance().isHaveBankPayee()){
+        if (AccountManager.getInstance().isHaveBankPayee()) {
             tvAddIdcards.setText("更改");
-        }else {
+        } else {
             tvAddIdcards.setText("添加");
         }
-        if(AccountManager.getInstance().isHaveWechatPayee()){
+        if (AccountManager.getInstance().isHaveWechatPayee()) {
             tvAddWebchat.setText("更改");
-        }else {
+        } else {
             tvAddWebchat.setText("添加");
         }
-
+        if (AccountManager.getInstance().isHaveCloudPayee()) {
+            tvAddYunshanfu.setText("更改");
+        } else {
+            tvAddYunshanfu.setText("添加");
+        }
     }
 
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
         setLoadDataWhenVisible();
-        GALogger.d(TAG,"EntrustSaleFragment    is    lazyLoadData");
-        GALogger.d(TAG,"mEnableLazyLoad   "+mEnableLazyLoad+"   mIsCreateView   "+mIsCreateView+"  getUserVisibleHint()  "+getUserVisibleHint()+"   mIsLoadData   "+mIsLoadData);
+        GALogger.d(TAG, "EntrustSaleFragment    is    lazyLoadData");
+        GALogger.d(TAG, "mEnableLazyLoad   " + mEnableLazyLoad + "   mIsCreateView   " + mIsCreateView + "  getUserVisibleHint()  " + getUserVisibleHint() + "   mIsLoadData   " + mIsLoadData);
         //初始化presenter
         new EntrustSalePresenter(this, new EntrustSaleModle());
         entrustSalePresenter.getInfo();
     }
 
-    @OnClick({R.id.tv_add_alipay, R.id.tv_add_webchat, R.id.tv_add_idcards, R.id.tv_forget_password, R.id.tv_sell_publish,R.id.iv_alipay, R.id.iv_webchat, R.id.iv_idcards,R.id.tv_sale_cankaojia})
+    @OnClick({R.id.tv_add_alipay, R.id.tv_add_webchat, R.id.tv_add_idcards, R.id.tv_forget_password, R.id.tv_sell_publish, R.id.iv_alipay, R.id.iv_webchat, R.id.iv_idcards, R.id.tv_sale_cankaojia,R.id.iv_yunshanfu, R.id.tv_add_yunshanfu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_add_alipay:
@@ -145,39 +163,39 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
             case R.id.iv_alipay:
                 boolean haveAliPayee = AccountManager.getInstance().isHaveAliPayee();
                 if (haveAliPayee) {
-                    if(isUseIvAlipay){
+                    if (isUseIvAlipay) {
                         ivAlipay.setImageResource(R.mipmap.cv);
-                    }else {
+                    } else {
                         ivAlipay.setImageResource(R.mipmap.cw);
                     }
                     isUseIvAlipay = !isUseIvAlipay;
-                }else {
+                } else {
                     ToastUtil.shortShow("请先添加支付宝收款信息");
                 }
                 break;
             case R.id.iv_webchat:
                 boolean haveWechatPayee = AccountManager.getInstance().isHaveWechatPayee();
                 if (haveWechatPayee) {
-                    if(isUseIvWebchat){
+                    if (isUseIvWebchat) {
                         ivWebchat.setImageResource(R.mipmap.cv);
-                    }else {
+                    } else {
                         ivWebchat.setImageResource(R.mipmap.cw);
                     }
                     isUseIvWebchat = !isUseIvWebchat;
-                }else {
+                } else {
                     ToastUtil.shortShow("请先添加微信收款信息");
                 }
                 break;
             case R.id.iv_idcards:
                 boolean haveBankPayee = AccountManager.getInstance().isHaveBankPayee();
                 if (haveBankPayee) {
-                    if(isUseIvIdcards){
+                    if (isUseIvIdcards) {
                         ivIdcards.setImageResource(R.mipmap.cv);
-                    }else {
+                    } else {
                         ivIdcards.setImageResource(R.mipmap.cw);
                     }
                     isUseIvIdcards = !isUseIvIdcards;
-                }else {
+                } else {
                     ToastUtil.shortShow("请先添加银行卡收款信息");
                 }
                 break;
@@ -196,12 +214,12 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                     return;
                 }
 
-                if(minSellPrice > 0 && maxSellPrice > 0 && minSellPrice <= maxSellPrice){
-                    if(d_businessPrice < minSellPrice || d_businessPrice > maxSellPrice){
+                if (minSellPrice > 0 && maxSellPrice > 0 && minSellPrice <= maxSellPrice) {
+                    if (d_businessPrice < minSellPrice || d_businessPrice > maxSellPrice) {
                         ToastUtil.shortShow("交易价格请限于" + minSellPrice + " - " + maxSellPrice + "之间");
                         return;
                     }
-                }else {
+                } else {
                     ToastUtil.shortShow("请获取交易价格区间");
                     return;
                 }
@@ -239,12 +257,12 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                         ToastUtil.shortShow("请输入您预想的最大售出数量超出了账户可用余额");
                         return;
                     }
-                }else {
+                } else {
                     ToastUtil.shortShow("账户可用余额为零");
                     return;
                 }
 
-                if(!isUseIvAlipay && !isUseIvWebchat && !isUseIvIdcards){
+                if (!isUseIvAlipay && !isUseIvWebchat && !isUseIvIdcards && !isUseIvCloud) {
                     ToastUtil.shortShow("请至少添加一种收款方式");
                     return;
                 }
@@ -256,10 +274,26 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                 }
 
                 long currentTime = System.currentTimeMillis();
-                entrustSalePresenter.putUpSell(d_businessPrice,d_expectMinnum,d_expectMaxnum,isUseIvAlipay
-                        ,isUseIvWebchat,isUseIvIdcards,Md5Utils.getMD5(moneryPassword+currentTime),currentTime);
+                entrustSalePresenter.putUpSell(d_businessPrice, d_expectMinnum, d_expectMaxnum, isUseIvAlipay
+                        , isUseIvWebchat, isUseIvIdcards,isUseIvCloud, Md5Utils.getMD5(moneryPassword + currentTime), currentTime);
                 break;
             case R.id.tv_sale_cankaojia:
+                break;
+            case R.id.iv_yunshanfu:
+                boolean haveCloudPayee = AccountManager.getInstance().isHaveCloudPayee();
+                if (haveCloudPayee) {
+                    if (isUseIvCloud) {
+                        ivYunshanfu.setImageResource(R.mipmap.cv);
+                    } else {
+                        ivYunshanfu.setImageResource(R.mipmap.cw);
+                    }
+                    isUseIvCloud = !isUseIvCloud;
+                } else {
+                    ToastUtil.shortShow("请先添加云闪付收款信息");
+                }
+                break;
+            case R.id.tv_add_yunshanfu:
+                YunShanFuListActivity.startThis(guaDanActivity);
                 break;
         }
     }
@@ -274,7 +308,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     public void getInfoSuccess(WalletResponse walletResponse) {
         if (walletResponse != null) {
             hotNum = walletResponse.getHotNum();
-            GALogger.d(TAG,"hotNum    "+hotNum);
+            GALogger.d(TAG, "hotNum    " + hotNum);
             tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.nbc));
         }
     }
@@ -296,7 +330,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
 
     @Override
     public void onResume() {
-        GALogger.d(TAG,"onResume      ");
+        GALogger.d(TAG, "onResume      ");
         super.onResume();
     }
 }

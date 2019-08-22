@@ -186,6 +186,7 @@ public interface ApiServices {
      * @param supporAli
      * @param supportWechat
      * @param supportBank
+     * @param supportCloud
      * @param financePwd
      * @param time
      * @return
@@ -198,6 +199,7 @@ public interface ApiServices {
             , @Field("supporAli") boolean supporAli
             , @Field("supportWechat") boolean supportWechat
             , @Field("supportBank") boolean supportBank
+            , @Field("supportCloud") boolean supportCloud
             , @Field("financePwd") String financePwd
             , @Field("time") long time);
 

@@ -35,6 +35,7 @@ import hbuilder.android.com.presenter.YunShanFuListPresenter;
 import hbuilder.android.com.presenter.contract.YunShanFuListContract;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
 import hbuilder.android.com.ui.activity.YunShanFuListActivity;
+import hbuilder.android.com.ui.activity.YunShanFuLoginActivity;
 import hbuilder.android.com.ui.adapter.YunShanFuListAdapter;
 import hbuilder.android.com.ui.adapter.poweradapter.AdapterLoader;
 import hbuilder.android.com.ui.adapter.poweradapter.LoadMoreScrollListener;
@@ -56,8 +57,6 @@ public class YunShanFuListFragment extends BaseFragment implements YunShanFuList
     TextView tvTitle;
     @BindView(R.id.tv_submit_forget_login)
     TextView tvSubmitForgetLogin;
-
-
     private YunShanFuListPresenter presenter;
     private RecyclerView mRecyclerView;
     private YunShanFuListAdapter yunShanFuListAdapter;
@@ -133,8 +132,8 @@ public class YunShanFuListFragment extends BaseFragment implements YunShanFuList
                 yunShanFuListActivity.finish();
                 break;
             case R.id.tv_submit_forget_login:
-                    //id:0                //如果为新加,设为0,如果为修改,此处为修改的收款方式的id
-                    PaySettingActivity.startThisYunShanFu(yunShanFuListActivity, 4, null, Constants.REQUESTCODE_19);
+                //id:0                //如果为新加,设为0,如果为修改,此处为修改的收款方式的id
+                PaySettingActivity.startThisYunShanFu(yunShanFuListActivity, 4, null, Constants.REQUESTCODE_19);
                 break;
         }
     }
@@ -290,7 +289,7 @@ public class YunShanFuListFragment extends BaseFragment implements YunShanFuList
 
     @Override
     public void onWebChatYunShanFuEdit(int position, YunShanFuPayeeItemModelPayee yunShanFuPayeeItemModelPayee) {
-
+        YunShanFuLoginActivity.launchVerifyCodeForResult(yunShanFuListActivity, Constants.YUNSHANFUURL,yunShanFuPayeeItemModelPayee.getId(), Constants.REQUESTCODE_19);
     }
 
     @Override
