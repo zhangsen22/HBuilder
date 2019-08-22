@@ -10,7 +10,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.Md5Utils;
 import com.growalong.util.util.TextWatcherUtils;
@@ -32,6 +31,7 @@ import hbuilder.android.com.ui.activity.BusinessSellActivity;
 import hbuilder.android.com.ui.activity.BusinessSellDetailsActivity;
 import hbuilder.android.com.ui.activity.IdCastPayListActivity;
 import hbuilder.android.com.ui.activity.WebChatListActivity;
+import hbuilder.android.com.ui.activity.YunShanFuListActivity;
 import hbuilder.android.com.util.ToastUtil;
 
 public class BusinessSellFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener, BusinessSellContract.View {
@@ -62,24 +62,18 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
     TextView tvPriceAll;
     @BindView(R.id.cb_alipay)
     CheckBox cbAlipay;
-    @BindView(R.id.ll_alipay)
-    LinearLayout llAlipay;
     @BindView(R.id.tv_alipay_current_price)
     TextView tvAlipayCurrentPrice;
     @BindView(R.id.tv_alipay_current_num)
     TextView tvAlipayCurrentNum;
     @BindView(R.id.cb_webchat)
     CheckBox cbWebchat;
-    @BindView(R.id.ll_webchat)
-    LinearLayout llWebchat;
     @BindView(R.id.tv_webchat_current_price)
     TextView tvWebchatCurrentPrice;
     @BindView(R.id.tv_webchat_current_num)
     TextView tvWebchatCurrentNum;
     @BindView(R.id.cb_idcast)
     CheckBox cbIdcast;
-    @BindView(R.id.ll_idcast)
-    LinearLayout llIdcast;
     @BindView(R.id.tv_idcast_current_price)
     TextView tvIdcastCurrentPrice;
     @BindView(R.id.tv_idcast_current_num)
@@ -98,12 +92,16 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
     TextView tvAddWebchat;
     @BindView(R.id.tv_add_idcards)
     TextView tvAddIdcards;
+    @BindView(R.id.cb_yunshanfu)
+    CheckBox cbYunshanfu;
+    @BindView(R.id.tv_add_yunshanfu)
+    TextView tvAddYunshanfu;
     private double hotNum;
     private BusinessSellActivity businessSellActivity;
     private BusinessSellPresenter presenter;
     private BuyItem buyItem;
     private boolean flag = true;//添加标志位，标志是否被编辑
-    private int type = 0;//1为支付宝，2为微信，3为银行账户
+    private int type = 0;//1为支付宝，2为微信，3为银行账户，4为云闪付
 
     public static BusinessSellFragment newInstance(@Nullable BuyItem buyItem) {
         Bundle arguments = new Bundle();
@@ -128,7 +126,7 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("售出"+MyApplication.appContext.getResources().getString(R.string.nbc));
+        tvTitle.setText("售出" + MyApplication.appContext.getResources().getString(R.string.nbc));
         etBusinessSellNum.addTextChangedListener(new TextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -175,6 +173,7 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
         cbAlipay.setOnCheckedChangeListener(this);
         cbWebchat.setOnCheckedChangeListener(this);
         cbIdcast.setOnCheckedChangeListener(this);
+        cbYunshanfu.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -206,9 +205,16 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
         } else {
             tvAddIdcards.setVisibility(View.VISIBLE);
         }
+
+        boolean haveCloudPayee = AccountManager.getInstance().isHaveCloudPayee();
+        if (haveCloudPayee) {
+            tvAddYunshanfu.setVisibility(View.GONE);
+        } else {
+            tvAddYunshanfu.setVisibility(View.VISIBLE);
+        }
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_num_all, R.id.tv_price_all, R.id.tv_forget_password, R.id.tv_order,R.id.tv_add_alipay,R.id.tv_add_webchat})
+    @OnClick({R.id.iv_back, R.id.tv_num_all, R.id.tv_price_all, R.id.tv_forget_password, R.id.tv_order, R.id.tv_add_alipay, R.id.tv_add_webchat,R.id.tv_add_idcards,R.id.tv_add_yunshanfu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -216,13 +222,13 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
                 break;
             case R.id.tv_num_all:
             case R.id.tv_price_all:
-                    if (hotNum > buyItem.getMaxNum()) {
-                        etBusinessSellNum.setText(buyItem.getMaxNum() + "");
-                        etBusinessSellPrice.setText(new DecimalFormat("0.00").format(buyItem.getMaxNum() * buyItem.getPrice()));
-                    } else {
-                        etBusinessSellNum.setText(hotNum + "");
-                        etBusinessSellPrice.setText(new DecimalFormat("0.00").format(hotNum * buyItem.getPrice()));
-                    }
+                if (hotNum > buyItem.getMaxNum()) {
+                    etBusinessSellNum.setText(buyItem.getMaxNum() + "");
+                    etBusinessSellPrice.setText(new DecimalFormat("0.00").format(buyItem.getMaxNum() * buyItem.getPrice()));
+                } else {
+                    etBusinessSellNum.setText(hotNum + "");
+                    etBusinessSellPrice.setText(new DecimalFormat("0.00").format(hotNum * buyItem.getPrice()));
+                }
                 break;
             case R.id.tv_forget_password:
                 BalancePassWordActivity.startThis(businessSellActivity);
@@ -270,6 +276,9 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
             case R.id.tv_add_idcards:
                 IdCastPayListActivity.startThis(businessSellActivity);
                 break;
+            case R.id.tv_add_yunshanfu:
+                YunShanFuListActivity.startThis(businessSellActivity);
+                break;
 
         }
     }
@@ -283,11 +292,12 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
                     if (isChecked) {
                         cbWebchat.setChecked(false);
                         cbIdcast.setChecked(false);
+                        cbYunshanfu.setChecked(false);
                         type = 1;
                     } else {
                         type = 0;
                     }
-                }else {
+                } else {
                     cbAlipay.setChecked(false);
                     ToastUtil.shortShow("请先添加支付宝收款信息");
                 }
@@ -298,11 +308,12 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
                     if (isChecked) {
                         cbAlipay.setChecked(false);
                         cbIdcast.setChecked(false);
+                        cbYunshanfu.setChecked(false);
                         type = 2;
                     } else {
                         type = 0;
                     }
-                }else {
+                } else {
                     cbWebchat.setChecked(false);
                     ToastUtil.shortShow("请先添加微信收款信息");
                 }
@@ -313,13 +324,30 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
                     if (isChecked) {
                         cbAlipay.setChecked(false);
                         cbWebchat.setChecked(false);
+                        cbYunshanfu.setChecked(false);
                         type = 3;
                     } else {
                         type = 0;
                     }
-                }else {
+                } else {
                     cbIdcast.setChecked(false);
                     ToastUtil.shortShow("请先添加银行卡收款信息");
+                }
+                break;
+            case R.id.cb_yunshanfu:
+                boolean haveCloudPayee = AccountManager.getInstance().isHaveCloudPayee();
+                if (haveCloudPayee) {
+                    if (isChecked) {
+                        cbAlipay.setChecked(false);
+                        cbWebchat.setChecked(false);
+                        cbIdcast.setChecked(false);
+                        type = 4;
+                    } else {
+                        type = 0;
+                    }
+                } else {
+                    cbYunshanfu.setChecked(false);
+                    ToastUtil.shortShow("请先添加云闪付收款信息");
                 }
                 break;
         }
@@ -336,9 +364,9 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
 
     @Override
     public void getInfoSuccess(WalletResponse walletResponse) {
-        if(walletResponse != null){
+        if (walletResponse != null) {
             this.hotNum = walletResponse.getHotNum();
-            tvCurrentSellNum.setText( hotNum+ "");
+            tvCurrentSellNum.setText(hotNum + "");
         }
     }
 
@@ -356,5 +384,4 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
     public void hideLoading() {
         hideLoadingDialog();
     }
-
 }
