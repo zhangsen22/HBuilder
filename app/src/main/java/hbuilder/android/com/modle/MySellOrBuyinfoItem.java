@@ -10,7 +10,7 @@ public class MySellOrBuyinfoItem implements Parcelable {
     private double price;//:12.21            //单价
     private double num;//:2.1                //数量
     private int status;//:1            //订单状态,见下面表格
-    private int payType;//:1                //收款方式,1为支付宝，2为微信，3为银行账户
+    private int payType;//:1                //收款方式,1为支付宝，2为微信，3为银行账户，4为云闪付
     private long createTime;//:1        //订单创建时间
     private long payTime;//:            //付款时间
     private int payCode;//:1234            //付款参考码
