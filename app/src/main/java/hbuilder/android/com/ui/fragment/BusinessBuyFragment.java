@@ -75,12 +75,18 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
     LinearLayout llIdcast;
     @BindView(R.id.iv_buy_name)
     TextView ivBuyName;
+    @BindView(R.id.iv_yunshanfu)
+    ImageView ivYunshanfu;
+    @BindView(R.id.cb_yunshanfu)
+    CheckBox cbYunshanfu;
+    @BindView(R.id.ll_yunshanfu)
+    LinearLayout llYunshanfu;
 
     private BusinessBuyActivity businessBuyActivity;
     private BusinessBuyPresenter presenter;
     private BuyItem buyItem;
     private boolean flag = true;//添加标志位，标志是否被编辑
-    private int type;//1为支付宝，2为微信，3为银行账户
+    private int type;//1为支付宝，2为微信，3为银行账户 ，4为云闪付
 
     public static BusinessBuyFragment newInstance(@Nullable BuyItem buyItem) {
         Bundle arguments = new Bundle();
@@ -105,8 +111,8 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("购买"+MyApplication.appContext.getResources().getString(R.string.nbc));
-        if(!buyItem.isLargeAmount()) {
+        tvTitle.setText("购买" + MyApplication.appContext.getResources().getString(R.string.nbc));
+        if (!buyItem.isLargeAmount()) {
             etBusinessBuyNum.addTextChangedListener(new TextWatcherUtils() {
                 @Override
                 public void afterTextChanged(Editable s) {
@@ -155,6 +161,7 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
         cbAlipay.setOnCheckedChangeListener(this);
         cbWebchat.setOnCheckedChangeListener(this);
         cbIdcast.setOnCheckedChangeListener(this);
+        cbYunshanfu.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -183,13 +190,21 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
             ivWebchat.setVisibility(View.GONE);
             llWebchat.setVisibility(View.GONE);
         }
-        ivBuyName.setText(buyItem.getNickname());
-        tvBusinessBuyPrice.setText(buyItem.getPrice()+"");
-        tvBusinessBuyNum.setText(buyItem.getMaxNum() + "");
-        etBusinessBuyPrice.setText(buyItem.getPrice()+"");
 
-        if(buyItem.isLargeAmount()){
-            tvBusinessBuyMore.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
+        if (buyItem.isSupportCloud()) {
+            ivYunshanfu.setVisibility(View.VISIBLE);
+            llYunshanfu.setVisibility(View.VISIBLE);
+        } else {
+            ivYunshanfu.setVisibility(View.GONE);
+            llYunshanfu.setVisibility(View.GONE);
+        }
+        ivBuyName.setText(buyItem.getNickname());
+        tvBusinessBuyPrice.setText(buyItem.getPrice() + "");
+        tvBusinessBuyNum.setText(buyItem.getMaxNum() + "");
+        etBusinessBuyPrice.setText(buyItem.getPrice() + "");
+
+        if (buyItem.isLargeAmount()) {
+            tvBusinessBuyMore.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
             tvNumAll.setVisibility(View.GONE);
             tvPriceAll.setVisibility(View.GONE);
             etBusinessBuyNum.setFocusable(false);
@@ -198,8 +213,8 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
             etBusinessBuyMoney.setFocusable(false);
             etBusinessBuyMoney.setFocusableInTouchMode(false);
             etBusinessBuyMoney.setText(new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
-        }else {
-            tvBusinessBuyMore.setText(MyApplication.appContext.getResources().getString(R.string.rmb)+new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()) + " - " + MyApplication.appContext.getResources().getString(R.string.rmb)+ new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
+        } else {
+            tvBusinessBuyMore.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()) + " - " + MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
             tvNumAll.setVisibility(View.VISIBLE);
             tvPriceAll.setVisibility(View.VISIBLE);
             etBusinessBuyNum.setFocusable(true);
@@ -254,7 +269,7 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
     }
 
     @Override
-    public void buySuccess(BuyBusinessResponse buyBusinessResponse,int type) {
+    public void buySuccess(BuyBusinessResponse buyBusinessResponse, int type) {
         if (buyBusinessResponse != null) {
             buyBusinessResponse.setCurrentTime(System.currentTimeMillis());
             BusinessBuyDetailsActivity.startThis(businessBuyActivity, buyBusinessResponse, buyItem.getPrice(), Double.parseDouble(etBusinessBuyNum.getText().toString().trim()), type);
@@ -281,31 +296,44 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.cb_alipay:
-                    if (isChecked) {
-                        cbWebchat.setChecked(false);
-                        cbIdcast.setChecked(false);
-                        type = 1;
-                    } else {
-                        type = 0;
-                    }
+                if (isChecked) {
+                    cbWebchat.setChecked(false);
+                    cbIdcast.setChecked(false);
+                    cbYunshanfu.setChecked(false);
+                    type = 1;
+                } else {
+                    type = 0;
+                }
                 break;
             case R.id.cb_webchat:
-                    if (isChecked) {
-                        cbAlipay.setChecked(false);
-                        cbIdcast.setChecked(false);
-                        type = 2;
-                    } else {
-                        type = 0;
-                    }
+                if (isChecked) {
+                    cbAlipay.setChecked(false);
+                    cbIdcast.setChecked(false);
+                    cbYunshanfu.setChecked(false);
+                    type = 2;
+                } else {
+                    type = 0;
+                }
                 break;
             case R.id.cb_idcast:
-                    if (isChecked) {
-                        cbAlipay.setChecked(false);
-                        cbWebchat.setChecked(false);
-                        type = 3;
-                    } else {
-                        type = 0;
-                    }
+                if (isChecked) {
+                    cbAlipay.setChecked(false);
+                    cbWebchat.setChecked(false);
+                    cbYunshanfu.setChecked(false);
+                    type = 3;
+                } else {
+                    type = 0;
+                }
+                break;
+            case R.id.cb_yunshanfu:
+                if (isChecked) {
+                    cbAlipay.setChecked(false);
+                    cbWebchat.setChecked(false);
+                    cbIdcast.setChecked(false);
+                    type = 4;
+                } else {
+                    type = 0;
+                }
                 break;
         }
     }
