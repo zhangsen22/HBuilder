@@ -53,6 +53,7 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
         ImageView ivIdcard;
         ImageView ivAilpay;
         ImageView ivWebpay;
+        ImageView ivYunshanfu;
         ImageView ivApiType;
         LinearLayout llBuy;
 
@@ -70,6 +71,7 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
             ivIdcard = itemView.findViewById(R.id.iv_idcard);
             ivAilpay = itemView.findViewById(R.id.iv_ailpay);
             ivWebpay = itemView.findViewById(R.id.iv_webpay);
+            ivYunshanfu = itemView.findViewById(R.id.iv_yunshanfu);
             llBuy = itemView.findViewById(R.id.ll_buy);
         }
 
@@ -110,6 +112,12 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
                     ivWebpay.setVisibility(View.VISIBLE);
                 } else {
                     ivWebpay.setVisibility(View.GONE);
+                }
+
+                if (buyItem.isSupportCloud()) {
+                    ivYunshanfu.setVisibility(View.VISIBLE);
+                } else {
+                    ivYunshanfu.setVisibility(View.GONE);
                 }
 
                 llBuy.setOnClickListener(new View.OnClickListener() {

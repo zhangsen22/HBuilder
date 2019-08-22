@@ -51,6 +51,7 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
         ImageView ivIdcard;
         ImageView ivAilpay;
         ImageView ivWebpay;
+        ImageView ivYunshanfu;
         LinearLayout llQianggou;
         public LargeAmountItemHolder(View itemView) {
             super(itemView);
@@ -62,6 +63,7 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
             ivIdcard = itemView.findViewById(R.id.iv_idcard);
             ivAilpay = itemView.findViewById(R.id.iv_ailpay);
             ivWebpay = itemView.findViewById(R.id.iv_webpay);
+            ivYunshanfu = itemView.findViewById(R.id.iv_yunshanfu);
             llQianggou = itemView.findViewById(R.id.ll_qianggou);
         }
 
@@ -90,10 +92,16 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
                 }else {
                     ivWebpay.setVisibility(View.GONE);
                 }
+
+                if (largeAmountItem.isSupportCloud()) {
+                    ivYunshanfu.setVisibility(View.VISIBLE);
+                } else {
+                    ivYunshanfu.setVisibility(View.GONE);
+                }
                 llQianggou.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        BuyItem buyItem = new BuyItem(largeAmountItem.getId(), largeAmountItem.getNickname(), largeAmountItem.getPrice(), largeAmountItem.getNum(), largeAmountItem.getNum(), largeAmountItem.isSupportAli(), largeAmountItem.isSupportWechat(), largeAmountItem.isSupportBank(),true);
+                        BuyItem buyItem = new BuyItem(largeAmountItem.getId(), largeAmountItem.getNickname(), largeAmountItem.getPrice(), largeAmountItem.getNum(), largeAmountItem.getNum(), largeAmountItem.isSupportAli(), largeAmountItem.isSupportWechat(), largeAmountItem.isSupportBank(),largeAmountItem.isSupportCloud(),true);
                         BusinessBuyActivity.startThis(mContext,buyItem);
                     }
                 });
