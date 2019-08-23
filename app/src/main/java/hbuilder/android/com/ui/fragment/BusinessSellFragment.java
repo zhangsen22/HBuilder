@@ -126,7 +126,7 @@ public class BusinessSellFragment extends BaseFragment implements CompoundButton
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("售出" + MyApplication.appContext.getResources().getString(R.string.nbc));
+        tvTitle.setText("售出" + MyApplication.appContext.getResources().getString(R.string.cas));
         etBusinessSellNum.addTextChangedListener(new TextWatcherUtils() {
             @Override
             public void afterTextChanged(Editable s) {

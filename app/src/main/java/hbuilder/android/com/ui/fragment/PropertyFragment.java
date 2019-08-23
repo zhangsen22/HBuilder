@@ -208,7 +208,7 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
                 double hotFreezeNum = mWalletResponse.getHotFreezeNum();
                 tvAccountMoney1.setText(new DecimalFormat("0.00").format(hotNum + hotFreezeNum));
                 tvAccountMoney2.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(hotNum + hotFreezeNum));
-                tvBiType.setText(MyApplication.appContext.getResources().getString(R.string.nbc));
+                tvBiType.setText(MyApplication.appContext.getResources().getString(R.string.cas));
             }
 
             int currentItem = propertyViewPager.getCurrentItem();

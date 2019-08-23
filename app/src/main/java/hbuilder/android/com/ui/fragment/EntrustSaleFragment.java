@@ -3,9 +3,7 @@ package hbuilder.android.com.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,9 +18,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.text.DecimalFormat;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
@@ -309,7 +305,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
         if (walletResponse != null) {
             hotNum = walletResponse.getHotNum();
             GALogger.d(TAG, "hotNum    " + hotNum);
-            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.nbc));
+            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.cas));
         }
     }
 

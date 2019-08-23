@@ -76,8 +76,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingLeft="@dimen/y100"
-        android:paddingRight="@dimen/y100">
+        android:paddingLeft="@dimen/y80"
+        android:paddingRight="@dimen/y80">
 
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/business_magicindicator"
