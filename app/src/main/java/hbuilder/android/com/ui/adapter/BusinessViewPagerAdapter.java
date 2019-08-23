@@ -16,7 +16,7 @@ public class BusinessViewPagerAdapter extends FragmentPagerAdapter {
 
     private BaseFragment mCurrentPrimaryItem = null;
     private BuyFragment buyFragment;
-    private SellFragment sellFragment;
+//    private SellFragment sellFragment;
     private LargeAmountFragment largeAmountFragment;
     private List<Fragment> fragmentList;
     private String[] mTitles;
@@ -31,10 +31,10 @@ public class BusinessViewPagerAdapter extends FragmentPagerAdapter {
             buyFragment = BuyFragment.newInstance("");
         }
         fragmentList.add(buyFragment);
-        if(sellFragment == null){
-            sellFragment = SellFragment.newInstance("");
-        }
-        fragmentList.add(sellFragment);
+//        if(sellFragment == null){
+//            sellFragment = SellFragment.newInstance("");
+//        }
+//        fragmentList.add(sellFragment);
         if(largeAmountFragment == null){
             largeAmountFragment = LargeAmountFragment.newInstance("");
         }
@@ -59,9 +59,12 @@ public class BusinessViewPagerAdapter extends FragmentPagerAdapter {
     public BaseFragment getCurrentFragment(int position){
         if(position == 0){
             mCurrentPrimaryItem = buyFragment;
-        }else if(position == 1){
-            mCurrentPrimaryItem = sellFragment;
-        }else if(position == 2){
+        }
+//        else if(position == 1){
+//            mCurrentPrimaryItem = sellFragment;
+//        }
+
+        else if(position == 1){
             mCurrentPrimaryItem = largeAmountFragment;
         }
         return mCurrentPrimaryItem;

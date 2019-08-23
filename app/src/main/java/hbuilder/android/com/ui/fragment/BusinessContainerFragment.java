@@ -105,9 +105,9 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#f2c4c4"));
+                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#666666"));
                 colorTransitionPagerTitleView.setTextSize(14);
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#ffffff"));
+                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#333333"));
                 colorTransitionPagerTitleView.setText(businessTitle[index]);
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -128,7 +128,7 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 2));
                 indicator.setLineWidth(UIUtil.dip2px(context, 25));
-                indicator.setColors(Color.WHITE);
+                indicator.setColors(Color.parseColor("#FFCF20"));
                 indicator.setYOffset(UIUtil.dip2px(context, 8));
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 return indicator;
