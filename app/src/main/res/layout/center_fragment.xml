@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="bottom"
-            android:layout_marginTop="@dimen/y44">
+            android:layout_marginTop="@dimen/y66">
 
             <View
                 android:id="@+id/view1"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/y28">
+            android:layout_marginTop="@dimen/y26">
 
             <ImageView
                 android:layout_width="@dimen/y28"
@@ -77,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="吉祥如意"
-                android:textColor="@color/common_white"
+                android:textColor="@color/color_333333"
                 android:textSize="15sp"
                 android:singleLine="true"/>
 
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/am"
-                android:layout_marginLeft="@dimen/y40"/>
+                android:layout_marginLeft="@dimen/y20"/>
 
         </LinearLayout>
 
@@ -94,15 +94,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/y28"
-            android:layout_marginBottom="@dimen/y28"
+            android:layout_marginTop="@dimen/y18"
             android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="帐号:"
-                android:textColor="@color/common_white"
+                android:textColor="@color/color_333333"
                 android:textSize="13sp"/>
 
             <TextView
@@ -110,12 +109,76 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="13565412311"
-                android:textColor="@color/common_white"
+                android:textColor="@color/color_333333"
                 android:textSize="13sp"/>
 
         </LinearLayout>
 
         </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y208"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/ll_center_anquan"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/y72"
+                android:layout_height="@dimen/y82"
+                android:src="@mipmap/by"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text27"
+                android:textSize="13sp"
+                android:textColor="@color/color_666666"
+                android:layout_marginTop="@dimen/y28"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/y1"
+            android:layout_height="match_parent"
+            android:background="@mipmap/t"
+            android:layout_marginTop="@dimen/y34"
+            android:layout_marginBottom="@dimen/y34"/>
+
+        <LinearLayout
+            android:id="@+id/ll_add_sk_type"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/y72"
+                android:layout_height="@dimen/y82"
+                android:src="@mipmap/as"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text25"
+                android:textSize="13sp"
+                android:textColor="@color/color_666666"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/y28"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_tj_friend"
@@ -126,7 +189,7 @@
         android:paddingRight="@dimen/y40"
         android:gravity="center_vertical"
         android:background="@color/common_white"
-        android:layout_marginTop="@dimen/y10">
+        android:layout_marginTop="@dimen/y12">
 
         <ImageView
             android:layout_width="@dimen/y30"
@@ -157,42 +220,6 @@
     <include layout="@layout/line_f9"/>
 
     <LinearLayout
-        android:id="@+id/ll_add_sk_type"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y100"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/y40"
-        android:paddingRight="@dimen/y40"
-        android:gravity="center_vertical"
-        android:background="@color/common_white">
-
-        <ImageView
-            android:layout_width="@dimen/y30"
-            android:layout_height="@dimen/y30"
-            android:src="@mipmap/as"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/text25"
-            android:textSize="13sp"
-            android:textColor="@color/color_666666"
-            android:gravity="center"
-            android:layout_marginLeft="@dimen/y30"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:layout_width="@dimen/y12"
-            android:layout_height="@dimen/y20"
-            android:src="@mipmap/y"/>
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/ll_shenfencard"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y100"
@@ -200,7 +227,6 @@
         android:paddingLeft="@dimen/y40"
         android:paddingRight="@dimen/y40"
         android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/y10"
         android:background="@color/common_white">
 
         <ImageView
@@ -242,44 +268,6 @@
     <include layout="@layout/line_f9"/>
 
     <LinearLayout
-        android:id="@+id/ll_center_anquan"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y100"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/y40"
-        android:paddingRight="@dimen/y40"
-        android:gravity="center_vertical"
-        android:background="@color/common_white">
-
-        <ImageView
-            android:layout_width="@dimen/y30"
-            android:layout_height="@dimen/y30"
-            android:src="@mipmap/by"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/text27"
-            android:textSize="13sp"
-            android:textColor="@color/color_666666"
-            android:gravity="center"
-            android:layout_marginLeft="@dimen/y30"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:layout_width="@dimen/y12"
-            android:layout_height="@dimen/y20"
-            android:src="@mipmap/y"/>
-
-    </LinearLayout>
-
-    <include layout="@layout/line_f9"/>
-
-    <LinearLayout
         android:id="@+id/ll_award_details"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y100"
@@ -287,7 +275,8 @@
         android:paddingLeft="@dimen/y40"
         android:paddingRight="@dimen/y40"
         android:gravity="center_vertical"
-        android:background="@color/common_white">
+        android:background="@color/common_white"
+        android:layout_marginTop="@dimen/y10">
 
         <ImageView
             android:layout_width="@dimen/y30"
