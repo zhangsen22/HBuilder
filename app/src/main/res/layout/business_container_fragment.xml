@@ -89,24 +89,9 @@
 
     <include layout="@layout/line_f9"/>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
     <android.support.v4.view.ViewPager
         android:id="@+id/business_viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-        <ImageView
-            android:id="@+id/iv_guadan"
-            android:layout_width="@dimen/y96"
-            android:layout_height="@dimen/y96"
-            android:background="@mipmap/bv"
-            android:layout_gravity="bottom|right"
-            android:gravity="center" />
-
-    </FrameLayout>
 
 </LinearLayout>

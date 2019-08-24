@@ -13,13 +13,21 @@
         android:layout_height="wrap_content"
         android:background="@mipmap/ce">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单"
+            android:textSize="15sp"
+            android:textColor="@color/color_333333"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/order_magicindicator"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y92"
         android:layout_gravity="center_horizontal"/>
-
-    </FrameLayout>
 
     <include layout="@layout/line_10_f9"/>
 

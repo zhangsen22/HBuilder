@@ -8,7 +8,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import com.growalong.util.util.AppPublicUtils;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
@@ -54,6 +53,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     RadioButton rbCenter;
     @BindView(R.id.rg_controal)
     RadioGroup rgControal;
+    @BindView(R.id.rb_guadan)
+    RadioButton rbGuadan;
 
     private MainPresenter mainPresenter;
     private MainViewPagerAdapter mainViewPagerAdapter;
@@ -86,8 +87,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
             public void run() {
                 String version = SharedPreferencesUtils.getString(Constants.VERSION);
                 int i = AppPublicUtils.compareVersion(PackageUtil.getAppVersionName(MyApplication.appContext), version);
-                GALogger.d(TAG,"   i   "+i);
-                if(i == -1){
+                GALogger.d(TAG, "   i   " + i);
+                if (i == -1) {
                     updateApp();
                 }
             }
@@ -97,10 +98,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         mainPresenter.usdtPrice();
         mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         noscrollViewPager.setAdapter(mainViewPagerAdapter);
-        noscrollViewPager.setOffscreenPageLimit(3);
+        noscrollViewPager.setOffscreenPageLimit(4);
     }
 
-    @OnClick({R.id.rb_business,R.id.rb_order, R.id.rb_property, R.id.rb_center})
+    @OnClick({R.id.rb_business,R.id.rb_guadan, R.id.rb_order, R.id.rb_property, R.id.rb_center})
     public void onViewClicked(View view) {
         int currentItem = noscrollViewPager.getCurrentItem();
         switch (view.getId()) {
@@ -109,19 +110,24 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                     noscrollViewPager.setCurrentItem(0, false);
                 }
                 break;
-            case R.id.rb_order:
+            case R.id.rb_guadan:
                 if (currentItem != 1) {
                     noscrollViewPager.setCurrentItem(1, false);
                 }
                 break;
-            case R.id.rb_property:
+            case R.id.rb_order:
                 if (currentItem != 2) {
                     noscrollViewPager.setCurrentItem(2, false);
                 }
                 break;
-            case R.id.rb_center:
+            case R.id.rb_property:
                 if (currentItem != 3) {
                     noscrollViewPager.setCurrentItem(3, false);
+                }
+                break;
+            case R.id.rb_center:
+                if (currentItem != 4) {
+                    noscrollViewPager.setCurrentItem(4, false);
                 }
                 break;
         }
@@ -144,7 +150,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void onStart() {
-        GALogger.d(TAG,TAG+"    is    onStart");
+        GALogger.d(TAG, TAG + "    is    onStart");
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
@@ -153,7 +159,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     protected void onStop() {
-        GALogger.d(TAG,TAG+"    is    onStop");
+        GALogger.d(TAG, TAG + "    is    onStop");
         super.onStop();
     }
 
@@ -198,18 +204,18 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         GALogger.d(TAG, "type    is" + type);
         switch (type) {
             case 1:
-                noscrollViewPager.setCurrentItem(1, false);
-                changeRadioButton(1);
+                noscrollViewPager.setCurrentItem(2, false);
+                changeRadioButton(2);
                 onActivityResult(Constants.REQUESTCODE_13, RESULT_OK, null);
                 break;
             case 2:
-                noscrollViewPager.setCurrentItem(1, false);
-                changeRadioButton(1);
+                noscrollViewPager.setCurrentItem(2, false);
+                changeRadioButton(2);
                 onActivityResult(Constants.REQUESTCODE_14, RESULT_OK, null);
                 break;
             case 3:
-                noscrollViewPager.setCurrentItem(1, false);
-                changeRadioButton(1);
+                noscrollViewPager.setCurrentItem(2, false);
+                changeRadioButton(2);
                 onActivityResult(Constants.REQUESTCODE_18, RESULT_OK, null);
                 break;
         }
@@ -230,7 +236,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     private void updateApp() {
         String h5_down_address = MyApplication.getH5_down_Address();
-        if(TextUtils.isEmpty(h5_down_address)){
+        if (TextUtils.isEmpty(h5_down_address)) {
             return;
         }
         //带确认和取消按钮的弹窗
@@ -305,14 +311,14 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 .show();
     }
 
-    private void changeRadioButton(int position){
+    private void changeRadioButton(int position) {
         int childCount = rgControal.getChildCount();
-        if(childCount > 0){
+        if (childCount > 0) {
             for (int i = 0; i < childCount; i++) {
                 RadioButton childAt = (RadioButton) rgControal.getChildAt(i);
-                if(i == position){
+                if (i == position) {
                     childAt.setChecked(true);
-                }else {
+                } else {
                     childAt.setChecked(false);
                 }
             }

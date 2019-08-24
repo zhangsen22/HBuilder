@@ -33,16 +33,13 @@ import butterknife.OnClick;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.MyApplication;
 import hbuilder.android.com.R;
-import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.BulletinListItem;
 import hbuilder.android.com.modle.BulletinListResponse;
 import hbuilder.android.com.presenter.BusinessContainerPresenter;
 import hbuilder.android.com.presenter.contract.BusinessContainerContract;
 import hbuilder.android.com.presenter.modle.BusinessContainerModle;
 import hbuilder.android.com.ui.activity.BulletinActivity;
-import hbuilder.android.com.ui.activity.GuaDanActivity;
 import hbuilder.android.com.ui.activity.MainActivity;
-import hbuilder.android.com.ui.activity.WebViewActivity;
 import hbuilder.android.com.ui.adapter.BusinessViewPagerAdapter;
 
 public class BusinessContainerFragment extends BaseFragment implements BusinessContainerContract.View {
@@ -53,8 +50,6 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
     ViewPager businessViewPager;
     @BindView(R.id.ll_notry_click)
     LinearLayout llNotryClick;
-    @BindView(R.id.iv_guadan)
-    ImageView ivGuadan;
     @BindView(R.id.ff_business_content)
     FrameLayout ffBusinessContent;
     @BindView(R.id.banner)
@@ -155,16 +150,13 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
         }
     }
 
-    @OnClick({R.id.ll_notry_click, R.id.iv_guadan})
+    @OnClick({R.id.ll_notry_click})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_notry_click:
                 if(bulletinList != null && bulletinList.size() > 0){
                     BulletinActivity.startThis(mainActivity,bulletinList);
                 }
-                break;
-            case R.id.iv_guadan:
-                GuaDanActivity.startThis(mainActivity);
                 break;
         }
     }

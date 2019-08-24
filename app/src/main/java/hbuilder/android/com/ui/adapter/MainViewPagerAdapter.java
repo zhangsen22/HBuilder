@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import hbuilder.android.com.ui.fragment.BusinessContainerFragment;
 import hbuilder.android.com.ui.fragment.CenterFragment;
+import hbuilder.android.com.ui.fragment.EntrustSaleFragment;
 import hbuilder.android.com.ui.fragment.OrderFragment;
 import hbuilder.android.com.ui.fragment.PropertyFragment;
 
@@ -14,6 +15,7 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     private Fragment mCurrentPrimaryItem = null;
     private BusinessContainerFragment businessContainerFragment;
+    private EntrustSaleFragment entrustSaleFragment;
     private OrderFragment orderFragment;
     private PropertyFragment propertyFragment;
     private CenterFragment centerFragment;
@@ -28,6 +30,10 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
             businessContainerFragment = BusinessContainerFragment.newInstance("");
         }
         fragmentList.add(businessContainerFragment);
+        if(entrustSaleFragment == null){
+            entrustSaleFragment = EntrustSaleFragment.newInstance("");
+        }
+        fragmentList.add(entrustSaleFragment);
         if(orderFragment == null){
             orderFragment = OrderFragment.newInstance("");
         }
@@ -66,5 +72,9 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     public OrderFragment getOrderFragment() {
         return orderFragment;
+    }
+
+    public EntrustSaleFragment getEntrustSaleFragment() {
+        return entrustSaleFragment;
     }
 }
