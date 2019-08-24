@@ -50,6 +50,8 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     ViewPager propertyViewPager;
     @BindView(R.id.ll_property_bg)
     LinearLayout llPropertyBg;
+    @BindView(R.id.ll_property_bg1)
+    LinearLayout llPropertyBg1;
     @BindView(R.id.tv_account_name)
     TextView tvAccountName;
     @BindView(R.id.iv_financial_records)
@@ -96,6 +98,7 @@ public class PropertyFragment extends BaseFragment implements ViewPager.OnPageCh
     protected void initView(View root) {
         GALogger.d(TAG, "PropertyFragment   is    initView");
         setRootViewPaddingTop(llPropertyBg);
+        setRootViewPaddingTop(llPropertyBg1);
         final String[] propertyTitle = mainActivity.getResources().getStringArray(R.array.property_title);
         propertyViewPager.setOffscreenPageLimit(propertyTitle.length - 1);
         propertyViewPagerAdapter = new PropertyViewPagerAdapter(getChildFragmentManager(), propertyTitle);
