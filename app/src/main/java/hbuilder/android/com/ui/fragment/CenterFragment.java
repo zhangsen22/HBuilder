@@ -27,7 +27,7 @@ import hbuilder.android.com.presenter.modle.CenterModle;
 import hbuilder.android.com.ui.activity.AddMakeStyleActivity;
 import hbuilder.android.com.ui.activity.AwardDetailsActivity;
 import hbuilder.android.com.ui.activity.IdentityActivity;
-import hbuilder.android.com.ui.activity.LoginActivity;
+import hbuilder.android.com.ui.activity.LoginAndRegistActivity;
 import hbuilder.android.com.ui.activity.MainActivity;
 import hbuilder.android.com.ui.activity.MessageCenterActivity;
 import hbuilder.android.com.ui.activity.RecommendToFriendsActivity;
@@ -174,7 +174,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                         new OnConfirmListener() {
                             @Override
                             public void onConfirm() {
-                                LoginActivity.startThis(mainActivity);
+                                LoginAndRegistActivity.startThis(mainActivity);
                                 mainActivity.finish();
                             }
                         }, null, false)

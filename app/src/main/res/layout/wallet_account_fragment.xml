@@ -245,7 +245,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        tools:text="0.00000000"
+                        android:text="0.00000000"
                         android:textSize="12sp"
                         android:textColor="@color/color_666666"/>
 
@@ -268,7 +268,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        tools:text="0.00000000"
+                        android:text="0.00000000"
                         android:textSize="12sp"
                         android:textColor="@color/color_666666"/>
 
@@ -336,7 +336,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        tools:text="0.00000000"
+                        android:text="0.00000000"
                         android:textSize="12sp"
                         android:textColor="@color/color_666666"/>
 
@@ -359,7 +359,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        tools:text="0.00000000"
+                        android:text="0.00000000"
                         android:textSize="12sp"
                         android:textColor="@color/color_666666"/>
 
@@ -427,7 +427,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        tools:text="0.00000000"
+                        android:text="0.00000000"
                         android:textSize="12sp"
                         android:textColor="@color/color_666666"/>
 
@@ -450,7 +450,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        tools:text="0.00000000"
+                        android:text="0.00000000"
                         android:textSize="12sp"
                         android:textColor="@color/color_666666"/>
 
@@ -518,7 +518,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        tools:text="0.00000000"
+                        android:text="0.00000000"
                         android:textSize="12sp"
                         android:textColor="@color/color_666666"/>
 
@@ -541,7 +541,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        tools:text="0.00000000"
+                        android:text="0.00000000"
                         android:textSize="12sp"
                         android:textColor="@color/color_666666"/>
 

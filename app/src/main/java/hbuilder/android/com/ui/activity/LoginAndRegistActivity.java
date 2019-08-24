@@ -10,17 +10,15 @@ import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountManager;
 import hbuilder.android.com.app.AppManager;
 import hbuilder.android.com.app.Constants;
-import hbuilder.android.com.presenter.LoginPresenter;
-import hbuilder.android.com.presenter.modle.LoginModle;
-import hbuilder.android.com.ui.fragment.LoginFragment;
+import hbuilder.android.com.ui.fragment.LoginAndRegistFragment;
 import hbuilder.android.com.util.SharedPreferencesUtils;
 import io.reactivex.functions.Consumer;
 
-public class LoginActivity extends BaseActivity {
-    private static final String TAG = LoginActivity.class.getSimpleName();
+public class LoginAndRegistActivity extends BaseActivity {
+    private static final String TAG = LoginAndRegistActivity.class.getSimpleName();
 
     public static void startThis(BaseActivity activity) {
-        activity.startActivity(new Intent(activity, LoginActivity.class));
+        activity.startActivity(new Intent(activity, LoginAndRegistActivity.class));
     }
 
     @Override
@@ -52,15 +50,13 @@ public class LoginActivity extends BaseActivity {
         if(SharedPreferencesUtils.has(Constants.SESSIONID)){
             SharedPreferencesUtils.remove(Constants.SESSIONID);
         }
-        LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager()
+        LoginAndRegistFragment loginAndRegistFragment = (LoginAndRegistFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);
-        if (loginFragment == null) {
-            loginFragment = LoginFragment.newInstance("");
+        if (loginAndRegistFragment == null) {
+            loginAndRegistFragment = LoginAndRegistFragment.newInstance("");
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                    loginFragment, R.id.contentFrame);
+                    loginAndRegistFragment, R.id.contentFrame);
         }
-        //初始化presenter
-        new LoginPresenter(loginFragment, new LoginModle());
     }
 
     @Override

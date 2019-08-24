@@ -15,8 +15,7 @@ import hbuilder.android.com.net.retrofit.exception.ModelExceptionBuilder;
 import hbuilder.android.com.net.retrofit.exception.ModelExceptionMap;
 import hbuilder.android.com.net.retrofit.exception.ServerExceptionMap;
 import hbuilder.android.com.net.retrofit.service.ApiServices;
-import hbuilder.android.com.service.KillSelfService;
-import hbuilder.android.com.ui.activity.LoginActivity;
+import hbuilder.android.com.ui.activity.LoginAndRegistActivity;
 import hbuilder.android.com.util.ToastUtil;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -113,10 +112,10 @@ public abstract class ModelResultObserver<T> implements Observer<T> {
                         @Override
                         public void onFailure(ModelException ex) {
                             super.onFailure(ex);
-                            Intent intent = new Intent("android.intent.action.LoginActivity");
+                            Intent intent = new Intent("android.intent.action.LoginAndRegistActivity");
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             MyApplication.appContext.startActivity(intent);
-                            AppManager.getInstance().finishAllActivity(LoginActivity.class);
+                            AppManager.getInstance().finishAllActivity(LoginAndRegistActivity.class);
                         }
                     });
         }else {

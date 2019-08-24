@@ -1,70 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
-
-    <FrameLayout
-        android:id="@+id/fl_regist_head"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y672"
-        android:background="@mipmap/bo">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/y144"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal">
-
-            <ImageView
-                android:layout_width="@dimen/y150"
-                android:layout_height="@dimen/y150"
-                android:src="@mipmap/cu"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="@color/common_white"
-                android:textSize="30sp"
-                android:layout_marginTop="@dimen/y60"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
-
-    </FrameLayout>
-
     <ScrollView
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/ll_regist_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/y444"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingLeft="@dimen/y80"
-        android:paddingRight="@dimen/y80"
-        android:background="@mipmap/ci">
+        android:paddingRight="@dimen/y80">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/y90"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/y90"
+            android:layout_marginTop="@dimen/y20"
             android:background="@drawable/corners_bg10_c5">
 
             <ImageView
@@ -297,9 +250,4 @@
 
     </LinearLayout>
 
-        </LinearLayout>
-
     </ScrollView>
-
-
-</FrameLayout>

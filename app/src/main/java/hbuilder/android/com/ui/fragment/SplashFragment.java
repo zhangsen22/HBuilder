@@ -22,7 +22,7 @@ import hbuilder.android.com.app.Constants;
 import hbuilder.android.com.modle.DomainModel;
 import hbuilder.android.com.presenter.LoginPresenter;
 import hbuilder.android.com.presenter.contract.LoginContract;
-import hbuilder.android.com.ui.activity.LoginActivity;
+import hbuilder.android.com.ui.activity.LoginAndRegistActivity;
 import hbuilder.android.com.ui.activity.MainActivity;
 import hbuilder.android.com.ui.activity.SplashActivity;
 import hbuilder.android.com.util.SharedPreferencesUtils;
@@ -239,7 +239,7 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
             MyApplication.runOnUIThread(new Runnable() {
                 @Override
                 public void run() {
-                    LoginActivity.startThis(splashActivity);
+                    LoginAndRegistActivity.startThis(splashActivity);
                     splashActivity.finish();
                 }
             },3000);
@@ -262,7 +262,7 @@ public class SplashFragment extends BaseFragment implements LoginContract.View {
         MyApplication.runOnUIThread(new Runnable() {
             @Override
             public void run() {
-                LoginActivity.startThis(splashActivity);
+                LoginAndRegistActivity.startThis(splashActivity);
                 splashActivity.finish();
             }
         },3000);

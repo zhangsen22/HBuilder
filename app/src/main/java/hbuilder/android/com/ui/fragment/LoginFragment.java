@@ -5,36 +5,26 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import hbuilder.android.com.BaseFragment;
 import hbuilder.android.com.R;
 import hbuilder.android.com.app.AccountInfo;
 import hbuilder.android.com.modle.DomainModel;
 import hbuilder.android.com.presenter.LoginPresenter;
 import hbuilder.android.com.presenter.contract.LoginContract;
+import hbuilder.android.com.presenter.modle.LoginModle;
 import hbuilder.android.com.ui.activity.ForgetPwdActivity;
-import hbuilder.android.com.ui.activity.LoginActivity;
+import hbuilder.android.com.ui.activity.LoginAndRegistActivity;
 import hbuilder.android.com.ui.activity.MainActivity;
-import hbuilder.android.com.ui.activity.RegistActivity;
 import hbuilder.android.com.util.ToastUtil;
 
 public class LoginFragment extends BaseFragment implements LoginContract.View {
     private static final String TAG = LoginFragment.class.getSimpleName();
-    @BindView(R.id.go_regist)
-    TextView goRegist;
     @BindView(R.id.et_phone_number)
     EditText etPhoneNumber;
     @BindView(R.id.et_password)
@@ -43,11 +33,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     ImageView ivEye;
     @BindView(R.id.go_login)
     TextView goLogin;
-    @BindView(R.id.fl_login_head)
-    FrameLayout flLoginHead;
-    @BindView(R.id.ll_login_bottom)
-    LinearLayout llLoginBottom;
-    private LoginActivity loginActivity;
+    private LoginAndRegistActivity loginActivity;
     private LoginPresenter loginPresenter;
     private boolean isShowPassward = false;
 
@@ -62,7 +48,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginActivity = (LoginActivity) getActivity();
+        loginActivity = (LoginAndRegistActivity) getActivity();
     }
 
     @Override
@@ -72,11 +58,16 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
     @Override
     protected void initView(View root) {
-        setRootViewPaddingTop(flLoginHead);
-        setRootViewPaddingTop(llLoginBottom);
     }
 
-    @OnClick({R.id.iv_eye, R.id.go_login, R.id.go_regist, R.id.go_forget_pass})
+    @Override
+    public void lazyLoadData() {
+        super.lazyLoadData();
+        //初始化presenter
+        new LoginPresenter(this, new LoginModle());
+    }
+
+    @OnClick({R.id.iv_eye, R.id.go_login, R.id.go_forget_pass})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_eye:
@@ -105,9 +96,6 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
                 }
                 long currentTime = System.currentTimeMillis();
                 loginPresenter.login(phone, password, currentTime, true);
-                break;
-            case R.id.go_regist:
-                RegistActivity.startThis(loginActivity);
                 break;
             case R.id.go_forget_pass:
                 ForgetPwdActivity.startThis(loginActivity);

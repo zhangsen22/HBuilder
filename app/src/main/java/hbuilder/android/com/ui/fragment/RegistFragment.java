@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,8 +24,9 @@ import hbuilder.android.com.modle.ImageCodeResponse;
 import hbuilder.android.com.modle.SmsCodeResponse;
 import hbuilder.android.com.presenter.RegistPresenter;
 import hbuilder.android.com.presenter.contract.RegistContract;
+import hbuilder.android.com.presenter.modle.RegistModle;
+import hbuilder.android.com.ui.activity.LoginAndRegistActivity;
 import hbuilder.android.com.ui.activity.MainActivity;
-import hbuilder.android.com.ui.activity.RegistActivity;
 import hbuilder.android.com.ui.activity.WebViewActivity;
 import hbuilder.android.com.util.RSAUtil;
 import hbuilder.android.com.util.ToastUtil;
@@ -55,12 +55,8 @@ public class RegistFragment extends BaseFragment implements RegistContract.View 
     CheckBox cbAgree;
     @BindView(R.id.tv_yonghuxieyi)
     TextView tvYonghuxieyi;
-    @BindView(R.id.fl_regist_head)
-    FrameLayout flRegistHead;
-    @BindView(R.id.ll_regist_bottom)
-    LinearLayout llRegistBottom;
 
-    private RegistActivity registActivity;
+    private LoginAndRegistActivity loginAndRegistActivity;
     private RegistPresenter registPresenter;
     private String publicKey = "";
     /**
@@ -78,7 +74,7 @@ public class RegistFragment extends BaseFragment implements RegistContract.View 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        registActivity = (RegistActivity) getActivity();
+        loginAndRegistActivity = (LoginAndRegistActivity) getActivity();
     }
 
     @Override
@@ -88,8 +84,13 @@ public class RegistFragment extends BaseFragment implements RegistContract.View 
 
     @Override
     protected void initView(View root) {
-        setRootViewPaddingTop(flRegistHead);
-        setRootViewPaddingTop(llRegistBottom);
+    }
+
+    @Override
+    public void lazyLoadData() {
+        super.lazyLoadData();
+        //初始化presenter
+        new RegistPresenter(this, new RegistModle());
     }
 
     @Override
@@ -108,7 +109,7 @@ public class RegistFragment extends BaseFragment implements RegistContract.View 
                 public void onTick(long millisUntilFinished) {
                     //如果是Fragment 就判断getActivity() 是否为NULL
                     //如果是Activity 就判断!activity.isFinishing() 是否为NULL
-                    if (registActivity != null) {
+                    if (loginAndRegistActivity != null) {
                         int left = (int) ((millisUntilFinished - 1000) / 1000);
                         GALogger.d(TAG, "left       " + left);
                         if (left > 0) {
@@ -133,8 +134,8 @@ public class RegistFragment extends BaseFragment implements RegistContract.View 
 
     @Override
     public void registerAndLoginSuccess(AccountInfo accountInfo) {
-        MainActivity.startThis(registActivity);
-        registActivity.finish();
+        MainActivity.startThis(loginAndRegistActivity);
+        loginAndRegistActivity.finish();
     }
 
     @Override

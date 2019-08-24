@@ -12,6 +12,11 @@
         <item>委托购买</item>
     </string-array>
 
+    <string-array name="login_title">
+        <item>登录</item>
+        <item>注册</item>
+    </string-array>
+
     <string-array name="property_title">
         <item>币币账户</item>
         <item>场外账户</item>
