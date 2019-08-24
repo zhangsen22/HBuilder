@@ -17,7 +17,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -43,8 +42,10 @@ import hbuilder.android.com.ui.adapter.poweradapter.PowerHolder;
  */
 public class RewardDetailFragment extends BaseFragment implements RewardDetailContract.View, OnLoadMoreListener, PowerAdapter.OnEmptyClickListener, PowerAdapter.OnErrorClickListener, AdapterLoader.OnItemClickListener<RewardDetailItem> {
     private static final String TAG = RewardDetailFragment.class.getSimpleName();
-    @BindView(R.id.fl_title_comtent)
-    FrameLayout flTitleComtent;
+    @BindView(R.id.ll_title_comtent)
+    LinearLayout llTitleComtent;
+    @BindView(R.id.ll_title_comtent1)
+    LinearLayout llTitleComtent1;
     @BindView(R.id.tv_all_jiangli)
     TextView tvAllJiangli;
     @BindView(R.id.tv_last_jiangli)
@@ -101,7 +102,8 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
 
     @Override
     protected void initView(View root) {
-        setRootViewPaddingTop(flTitleComtent);
+        setRootViewPaddingTop(llTitleComtent);
+        setRootViewPaddingTop(llTitleComtent1);
         rewardDetailspullRefreshRecycler.setId(R.id.recycleView);
         rewardDetailspullRefreshRecycler.setHeaderLayout(new RecycleViewLoadingLayout(MyApplication.appContext));
         mRecyclerView = rewardDetailspullRefreshRecycler.getRefreshableView();
