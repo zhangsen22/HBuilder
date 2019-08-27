@@ -568,14 +568,6 @@ public interface ApiServices {
             ,@Field("time") long time);
 
     /**
-     * 下载apk
-     * @return
-     */
-    @Streaming
-    @GET(ApiConstants.DOWNLOADAPK)
-    Observable<ResponseBody> download();
-
-    /**
      * 微信登录
      * @param paymentId
      * @return

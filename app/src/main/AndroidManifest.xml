@@ -194,14 +194,15 @@
 
         <service android:name=".service.KillSelfService" />
 
-        <receiver android:name=".observer.PackageBroadCastReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-                <!-- data 不要忘记添加 -->
-                <data android:scheme="package" />
-            </intent-filter>
+        <receiver android:name=".observer.PackageBroadCastReceiver"
+            android:label="@string/app_name">
+        <intent-filter>
+            <action android:name="android.intent.action.PACKAGE_ADDED" />
+            <action android:name="android.intent.action.PACKAGE_REPLACED" />
+            <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+            <data android:scheme="package" />
+        </intent-filter>
         </receiver>
 
         <activity
