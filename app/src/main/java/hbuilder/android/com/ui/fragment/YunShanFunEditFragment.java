@@ -100,8 +100,6 @@ public class YunShanFunEditFragment extends BaseFragment implements YunShanFuEdi
         if (yunShanFuPayeeItemModelPayee == null) {
             id = 0;
         } else {
-            llForgetPassword.setVisibility(View.GONE);
-            tvSubmit.setVisibility(View.GONE);
             id = yunShanFuPayeeItemModelPayee.getId();
             String name = yunShanFuPayeeItemModelPayee.getName();
             if (!TextUtils.isEmpty(name)) {
