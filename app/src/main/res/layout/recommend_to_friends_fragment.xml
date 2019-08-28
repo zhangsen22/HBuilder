@@ -9,214 +9,103 @@
 
     <include layout="@layout/title"/>
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/cd">
-
-            <ImageView
-                android:id="@+id/tv_zing_img"
-                android:layout_width="@dimen/y300"
-                android:layout_height="@dimen/y300"
-                android:layout_marginTop="@dimen/y32"
-                android:layout_gravity="center_horizontal"
-                tools:src="@mipmap/ic_launcher"/>
-
-        </FrameLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="@dimen/y22"
-                android:layout_marginRight="@dimen/y22"
-                android:background="@drawable/corners_bg20"
-                android:layout_marginTop="@dimen/y370"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:background="@mipmap/aa">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="专属下载地址"
-                    android:textSize="14sp"
+                    android:id="@+id/tuijianjiangli"
+                    android:layout_width="@dimen/y232"
+                    android:layout_height="@dimen/y76"
+                    android:background="@mipmap/ab"
+                    android:layout_gravity="right"
                     android:textColor="@color/color_333333"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/y40"/>
-
-                <TextView
-                    android:id="@+id/tv_download_url"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="https://reg.xnbc999.pro/reg.jsp?code="
-                    android:textSize="14sp"
-                    android:textColor="@color/color_333333"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/y30"/>
-
-                <TextView
-                    android:id="@+id/tv_duplicate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="立即复制"
-                    android:textSize="12sp"
-                    android:textColor="@color/common_white"
-                    android:gravity="center"
-                    android:background="@mipmap/n"
-                    android:textIsSelectable="true"
-                    android:layout_marginTop="@dimen/y30"
-                    android:layout_marginBottom="@dimen/y32"/>
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/corners_bg20"
-            android:layout_marginLeft="@dimen/y22"
-            android:layout_marginRight="@dimen/y22"
-            android:layout_marginTop="@dimen/y14"
-            android:layout_marginBottom="@dimen/y14"
-            android:paddingLeft="@dimen/y90"
-            android:paddingRight="@dimen/y46">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/y30"
-                android:gravity="center_vertical">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="@dimen/y1"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/cf"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="邀约好友，共同获利"
-                    android:textSize="14sp"
-                    android:textColor="@color/color_333333"
-                    android:gravity="center"
-                    android:layout_marginLeft="@dimen/y18"
-                    android:layout_marginRight="@dimen/y18"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/cf"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="@dimen/y1"/>
-
-            </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/y54">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/cg" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="@dimen/y80">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="推广享奖励"
                     android:textSize="13sp"
-                    android:textColor="@color/color_ff5100"
-                    android:gravity="center" />
+                    android:text="推荐奖励"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="@dimen/y24"
+                    android:layout_marginTop="@dimen/y22"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="获得直推用户交易单金额0.1%的交易奖励，获得二级用户成交单金额0.05%的交易奖励。"
-                    android:textSize="12sp"
-                    android:textColor="@color/color_666666"
-                    android:layout_marginTop="@dimen/y22"
-                    android:lineSpacingExtra="@dimen/y6"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/y44"
-                android:layout_marginBottom="@dimen/y30">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ch" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
                     android:orientation="vertical"
-                    android:layout_marginLeft="@dimen/y80">
+                    android:paddingLeft="@dimen/y22"
+                    android:paddingRight="@dimen/y22"
+                    android:gravity="center_horizontal"
+                    android:background="@mipmap/an">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="推广赢代理"
-                        android:textSize="13sp"
-                        android:textColor="@color/color_ff5100"
-                        android:gravity="center" />
+                        android:text="专属下载地址"
+                        android:textSize="14sp"
+                        android:textColor="@color/color_333333"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/y168"/>
 
                     <TextView
+                        android:id="@+id/tv_download_url"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="推广30人注册并有效挂单即可申请成为一级代理，一级代理获得所有伞下成员成交单金额0.2%的代理奖励，一级代理可发展二级代理，其获得一级代理所有收益的50％奖励。（挂单奖励分润体同上）"
+                        android:text="https://reg.xnbc999.pro/reg.jsp?code="
+                        android:textSize="14sp"
+                        android:textColor="@color/color_333333"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/y10"/>
+
+                    <TextView
+                        android:id="@+id/tv_duplicate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="立即复制"
                         android:textSize="12sp"
-                        android:textColor="@color/color_666666"
-                        android:layout_marginTop="@dimen/y22"
-                        android:lineSpacingExtra="@dimen/y6"/>
+                        android:textColor="@color/common_white"
+                        android:gravity="center"
+                        android:background="@mipmap/n"
+                        android:textIsSelectable="true"
+                        android:layout_marginTop="@dimen/y16" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ac"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/y156">
 
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/tv_zing_img"
+                    android:layout_width="@dimen/y250"
+                    android:layout_height="@dimen/y250"
+                    tools:src="@mipmap/ic_launcher"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="@dimen/y114"/>
+
+            </FrameLayout>
+
+        </FrameLayout>
 
     </ScrollView>
 
@@ -260,16 +149,6 @@
             android:textColor="@color/common_white"
             android:gravity="center"
             android:background="@mipmap/cb"/>
-
-        <TextView
-            android:id="@+id/tuijianjiangli"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="推荐奖励"
-            android:textSize="13sp"
-            android:textColor="@color/common_white"
-            android:gravity="center"
-            android:background="@mipmap/cc" />
 
     </LinearLayout>
 
