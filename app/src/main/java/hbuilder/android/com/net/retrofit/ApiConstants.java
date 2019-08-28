@@ -53,4 +53,5 @@ public class ApiConstants {
     public static final String bulletinList = "user/bulletinList";//公告
     public static final String cloud = "user/paysetup/cloud";//云闪付收款设置
     public static final String cloudLogin = "user/cloudLogin";//云闪付登陆成功上传参数
+    public static final String cloudImgSetUp = "user/paysetup/cloudImgSetUp";//云闪付编辑二维码
 }

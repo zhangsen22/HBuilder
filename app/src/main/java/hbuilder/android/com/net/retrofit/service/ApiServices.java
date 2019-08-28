@@ -538,6 +538,21 @@ public interface ApiServices {
             , @Field("time") long time);
 
     /**
+     * 云闪付编辑二维码
+     * @param id
+     * @param base64Img
+     * @param financePwd
+     * @param time
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.cloudImgSetUp)
+    Observable<YnShanFuEditModle> cloudImgSetUp(@Field("id") long id
+            , @Field("base64Img") String base64Img
+            , @Field("financePwd") String financePwd
+            , @Field("time") long time);
+
+    /**
      * 删除收款设置
      * @param type
      * @param id
