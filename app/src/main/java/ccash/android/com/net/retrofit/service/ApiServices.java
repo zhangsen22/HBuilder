@@ -567,13 +567,6 @@ public interface ApiServices {
             ,@Field("financePwd") String financePwd
             ,@Field("time") long time);
 
-    /**
-     * 下载apk
-     * @return
-     */
-    @Streaming
-    @GET(ApiConstants.DOWNLOADAPK)
-    Observable<ResponseBody> download();
 
     /**
      * 微信登录

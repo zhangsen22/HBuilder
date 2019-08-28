@@ -26,8 +26,9 @@ import ccash.android.com.MyApplication;
 import ccash.android.com.R;
 import ccash.android.com.app.AppManager;
 import ccash.android.com.app.Constants;
-import ccash.android.com.downloads.DownloadUtils;
+import ccash.android.com.downloads.UpdateAppBuilder;
 import ccash.android.com.modle.UsdtPriceResponse;
+import ccash.android.com.net.retrofit.ApiConstants;
 import ccash.android.com.presenter.MainPresenter;
 import ccash.android.com.presenter.contract.MainContract;
 import ccash.android.com.presenter.modle.MainModle;
@@ -82,17 +83,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     protected void initData() {
-        MyApplication.runOnUIThread(new Runnable() {
-            @Override
-            public void run() {
-                String version = SharedPreferencesUtils.getString(Constants.VERSION);
-                int i = AppPublicUtils.compareVersion(PackageUtil.getAppVersionName(MyApplication.appContext), version);
-                GALogger.d(TAG, "   i   " + i);
-                if (i == -1) {
-                    updateApp();
-                }
-            }
-        }, 3000);
+        updateApp(SharedPreferencesUtils.getString(Constants.VERSION));
         //初始化presenter
         new MainPresenter(this, new MainModle());
         mainPresenter.usdtPrice();
@@ -234,43 +225,23 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 //        SharedPreferencesUtils.putString(Constants.USDTPRICE, GsonUtil.getInstance().objTojson(mUsdtPriceResponse));
     }
 
-    private void updateApp() {
+    private void updateApp(String version) {
         String h5_down_address = MyApplication.getH5_down_Address();
-        if (TextUtils.isEmpty(h5_down_address)) {
+        if(TextUtils.isEmpty(h5_down_address)){
             return;
         }
-        //带确认和取消按钮的弹窗
-        new XPopup.Builder(this)
-                .dismissOnBackPressed(false)
-                .dismissOnTouchOutside(false)
-                // 设置弹窗显示和隐藏的回调监听
-//                         .autoDismiss(false)
-//                        .popupAnimation(PopupAnimation.NoAnimation)
-                .setPopupCallback(new XPopupCallback() {
-                    @Override
-                    public void onShow() {
-                        Log.e("tag", "onShow");
-                    }
 
-                    @Override
-                    public void onDismiss() {
-                        Log.e("tag", "onDismiss");
-                    }
-                }).asConfirm("发现新版本,是否升级?", "",
-                "下次再说", "升级",
-                new OnConfirmListener() {
-                    @Override
-                    public void onConfirm() {
-                        if (!DownloadUtils.getInstance().getIsDownloading()) {
-                            /**
-                             * @param appUpdateStatus 升级状态 1:有新版本,2:强制升级
-                             */
-                            DownloadUtils.getInstance().initDownload(null, false);
-                            DownloadUtils.getInstance().download();
-                        }
-                    }
-                }, null, false)
-                .show();
+        if(TextUtils.isEmpty(version)){
+            return;
+        }
+
+        UpdateAppBuilder.with(MainActivity.this).
+                apkPath(h5_down_address+ ApiConstants.DOWNLOADAPK).//apk 的下载路径
+                isForce(true).//是否需要强制升级
+                serverVersionName(version)//服务的版本(会与当前应用的版本号进行比较)
+                .updateInfo("有新的版本发布啦！赶紧下载体验")//升级版本信息
+                .isWifiRequired(true)
+                .start();//开始下载
     }
 
     @Override
