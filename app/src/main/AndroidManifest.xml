@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="hbuilder.android.com">
+    package="ccash.android.com">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -217,7 +217,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="hbuilder.android.com.fileprovider"
+            android:authorities="ccash.android.com.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

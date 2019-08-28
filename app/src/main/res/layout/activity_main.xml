@@ -6,7 +6,7 @@
     tools:context=".ui.activity.MainActivity"
     android:orientation="vertical">
 
-    <hbuilder.android.com.ui.widget.NoScrollViewPager
+    <ccash.android.com.ui.widget.NoScrollViewPager
         android:id="@+id/noscrollViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -4,7 +4,7 @@ apply from: 'tinkerpatch.gradle'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
-        applicationId "hbuilder.android.com"
+        applicationId "ccash.android.com"
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -14,16 +14,16 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('hbuilder.jks')
-            storePassword "iaroundbuilder"
-            keyAlias "builder"
-            keyPassword "iaroundbuilder"
+            storeFile file('ccash.jks')
+            storePassword "iaroundccash"
+            keyAlias "ccash"
+            keyPassword "iaroundccash"
         }
         debug {
-            storeFile file('hbuilder.jks')
-            storePassword "iaroundbuilder"
-            keyAlias "builder"
-            keyPassword "iaroundbuilder"
+            storeFile file('ccash.jks')
+            storePassword "iaroundccash"
+            keyAlias "ccash"
+            keyPassword "iaroundccash"
 //            storeFile file('debug.keystore')
 //            storePassword "android"
 //            keyAlias "androiddebugkey"
