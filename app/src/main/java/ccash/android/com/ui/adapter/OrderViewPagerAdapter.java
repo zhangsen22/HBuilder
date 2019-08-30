@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ccash.android.com.BaseFragment;
+import ccash.android.com.ui.fragment.OrderItemDetailsFragment;
 import ccash.android.com.ui.fragment.OrderItemFragment;
 
 public class OrderViewPagerAdapter extends FragmentPagerAdapter {
@@ -23,8 +24,13 @@ public class OrderViewPagerAdapter extends FragmentPagerAdapter {
             fragmentList = new ArrayList<>();
         }
         for (int i = 0; i < titles.length; i++) {
-            orderItemFragment = OrderItemFragment.newInstance(i+1);
-            fragmentList.add(orderItemFragment);
+            if(i < 2){
+                orderItemFragment = OrderItemFragment.newInstance(i+1);
+                fragmentList.add(orderItemFragment);
+            }else {
+                OrderItemDetailsFragment orderItemDetailsFragment = OrderItemDetailsFragment.newInstance(3,2);
+                fragmentList.add(orderItemDetailsFragment);
+            }
         }
     }
 
