@@ -53,6 +53,7 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
         ImageView ivWebpay;
         ImageView ivYunshanfu;
         LinearLayout llQianggou;
+        ImageView ivLacard;
         public LargeAmountItemHolder(View itemView) {
             super(itemView);
             tvLargeAmountTime = itemView.findViewById(R.id.tv_large_amount_time);
@@ -65,6 +66,7 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
             ivWebpay = itemView.findViewById(R.id.iv_webpay);
             ivYunshanfu = itemView.findViewById(R.id.iv_yunshanfu);
             llQianggou = itemView.findViewById(R.id.ll_qianggou);
+            ivLacard = itemView.findViewById(R.id.iv_lacard);
         }
 
         @Override
@@ -98,10 +100,16 @@ public class LargeAmountAdapter extends PowerAdapter<LargeAmountItem> {
                 } else {
                     ivYunshanfu.setVisibility(View.GONE);
                 }
+
+                if (largeAmountItem.isSupportLakala()) {
+                    ivLacard.setVisibility(View.VISIBLE);
+                } else {
+                    ivLacard.setVisibility(View.GONE);
+                }
                 llQianggou.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        BuyItem buyItem = new BuyItem(largeAmountItem.getId(), largeAmountItem.getNickname(), largeAmountItem.getPrice(), largeAmountItem.getNum(), largeAmountItem.getNum(), largeAmountItem.isSupportAli(), largeAmountItem.isSupportWechat(), largeAmountItem.isSupportBank(),largeAmountItem.isSupportCloud(),true);
+                        BuyItem buyItem = new BuyItem(largeAmountItem.getId(), largeAmountItem.getNickname(), largeAmountItem.getPrice(), largeAmountItem.getNum(), largeAmountItem.getNum(), largeAmountItem.isSupportAli(), largeAmountItem.isSupportWechat(), largeAmountItem.isSupportBank(),largeAmountItem.isSupportCloud(),largeAmountItem.isSupportLakala(),true);
                         BusinessBuyActivity.startThis(mContext,buyItem);
                     }
                 });

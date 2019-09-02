@@ -81,12 +81,18 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
     CheckBox cbYunshanfu;
     @BindView(R.id.ll_yunshanfu)
     LinearLayout llYunshanfu;
+    @BindView(R.id.iv_lakala)
+    ImageView ivLakala;
+    @BindView(R.id.cb_lacara)
+    CheckBox cbLacara;
+    @BindView(R.id.ll_lacara)
+    LinearLayout llLacara;
 
     private BusinessBuyActivity businessBuyActivity;
     private BusinessBuyPresenter presenter;
     private BuyItem buyItem;
     private boolean flag = true;//添加标志位，标志是否被编辑
-    private int type;//1为支付宝，2为微信，3为银行账户 ，4为云闪付
+    private int type;//1为支付宝，2为微信，3为银行账户 ，4为云闪付 ，5为拉卡拉
 
     public static BusinessBuyFragment newInstance(@Nullable BuyItem buyItem) {
         Bundle arguments = new Bundle();
@@ -162,6 +168,7 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
         cbWebchat.setOnCheckedChangeListener(this);
         cbIdcast.setOnCheckedChangeListener(this);
         cbYunshanfu.setOnCheckedChangeListener(this);
+        cbLacara.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -197,6 +204,14 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
         } else {
             ivYunshanfu.setVisibility(View.GONE);
             llYunshanfu.setVisibility(View.GONE);
+        }
+
+        if (buyItem.isSupportLakala()) {
+            ivLakala.setVisibility(View.VISIBLE);
+            llLacara.setVisibility(View.VISIBLE);
+        } else {
+            ivLakala.setVisibility(View.GONE);
+            llLacara.setVisibility(View.GONE);
         }
         ivBuyName.setText(buyItem.getNickname());
         tvBusinessBuyPrice.setText(buyItem.getPrice() + "");
@@ -300,6 +315,7 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
                     cbWebchat.setChecked(false);
                     cbIdcast.setChecked(false);
                     cbYunshanfu.setChecked(false);
+                    cbLacara.setChecked(false);
                     type = 1;
                 } else {
                     type = 0;
@@ -310,6 +326,7 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
                     cbAlipay.setChecked(false);
                     cbIdcast.setChecked(false);
                     cbYunshanfu.setChecked(false);
+                    cbLacara.setChecked(false);
                     type = 2;
                 } else {
                     type = 0;
@@ -320,6 +337,7 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
                     cbAlipay.setChecked(false);
                     cbWebchat.setChecked(false);
                     cbYunshanfu.setChecked(false);
+                    cbLacara.setChecked(false);
                     type = 3;
                 } else {
                     type = 0;
@@ -330,7 +348,19 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
                     cbAlipay.setChecked(false);
                     cbWebchat.setChecked(false);
                     cbIdcast.setChecked(false);
+                    cbLacara.setChecked(false);
                     type = 4;
+                } else {
+                    type = 0;
+                }
+                break;
+            case R.id.cb_lacara:
+                if (isChecked) {
+                    cbAlipay.setChecked(false);
+                    cbWebchat.setChecked(false);
+                    cbIdcast.setChecked(false);
+                    cbYunshanfu.setChecked(false);
+                    type = 5;
                 } else {
                     type = 0;
                 }

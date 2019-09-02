@@ -14,6 +14,7 @@ import com.lxj.xpopup.core.CenterPopupView;
 import ccash.android.com.MyApplication;
 import ccash.android.com.R;
 import ccash.android.com.modle.AliPayee;
+import ccash.android.com.modle.LaCaraPayee;
 import ccash.android.com.modle.WechatPayee;
 import ccash.android.com.modle.YunShanFuPayee;
 
@@ -95,6 +96,22 @@ public class CenterErWeiMaPopupView extends CenterPopupView {
                     tvDespic.setText("扫描二维码验证");
                 }
                 Bitmap qrImage = QRCodeUtil.createQRCodeBitmap(yunShanFuPayee.getBase64Img(), 650, 650, "UTF-8",
+                        "H", "1", Color.BLACK, Color.WHITE, bitmapLog, 0.2F, null);
+                ivImageCode.setImageBitmap(qrImage);
+            }
+        }else if (type == 5) {
+            tvPayTypeName.setText("请用拉卡拉扫一扫");
+            LaCaraPayee laCaraPayee =  GsonUtil.getInstance().getServerBean(payee,LaCaraPayee.class);
+            if(laCaraPayee != null){
+                String account = laCaraPayee.getAccount();
+                if(!TextUtils.isEmpty(account)){
+                    tvAccount.setVisibility(VISIBLE);
+                    tvAccount.setText(account);
+                }else {
+                    tvAccount.setVisibility(GONE);
+                    tvDespic.setText("扫描二维码验证");
+                }
+                Bitmap qrImage = QRCodeUtil.createQRCodeBitmap(laCaraPayee.getBase64Img(), 650, 650, "UTF-8",
                         "H", "1", Color.BLACK, Color.WHITE, bitmapLog, 0.2F, null);
                 ivImageCode.setImageBitmap(qrImage);
             }

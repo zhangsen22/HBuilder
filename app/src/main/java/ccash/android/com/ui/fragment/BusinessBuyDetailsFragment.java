@@ -31,6 +31,7 @@ import ccash.android.com.modle.AliPayee;
 import ccash.android.com.modle.BankPayee;
 import ccash.android.com.modle.BaseBean;
 import ccash.android.com.modle.BuyBusinessResponse;
+import ccash.android.com.modle.LaCaraPayee;
 import ccash.android.com.modle.WechatPayee;
 import ccash.android.com.modle.YunShanFuPayee;
 import ccash.android.com.presenter.BusinessBuyDetailsPresenter;
@@ -187,6 +188,16 @@ public class BusinessBuyDetailsFragment extends BaseFragment implements Business
                 if (yunShanFuPayee != null) {
                     tvShoukuaiName.setText(yunShanFuPayee.getName());
                     tvShoukuaiAccount.setText(yunShanFuPayee.getAccount());
+                }
+            }else if (type == 5) {
+                llShoukuanfangshi.setVisibility(View.VISIBLE);
+                tvPayTypeName.setText("拉卡拉");
+                tvShoukuaiTypeName.setText("拉卡拉");
+                tvPayImage.setImageResource(R.mipmap.ao);
+                LaCaraPayee laCaraPayee = GsonUtil.getInstance().getServerBean(payee, LaCaraPayee.class);
+                if (laCaraPayee != null) {
+                    tvShoukuaiName.setText(laCaraPayee.getName());
+                    tvShoukuaiAccount.setText(laCaraPayee.getAccount());
                 }
             }
 

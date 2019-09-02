@@ -22,9 +22,9 @@ public class EntrustSaleModle extends WalletModle{
      * @param time
      * @return
      */
-    public Observable<BaseBean> putUpSell(double price, double minNum, double maxNum, boolean supporAli, boolean supportWechat, boolean supportBank,boolean supportCloud, String financePwd, long time){
+    public Observable<BaseBean> putUpSell(double price, double minNum, double maxNum, boolean supporAli, boolean supportWechat, boolean supportBank,boolean supportCloud,boolean supportLakala, String financePwd, long time){
         return BaseRetrofitClient.getInstance().create(ApiServices.class)
-                .putUpSell(price,minNum,maxNum,supporAli,supportWechat,supportBank,supportCloud,financePwd,time)
+                .putUpSell(price,minNum,maxNum,supporAli,supportWechat,supportBank,supportCloud,supportLakala,financePwd,time)
                 .subscribeOn(Schedulers.io())
                 .map(new ServerExceptionMap<BaseBean>())
                 .onErrorResumeNext(new ModelExceptionMap<BaseBean>());

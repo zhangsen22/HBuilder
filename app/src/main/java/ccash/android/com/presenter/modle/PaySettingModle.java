@@ -1,6 +1,8 @@
 package ccash.android.com.presenter.modle;
 
 import ccash.android.com.modle.BaseBean;
+import ccash.android.com.modle.LaCaraEditModle;
+import ccash.android.com.modle.LaCaraWenChatListModle;
 import ccash.android.com.modle.WebChatEditModle;
 import ccash.android.com.modle.WechatLoginModle;
 import ccash.android.com.modle.YnShanFuEditModle;
@@ -85,6 +87,23 @@ public class PaySettingModle{
     }
 
     /**
+     * 拉卡拉收款设置
+     * @param wechatPaymentId
+     * @param account
+     * @param base64Img
+     * @param financePwd
+     * @param time
+     * @return
+     */
+    public Observable<LaCaraEditModle> lakala(long id,long wechatPaymentId, String account, String base64Img, String financePwd, long time){
+        return BaseRetrofitClient.getInstance().create(ApiServices.class)
+                .lakala(id,wechatPaymentId,account,base64Img,financePwd,time)
+                .subscribeOn(Schedulers.io())
+                .map(new ServerExceptionMap<LaCaraEditModle>())
+                .onErrorResumeNext(new ModelExceptionMap<LaCaraEditModle>());
+    }
+
+    /**
      * 云闪付编辑二维码
      * @param id
      * @param base64Img
@@ -98,6 +117,22 @@ public class PaySettingModle{
                 .subscribeOn(Schedulers.io())
                 .map(new ServerExceptionMap<YnShanFuEditModle>())
                 .onErrorResumeNext(new ModelExceptionMap<YnShanFuEditModle>());
+    }
+
+    /**
+     * 拉卡拉编辑二维码
+     * @param id
+     * @param base64Img
+     * @param financePwd
+     * @param time
+     * @return
+     */
+    public Observable<LaCaraEditModle> lakalaImgSetUp(long id, String base64Img, String financePwd, long time){
+        return BaseRetrofitClient.getInstance().create(ApiServices.class)
+                .lakalaImgSetUp(id,base64Img,financePwd,time)
+                .subscribeOn(Schedulers.io())
+                .map(new ServerExceptionMap<LaCaraEditModle>())
+                .onErrorResumeNext(new ModelExceptionMap<LaCaraEditModle>());
     }
 
     /**
@@ -124,5 +159,16 @@ public class PaySettingModle{
                 .subscribeOn(Schedulers.io())
                 .map(new ServerExceptionMap<YnShanFuEditModle>())
                 .onErrorResumeNext(new ModelExceptionMap<YnShanFuEditModle>());
+    }
+
+    /**
+     * 拉卡拉下拉框获取微信列表
+     */
+    public Observable<LaCaraWenChatListModle> getWechatList(){
+        return BaseRetrofitClient.getInstance().create(ApiServices.class)
+                .getWechatList()
+                .subscribeOn(Schedulers.io())
+                .map(new ServerExceptionMap<LaCaraWenChatListModle>())
+                .onErrorResumeNext(new ModelExceptionMap<LaCaraWenChatListModle>());
     }
 }

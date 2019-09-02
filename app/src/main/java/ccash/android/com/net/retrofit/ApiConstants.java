@@ -5,9 +5,9 @@ package ccash.android.com.net.retrofit;
  */
 public class ApiConstants {
     //app访问的初始地址
-//    public static String getGetDomainNameBase = "http://54.254.190.23:8330/";//亚马逊测试环境
+    public static String getGetDomainNameBase = "http://54.254.190.23:8330/";//亚马逊测试环境
 //        public static String getGetDomainNameBase = "https://d.xotc.fun/";//xotc测试环境
-        public static String getGetDomainNameBase = "https://d.yy7777.fun/";//ccash线上环境
+//        public static String getGetDomainNameBase = "https://d.yy7777.fun/";//ccash线上环境
     public static final String getDomainName = "app/config";
     public static final String getImageCode = "user/imageCode";//获取图片验证码
     public static final String senSmsCode = "user/smsCode";//发送验证码
@@ -54,4 +54,7 @@ public class ApiConstants {
     public static final String cloud = "user/paysetup/cloud";//云闪付收款设置
     public static final String cloudLogin = "user/cloudLogin";//云闪付登陆成功上传参数
     public static final String cloudImgSetUp = "user/paysetup/cloudImgSetUp";//云闪付编辑二维码
+    public static final String lakala = "user/paysetup/lakala";//拉卡拉收款设置
+    public static final String lakalaImgSetUp = "paysetup/lakalaImgSetUp";//拉卡拉编辑二维码
+    public static final String getWechatList = "user/paysetup/getWechatList";//拉卡拉下拉框获取微信列表
 }

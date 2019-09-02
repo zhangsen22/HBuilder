@@ -9,7 +9,7 @@ public interface EntrustSaleContract {
 
     interface Presenter extends IBasePresenter {
         //委托出售
-        void putUpSell(double price, double minNum, double maxNum, boolean supporAli, boolean supportWechat, boolean supportBank,boolean supportCloud, String financePwd, long time);
+        void putUpSell(double price, double minNum, double maxNum, boolean supporAli, boolean supportWechat, boolean supportBank,boolean supportCloud,boolean supportLakala, String financePwd, long time);
         //资产查询
         void getInfo();
     }

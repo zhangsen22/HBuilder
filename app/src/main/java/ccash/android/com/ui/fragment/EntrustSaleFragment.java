@@ -30,6 +30,7 @@ import ccash.android.com.presenter.modle.EntrustSaleModle;
 import ccash.android.com.ui.activity.AliPayListActivity;
 import ccash.android.com.ui.activity.BalancePassWordActivity;
 import ccash.android.com.ui.activity.IdCastPayListActivity;
+import ccash.android.com.ui.activity.LaCaraListActivity;
 import ccash.android.com.ui.activity.MainActivity;
 import ccash.android.com.ui.activity.WebChatListActivity;
 import ccash.android.com.ui.activity.YunShanFuListActivity;
@@ -72,10 +73,15 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     TextView tvAddYunshanfu;
     @BindView(R.id.ff_guadan_content)
     FrameLayout ffGuadanContent;
+    @BindView(R.id.iv_lacara)
+    ImageView ivLacara;
+    @BindView(R.id.tv_add_lacara)
+    TextView tvAddLacara;
     private boolean isUseIvAlipay;
     private boolean isUseIvWebchat;
     private boolean isUseIvIdcards;
     private boolean isUseIvCloud;
+    private boolean isUseIvLaCara;
     private MainActivity mainActivity;
     private EntrustSalePresenter entrustSalePresenter;
     private double hotNum = 0;
@@ -131,6 +137,11 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
         } else {
             tvAddYunshanfu.setText("添加");
         }
+        if (AccountManager.getInstance().isHaveLakalaPayee()) {
+            tvAddLacara.setText("更改");
+        } else {
+            tvAddLacara.setText("添加");
+        }
     }
 
     @Override
@@ -144,7 +155,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
         entrustSalePresenter.getInfo();
     }
 
-    @OnClick({R.id.tv_add_alipay, R.id.tv_add_webchat, R.id.tv_add_idcards, R.id.tv_forget_password, R.id.tv_sell_publish, R.id.iv_alipay, R.id.iv_webchat, R.id.iv_idcards, R.id.tv_sale_cankaojia, R.id.iv_yunshanfu, R.id.tv_add_yunshanfu})
+    @OnClick({R.id.tv_add_alipay, R.id.tv_add_webchat, R.id.tv_add_idcards, R.id.tv_forget_password, R.id.tv_sell_publish, R.id.iv_alipay, R.id.iv_webchat, R.id.iv_idcards, R.id.tv_sale_cankaojia, R.id.iv_yunshanfu, R.id.tv_add_yunshanfu,R.id.tv_add_lacara,R.id.iv_lacara})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_add_alipay:
@@ -258,7 +269,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                     return;
                 }
 
-                if (!isUseIvAlipay && !isUseIvWebchat && !isUseIvIdcards && !isUseIvCloud) {
+                if (!isUseIvAlipay && !isUseIvWebchat && !isUseIvIdcards && !isUseIvCloud && !isUseIvLaCara) {
                     ToastUtil.shortShow("请至少添加一种收款方式");
                     return;
                 }
@@ -271,7 +282,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
 
                 long currentTime = System.currentTimeMillis();
                 entrustSalePresenter.putUpSell(d_businessPrice, d_expectMinnum, d_expectMaxnum, isUseIvAlipay
-                        , isUseIvWebchat, isUseIvIdcards, isUseIvCloud, Md5Utils.getMD5(moneryPassword + currentTime), currentTime);
+                        , isUseIvWebchat, isUseIvIdcards, isUseIvCloud,isUseIvLaCara, Md5Utils.getMD5(moneryPassword + currentTime), currentTime);
                 break;
             case R.id.tv_sale_cankaojia:
                 break;
@@ -288,8 +299,24 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                     ToastUtil.shortShow("请先添加云闪付收款信息");
                 }
                 break;
+            case R.id.iv_lacara:
+                boolean haveLakalaPayee = AccountManager.getInstance().isHaveLakalaPayee();
+                if (haveLakalaPayee) {
+                    if (isUseIvLaCara) {
+                        ivLacara.setImageResource(R.mipmap.cv);
+                    } else {
+                        ivLacara.setImageResource(R.mipmap.cw);
+                    }
+                    isUseIvLaCara = !isUseIvLaCara;
+                } else {
+                    ToastUtil.shortShow("请先添加拉卡拉收款信息");
+                }
+                break;
             case R.id.tv_add_yunshanfu:
                 YunShanFuListActivity.startThis(mainActivity);
+                break;
+            case R.id.tv_add_lacara:
+                LaCaraListActivity.startThis(mainActivity);
                 break;
         }
     }

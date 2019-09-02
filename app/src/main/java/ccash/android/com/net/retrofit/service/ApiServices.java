@@ -9,12 +9,15 @@ import ccash.android.com.modle.DomainModel;
 import ccash.android.com.modle.FinanceLogResponse;
 import ccash.android.com.modle.ImageCodeResponse;
 import ccash.android.com.modle.InvitationResponse;
+import ccash.android.com.modle.LaCaraEditModle;
+import ccash.android.com.modle.LaCaraWenChatListModle;
 import ccash.android.com.modle.LargeAmountResponse;
 import ccash.android.com.modle.MessageCenterResponse;
 import ccash.android.com.modle.MyEntrustinfoResponse;
 import ccash.android.com.modle.MySellOrBuyinfoResponse;
 import ccash.android.com.modle.PaySetupModelAliPay;
 import ccash.android.com.modle.PaySetupModelBank;
+import ccash.android.com.modle.PaySetupModelLaCara;
 import ccash.android.com.modle.PaySetupModelWebChat;
 import ccash.android.com.modle.PaySetupModelYunShanFu;
 import ccash.android.com.modle.RegistResponse;
@@ -29,12 +32,9 @@ import ccash.android.com.modle.WechatLoginModle;
 import ccash.android.com.modle.YnShanFuEditModle;
 import ccash.android.com.net.retrofit.ApiConstants;
 import io.reactivex.Observable;
-import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Streaming;
 
 /**
  * @ProjectName: videochat
@@ -187,6 +187,7 @@ public interface ApiServices {
      * @param supportWechat
      * @param supportBank
      * @param supportCloud
+     * @param supportLakala
      * @param financePwd
      * @param time
      * @return
@@ -200,6 +201,7 @@ public interface ApiServices {
             , @Field("supportWechat") boolean supportWechat
             , @Field("supportBank") boolean supportBank
             , @Field("supportCloud") boolean supportCloud
+            , @Field("supportLakala") boolean supportLakala
             , @Field("financePwd") String financePwd
             , @Field("time") long time);
 
@@ -451,6 +453,16 @@ public interface ApiServices {
 
     /**
      * 获取自己的收款信息
+     * 拉卡拉
+     * @param type
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.paysetup)
+    Observable<PaySetupModelLaCara> paysetupLaCara(@Field("type") int type);
+
+    /**
+     * 获取自己的收款信息
      * 微信
      * @param type
      * @return
@@ -538,6 +550,23 @@ public interface ApiServices {
             , @Field("time") long time);
 
     /**
+     * 拉卡拉收款设置
+     * @param wechatPaymentId
+     * @param account
+     * @param base64Img
+     * @param financePwd
+     * @param time
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.lakala)
+    Observable<LaCaraEditModle> lakala(@Field("id") long id,@Field("wechatPaymentId") long wechatPaymentId
+            , @Field("account") String account
+            , @Field("base64Img") String base64Img
+            , @Field("financePwd") String financePwd
+            , @Field("time") long time);
+
+    /**
      * 删除收款设置
      * @param type
      * @param id
@@ -600,6 +629,27 @@ public interface ApiServices {
             , @Field("base64Img") String base64Img
             , @Field("financePwd") String financePwd
             , @Field("time") long time);
+
+    /**
+     * 拉卡拉编辑二维码
+     * @param id
+     * @param base64Img
+     * @param financePwd
+     * @param time
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.lakalaImgSetUp)
+    Observable<LaCaraEditModle> lakalaImgSetUp(@Field("id") long id
+            , @Field("base64Img") String base64Img
+            , @Field("financePwd") String financePwd
+            , @Field("time") long time);
+
+    /**
+     * 拉卡拉下拉框获取微信列表
+     */
+    @POST(ApiConstants.getWechatList)
+    Observable<LaCaraWenChatListModle> getWechatList();
 
 
     /**

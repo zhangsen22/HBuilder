@@ -56,6 +56,7 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
         ImageView ivYunshanfu;
         ImageView ivApiType;
         LinearLayout llBuy;
+        ImageView ivLacard;
 
         public BuyItemHolder(View itemView) {
             super(itemView);
@@ -73,6 +74,7 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
             ivWebpay = itemView.findViewById(R.id.iv_webpay);
             ivYunshanfu = itemView.findViewById(R.id.iv_yunshanfu);
             llBuy = itemView.findViewById(R.id.ll_buy);
+            ivLacard = itemView.findViewById(R.id.iv_lacard);
         }
 
         @Override
@@ -118,6 +120,12 @@ public class BuyFragmentAdapter extends PowerAdapter<BuyItem> {
                     ivYunshanfu.setVisibility(View.VISIBLE);
                 } else {
                     ivYunshanfu.setVisibility(View.GONE);
+                }
+
+                if (buyItem.isSupportLakala()) {
+                    ivLacard.setVisibility(View.VISIBLE);
+                } else {
+                    ivLacard.setVisibility(View.GONE);
                 }
 
                 llBuy.setOnClickListener(new View.OnClickListener() {

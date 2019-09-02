@@ -72,6 +72,14 @@
                     android:layout_marginLeft="@dimen/y26"
                     android:visibility="gone"/>
 
+                <ImageView
+                    android:id="@+id/iv_lakala"
+                    android:layout_width="@dimen/y30"
+                    android:layout_height="@dimen/y30"
+                    android:src="@mipmap/ao"
+                    android:layout_marginLeft="@dimen/y26"
+                    android:visibility="gone"/>
+
             </LinearLayout>
 
             <include layout="@layout/line_f9"/>
@@ -458,6 +466,44 @@
                     style="@style/CustomCheckboxTheme2" />
 
             </LinearLayout>
+
+            <include layout="@layout/line_f9"/>
+
+            <LinearLayout
+                android:id="@+id/ll_lacara"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y90"
+                android:orientation="horizontal"
+                android:background="@color/common_white"
+                android:paddingLeft="@dimen/y34"
+                android:paddingRight="@dimen/y6"
+                android:gravity="center_vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="@dimen/y34"
+                    android:layout_height="@dimen/y34"
+                    android:src="@mipmap/ao" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="拉卡拉"
+                    android:textColor="@color/color_666666"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="@dimen/y16"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/y1"/>
+
+                <CheckBox
+                    android:id="@+id/cb_lacara"
+                    style="@style/CustomCheckboxTheme2" />
+
+            </LinearLayout>
+
 
             <include layout="@layout/a2"/>
 

@@ -187,6 +187,13 @@
                 android:layout_marginRight="@dimen/y18"
                 android:visibility="gone"/>
 
+            <ImageView
+                android:id="@+id/iv_lacard"
+                android:layout_width="@dimen/y30"
+                android:layout_height="@dimen/y30"
+                android:src="@mipmap/ao"
+                android:visibility="gone"/>
+
             <View
                 android:layout_width="0dp"
                 android:layout_weight="1"

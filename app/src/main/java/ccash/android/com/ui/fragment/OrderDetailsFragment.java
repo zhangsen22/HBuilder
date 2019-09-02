@@ -22,6 +22,7 @@ import ccash.android.com.MyApplication;
 import ccash.android.com.R;
 import ccash.android.com.modle.AliPayee;
 import ccash.android.com.modle.BankPayee;
+import ccash.android.com.modle.LaCaraPayee;
 import ccash.android.com.modle.MySellOrBuyinfoItem;
 import ccash.android.com.modle.WechatPayee;
 import ccash.android.com.modle.YunShanFuPayee;
@@ -155,6 +156,15 @@ public class OrderDetailsFragment extends BaseFragment {
                         tvOrderDetailsSellName.setText(yunShanFuPayee.getName());
                         tvShoukuaiOrderDetailsName.setText(yunShanFuPayee.getName());
                         tvOrderDetailsAccount.setText(yunShanFuPayee.getAccount());
+                        ivOrderDetailsCodeImage.setVisibility(View.VISIBLE);
+                    }
+                }else if (payType == 5) {
+                    tvOrderDetailsShoukuanType.setText("拉卡拉");
+                    LaCaraPayee laCaraPayee =  GsonUtil.getInstance().getServerBean(payee,LaCaraPayee.class);
+                    if(laCaraPayee != null){
+                        tvOrderDetailsSellName.setText(laCaraPayee.getName());
+                        tvShoukuaiOrderDetailsName.setText(laCaraPayee.getName());
+                        tvOrderDetailsAccount.setText(laCaraPayee.getAccount());
                         ivOrderDetailsCodeImage.setVisibility(View.VISIBLE);
                     }
                 }
