@@ -2,7 +2,7 @@
 <resources>
 
     <string-array name="business_title">
-        <item>我要买币</item>
+        <item>我要卖币</item>
         <!--<item>我要出售</item>-->
         <item>我要抢单</item>
     </string-array>
