@@ -99,18 +99,21 @@
             android:layout_width="@dimen/y116"
             android:layout_height="@dimen/y56"
             android:background="@mipmap/ap"
-            android:gravity="center">
+            android:gravity="center"
+            android:paddingBottom="@dimen/y6">
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@mipmap/bp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="抢单"
                 android:textSize="13sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/y10"/>
 
         </LinearLayout>
 
