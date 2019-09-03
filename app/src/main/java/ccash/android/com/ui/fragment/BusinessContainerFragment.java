@@ -39,6 +39,7 @@ import ccash.android.com.presenter.BusinessContainerPresenter;
 import ccash.android.com.presenter.contract.BusinessContainerContract;
 import ccash.android.com.presenter.modle.BusinessContainerModle;
 import ccash.android.com.ui.activity.BulletinActivity;
+import ccash.android.com.ui.activity.GuaDanActivity;
 import ccash.android.com.ui.activity.MainActivity;
 import ccash.android.com.ui.adapter.BusinessViewPagerAdapter;
 
@@ -56,6 +57,8 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
     ConvenientBanner banner;
     @BindView(R.id.tv_gonggao)
     TextView tvGonggao;
+    @BindView(R.id.ll_qiangdan)
+    LinearLayout llQiangdan;
     private MainActivity mainActivity;
     private BusinessViewPagerAdapter baseFragmentPagerAdapter;
     private BusinessContainerPresenter presenter;
@@ -150,13 +153,16 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
         }
     }
 
-    @OnClick({R.id.ll_notry_click})
+    @OnClick({R.id.ll_notry_click,R.id.ll_qiangdan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_notry_click:
-                if(bulletinList != null && bulletinList.size() > 0){
-                    BulletinActivity.startThis(mainActivity,bulletinList);
+                if (bulletinList != null && bulletinList.size() > 0) {
+                    BulletinActivity.startThis(mainActivity, bulletinList);
                 }
+                break;
+            case R.id.ll_qiangdan:
+                GuaDanActivity.startThis(mainActivity);
                 break;
         }
     }
@@ -185,7 +191,7 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
     @Override
     public void bulletinListSuccess(BulletinListResponse bulletinListResponse) {
         if (bulletinListResponse != null) {
-            if(bulletinList == null){
+            if (bulletinList == null) {
                 bulletinList = new ArrayList<>();
             }
             bulletinList.clear();

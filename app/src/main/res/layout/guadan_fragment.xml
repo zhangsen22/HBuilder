@@ -13,23 +13,12 @@
         android:orientation="horizontal"
         android:background="@mipmap/ce">
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="@dimen/y92"
-            android:layout_height="@dimen/y92"
-            android:src="@mipmap/back"
-            android:padding="@dimen/y30"/>
-
         <net.lucode.hackware.magicindicator.MagicIndicator
             android:id="@+id/guadan_magicindicator"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/y92"
             android:layout_gravity="center_horizontal"/>
-
-        <View
-            android:layout_width="@dimen/y92"
-            android:layout_height="@dimen/y92" />
 
     </LinearLayout>
 

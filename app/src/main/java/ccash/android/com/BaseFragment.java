@@ -223,7 +223,4 @@ public abstract class BaseFragment extends Fragment {
     protected void setRootViewPaddingTop(View view) {
         view.setPadding(0, PhoneInfoUtil.getInstance().getStatusBarHeight(), 0, 0);
     }
-
-    public void lazyLoadData_now(UsdtPriceResponse usdtPriceResponse, WalletResponse mWalletResponse) {
-    }
 }

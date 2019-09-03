@@ -72,20 +72,49 @@
     </LinearLayout>
 
     <!--如果MagicIndicator需要加背景颜色   需要在其外面嵌套一个父布局  在父布局添加背景颜色-->
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingLeft="@dimen/y80"
-        android:paddingRight="@dimen/y80">
+        android:paddingLeft="@dimen/y26"
+        android:paddingRight="@dimen/y26"
+        android:gravity="center_vertical">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/y116">
 
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/business_magicindicator"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y92"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal" />
 
-    </FrameLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_qiangdan"
+            android:layout_width="@dimen/y116"
+            android:layout_height="@dimen/y56"
+            android:background="@mipmap/ap"
+            android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="抢单"
+                android:textSize="13sp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <include layout="@layout/line_f9"/>
 

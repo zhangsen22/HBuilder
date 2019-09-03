@@ -71,8 +71,6 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     ImageView ivYunshanfu;
     @BindView(R.id.tv_add_yunshanfu)
     TextView tvAddYunshanfu;
-    @BindView(R.id.ff_guadan_content)
-    FrameLayout ffGuadanContent;
     @BindView(R.id.iv_lacara)
     ImageView ivLacara;
     @BindView(R.id.tv_add_lacara)
@@ -108,7 +106,6 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
 
     @Override
     protected void initView(View root) {
-        setRootViewPaddingTop(ffGuadanContent);
         UsdtPriceResponse usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
         if (usdtPriceResponse != null) {
             minSellPrice = usdtPriceResponse.getMinSellPrice();

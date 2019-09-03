@@ -7,14 +7,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.growalong.util.util.GALogger;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ccash.android.com.BaseFragment;
 import ccash.android.com.MyApplication;
 import ccash.android.com.R;
@@ -23,7 +28,7 @@ import ccash.android.com.modle.LargeAmountItem;
 import ccash.android.com.modle.LargeAmountResponse;
 import ccash.android.com.presenter.LargeAmountPresenter;
 import ccash.android.com.presenter.contract.LargeAmountContract;
-import ccash.android.com.presenter.modle.BuyModle;
+import ccash.android.com.ui.activity.GuaDanActivity;
 import ccash.android.com.ui.adapter.LargeAmountAdapter;
 import ccash.android.com.ui.adapter.poweradapter.AdapterLoader;
 import ccash.android.com.ui.adapter.poweradapter.LoadMoreScrollListener;
@@ -35,6 +40,12 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     private static final String TAG = LargeAmountFragment.class.getSimpleName();
     @BindView(R.id.largeamount_pull_refresh_recycler)
     PullToRefreshRecyclerView largeamountPullRefreshRecycler;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     private LargeAmountPresenter presenter;
     private RecyclerView mRecyclerView;
     private LargeAmountAdapter largeAmountAdapter;
@@ -44,6 +55,7 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
     private List<LargeAmountItem> listTemp;
+    private GuaDanActivity guaDanActivity;
 
     public static LargeAmountFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -53,16 +65,24 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        guaDanActivity = (GuaDanActivity) getActivity();
+    }
+
+    @Override
     protected int getRootView() {
         return R.layout.large_amount_fragment;
     }
 
     @Override
     protected void initView(View root) {
+        setRootViewPaddingTop(flTitleComtent);
+        tvTitle.setText("抢单");
         largeamountPullRefreshRecycler.setId(R.id.recycleView);
         largeamountPullRefreshRecycler.setHeaderLayout(new RecycleViewLoadingLayout(MyApplication.appContext));
         mRecyclerView = largeamountPullRefreshRecycler.getRefreshableView();
-        LinearLayoutManager manager = new LinearLayoutManager(MyApplication.appContext, LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager manager = new LinearLayoutManager(MyApplication.appContext, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
         largeAmountAdapter = new LargeAmountAdapter(MyApplication.appContext);
         largeAmountAdapter.attachRecyclerView(mRecyclerView);
@@ -87,7 +107,7 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
         loadMoreAction = new Runnable() {
             @Override
             public void run() {
-                if(idList != null && idList.size() > 0){
+                if (idList != null && idList.size() > 0) {
                     presenter.getHugeBillinfoLoadMore(idList.get(0));
                 }
             }
@@ -98,8 +118,6 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     public void lazyLoadData() {
         super.lazyLoadData();
         setLoadDataWhenVisible();
-        //初始化presenter
-        new LargeAmountPresenter(this, new BuyModle());
         mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
     }
 
@@ -107,12 +125,12 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     public void getHugeBillinfoRefreshSuccess(LargeAmountResponse largeAmountResponse) {
         List<LargeAmountItem> billInfo = largeAmountResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
-            GALogger.d(TAG,"billInfo.size()    "+billInfo.size());
+            GALogger.d(TAG, "billInfo.size()    " + billInfo.size());
             reverseIdList(billInfo);
             List<LargeAmountItem> buyItems = removeDuplicate(billInfo);
-            if(buyItems.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+            if (buyItems.size() <= Constants.RECYCLEVIEW_TOTALCOUNT) {
                 largeAmountAdapter.setTotalCount(buyItems.size());
-            }else {
+            } else {
                 largeAmountAdapter.setTotalCount(Integer.MAX_VALUE);
             }
             largeAmountAdapter.setList(buyItems);
@@ -144,8 +162,8 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
             largeAmountAdapter.getList().clear();
             largeAmountAdapter.getOriginalDataList().clear();
             largeAmountAdapter.appendList(buyItems);
-        }else {
-            GALogger.d(TAG,"LoadMore  is  no");
+        } else {
+            GALogger.d(TAG, "LoadMore  is  no");
             reverseIdList(null);
             largeAmountAdapter.setTotalCount(largeAmountAdapter.getItemRealCount());
             largeAmountAdapter.notifyDataSetChanged();
@@ -153,16 +171,16 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
         isRun = false;
     }
 
-    public void reverseIdList(List<LargeAmountItem> billInfo){
-        if(idList == null){
+    public void reverseIdList(List<LargeAmountItem> billInfo) {
+        if (idList == null) {
             idList = new ArrayList<Long>();
         }
         idList.clear();
-        if(billInfo == null){
+        if (billInfo == null) {
             return;
         }
         LargeAmountItem buyItem = billInfo.get(billInfo.size() - 1);
-        if(buyItem != null && buyItem.getId() > 0) {
+        if (buyItem != null && buyItem.getId() > 0) {
             idList.add(buyItem.getId());
         }
     }
@@ -222,10 +240,11 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
 
     /**
      * list集合对象去重
+     *
      * @param list
      * @return
      */
-    public  List<LargeAmountItem> removeDuplicate(List<LargeAmountItem> list){
+    public List<LargeAmountItem> removeDuplicate(List<LargeAmountItem> list) {
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
 //            if(listTemp == null){
 //                listTemp = new LinkedList<>();
@@ -255,5 +274,10 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
 //            }
 //        }
         return list;
+    }
+
+    @OnClick(R.id.iv_back)
+    public void onViewClicked() {
+        guaDanActivity.finish();
     }
 }

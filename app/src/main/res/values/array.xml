@@ -2,14 +2,14 @@
 <resources>
 
     <string-array name="business_title">
+        <item>我要买币</item>
         <item>我要卖币</item>
-        <!--<item>我要出售</item>-->
-        <item>我要抢单</item>
+        <!--<item>我要抢单</item>-->
     </string-array>
 
     <string-array name="guadan_title">
-        <item>委托出售</item>
-        <item>委托购买</item>
+        <item>委托卖币</item>
+        <item>委托买币</item>
     </string-array>
 
     <string-array name="login_title">
@@ -25,7 +25,7 @@
     <string-array name="order_title">
         <item>我的卖出</item>
         <item>我的买入</item>
-        <item>卖币委托</item>
+        <item>我的委托</item>
     </string-array>
 
     <string-array name="order_item_title">

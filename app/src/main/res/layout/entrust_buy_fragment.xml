@@ -70,7 +70,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="最小数量(NBC)"
+            android:text="最小数量(CAS)"
             android:textColor="@color/color_666666"
             android:textSize="12sp" />
 
@@ -103,7 +103,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="最大数量(NBC)"
+            android:text="最大数量(CAS)"
             android:textColor="@color/color_666666"
             android:textSize="12sp" />
 
@@ -117,7 +117,7 @@
             android:textColor="@color/color_999999"
             android:inputType="number"
             android:textSize="12sp"
-            android:hint="至少挂单1200 NBC"
+            android:hint="至少挂单1200 CAS"
             android:layout_marginLeft="@dimen/y16"/>
 
     </LinearLayout>

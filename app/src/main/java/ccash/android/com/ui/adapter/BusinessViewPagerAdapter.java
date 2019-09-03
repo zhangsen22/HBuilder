@@ -10,13 +10,14 @@ import java.util.List;
 import ccash.android.com.BaseFragment;
 import ccash.android.com.ui.fragment.BuyFragment;
 import ccash.android.com.ui.fragment.LargeAmountFragment;
+import ccash.android.com.ui.fragment.SellFragment;
 
 public class BusinessViewPagerAdapter extends FragmentPagerAdapter {
 
     private BaseFragment mCurrentPrimaryItem = null;
     private BuyFragment buyFragment;
-//    private SellFragment sellFragment;
-    private LargeAmountFragment largeAmountFragment;
+    private SellFragment sellFragment;
+//    private LargeAmountFragment largeAmountFragment;
     private List<Fragment> fragmentList;
     private String[] mTitles;
 
@@ -30,14 +31,14 @@ public class BusinessViewPagerAdapter extends FragmentPagerAdapter {
             buyFragment = BuyFragment.newInstance("");
         }
         fragmentList.add(buyFragment);
-//        if(sellFragment == null){
-//            sellFragment = SellFragment.newInstance("");
-//        }
-//        fragmentList.add(sellFragment);
-        if(largeAmountFragment == null){
-            largeAmountFragment = LargeAmountFragment.newInstance("");
+        if(sellFragment == null){
+            sellFragment = SellFragment.newInstance("");
         }
-        fragmentList.add(largeAmountFragment);
+        fragmentList.add(sellFragment);
+//        if(largeAmountFragment == null){
+//            largeAmountFragment = LargeAmountFragment.newInstance("");
+//        }
+//        fragmentList.add(largeAmountFragment);
     }
 
     @Override
@@ -59,13 +60,13 @@ public class BusinessViewPagerAdapter extends FragmentPagerAdapter {
         if(position == 0){
             mCurrentPrimaryItem = buyFragment;
         }
-//        else if(position == 1){
-//            mCurrentPrimaryItem = sellFragment;
-//        }
-
         else if(position == 1){
-            mCurrentPrimaryItem = largeAmountFragment;
+            mCurrentPrimaryItem = sellFragment;
         }
+
+//        else if(position == 1){
+//            mCurrentPrimaryItem = largeAmountFragment;
+//        }
         return mCurrentPrimaryItem;
     }
 }

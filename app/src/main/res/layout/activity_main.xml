@@ -50,7 +50,7 @@
             android:id="@+id/rb_property"
             android:drawableTop="@drawable/property"
             style="@style/button_tag_style"
-            android:text="钱包" />
+            android:text="资产" />
 
         <RadioButton
             android:id="@+id/rb_center"

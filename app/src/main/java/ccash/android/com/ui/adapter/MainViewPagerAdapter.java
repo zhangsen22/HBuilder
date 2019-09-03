@@ -8,6 +8,7 @@ import java.util.List;
 import ccash.android.com.ui.fragment.BusinessContainerFragment;
 import ccash.android.com.ui.fragment.CenterFragment;
 import ccash.android.com.ui.fragment.EntrustSaleFragment;
+import ccash.android.com.ui.fragment.GuaDanFragment;
 import ccash.android.com.ui.fragment.OrderFragment;
 import ccash.android.com.ui.fragment.PropertyFragment;
 
@@ -15,7 +16,7 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     private Fragment mCurrentPrimaryItem = null;
     private BusinessContainerFragment businessContainerFragment;
-    private EntrustSaleFragment entrustSaleFragment;
+    private GuaDanFragment guaDanFragment;
     private OrderFragment orderFragment;
     private PropertyFragment propertyFragment;
     private CenterFragment centerFragment;
@@ -30,10 +31,10 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
             businessContainerFragment = BusinessContainerFragment.newInstance("");
         }
         fragmentList.add(businessContainerFragment);
-        if(entrustSaleFragment == null){
-            entrustSaleFragment = EntrustSaleFragment.newInstance("");
+        if(guaDanFragment == null){
+            guaDanFragment = GuaDanFragment.newInstance("");
         }
-        fragmentList.add(entrustSaleFragment);
+        fragmentList.add(guaDanFragment);
         if(orderFragment == null){
             orderFragment = OrderFragment.newInstance("");
         }
@@ -72,9 +73,5 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     public OrderFragment getOrderFragment() {
         return orderFragment;
-    }
-
-    public EntrustSaleFragment getEntrustSaleFragment() {
-        return entrustSaleFragment;
     }
 }

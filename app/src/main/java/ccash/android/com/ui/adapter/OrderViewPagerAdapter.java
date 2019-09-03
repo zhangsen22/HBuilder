@@ -24,13 +24,8 @@ public class OrderViewPagerAdapter extends FragmentPagerAdapter {
             fragmentList = new ArrayList<>();
         }
         for (int i = 0; i < titles.length; i++) {
-            if(i < 2){
-                orderItemFragment = OrderItemFragment.newInstance(i+1);
-                fragmentList.add(orderItemFragment);
-            }else {
-                OrderItemDetailsFragment orderItemDetailsFragment = OrderItemDetailsFragment.newInstance(3,2);
-                fragmentList.add(orderItemDetailsFragment);
-            }
+            orderItemFragment = OrderItemFragment.newInstance(i+1);
+            fragmentList.add(orderItemFragment);
         }
     }
 
