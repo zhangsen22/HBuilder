@@ -38,7 +38,6 @@ public class CustomPartShadowPopupView extends PartShadowPopupView implements La
     protected void onCreate() {
         super.onCreate();
         mRecyclerView = findViewById(R.id.rv_weblist);
-
         LinearLayoutManager manager = new LinearLayoutManager(MyApplication.appContext, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
         laCaraWebListAdapter = new LaCaraWebListAdapter(MyApplication.appContext,this);

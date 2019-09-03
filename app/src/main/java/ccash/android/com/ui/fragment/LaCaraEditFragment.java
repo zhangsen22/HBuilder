@@ -27,9 +27,7 @@ import com.growalong.util.util.GALogger;
 import com.growalong.util.util.Md5Utils;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
-import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.lxj.xpopup.interfaces.OnSelectWebChatListener;
-
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -69,6 +67,8 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
     LinearLayout llForgetPassword;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    @BindView(R.id.ll_xialakuang)
+    LinearLayout llXialakuang;
     private PaySettingActivity paySettingActivity;
     private LaCaraEditPresenter presenter;
     private LaCaraPayeeItemModelPayee laCaraPayeeItemModelPayee = null;
@@ -126,7 +126,7 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
         super.lazyLoadData();
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_webchat_image, R.id.tv_forget_password, R.id.tv_submit,R.id.et_wenchat_name})
+    @OnClick({R.id.iv_back, R.id.iv_webchat_image, R.id.tv_forget_password, R.id.tv_submit, R.id.ll_xialakuang})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -188,7 +188,7 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
                     presenter.lakalaImgSetUp(id, sIdcardFront, Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
                 }
                 break;
-            case R.id.et_wenchat_name:
+            case R.id.ll_xialakuang:
                 presenter.getWechatList();
                 break;
         }
@@ -279,9 +279,9 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
 
     @Override
     public void laCaraSuccess(LaCaraEditModle laCaraEditModle) {
-        if(laCaraEditModle != null){
+        if (laCaraEditModle != null) {
             long paymentId = laCaraEditModle.getPaymentId();
-            if(paymentId > 0) {
+            if (paymentId > 0) {
                 paySettingActivity.setResult(Activity.RESULT_OK);
                 paySettingActivity.finish();
             }
@@ -290,9 +290,9 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
 
     @Override
     public void lakalaImgSetUpSuccess(LaCaraEditModle laCaraEditModle) {
-        if(laCaraEditModle != null){
+        if (laCaraEditModle != null) {
             long paymentId = laCaraEditModle.getPaymentId();
-            if(paymentId > 0) {
+            if (paymentId > 0) {
                 paySettingActivity.setResult(Activity.RESULT_OK);
                 paySettingActivity.finish();
             }
@@ -301,16 +301,16 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
 
     @Override
     public void getWechatListSuccess(LaCaraWenChatListModle laCaraWenChatListModle) {
-        if(laCaraWenChatListModle != null){
+        if (laCaraWenChatListModle != null) {
             List<LaCaraWenChatListItem> list = laCaraWenChatListModle.getList();
-            if(list != null && list.size() > 0){
+            if (list != null && list.size() > 0) {
                 showPartShadow(list);
             }
         }
     }
 
-    private void showPartShadow(List<LaCaraWenChatListItem> list){
-        if(show != null && show.isShow()){
+    private void showPartShadow(List<LaCaraWenChatListItem> list) {
+        if (show != null && show.isShow()) {
             return;
         }
         show = new XPopup.Builder(getContext())
