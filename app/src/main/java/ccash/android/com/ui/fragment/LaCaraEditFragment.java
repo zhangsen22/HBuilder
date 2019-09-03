@@ -320,6 +320,6 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
                         wechatPaymentId = paymentId;
                         etWenchatName.setText(account);
                     }
-                })).show();
+                },paySettingActivity)).show();
     }
 }

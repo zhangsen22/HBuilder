@@ -2,12 +2,16 @@ package ccash.android.com.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
+import com.lxj.xpopup.interfaces.XPopupCallback;
 import butterknife.BindView;
 import butterknife.OnClick;
 import ccash.android.com.BaseFragment;
@@ -89,7 +93,35 @@ public class AddMakeStyleFragment extends BaseFragment {
                 AliPayListActivity.startThis(addMakeStyleActivity);
                 break;
             case R.id.ll_ylcard_click:
-                IdCastPayListActivity.startThis(addMakeStyleActivity);
+                if (!AccountManager.getInstance().isHaveWechatPayee()) {
+                    //带确认和取消按钮的弹窗
+                    new XPopup.Builder(getContext())
+                            //                         .dismissOnTouchOutside(false)
+                            // 设置弹窗显示和隐藏的回调监听
+                            //                         .autoDismiss(false)
+                            //                        .popupAnimation(PopupAnimation.NoAnimation)
+                            .setPopupCallback(new XPopupCallback() {
+                                @Override
+                                public void onShow() {
+                                    Log.e("tag", "onShow");
+                                }
+
+                                @Override
+                                public void onDismiss() {
+                                    Log.e("tag", "onDismiss");
+                                }
+                            }).asConfirm("请先绑定微信收款方式", "",
+                            "取消", "确定",
+                            new OnConfirmListener() {
+                                @Override
+                                public void onConfirm() {
+                                    WebChatListActivity.startThis(addMakeStyleActivity);
+                                }
+                            }, null, false)
+                            .show();
+                }else {
+                    IdCastPayListActivity.startThis(addMakeStyleActivity);
+                }
                 break;
             case R.id.ll_webchat_click:
                 WebChatListActivity.startThis(addMakeStyleActivity);
@@ -98,7 +130,35 @@ public class AddMakeStyleFragment extends BaseFragment {
                 YunShanFuListActivity.startThis(addMakeStyleActivity);
                 break;
             case R.id.ll_lacara_click:
-                LaCaraListActivity.startThis(addMakeStyleActivity);
+                if (!AccountManager.getInstance().isHaveWechatPayee()) {
+                        //带确认和取消按钮的弹窗
+                    new XPopup.Builder(getContext())
+                        //                         .dismissOnTouchOutside(false)
+                            // 设置弹窗显示和隐藏的回调监听
+                        //                         .autoDismiss(false)
+                        //                        .popupAnimation(PopupAnimation.NoAnimation)
+                            .setPopupCallback(new XPopupCallback() {
+                                @Override
+                                public void onShow() {
+                                    Log.e("tag", "onShow");
+                                }
+
+                                @Override
+                                public void onDismiss() {
+                                    Log.e("tag", "onDismiss");
+                                }
+                            }).asConfirm("请先绑定微信收款方式", "",
+                            "取消", "确定",
+                            new OnConfirmListener() {
+                                @Override
+                                public void onConfirm() {
+                                    WebChatListActivity.startThis(addMakeStyleActivity);
+                                }
+                            }, null, false)
+                            .show();
+                }else {
+                    LaCaraListActivity.startThis(addMakeStyleActivity);
+                }
                 break;
         }
     }

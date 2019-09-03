@@ -9,15 +9,26 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.growalong.util.util.AppPublicUtils;
 import com.growalong.util.util.Md5Utils;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
+import com.lxj.xpopup.interfaces.OnSelectWebChatListener;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import ccash.android.com.BaseFragment;
 import ccash.android.com.R;
+import ccash.android.com.modle.LaCaraWenChatListItem;
+import ccash.android.com.modle.LaCaraWenChatListModle;
 import ccash.android.com.presenter.IdCastPresenter;
 import ccash.android.com.presenter.contract.IdCastContract;
 import ccash.android.com.ui.activity.BalancePassWordActivity;
 import ccash.android.com.ui.activity.PaySettingActivity;
+import ccash.android.com.ui.widget.CustomPartShadowPopupView;
 import ccash.android.com.util.ToastUtil;
 
 public class IdCastPayEditFragment extends BaseFragment implements IdCastContract.View {
@@ -44,8 +55,12 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
     TextView tvForgetPassword;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    @BindView(R.id.et_wenchat_name)
+    EditText etWenchatName;
     private PaySettingActivity paySettingActivity;
     private IdCastPresenter presenter;
+    private long wechatPaymentId = 0;
+    private BasePopupView show;
 
     public static IdCastPayEditFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -68,6 +83,7 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
+        AppPublicUtils.setEditTextEnable(etWenchatName, false);
         tvTitle.setText("银行卡设置");
     }
 
@@ -76,7 +92,7 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
         super.lazyLoadData();
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_forget_password, R.id.tv_submit})
+    @OnClick({R.id.iv_back, R.id.tv_forget_password, R.id.tv_submit,R.id.et_wenchat_name})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -86,49 +102,62 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
                 BalancePassWordActivity.startThis(paySettingActivity);
                 break;
             case R.id.tv_submit:
+                String wenchatName = etWenchatName.getText().toString().trim();
+                if (TextUtils.isEmpty(wenchatName)) {
+                    ToastUtil.shortShow("请选择该拉卡拉所绑定公众号的微信昵称");
+                    return;
+                }
+
+                if (wechatPaymentId <= 0) {
+                    ToastUtil.shortShow("请选择该拉卡拉所绑定公众号的微信昵称");
+                    return;
+                }
                 String yinhangName = etYinhangName.getText().toString().trim();
-                if(TextUtils.isEmpty(yinhangName)){
+                if (TextUtils.isEmpty(yinhangName)) {
                     ToastUtil.shortShow("请输入银行名称");
                     return;
                 }
 
                 String yinhangZhiname = etYinhangZhiname.getText().toString().trim();
-                if(TextUtils.isEmpty(yinhangZhiname)){
+                if (TextUtils.isEmpty(yinhangZhiname)) {
                     ToastUtil.shortShow("请输入所在支行");
                     return;
                 }
 
                 String name = etName.getText().toString().trim();
-                if(TextUtils.isEmpty(name)){
+                if (TextUtils.isEmpty(name)) {
                     ToastUtil.shortShow("请输入真实姓名");
                     return;
                 }
 
                 String castCode = etCastCode.getText().toString().trim();
-                if(TextUtils.isEmpty(castCode)){
+                if (TextUtils.isEmpty(castCode)) {
                     ToastUtil.shortShow("请输入银行卡号");
                     return;
                 }
 
                 String everydayJine = etEverydayJine.getText().toString().trim();
-                if(TextUtils.isEmpty(everydayJine)){
+                if (TextUtils.isEmpty(everydayJine)) {
                     ToastUtil.shortShow("请输入银行卡每日收款限额");
                     return;
                 }
 
                 String forgetPassword = etForgetPassword.getText().toString().trim();
-                if(TextUtils.isEmpty(forgetPassword)){
+                if (TextUtils.isEmpty(forgetPassword)) {
                     ToastUtil.shortShow("请输入平台资金密码");
                     return;
                 }
 
                 double dailyLimit = Double.parseDouble(everydayJine);
-                if(dailyLimit <= 0){
+                if (dailyLimit <= 0) {
                     ToastUtil.shortShow("限额不能小于零");
                     return;
                 }
                 long currentTime = System.currentTimeMillis();
-                presenter.bank(0,yinhangName, yinhangZhiname, name, castCode, dailyLimit, Md5Utils.getMD5(forgetPassword+currentTime),currentTime);
+                presenter.bank(0,wechatPaymentId, yinhangName, yinhangZhiname, name, castCode, dailyLimit, Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
+                break;
+            case R.id.et_wenchat_name:
+                presenter.getWechatList();
                 break;
         }
     }
@@ -137,6 +166,32 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
     public void bankSuccess(String name, String account) {
         paySettingActivity.setResult(Activity.RESULT_OK);
         paySettingActivity.finish();
+    }
+
+    @Override
+    public void getWechatListSuccess(LaCaraWenChatListModle laCaraWenChatListModle) {
+        if (laCaraWenChatListModle != null) {
+            List<LaCaraWenChatListItem> list = laCaraWenChatListModle.getList();
+            if (list != null && list.size() > 0) {
+                showPartShadow(list);
+            }
+        }
+    }
+
+    private void showPartShadow(List<LaCaraWenChatListItem> list) {
+        if (show != null && show.isShow()) {
+            return;
+        }
+        show = new XPopup.Builder(getContext())
+                .atView(etWenchatName)
+//                .dismissOnTouchOutside(false)
+                .asCustom(new CustomPartShadowPopupView(getContext(), list, new OnSelectWebChatListener() {
+                    @Override
+                    public void onSelect(int position, long paymentId, String account) {
+                        wechatPaymentId = paymentId;
+                        etWenchatName.setText(account);
+                    }
+                },paySettingActivity)).show();
     }
 
     @Override
@@ -152,5 +207,16 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
     @Override
     public void hideLoading() {
         hideLoadingDialog();
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (show != null) {
+            if (show.isShow()) {
+                show.dismiss();
+            }
+            show = null;
+        }
+        super.onDestroyView();
     }
 }

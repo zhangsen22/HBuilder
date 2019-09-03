@@ -1,6 +1,7 @@
 package ccash.android.com.presenter;
 
 import ccash.android.com.modle.BaseBean;
+import ccash.android.com.modle.LaCaraWenChatListModle;
 import ccash.android.com.net.retrofit.ModelResultObserver;
 import ccash.android.com.net.retrofit.exception.ModelException;
 import ccash.android.com.presenter.contract.IdCastContract;
@@ -19,9 +20,9 @@ public class IdCastPresenter implements IdCastContract.Presenter{
     }
 
     @Override
-    public void bank(long id,String bankName, String subName, final String name, final String account, double dailyLimit, String financePwd, long time) {
+    public void bank(long id,long wechatPaymentId,String bankName, String subName, final String name, final String account, double dailyLimit, String financePwd, long time) {
         mView.showLoading();
-        mModel.bank(id,bankName,subName,name,account,dailyLimit,financePwd,time).observeOn(AndroidSchedulers.mainThread())
+        mModel.bank(id,wechatPaymentId,bankName,subName,name,account,dailyLimit,financePwd,time).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<BaseBean>() {
                     @Override
                     public void onSuccess(BaseBean baseBean) {
@@ -33,6 +34,22 @@ public class IdCastPresenter implements IdCastContract.Presenter{
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
                         mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void getWechatList() {
+        mModel.getWechatList().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ModelResultObserver<LaCaraWenChatListModle>() {
+                    @Override
+                    public void onSuccess(LaCaraWenChatListModle laCaraWenChatListModle) {
+                        mView.getWechatListSuccess(laCaraWenChatListModle);
+                    }
+
+                    @Override
+                    public void onFailure(ModelException ex) {
+                        super.onFailure(ex);
                     }
                 });
     }
