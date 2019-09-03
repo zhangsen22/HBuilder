@@ -67,8 +67,6 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
     LinearLayout llForgetPassword;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
-    @BindView(R.id.ll_xialakuang)
-    LinearLayout llXialakuang;
     private PaySettingActivity paySettingActivity;
     private LaCaraEditPresenter presenter;
     private LaCaraPayeeItemModelPayee laCaraPayeeItemModelPayee = null;
@@ -126,7 +124,7 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
         super.lazyLoadData();
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_webchat_image, R.id.tv_forget_password, R.id.tv_submit, R.id.ll_xialakuang})
+    @OnClick({R.id.iv_back, R.id.iv_webchat_image, R.id.tv_forget_password, R.id.tv_submit, R.id.et_wenchat_name})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -188,7 +186,7 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
                     presenter.lakalaImgSetUp(id, sIdcardFront, Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
                 }
                 break;
-            case R.id.ll_xialakuang:
+            case R.id.et_wenchat_name:
                 presenter.getWechatList();
                 break;
         }

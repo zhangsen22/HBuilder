@@ -36,7 +36,6 @@
             android:textSize="12sp" />
 
         <LinearLayout
-            android:id="@+id/ll_xialakuang"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
