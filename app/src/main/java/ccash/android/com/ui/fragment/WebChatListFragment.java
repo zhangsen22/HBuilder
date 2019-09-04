@@ -30,6 +30,7 @@ import ccash.android.com.modle.PaySetupModelWebChat;
 import ccash.android.com.modle.WeChatPayeeItemModel;
 import ccash.android.com.modle.WeChatPayeeItemModelPayee;
 import ccash.android.com.modle.WeChatPayeeModel;
+import ccash.android.com.modle.WebChatEditModle;
 import ccash.android.com.presenter.WebChatListPresenter;
 import ccash.android.com.presenter.contract.WebChatListContract;
 import ccash.android.com.ui.activity.PaySettingActivity;
@@ -212,6 +213,12 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
     }
 
     @Override
+    public void reWechatSuccess(WebChatEditModle webChatEditModle,WeChatPayeeItemModelPayee payee) {
+//id:0                //如果为新加,设为0,如果为修改,此处为修改的收款方式的id
+        PaySettingActivity.startThis(webChatListActivity,2,payee,Constants.REQUESTCODE_17);
+    }
+
+    @Override
     public void setPresenter(WebChatListContract.Presenter presenter) {
         this.presenter = (WebChatListPresenter) presenter;
     }
@@ -301,6 +308,13 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
     public void onWebChatEdit(int position, WeChatPayeeItemModelPayee payee) {
         //id:0                //如果为新加,设为0,如果为修改,此处为修改的收款方式的id
         PaySettingActivity.startThis(webChatListActivity,2,payee,Constants.REQUESTCODE_17);
+    }
+
+    @Override
+    public void onWebChatReLogin(int position, WeChatPayeeItemModelPayee payee) {
+        if(payee != null){
+            presenter.reWechat(payee.getId(),payee);
+        }
     }
 
     public void onActivityResultF() {

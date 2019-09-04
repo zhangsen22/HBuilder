@@ -9,7 +9,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
-
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,6 +63,7 @@ public class WebChatListAdapter extends PowerAdapter<WeChatPayeeItemModel> {
         TextView tvPayDelete;
         TextView tvReedit;
         TextView tvWebchatName;
+        TextView tvRelogin;
 
         public WebChatListHolder(View itemView) {
             super(itemView);
@@ -75,32 +75,37 @@ public class WebChatListAdapter extends PowerAdapter<WeChatPayeeItemModel> {
             tvPayDelete = itemView.findViewById(R.id.tv_pay_delete);
             tvReedit = itemView.findViewById(R.id.tv_reedit);
             tvWebchatName = itemView.findViewById(R.id.tv_webchat_name);
+
+            tvRelogin = itemView.findViewById(R.id.tv_relogin);
         }
 
         @Override
         public void onBind(@NonNull final WeChatPayeeItemModel weChatPayeeItemModel, final int position) {
             GALogger.d(TAG, "position           " + position);
-            tvWebchatLastmoney.setText(new DecimalFormat("0.00").format(weChatPayeeItemModel.getLeftMoney()/100));
+            tvWebchatLastmoney.setText(new DecimalFormat("0.00").format(weChatPayeeItemModel.getLeftMoney() / 100));
             tvWebchatLastnum.setText(weChatPayeeItemModel.getLeftTimes() + "");
             WeChatPayeeItemModelPayee payee = weChatPayeeItemModel.getPayee();
-            if(payee != null){
+            if (payee != null) {
                 tvWebchatCode.setText(payee.getAccount());
                 tvWebchatName.setText(payee.getName());
                 boolean watchUnbind = payee.isWatchUnbind();
                 boolean watchStop = payee.isWatchStop();
-                if(watchUnbind){
+                if (watchUnbind) {
                     tvWebchatCheck.setVisibility(View.GONE);
                     tvShuoming.setText("已失效");
                     tvShuoming.setTextColor(mContext.getResources().getColor(R.color.color_ff0000));
                     tvReedit.setVisibility(View.GONE);
-                }else {
+                    tvRelogin.setVisibility(View.VISIBLE);
+                } else {
                     if (watchStop) {
                         tvWebchatCheck.setVisibility(View.GONE);
                         tvShuoming.setText("绑定中");
                         tvShuoming.setTextColor(mContext.getResources().getColor(R.color.color_ff0000));
                         tvReedit.setVisibility(View.VISIBLE);
+                        tvRelogin.setVisibility(View.GONE);
                     } else {
                         tvReedit.setVisibility(View.GONE);
+                        tvRelogin.setVisibility(View.GONE);
                         if (defalutId > 0) {
                             if (defalutId == payee.getId()) {
                                 map.clear();
@@ -126,8 +131,18 @@ public class WebChatListAdapter extends PowerAdapter<WeChatPayeeItemModel> {
                     @Override
                     public void onClick(View v) {
                         if (onWebChatCheckListener != null) {
-                            if(watchStop){
+                            if (watchStop) {
                                 onWebChatCheckListener.onWebChatEdit(position, payee);
+                            }
+                        }
+                    }
+                });
+                tvRelogin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (onWebChatCheckListener != null) {
+                            if (watchUnbind) {
+                                onWebChatCheckListener.onWebChatReLogin(position, payee);
                             }
                         }
                     }
@@ -177,7 +192,11 @@ public class WebChatListAdapter extends PowerAdapter<WeChatPayeeItemModel> {
 
     public interface OnWebChatCheckListener {
         void onWebChatCheck(int position, WeChatPayeeItemModelPayee payee);
+
         void onWebChatDelete(int position, WeChatPayeeItemModelPayee payee);
+
         void onWebChatEdit(int position, WeChatPayeeItemModelPayee payee);
+
+        void onWebChatReLogin(int position, WeChatPayeeItemModelPayee payee);
     }
 }

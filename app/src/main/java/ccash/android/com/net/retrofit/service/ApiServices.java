@@ -668,4 +668,14 @@ public interface ApiServices {
      */
     @POST(ApiConstants.bulletinList)
     Observable<BulletinListResponse> bulletinList();
+
+    /**
+     * 微信重新编辑
+     * 微信
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.reWechat)
+    Observable<WebChatEditModle> reWechat(@Field("id") long id);
 }
