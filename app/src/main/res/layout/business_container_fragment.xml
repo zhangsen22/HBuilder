@@ -6,21 +6,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/ff_business_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ce">
+        android:background="@mipmap/ce"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/y50"
+            android:layout_height="@dimen/y50"
+            android:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="买币"
+            android:text="@string/app_name"
             android:layout_gravity="center"
             android:textColor="@color/color_333333"
             android:textSize="15sp" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -83,14 +89,12 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/y116">
+            android:layout_height="wrap_content">
 
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/business_magicindicator"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="@dimen/y92" />
 
         </FrameLayout>
 
@@ -111,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="抢单"
-                android:textSize="13sp"
+                android:textSize="10sp"
                 android:textColor="@color/white"
                 android:layout_marginLeft="@dimen/y10"/>
 

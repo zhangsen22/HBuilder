@@ -40,7 +40,7 @@ public class CommonNavigator extends FrameLayout implements IPagerNavigator, Nav
      * 提供给外部的参数配置
      */
     /****************************************************/
-    private boolean mAdjustMode;   // 自适应模式，适用于数目固定的、少量的title
+    private boolean mAdjustMode;   // 自适应模式，适用于数目固定的、少量的title  true:代表自适应父布局  false:不自适应父布局
     private boolean mEnablePivotScroll; // 启动中心点滚动
     private float mScrollPivotX = 0.5f; // 滚动中心点 0.0f - 1.0f
     private boolean mSmoothScroll = true;   // 是否平滑滚动，适用于 !mAdjustMode && !mFollowTouch

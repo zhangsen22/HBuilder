@@ -2,12 +2,12 @@ package ccash.android.com.ui.fragment;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,7 +25,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNav
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ScaleTransitionPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -52,7 +53,7 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
     @BindView(R.id.ll_notry_click)
     LinearLayout llNotryClick;
     @BindView(R.id.ff_business_content)
-    FrameLayout ffBusinessContent;
+    LinearLayout ffBusinessContent;
     @BindView(R.id.banner)
     ConvenientBanner banner;
     @BindView(R.id.tv_gonggao)
@@ -93,7 +94,7 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
         baseFragmentPagerAdapter = new BusinessViewPagerAdapter(getChildFragmentManager(), businessTitle);
         businessViewPager.setAdapter(baseFragmentPagerAdapter);
         CommonNavigator commonNavigator = new CommonNavigator(mainActivity);
-        commonNavigator.setAdjustMode(true);
+//        commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
             public int getCount() {
@@ -102,12 +103,13 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
 
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
-                ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#666666"));
-                colorTransitionPagerTitleView.setTextSize(14);
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#333333"));
-                colorTransitionPagerTitleView.setText(businessTitle[index]);
-                colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
+                SimplePagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView(context);
+                simplePagerTitleView.setText(businessTitle[index]);
+                simplePagerTitleView.setTextSize(18);
+                simplePagerTitleView.setNormalColor(Color.parseColor("#666666"));
+                simplePagerTitleView.setSelectedColor(Color.parseColor("#333333"));
+                simplePagerTitleView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
+                simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         int currentItem = businessViewPager.getCurrentItem();
@@ -118,7 +120,7 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
                         }
                     }
                 });
-                return colorTransitionPagerTitleView;
+                return simplePagerTitleView;
             }
 
             @Override
