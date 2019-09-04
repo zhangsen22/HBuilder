@@ -85,7 +85,7 @@
             android:textSize="12sp"
             android:inputType="number"
             android:hint="请输入您预想的最小购买数量"
-            android:layout_marginLeft="@dimen/y16"/>
+            android:layout_marginLeft="@dimen/y26"/>
 
     </LinearLayout>
 
@@ -117,8 +117,8 @@
             android:textColor="@color/color_999999"
             android:inputType="number"
             android:textSize="12sp"
-            android:hint="至少挂单1200 CAS"
-            android:layout_marginLeft="@dimen/y16"/>
+            android:hint="至少挂单5000 CAS"
+            android:layout_marginLeft="@dimen/y26"/>
 
     </LinearLayout>
 
@@ -152,7 +152,7 @@
             android:inputType="textPassword"
             android:textSize="12sp"
             android:hint="请输入资金密码"
-            android:layout_marginLeft="@dimen/y80"
+            android:layout_marginLeft="@dimen/y82"
             android:layout_marginRight="@dimen/y38"/>
 
         <TextView
