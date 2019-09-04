@@ -147,7 +147,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                 RecommendToFriendsActivity.startThis(mainActivity);
                 break;
             case R.id.ll_lx_kf:
-                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.KEFUANDHELP, true);
+                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.KEFUANDHELP, true,true);
                 break;
             case R.id.ll_center_message:
                 MessageCenterActivity.startThis(mainActivity);

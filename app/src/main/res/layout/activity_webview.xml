@@ -28,6 +28,31 @@
     <WebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    
+    <LinearLayout
+        android:id="@+id/ll_kefu_center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y98"
+        android:orientation="vertical"
+        android:background="@mipmap/bt"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/y40"
+            android:layout_height="@dimen/y40"
+            android:src="@mipmap/cs"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="客服中心"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:layout_marginTop="@dimen/y8"/>
+
+    </LinearLayout>
 
 </LinearLayout>
