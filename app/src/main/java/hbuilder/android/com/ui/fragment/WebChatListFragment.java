@@ -30,6 +30,7 @@ import hbuilder.android.com.modle.PaySetupModelWebChat;
 import hbuilder.android.com.modle.WeChatPayeeItemModel;
 import hbuilder.android.com.modle.WeChatPayeeItemModelPayee;
 import hbuilder.android.com.modle.WeChatPayeeModel;
+import hbuilder.android.com.modle.WebChatEditModle;
 import hbuilder.android.com.presenter.WebChatListPresenter;
 import hbuilder.android.com.presenter.contract.WebChatListContract;
 import hbuilder.android.com.ui.activity.PaySettingActivity;
@@ -310,5 +311,18 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
                 mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
             }
         },250);
+    }
+
+    @Override
+    public void reWechatSuccess(WebChatEditModle webChatEditModle, WeChatPayeeItemModelPayee payee) {
+//id:0                //如果为新加,设为0,如果为修改,此处为修改的收款方式的id
+        PaySettingActivity.startThis(webChatListActivity,2,payee,Constants.REQUESTCODE_17);
+    }
+
+    @Override
+    public void onWebChatReLogin(int position, WeChatPayeeItemModelPayee payee) {
+        if(payee != null){
+            presenter.reWechat(payee.getId(),payee);
+        }
     }
 }
