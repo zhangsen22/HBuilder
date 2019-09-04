@@ -43,7 +43,7 @@
         <ImageView
             android:layout_width="@dimen/y40"
             android:layout_height="@dimen/y40"
-            android:src="@mipmap/cs"/>
+            android:src="@mipmap/ct"/>
 
         <TextView
             android:layout_width="wrap_content"
