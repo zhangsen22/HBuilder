@@ -115,9 +115,9 @@ public class PropertyFragment extends BaseFragment implements PropertyContract.V
             tvWalletDjUsdt.setText(new DecimalFormat("0.00").format(walletFreezeNum));
             tvWalletDjCny.setText(new DecimalFormat("0.00").format((walletFreezeNum  * minSellPrice)));
             tvAccountUsdt.setText(new DecimalFormat("0.00").format(hotNum));
-            tvAccountCny.setText(new DecimalFormat("0.00").format((hotNum  * minSellPrice)));
+            tvAccountCny.setText(new DecimalFormat("0.00").format((hotNum)));
             tvAccountDjUsdt.setText(new DecimalFormat("0.00").format(hotFreezeNum));
-            tvAccountDjCny.setText(new DecimalFormat("0.00").format((hotFreezeNum  * minSellPrice)));
+            tvAccountDjCny.setText(new DecimalFormat("0.00").format((hotFreezeNum)));
         }
     }
 

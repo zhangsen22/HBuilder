@@ -31,7 +31,7 @@
             android:id="@+id/rb_business"
             android:drawableTop="@drawable/busines"
             style="@style/button_tag_style"
-            android:text="买币"
+            android:text="交易"
             android:checked="true" />
 
         <RadioButton
