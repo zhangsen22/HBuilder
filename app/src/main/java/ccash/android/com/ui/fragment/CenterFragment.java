@@ -33,6 +33,7 @@ import ccash.android.com.ui.activity.MessageCenterActivity;
 import ccash.android.com.ui.activity.RecommendToFriendsActivity;
 import ccash.android.com.ui.activity.SecurityCenterActivity;
 import ccash.android.com.ui.activity.WebViewActivity;
+import ccash.android.com.ui.widget.KeFuPopupView;
 import ccash.android.com.util.ToastUtil;
 
 public class CenterFragment extends BaseFragment implements CenterContract.View {
@@ -147,7 +148,9 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                 RecommendToFriendsActivity.startThis(mainActivity);
                 break;
             case R.id.ll_lx_kf:
-                WebViewActivity.launchVerifyCode(MyApplication.appContext, Constants.KEFUANDHELP, true,true);
+                new XPopup.Builder(mainActivity)
+                        .hasStatusBarShadow(true) //启用状态栏阴影
+                        .asCustom(new KeFuPopupView(mainActivity)).show();
                 break;
             case R.id.ll_center_message:
                 MessageCenterActivity.startThis(mainActivity);

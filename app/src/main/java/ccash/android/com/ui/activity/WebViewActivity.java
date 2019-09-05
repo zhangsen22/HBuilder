@@ -34,13 +34,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.CommonTools;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.wegit.BGAProgressBar;
-import com.lxj.xpopup.XPopup;
-
 import java.io.File;
 import java.lang.ref.WeakReference;
 import butterknife.BindView;
@@ -48,7 +45,6 @@ import butterknife.OnClick;
 import ccash.android.com.BaseActivity;
 import ccash.android.com.MyApplication;
 import ccash.android.com.R;
-import ccash.android.com.ui.widget.KeFuPopupView;
 import ccash.android.com.util.CommonFunction;
 import static android.view.View.VISIBLE;
 
@@ -60,13 +56,10 @@ public class WebViewActivity extends BaseActivity {
     public static final String TAG = "WebViewActivity";
     public static final String WEB_VIEW_URL = "url";
     public static final String IS_CONTAIN_GOBACK = "isContainGoback";
-    public static final String IS_SHOW_KEFU_CENTER = "isShowKeFuCenter";
     public static final int REQUEST_CODE_HOME_DETAILS = 1000;
     public static final int RESULT_CODE_HOME_DETAILS = 1001;
     public static final String HOME_DETAILS_LIKE_STATUS = "HOME_DETAILS_LIKE_STATUS";
 
-    @BindView(R.id.ll_kefu_center)
-    LinearLayout llKefuCenter;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -80,7 +73,6 @@ public class WebViewActivity extends BaseActivity {
 
     private String mUrl;
     private boolean mIsCantainGoback;//是否包含多级web界面跳转
-    private boolean isShowKeFuCenter = false;//是否显示客服中心
     private boolean mIgnoreSSLError = false; //忽略SSL证书错误
     private WebChromeClientImpl mWebChromeClient;
     private static int mRequestCode = 1;
@@ -105,16 +97,7 @@ public class WebViewActivity extends BaseActivity {
         context.startActivity(i);
     }
 
-    public static void launchVerifyCode(Context context, String url, boolean isContainGoBack,boolean isShowKeFuCenter) {
-        Intent i = new Intent(context, WebViewActivity.class);
-        i.putExtra(WEB_VIEW_URL, url);
-        i.putExtra(IS_CONTAIN_GOBACK, isContainGoBack);
-        i.putExtra(IS_SHOW_KEFU_CENTER,isShowKeFuCenter);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(i);
-    }
-
-    @OnClick({R.id.iv_back,R.id.ll_kefu_center})
+    @OnClick({R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -137,11 +120,6 @@ public class WebViewActivity extends BaseActivity {
                     }
                 }
                 break;
-            case R.id.ll_kefu_center:
-                new XPopup.Builder(WebViewActivity.this)
-                        .hasStatusBarShadow(true) //启用状态栏阴影
-                        .asCustom(new KeFuPopupView(WebViewActivity.this)).show();
-                break;
         }
     }
 
@@ -155,12 +133,6 @@ public class WebViewActivity extends BaseActivity {
         setRootViewPaddingTop(flTitleComtent);
         mUrl = getIntent().getStringExtra(WEB_VIEW_URL);
         mIsCantainGoback = getIntent().getBooleanExtra(IS_CONTAIN_GOBACK, false);
-        isShowKeFuCenter = getIntent().getBooleanExtra(IS_SHOW_KEFU_CENTER, false);
-        if(isShowKeFuCenter){
-            llKefuCenter.setVisibility(VISIBLE);
-        }else {
-            llKefuCenter.setVisibility(View.GONE);
-        }
         GALogger.d(TAG, "mUrl == " + mUrl);
         if (CommonFunction.isEmptyOrNullStr(mUrl)) {
             finish();
