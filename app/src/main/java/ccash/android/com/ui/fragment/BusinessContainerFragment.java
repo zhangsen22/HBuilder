@@ -34,6 +34,7 @@ import butterknife.OnClick;
 import ccash.android.com.BaseFragment;
 import ccash.android.com.MyApplication;
 import ccash.android.com.R;
+import ccash.android.com.app.Constants;
 import ccash.android.com.modle.BulletinListItem;
 import ccash.android.com.modle.BulletinListResponse;
 import ccash.android.com.presenter.BusinessContainerPresenter;
@@ -42,6 +43,7 @@ import ccash.android.com.presenter.modle.BusinessContainerModle;
 import ccash.android.com.ui.activity.BulletinActivity;
 import ccash.android.com.ui.activity.GuaDanActivity;
 import ccash.android.com.ui.activity.MainActivity;
+import ccash.android.com.ui.activity.WebViewActivity;
 import ccash.android.com.ui.adapter.BusinessViewPagerAdapter;
 
 public class BusinessContainerFragment extends BaseFragment implements BusinessContainerContract.View {
@@ -185,7 +187,9 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-
+                        if(position == 1){
+                            WebViewActivity.launchVerifyCode(MyApplication.appContext, "https://nxotc-sttatic.oss-cn-hongkong.aliyuncs.com/4a09af564b724451a35446dce03899d2.html", true);
+                        }
                     }
                 });
     }
