@@ -197,7 +197,7 @@ public interface ApiServices {
     Observable<BaseBean> putUpSell(@Field("price") double price
             , @Field("minNum") double minNum
             , @Field("maxNum") double maxNum
-            , @Field("supporAli") boolean supporAli
+            , @Field("supportAli") boolean supporAli
             , @Field("supportWechat") boolean supportWechat
             , @Field("supportBank") boolean supportBank
             , @Field("supportCloud") boolean supportCloud
