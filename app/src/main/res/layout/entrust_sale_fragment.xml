@@ -152,7 +152,7 @@
             android:textColor="@color/color_999999"
             android:inputType="number"
             android:textSize="12sp"
-            android:hint="至少挂单1500 CAS"
+            android:hint="至少挂单1400 CAS"
             android:layout_marginLeft="@dimen/y16"/>
 
     </LinearLayout>
