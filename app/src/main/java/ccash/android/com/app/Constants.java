@@ -20,6 +20,7 @@ public class Constants {
     public static final String YUNSHANFUURL ="https://user.95516.com/pages/wap/login.html?sysIdStr=N7Tlq35lwXxFfzr&service=https://ctq.95516.com/web/kfmm_n/html/indexQuery.html?channelNo=02";//云闪付登录页面url
     public static final String YUNSHANFUURLLOGIN = "https://user.95516.com/pages/login/setcookie_frame.html";//云闪付登录的url
     public static final String YUNSHANFULOGINSUCCESS = "https://ctq.95516.com/web/kfmm_n/html/indexQuery.html";//云闪付登录成功的url
+    public static final String DAEQIANGDANLIST = "daeqiangdanlist";
     /**
      * android 8.0以上通知栏渠道ID
      */

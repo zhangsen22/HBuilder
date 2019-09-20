@@ -3,6 +3,8 @@ package ccash.android.com.ui.fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -15,6 +17,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.google.gson.reflect.TypeToken;
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -28,6 +31,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ScaleTransitionPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -37,6 +41,8 @@ import ccash.android.com.R;
 import ccash.android.com.app.Constants;
 import ccash.android.com.modle.BulletinListItem;
 import ccash.android.com.modle.BulletinListResponse;
+import ccash.android.com.modle.LargeAmountItem;
+import ccash.android.com.modle.LargeAmountResponse;
 import ccash.android.com.presenter.BusinessContainerPresenter;
 import ccash.android.com.presenter.contract.BusinessContainerContract;
 import ccash.android.com.presenter.modle.BusinessContainerModle;
@@ -45,6 +51,7 @@ import ccash.android.com.ui.activity.GuaDanActivity;
 import ccash.android.com.ui.activity.MainActivity;
 import ccash.android.com.ui.activity.WebViewActivity;
 import ccash.android.com.ui.adapter.BusinessViewPagerAdapter;
+import ccash.android.com.util.SharedPreferencesUtils;
 
 public class BusinessContainerFragment extends BaseFragment implements BusinessContainerContract.View {
     private static final String TAG = BusinessContainerFragment.class.getSimpleName();
@@ -62,10 +69,16 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
     TextView tvGonggao;
     @BindView(R.id.ll_qiangdan)
     LinearLayout llQiangdan;
+    @BindView(R.id.iv_tixing)
+    ImageView ivTixing;
     private MainActivity mainActivity;
     private BusinessViewPagerAdapter baseFragmentPagerAdapter;
     private BusinessContainerPresenter presenter;
     private ArrayList<BulletinListItem> bulletinList;
+    public HashMap<Long, Long> idMap;
+    public List<Long> idList;
+    private SoundPool soundPool;
+    private boolean isOnCreate = false;
 
     public static BusinessContainerFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -77,9 +90,10 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GALogger.d(TAG, "onCreate ......");
         mainActivity = (MainActivity) getActivity();
+        isOnCreate = true;
     }
-
 
     @Override
     protected int getRootView() {
@@ -90,6 +104,8 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
     protected void initView(View root) {
         GALogger.d(TAG, "BusinessContainerFragment   is    initView");
         setRootViewPaddingTop(ffBusinessContent);
+        soundPool = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);
+        soundPool.load(mainActivity, R.raw.a, 1);
         initBanner();
         final String[] businessTitle = mainActivity.getResources().getStringArray(R.array.business_title);
         businessViewPager.setOffscreenPageLimit(businessTitle.length - 1);
@@ -145,9 +161,17 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
     public void lazyLoadData() {
         super.lazyLoadData();
         setLoadDataWhenVisible();
+        GALogger.d(TAG, "lazyLoadData ......");
+        initLoaclData();
         //初始化presenter
         new BusinessContainerPresenter(this, new BusinessContainerModle());
         presenter.bulletinList();
+        MyApplication.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                presenter.getHugeBillinfoRefresh(0);
+            }
+        }, 500);
         int currentItem = businessViewPager.getCurrentItem();
         if (baseFragmentPagerAdapter != null) {
             BaseFragment currentFragment = baseFragmentPagerAdapter.getCurrentFragment(currentItem);
@@ -157,7 +181,7 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
         }
     }
 
-    @OnClick({R.id.ll_notry_click,R.id.ll_qiangdan})
+    @OnClick({R.id.ll_notry_click, R.id.ll_qiangdan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_notry_click:
@@ -166,6 +190,9 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
                 }
                 break;
             case R.id.ll_qiangdan:
+                if(ivTixing.getVisibility() == View.VISIBLE){
+                    ivTixing.setVisibility(View.GONE);
+                }
                 GuaDanActivity.startThis(mainActivity);
                 break;
         }
@@ -187,7 +214,7 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-                        if(position == 1){
+                        if (position == 1) {
                             WebViewActivity.launchVerifyCode(MyApplication.appContext, "https://nxotc-sttatic.oss-cn-hongkong.aliyuncs.com/4a09af564b724451a35446dce03899d2.html", true);
                         }
                     }
@@ -212,6 +239,40 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
                     }
                 }
             }
+        }
+    }
+
+    @Override
+    public void getHugeBillinfoRefreshSuccess(LargeAmountResponse largeAmountResponse) {
+        List<LargeAmountItem> billInfo = largeAmountResponse.getBillInfo();
+        if (billInfo != null && billInfo.size() > 0) {
+            for (int i = 0; i < billInfo.size(); i++) {
+                LargeAmountItem buyItem = billInfo.get(i);
+                if (buyItem != null && buyItem.getId() > 0) {
+                    idList.add(buyItem.getId());
+                }
+            }
+
+            if (idList != null && idList.size() > 0) {
+                for (int i = 0; i < idList.size(); i++) {
+                    boolean b = idMap.containsKey(idList.get(i));
+                    if (!b) {
+                        //说明有新单
+                        soundPool.play(1, 1, 1, 0, 0, 1);
+                        ivTixing.setVisibility(View.VISIBLE);
+                        SharedPreferencesUtils.putObject(Constants.DAEQIANGDANLIST, idList);
+                    }
+                }
+            }
+        } else {
+            SharedPreferencesUtils.remove(Constants.DAEQIANGDANLIST);
+        }
+
+        if (idMap != null) {
+            idMap.clear();
+        }
+        if (idList != null) {
+            idList.clear();
         }
     }
 
@@ -244,5 +305,43 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
         public void UpdateUI(Context context, int position, Integer data) {
             imageView.setImageResource(data);
         }
+    }
+
+    @Override
+    public void onPause() {
+        GALogger.d(TAG, "onPause ......");
+        isOnCreate = false;
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        GALogger.d(TAG, "onResume ......");
+        if(!isOnCreate){
+            initLoaclData();
+            presenter.getHugeBillinfoRefresh(0);
+        }
+        super.onResume();
+    }
+
+    private void initLoaclData() {
+        if (idMap == null) {
+            idMap = new HashMap<>();
+        }
+        idMap.clear();
+        if (SharedPreferencesUtils.has(Constants.DAEQIANGDANLIST)) {
+            List<Long> object = SharedPreferencesUtils.getObject(Constants.DAEQIANGDANLIST, new TypeToken<List<Long>>() {
+            }.getType());
+            if (object != null && object.size() > 0) {
+                for (int i = 0; i < object.size(); i++) {
+                    idMap.put(object.get(i), object.get(i));
+                }
+            }
+        }
+
+        if (idList == null) {
+            idList = new ArrayList<>();
+        }
+        idList.clear();
     }
 }

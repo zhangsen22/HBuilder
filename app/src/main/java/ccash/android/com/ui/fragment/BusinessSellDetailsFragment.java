@@ -105,7 +105,7 @@ public class BusinessSellDetailsFragment extends BaseFragment implements Busines
         super.lazyLoadData();
         long currentTime = System.currentTimeMillis();
         if(currentTime >= createTime + 10*60*1000){
-
+            tvSellShensu.setEnabled(true);
         }else {
             timer = new CountDownTimer(createTime + 10*60*1000 - currentTime, 1000) {
                 @Override
@@ -118,12 +118,13 @@ public class BusinessSellDetailsFragment extends BaseFragment implements Busines
                         if (left > 0) {
                             tvCountDown.setText(DateUtil.getCurrentDateString2(millisUntilFinished));
                         } else {
-
+                            tvSellShensu.setEnabled(true);
                         }
                     }
                 }
                 @Override
                 public void onFinish() {
+                    tvSellShensu.setEnabled(true);
                 }
             };
             timer.start();

@@ -1,6 +1,7 @@
 package ccash.android.com.presenter;
 
 import ccash.android.com.modle.BulletinListResponse;
+import ccash.android.com.modle.LargeAmountResponse;
 import ccash.android.com.net.retrofit.ModelResultObserver;
 import ccash.android.com.net.retrofit.exception.ModelException;
 import ccash.android.com.presenter.contract.BusinessContainerContract;
@@ -24,6 +25,22 @@ public class BusinessContainerPresenter implements BusinessContainerContract.Pre
                     @Override
                     public void onSuccess(BulletinListResponse bulletinListResponse) {
                         mView.bulletinListSuccess(bulletinListResponse);
+                    }
+
+                    @Override
+                    public void onFailure(ModelException ex) {
+                        super.onFailure(ex);
+                    }
+                });
+    }
+
+    @Override
+    public void getHugeBillinfoRefresh(long minId) {
+        mModel.getHugeBillinfo(minId).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ModelResultObserver<LargeAmountResponse>() {
+                    @Override
+                    public void onSuccess(LargeAmountResponse largeAmountResponse) {
+                        mView.getHugeBillinfoRefreshSuccess(largeAmountResponse);
                     }
 
                     @Override
