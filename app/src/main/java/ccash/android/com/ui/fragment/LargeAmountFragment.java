@@ -52,7 +52,6 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
     private boolean isRun;
     private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
-    private List<LargeAmountItem> listTemp;
     private GuaDanActivity guaDanActivity;
 
     public static LargeAmountFragment newInstance(@Nullable String taskId) {
@@ -125,13 +124,12 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
         if (billInfo != null && billInfo.size() > 0) {
             GALogger.d(TAG, "billInfo.size()    " + billInfo.size());
             reverseIdList(billInfo);
-            List<LargeAmountItem> buyItems = removeDuplicate(billInfo);
-            if (buyItems.size() <= Constants.RECYCLEVIEW_TOTALCOUNT) {
-                largeAmountAdapter.setTotalCount(buyItems.size());
+            if (billInfo.size() <= Constants.RECYCLEVIEW_TOTALCOUNT) {
+                largeAmountAdapter.setTotalCount(billInfo.size());
             } else {
                 largeAmountAdapter.setTotalCount(Integer.MAX_VALUE);
             }
-            largeAmountAdapter.setList(buyItems);
+            largeAmountAdapter.setList(billInfo);
         } else {
             emptyAnderrorView();
         }
@@ -154,12 +152,8 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
         List<LargeAmountItem> billInfo = largeAmountResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
             reverseIdList(billInfo);
-            largeAmountAdapter.getList().addAll(billInfo);
-            List<LargeAmountItem> buyItems = removeDuplicate(largeAmountAdapter.getList());
             largeAmountAdapter.setTotalCount(Integer.MAX_VALUE);
-            largeAmountAdapter.getList().clear();
-            largeAmountAdapter.getOriginalDataList().clear();
-            largeAmountAdapter.appendList(buyItems);
+            largeAmountAdapter.appendList(billInfo);
         } else {
             GALogger.d(TAG, "LoadMore  is  no");
             reverseIdList(null);
@@ -236,13 +230,35 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * list集合对象去重
      *
-     * @param list
+//     * @param list
      * @return
      */
-    public List<LargeAmountItem> removeDuplicate(List<LargeAmountItem> list) {
+//    public List<LargeAmountItem> removeDuplicate(List<LargeAmountItem> list) {
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
 //            if(listTemp == null){
 //                listTemp = new LinkedList<>();
@@ -271,8 +287,8 @@ public class LargeAmountFragment extends BaseFragment implements LargeAmountCont
 //                listTemp = new LinkedList<>(ts);
 //            }
 //        }
-        return list;
-    }
+//        return list;
+//    }
 
     @OnClick(R.id.iv_back)
     public void onViewClicked() {

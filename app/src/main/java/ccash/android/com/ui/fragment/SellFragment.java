@@ -43,7 +43,6 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
     private boolean isRun;
     private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
-    private List<BuyItem> listTemp;
 
     public static SellFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -152,13 +151,12 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
             reverseIdList(billInfo);
-            List<BuyItem> buyItems = removeDuplicate(billInfo);
-            if(buyItems.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
-                sellFragmentAdapter.setTotalCount(buyItems.size());
+            if(billInfo.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+                sellFragmentAdapter.setTotalCount(billInfo.size());
             }else {
                 sellFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
             }
-            sellFragmentAdapter.setList(buyItems);
+            sellFragmentAdapter.setList(billInfo);
         } else {
             emptyAnderrorView();
         }
@@ -176,12 +174,8 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
             reverseIdList(billInfo);
-            sellFragmentAdapter.getList().addAll(billInfo);
-            List<BuyItem> buyItems = removeDuplicate(sellFragmentAdapter.getList());
             sellFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
-            sellFragmentAdapter.getList().clear();
-            sellFragmentAdapter.getOriginalDataList().clear();
-            sellFragmentAdapter.appendList(buyItems);
+            sellFragmentAdapter.appendList(billInfo);
         }else {
             GALogger.d(TAG,"LoadMore  is  no");
             reverseIdList(null);
@@ -226,12 +220,34 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * list集合对象去重
      * @param list
      * @return
      */
-    public  List<BuyItem> removeDuplicate(List<BuyItem> list){
+//    public  List<BuyItem> removeDuplicate(List<BuyItem> list){
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
 //            if(listTemp == null){
 //                listTemp = new LinkedList<>();
@@ -260,6 +276,6 @@ public class SellFragment extends BaseFragment implements SellContract.View, OnL
 //                listTemp = new LinkedList<>(ts);
 //            }
 //        }
-        return list;
-    }
+//        return list;
+//    }
 }

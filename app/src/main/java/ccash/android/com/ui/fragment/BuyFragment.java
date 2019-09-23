@@ -43,7 +43,6 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
     private boolean isRun;
     private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
-    private List<BuyItem> listTemp;
 
     public static BuyFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -141,13 +140,12 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
             reverseIdList(billInfo);
-            List<BuyItem> buyItems = removeDuplicate(billInfo);
-            if(buyItems.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
-                buyFragmentAdapter.setTotalCount(buyItems.size());
+            if(billInfo.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+                buyFragmentAdapter.setTotalCount(billInfo.size());
             }else {
                 buyFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
             }
-            buyFragmentAdapter.setList(buyItems);
+            buyFragmentAdapter.setList(billInfo);
         } else {
             emptyAnderrorView();
         }
@@ -170,12 +168,8 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
         List<BuyItem> billInfo = buyResponse.getBillInfo();
         if (billInfo != null && billInfo.size() > 0) {
             reverseIdList(billInfo);
-            buyFragmentAdapter.getList().addAll(billInfo);
-            List<BuyItem> buyItems = removeDuplicate(buyFragmentAdapter.getList());
             buyFragmentAdapter.setTotalCount(Integer.MAX_VALUE);
-            buyFragmentAdapter.getList().clear();
-            buyFragmentAdapter.getOriginalDataList().clear();
-            buyFragmentAdapter.appendList(buyItems);
+            buyFragmentAdapter.appendList(billInfo);
         }else {
             GALogger.d(TAG,"LoadMore  is  no");
             reverseIdList(null);
@@ -232,12 +226,54 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
         GALogger.d(TAG,"onResume   ");
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * list集合对象去重
      * @param list
      * @return
      */
-    public  List<BuyItem> removeDuplicate(List<BuyItem> list){
+//    public  List<BuyItem> removeDuplicate(List<BuyItem> list){
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
 //            if(listTemp == null){
 //                listTemp = new LinkedList<>();
@@ -266,6 +302,6 @@ public class BuyFragment extends BaseFragment implements OnLoadMoreListener, Pow
 //            listTemp = new LinkedList<>(ts);
 //        }
 //        }
-        return list;
-    }
+//        return list;
+//    }
 }
