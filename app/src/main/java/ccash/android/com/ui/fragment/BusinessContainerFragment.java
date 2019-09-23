@@ -78,7 +78,6 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
     public HashMap<Long, Long> idMap;
     public List<Long> idList;
     private SoundPool soundPool;
-    private boolean isOnCreate = false;
 
     public static BusinessContainerFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -92,7 +91,6 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
         super.onCreate(savedInstanceState);
         GALogger.d(TAG, "onCreate ......");
         mainActivity = (MainActivity) getActivity();
-        isOnCreate = true;
     }
 
     @Override
@@ -162,16 +160,18 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
         super.lazyLoadData();
         setLoadDataWhenVisible();
         GALogger.d(TAG, "lazyLoadData ......");
-        initLoaclData();
         //初始化presenter
         new BusinessContainerPresenter(this, new BusinessContainerModle());
         presenter.bulletinList();
-        MyApplication.runOnUIThread(new Runnable() {
+        MyApplication.applicationHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                GALogger.d(TAG, "postDelayed ......");
+                initLoaclData();
                 presenter.getHugeBillinfoRefresh(0);
+                MyApplication.applicationHandler.postDelayed(this, 10000);
             }
-        }, 500);
+        },500);
         int currentItem = businessViewPager.getCurrentItem();
         if (baseFragmentPagerAdapter != null) {
             BaseFragment currentFragment = baseFragmentPagerAdapter.getCurrentFragment(currentItem);
@@ -310,17 +310,12 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
     @Override
     public void onPause() {
         GALogger.d(TAG, "onPause ......");
-        isOnCreate = false;
         super.onPause();
     }
 
     @Override
     public void onResume() {
         GALogger.d(TAG, "onResume ......");
-        if(!isOnCreate){
-            initLoaclData();
-            presenter.getHugeBillinfoRefresh(0);
-        }
         super.onResume();
     }
 
@@ -343,5 +338,11 @@ public class BusinessContainerFragment extends BaseFragment implements BusinessC
             idList = new ArrayList<>();
         }
         idList.clear();
+    }
+
+    @Override
+    public void onDestroyView() {
+        MyApplication.applicationHandler.removeCallbacksAndMessages(null);
+        super.onDestroyView();
     }
 }
