@@ -32,6 +32,8 @@ public class DownloadManager {
 
     private boolean isWifiRequired = false;//是否wifi 请求下载
 
+    private String mServerVersionName = "";//服务器的版本名称
+
     private DownloadManager(Activity context) {
         this.mContext = context;
         this.mSavePath = FileUtils.getAPKCacheDir();//默认的保存路径
@@ -91,13 +93,24 @@ public class DownloadManager {
     }
 
     /**
+     * 设置服务器版本号
+     *
+     * @param serverVersionName
+     * @return
+     */
+    public DownloadManager serverVersionName(String serverVersionName) {
+        this.mServerVersionName = serverVersionName;
+        return this;
+    }
+
+    /**
      * 开始下载
      * 启动单任务下载
      */
     public int startDownload() {
         //开始下载
         final String fileName = mDownloadUrl.substring(mDownloadUrl.lastIndexOf("/") + 1);
-        final File file = new File(mSavePath, fileName);
+        final File file = new File(mSavePath, "V"+mServerVersionName.replace(".","_")+"_"+fileName);
         mTargetFilePath = file.getPath();//apk 文件路径
         Log.e("TAG","mSavePath    "+mSavePath);
         Log.e("TAG","mTargetFilePath    "+mTargetFilePath);

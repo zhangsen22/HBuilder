@@ -127,7 +127,7 @@ public class UpdateAppBuilder {
                 //wifi网络已连接
                 mDownloadid = DownloadManager.
                         with(mActivity).
-                        downloadUrl(mDownloadUrl).isWifiRequired(isWifiRequired).
+                        downloadUrl(mDownloadUrl).isWifiRequired(isWifiRequired).serverVersionName(mServerVersionName).
                         isForce(isForce).startDownload();
             } else if (type == CommonFunction.NetType.TYPE_MOBILE) {
                 //移动网络已连接
@@ -164,7 +164,7 @@ public class UpdateAppBuilder {
                 // 开始下载
                 mDownloadid = DownloadManager.
                         with(mActivity).
-                        downloadUrl(mDownloadUrl).isWifiRequired(isWifiRequired).
+                        downloadUrl(mDownloadUrl).isWifiRequired(isWifiRequired).serverVersionName(mServerVersionName).
                         isForce(isForce).startDownload();
             }
         });
@@ -192,7 +192,7 @@ public class UpdateAppBuilder {
                 // 开始下载
                 mDownloadid = DownloadManager.
                         with(mActivity).
-                        downloadUrl(mDownloadUrl).isWifiRequired(isWifiRequired).
+                        downloadUrl(mDownloadUrl).isWifiRequired(isWifiRequired).serverVersionName(mServerVersionName).
                         isForce(isForce).startDownload();
             }
         });
