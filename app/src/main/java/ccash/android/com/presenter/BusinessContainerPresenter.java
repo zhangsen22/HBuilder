@@ -45,7 +45,7 @@ public class BusinessContainerPresenter implements BusinessContainerContract.Pre
 
                     @Override
                     public void onFailure(ModelException ex) {
-                        super.onFailure(ex);
+//                        super.onFailure(ex);
                     }
                 });
     }

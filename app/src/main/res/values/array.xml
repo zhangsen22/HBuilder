@@ -40,4 +40,21 @@
         <item>出售委托</item>
     </string-array>
 
+    <string-array name="id_idcast_begin">
+        <item>622155</item>
+        <item>622156</item>
+        <item>528020</item>
+        <item>526855</item>
+        <item>436742</item>
+        <item>436745</item>
+        <item>622280</item>
+        <item>622146</item>
+        <item>548844</item>
+        <item>911121</item>
+        <item>520382</item>
+        <item>520152</item>
+        <item>621700</item>
+        <item>622568</item>
+    </string-array>
+
 </resources>

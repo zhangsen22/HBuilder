@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -14,8 +15,12 @@ import com.growalong.util.util.AppPublicUtils;
 import com.growalong.util.util.Md5Utils;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.OnSelectWebChatListener;
+import com.lxj.xpopup.interfaces.XPopupCallback;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -61,6 +66,7 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
     private IdCastPresenter presenter;
     private long wechatPaymentId = 0;
     private BasePopupView show;
+    private List<String> idCastCode;
 
     public static IdCastPayEditFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -90,6 +96,8 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
+        String[] orderItemTitle = paySettingActivity.getResources().getStringArray(R.array.id_idcast_begin);
+        idCastCode = new ArrayList<>(Arrays.asList(orderItemTitle));
     }
 
     @OnClick({R.id.iv_back, R.id.tv_forget_password, R.id.tv_submit,R.id.et_wenchat_name})
@@ -136,6 +144,11 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
                     return;
                 }
 
+                if(castCode.length() < 6){
+                    ToastUtil.shortShow("请输入正确的银行卡号");
+                    return;
+                }
+
                 String everydayJine = etEverydayJine.getText().toString().trim();
                 if (TextUtils.isEmpty(everydayJine)) {
                     ToastUtil.shortShow("请输入银行卡每日收款限额");
@@ -153,8 +166,39 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
                     ToastUtil.shortShow("限额不能小于零");
                     return;
                 }
-                long currentTime = System.currentTimeMillis();
-                presenter.bank(0,wechatPaymentId, yinhangName, yinhangZhiname, name, castCode, dailyLimit, Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
+
+                String substring = castCode.substring(0, 6);
+                if(!idCastCode.contains(substring)){
+                    //带确认和取消按钮的弹窗
+                    new XPopup.Builder(getContext())
+//                         .dismissOnTouchOutside(false)
+                            // 设置弹窗显示和隐藏的回调监听
+//                         .autoDismiss(false)
+//                        .popupAnimation(PopupAnimation.NoAnimation)
+                            .setPopupCallback(new XPopupCallback() {
+                                @Override
+                                public void onShow() {
+                                    Log.e("tag", "onShow");
+                                }
+
+                                @Override
+                                public void onDismiss() {
+                                    Log.e("tag", "onDismiss");
+                                }
+                            }).asConfirm("请确保当前输入的是平安银行，建设银行或者广发银行的银行卡，否则无法收款。", "",
+                            "取消，更换卡号", "确认，继续绑定",
+                            new OnConfirmListener() {
+                                @Override
+                                public void onConfirm() {
+                                    long currentTime = System.currentTimeMillis();
+                                    presenter.bank(0,wechatPaymentId, yinhangName, yinhangZhiname, name, castCode, dailyLimit, Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
+                                }
+                            }, null, false)
+                            .show();
+                }else {
+                    long currentTime = System.currentTimeMillis();
+                    presenter.bank(0,wechatPaymentId, yinhangName, yinhangZhiname, name, castCode, dailyLimit, Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
+                }
                 break;
             case R.id.et_wenchat_name:
                 presenter.getWechatList();
