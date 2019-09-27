@@ -82,7 +82,6 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     private boolean isUseIvLaCara;
     private MainActivity mainActivity;
     private EntrustSalePresenter entrustSalePresenter;
-    private double hotNum = 0;
     private double minSellPrice;
     private double maxSellPrice;
 
@@ -111,6 +110,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
             minSellPrice = usdtPriceResponse.getMinSellPrice();
             maxSellPrice = usdtPriceResponse.getMaxSellPrice();
             etBusinessPrice.setHint("交易价格请限于" + new DecimalFormat("0.000").format(minSellPrice) + " ~ " + new DecimalFormat("0.000").format(maxSellPrice));
+            etBusinessPrice.setHintTextColor(MyApplication.appContext.getResources().getColor(R.color.color_999999));
         }
         GALogger.d(TAG, "EntrustSaleFragment    is    initView");
         GALogger.d(TAG, "mEnableLazyLoad   " + mEnableLazyLoad + "   mIsCreateView   " + mIsCreateView + "  getUserVisibleHint()  " + getUserVisibleHint() + "   mIsLoadData   " + mIsLoadData);
@@ -149,7 +149,12 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
         GALogger.d(TAG, "mEnableLazyLoad   " + mEnableLazyLoad + "   mIsCreateView   " + mIsCreateView + "  getUserVisibleHint()  " + getUserVisibleHint() + "   mIsLoadData   " + mIsLoadData);
         //初始化presenter
         new EntrustSalePresenter(this, new EntrustSaleModle());
-        entrustSalePresenter.getInfo();
+        MyApplication.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                entrustSalePresenter.getInfo();
+            }
+        },1000);
     }
 
     @OnClick({R.id.tv_add_alipay, R.id.tv_add_webchat, R.id.tv_add_idcards, R.id.tv_forget_password, R.id.tv_sell_publish, R.id.iv_alipay, R.id.iv_webchat, R.id.iv_idcards, R.id.tv_sale_cankaojia, R.id.iv_yunshanfu, R.id.tv_add_yunshanfu,R.id.tv_add_lacara,R.id.iv_lacara})
@@ -256,15 +261,15 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                     return;
                 }
 
-                if (hotNum > 0) {
-                    if (d_expectMaxnum > hotNum) {
-                        ToastUtil.shortShow("请输入您预想的最大售出数量超出了账户可用余额");
-                        return;
-                    }
-                } else {
-                    ToastUtil.shortShow("账户可用余额为零");
-                    return;
-                }
+//                if (hotNum > 0) {
+//                    if (d_expectMaxnum > hotNum) {
+//                        ToastUtil.shortShow("请输入您预想的最大售出数量超出了账户可用余额");
+//                        return;
+//                    }
+//                } else {
+//                    ToastUtil.shortShow("账户可用余额为零");
+//                    return;
+//                }
 
                 if (!isUseIvAlipay && !isUseIvWebchat && !isUseIvIdcards && !isUseIvCloud && !isUseIvLaCara) {
                     ToastUtil.shortShow("请至少添加一种收款方式");
@@ -326,7 +331,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     @Override
     public void getInfoSuccess(WalletResponse walletResponse) {
         if (walletResponse != null) {
-            hotNum = walletResponse.getHotNum();
+            double hotNum = walletResponse.getHotNum();
             GALogger.d(TAG, "hotNum    " + hotNum);
             tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.cas));
         }

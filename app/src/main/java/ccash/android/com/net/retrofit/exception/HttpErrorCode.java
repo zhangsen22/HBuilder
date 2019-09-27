@@ -245,9 +245,9 @@ public class HttpErrorCode {
             }
         }else if(error == 901){
             if(BuildConfig.DEBUG){
-                resString = error+" : 修改用户资金失败,资金不足";
+                resString = error+" : 交易账户可用资金不足";
             }else {
-                resString = "修改用户资金失败,资金不足";
+                resString = "交易账户可用资金不足";
             }
         }else if(error == 1000){
             if(BuildConfig.DEBUG){
