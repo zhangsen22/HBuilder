@@ -22,7 +22,7 @@ import butterknife.BindView;
 import ccash.android.com.BaseFragment;
 import ccash.android.com.MyApplication;
 import ccash.android.com.R;
-import ccash.android.com.ui.activity.MainActivity;
+import ccash.android.com.ui.activity.GuaDanActivity;
 import ccash.android.com.ui.adapter.GuaDanViewPagerAdapter;
 
 public class GuaDanFragment extends BaseFragment {
@@ -34,7 +34,7 @@ public class GuaDanFragment extends BaseFragment {
     @BindView(R.id.ll_guadan_content)
     LinearLayout llGuadanContent;
     private GuaDanViewPagerAdapter guaDanViewPagerAdapter;
-    private MainActivity mainActivity;
+    private GuaDanActivity guaDanActivity;
 
     public static GuaDanFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -46,7 +46,7 @@ public class GuaDanFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainActivity = (MainActivity) getActivity();
+        guaDanActivity = (GuaDanActivity) getActivity();
     }
 
 
@@ -59,12 +59,12 @@ public class GuaDanFragment extends BaseFragment {
     protected void initView(View root) {
         GALogger.d(TAG, "GuaDanFragment   is    initView");
         setRootViewPaddingTop(llGuadanContent);
-        final String[] guadanTitle = mainActivity.getResources().getStringArray(R.array.guadan_title);
+        final String[] guadanTitle = guaDanActivity.getResources().getStringArray(R.array.guadan_title);
         guadanViewPager.setOffscreenPageLimit(guadanTitle.length - 1);
         guaDanViewPagerAdapter = new GuaDanViewPagerAdapter(getChildFragmentManager(), guadanTitle);
         guadanViewPager.setAdapter(guaDanViewPagerAdapter);
 
-        CommonNavigator commonNavigator = new CommonNavigator(mainActivity);
+        CommonNavigator commonNavigator = new CommonNavigator(guaDanActivity);
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override

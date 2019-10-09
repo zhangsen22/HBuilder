@@ -7,17 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import ccash.android.com.ui.fragment.BusinessContainerFragment;
 import ccash.android.com.ui.fragment.CenterFragment;
-import ccash.android.com.ui.fragment.EntrustSaleFragment;
-import ccash.android.com.ui.fragment.GuaDanFragment;
-import ccash.android.com.ui.fragment.OrderFragment;
+import ccash.android.com.ui.fragment.HomeFragment;
 import ccash.android.com.ui.fragment.PropertyFragment;
 
 public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     private Fragment mCurrentPrimaryItem = null;
+    private HomeFragment homeFragment;
     private BusinessContainerFragment businessContainerFragment;
-    private GuaDanFragment guaDanFragment;
-    private OrderFragment orderFragment;
     private PropertyFragment propertyFragment;
     private CenterFragment centerFragment;
     private List<Fragment> fragmentList;
@@ -27,18 +24,14 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
         if (fragmentList == null) {
             fragmentList = new ArrayList<>();
         }
+        if(homeFragment == null){
+            homeFragment = HomeFragment.newInstance("");
+        }
+        fragmentList.add(homeFragment);
         if(businessContainerFragment == null){
             businessContainerFragment = BusinessContainerFragment.newInstance("");
         }
         fragmentList.add(businessContainerFragment);
-        if(guaDanFragment == null){
-            guaDanFragment = GuaDanFragment.newInstance("");
-        }
-        fragmentList.add(guaDanFragment);
-        if(orderFragment == null){
-            orderFragment = OrderFragment.newInstance("");
-        }
-        fragmentList.add(orderFragment);
         if(propertyFragment == null){
             propertyFragment = PropertyFragment.newInstance("");
         }
@@ -69,9 +62,5 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     public PropertyFragment getPropertyFragment() {
         return propertyFragment;
-    }
-
-    public OrderFragment getOrderFragment() {
-        return orderFragment;
     }
 }

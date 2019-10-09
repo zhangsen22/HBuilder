@@ -9,7 +9,7 @@ import java.util.List;
 
 import ccash.android.com.BaseFragment;
 import ccash.android.com.ui.fragment.BuyFragment;
-import ccash.android.com.ui.fragment.LargeAmountFragment;
+import ccash.android.com.ui.fragment.OrderItemFragment;
 import ccash.android.com.ui.fragment.SellFragment;
 
 public class BusinessViewPagerAdapter extends FragmentPagerAdapter {
@@ -17,7 +17,7 @@ public class BusinessViewPagerAdapter extends FragmentPagerAdapter {
     private BaseFragment mCurrentPrimaryItem = null;
     private BuyFragment buyFragment;
     private SellFragment sellFragment;
-//    private LargeAmountFragment largeAmountFragment;
+    private OrderItemFragment orderItemFragment;
     private List<Fragment> fragmentList;
     private String[] mTitles;
 
@@ -35,10 +35,10 @@ public class BusinessViewPagerAdapter extends FragmentPagerAdapter {
             sellFragment = SellFragment.newInstance("");
         }
         fragmentList.add(sellFragment);
-//        if(largeAmountFragment == null){
-//            largeAmountFragment = LargeAmountFragment.newInstance("");
-//        }
-//        fragmentList.add(largeAmountFragment);
+        if(orderItemFragment == null){
+           orderItemFragment = OrderItemFragment.newInstance(3);
+        }
+        fragmentList.add(orderItemFragment);
     }
 
     @Override
@@ -64,9 +64,9 @@ public class BusinessViewPagerAdapter extends FragmentPagerAdapter {
             mCurrentPrimaryItem = sellFragment;
         }
 
-//        else if(position == 1){
-//            mCurrentPrimaryItem = largeAmountFragment;
-//        }
+        else if(position == 1){
+            mCurrentPrimaryItem = orderItemFragment;
+        }
         return mCurrentPrimaryItem;
     }
 }

@@ -8,10 +8,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import com.growalong.util.util.AppPublicUtils;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
-import com.growalong.util.util.PackageUtil;
 import com.growalong.util.util.bean.MessageEvent;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
@@ -34,7 +32,6 @@ import ccash.android.com.presenter.contract.MainContract;
 import ccash.android.com.presenter.modle.MainModle;
 import ccash.android.com.ui.adapter.MainViewPagerAdapter;
 import ccash.android.com.ui.fragment.CenterFragment;
-import ccash.android.com.ui.fragment.OrderFragment;
 import ccash.android.com.ui.fragment.PropertyFragment;
 import ccash.android.com.ui.widget.NoScrollViewPager;
 import ccash.android.com.util.SharedPreferencesUtils;
@@ -46,8 +43,6 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     NoScrollViewPager noscrollViewPager;
     @BindView(R.id.rb_business)
     RadioButton rbBusiness;
-    @BindView(R.id.rb_order)
-    RadioButton rbOrder;
     @BindView(R.id.rb_property)
     RadioButton rbProperty;
     @BindView(R.id.rb_center)
@@ -89,10 +84,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         mainPresenter.usdtPrice();
         mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         noscrollViewPager.setAdapter(mainViewPagerAdapter);
-        noscrollViewPager.setOffscreenPageLimit(4);
+        noscrollViewPager.setOffscreenPageLimit(3);
     }
 
-    @OnClick({R.id.rb_business,R.id.rb_guadan, R.id.rb_order, R.id.rb_property, R.id.rb_center})
+    @OnClick({R.id.rb_business,R.id.rb_guadan, R.id.rb_property, R.id.rb_center})
     public void onViewClicked(View view) {
         int currentItem = noscrollViewPager.getCurrentItem();
         switch (view.getId()) {
@@ -106,19 +101,14 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                     noscrollViewPager.setCurrentItem(1, false);
                 }
                 break;
-            case R.id.rb_order:
+            case R.id.rb_property:
                 if (currentItem != 2) {
                     noscrollViewPager.setCurrentItem(2, false);
                 }
                 break;
-            case R.id.rb_property:
+            case R.id.rb_center:
                 if (currentItem != 3) {
                     noscrollViewPager.setCurrentItem(3, false);
-                }
-                break;
-            case R.id.rb_center:
-                if (currentItem != 4) {
-                    noscrollViewPager.setCurrentItem(4, false);
                 }
                 break;
         }
@@ -180,12 +170,13 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 if (propertyFragment != null) {
                     propertyFragment.onActivityResultProperty(requestCode);
                 }
-            } else if (requestCode == Constants.REQUESTCODE_12 || requestCode == Constants.REQUESTCODE_13 || requestCode == Constants.REQUESTCODE_14 || requestCode == Constants.REQUESTCODE_18) {
-                OrderFragment orderFragment = mainViewPagerAdapter.getOrderFragment();
-                if (orderFragment != null) {
-                    orderFragment.onActivityResultOrder(requestCode);
-                }
             }
+//            else if (requestCode == Constants.REQUESTCODE_12 || requestCode == Constants.REQUESTCODE_13 || requestCode == Constants.REQUESTCODE_14 || requestCode == Constants.REQUESTCODE_18) {
+//                OrderFragment orderFragment = mainViewPagerAdapter.getOrderFragment();
+//                if (orderFragment != null) {
+//                    orderFragment.onActivityResultOrder(requestCode);
+//                }
+//            }
         }
     }
 

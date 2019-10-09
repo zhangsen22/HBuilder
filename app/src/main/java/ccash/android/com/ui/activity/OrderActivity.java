@@ -5,13 +5,13 @@ import android.view.View;
 import com.growalong.util.util.ActivityUtils;
 import ccash.android.com.BaseActivity;
 import ccash.android.com.R;
-import ccash.android.com.ui.fragment.GuaDanFragment;
+import ccash.android.com.ui.fragment.OrderFragment;
 
-public class GuaDanActivity extends BaseActivity {
-    private static final String TAG = GuaDanActivity.class.getSimpleName();
+public class OrderActivity extends BaseActivity {
+    private static final String TAG = OrderActivity.class.getSimpleName();
 
     public static void startThis(BaseActivity baseActivity) {
-        baseActivity.startActivity(new Intent(baseActivity, GuaDanActivity.class));
+        baseActivity.startActivity(new Intent(baseActivity, OrderActivity.class));
     }
 
     @Override
@@ -26,12 +26,12 @@ public class GuaDanActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        GuaDanFragment guaDanFragment = (GuaDanFragment) getSupportFragmentManager()
+        OrderFragment orderFragment = (OrderFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);
-        if (guaDanFragment == null) {
-            guaDanFragment = GuaDanFragment.newInstance("");
+        if (orderFragment == null) {
+            orderFragment = OrderFragment.newInstance("");
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                    guaDanFragment, R.id.contentFrame);
+                    orderFragment, R.id.contentFrame);
         }
     }
 }

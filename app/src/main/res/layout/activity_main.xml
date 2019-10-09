@@ -31,20 +31,14 @@
             android:id="@+id/rb_business"
             android:drawableTop="@drawable/busines"
             style="@style/button_tag_style"
-            android:text="交易"
+            android:text="首页"
             android:checked="true" />
 
         <RadioButton
             android:id="@+id/rb_guadan"
             android:drawableTop="@drawable/guadan"
             style="@style/button_tag_style"
-            android:text="挂单" />
-
-        <RadioButton
-            android:id="@+id/rb_order"
-            android:drawableTop="@drawable/order"
-            style="@style/button_tag_style"
-            android:text="订单" />
+            android:text="交易" />
 
         <RadioButton
             android:id="@+id/rb_property"
