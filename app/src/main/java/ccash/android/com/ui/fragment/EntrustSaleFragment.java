@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
@@ -29,6 +28,7 @@ import ccash.android.com.presenter.contract.EntrustSaleContract;
 import ccash.android.com.presenter.modle.EntrustSaleModle;
 import ccash.android.com.ui.activity.AliPayListActivity;
 import ccash.android.com.ui.activity.BalancePassWordActivity;
+import ccash.android.com.ui.activity.GuaDanActivity;
 import ccash.android.com.ui.activity.IdCastPayListActivity;
 import ccash.android.com.ui.activity.LaCaraListActivity;
 import ccash.android.com.ui.activity.MainActivity;
@@ -80,7 +80,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     private boolean isUseIvIdcards;
     private boolean isUseIvCloud;
     private boolean isUseIvLaCara;
-    private MainActivity mainActivity;
+    private GuaDanActivity guaDanActivity;
     private EntrustSalePresenter entrustSalePresenter;
     private double minSellPrice;
     private double maxSellPrice;
@@ -95,7 +95,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainActivity = (MainActivity) getActivity();
+        guaDanActivity = (GuaDanActivity) getActivity();
     }
 
     @Override
@@ -161,13 +161,13 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_add_alipay:
-                AliPayListActivity.startThis(mainActivity);
+                AliPayListActivity.startThis(guaDanActivity);
                 break;
             case R.id.tv_add_webchat:
-                WebChatListActivity.startThis(mainActivity);
+                WebChatListActivity.startThis(guaDanActivity);
                 break;
             case R.id.tv_add_idcards:
-                IdCastPayListActivity.startThis(mainActivity);
+                IdCastPayListActivity.startThis(guaDanActivity);
                 break;
             case R.id.iv_alipay:
                 boolean haveAliPayee = AccountManager.getInstance().isHaveAliPayee();
@@ -209,7 +209,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                 }
                 break;
             case R.id.tv_forget_password:
-                BalancePassWordActivity.startThis(mainActivity);
+                BalancePassWordActivity.startThis(guaDanActivity);
                 break;
             case R.id.tv_sell_publish:
                 String businessPrice = etBusinessPrice.getText().toString().trim();
@@ -315,10 +315,10 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                 }
                 break;
             case R.id.tv_add_yunshanfu:
-                YunShanFuListActivity.startThis(mainActivity);
+                YunShanFuListActivity.startThis(guaDanActivity);
                 break;
             case R.id.tv_add_lacara:
-                LaCaraListActivity.startThis(mainActivity);
+                LaCaraListActivity.startThis(guaDanActivity);
                 break;
         }
     }
@@ -333,7 +333,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
         if (walletResponse != null) {
             double hotNum = walletResponse.getHotNum();
             GALogger.d(TAG, "hotNum    " + hotNum);
-            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.cas));
+            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.bco));
         }
     }
 

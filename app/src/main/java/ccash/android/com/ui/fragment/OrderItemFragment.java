@@ -89,7 +89,7 @@ public class OrderItemFragment extends BaseFragment {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
                 colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#333333"));
                 colorTransitionPagerTitleView.setTextSize(14);
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#FF5100"));
+                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#506EE6"));
                 colorTransitionPagerTitleView.setText(orderItemTitle[index]);
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -110,7 +110,7 @@ public class OrderItemFragment extends BaseFragment {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 2));
                 indicator.setLineWidth(UIUtil.dip2px(context, 25));
-                indicator.setColors(Color.parseColor("#FF5100"));
+                indicator.setColors(Color.parseColor("#506EE6"));
                 indicator.setYOffset(UIUtil.dip2px(context, 8));
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 return indicator;

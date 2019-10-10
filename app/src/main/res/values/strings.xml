@@ -5,7 +5,8 @@
     <string name="download_progress_channel_message">下载进度</string>
     <string name="download_now">正在下载</string>
     <string name="usdt">USDT</string>
-    <string name="cas">CAS</string>
+    <string name="bco">BCO</string>
+    <string name="cny">CNY</string>
     <string name="ren">人</string>
     <string name="text1">一级推广总数</string>
     <string name="text2">二级推广总数</string>
@@ -40,6 +41,7 @@
     <string name="text31">退出登录</string>
     <string name="text32">版本号</string>
     <string name="text33">暂未开放</string>
+    <string name="text34">单价</string>
     <string name="cancel">取消</string>
     <string name="ok">确定</string>
     <string name="loading1">请稍候...</string>

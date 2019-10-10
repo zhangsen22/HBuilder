@@ -117,7 +117,7 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("购买" + MyApplication.appContext.getResources().getString(R.string.cas));
+        tvTitle.setText("购买" + MyApplication.appContext.getResources().getString(R.string.bco));
         if (!buyItem.isLargeAmount()) {
             etBusinessBuyNum.addTextChangedListener(new TextWatcherUtils() {
                 @Override

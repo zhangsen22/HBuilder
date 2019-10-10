@@ -62,7 +62,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/cas"
+                        android:text="@string/bco"
                         android:textColor="@color/color_666666"
                         android:textSize="12sp" />
 
@@ -107,7 +107,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/cas"
+                        android:text="@string/bco"
                         android:textColor="@color/color_ff5100"
                         android:textSize="12sp" />
 
@@ -174,7 +174,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/cas"
+                        android:text="@string/bco"
                         android:textColor="@color/color_666666"
                         android:textSize="12sp" />
 
@@ -219,7 +219,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/cas"
+                        android:text="@string/bco"
                         android:textColor="@color/color_ff5100"
                         android:textSize="12sp" />
 
@@ -286,7 +286,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/cas"
+                        android:text="@string/bco"
                         android:textColor="@color/color_666666"
                         android:textSize="12sp" />
 
@@ -331,7 +331,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/cas"
+                        android:text="@string/bco"
                         android:textColor="@color/color_ff5100"
                         android:textSize="12sp" />
 
@@ -398,7 +398,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/cas"
+                        android:text="@string/bco"
                         android:textColor="@color/color_666666"
                         android:textSize="12sp" />
 
@@ -443,7 +443,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/cas"
+                        android:text="@string/bco"
                         android:textColor="@color/color_ff5100"
                         android:textSize="12sp" />
 

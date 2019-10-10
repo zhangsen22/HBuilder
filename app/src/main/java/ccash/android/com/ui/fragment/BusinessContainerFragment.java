@@ -84,8 +84,8 @@ public class BusinessContainerFragment extends BaseFragment {
                 SimplePagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView(context);
                 simplePagerTitleView.setText(businessTitle[index]);
                 simplePagerTitleView.setTextSize(18);
-                simplePagerTitleView.setNormalColor(Color.parseColor("#666666"));
-                simplePagerTitleView.setSelectedColor(Color.parseColor("#333333"));
+                simplePagerTitleView.setNormalColor(Color.parseColor("#333333"));
+                simplePagerTitleView.setSelectedColor(Color.parseColor("#FD0D0D"));
 //                simplePagerTitleView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -110,7 +110,7 @@ public class BusinessContainerFragment extends BaseFragment {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 2));
                 indicator.setLineWidth(UIUtil.dip2px(context, 25));
-                indicator.setColors(Color.parseColor("#FFCF20"));
+                indicator.setColors(Color.parseColor("#FD0D0D"));
                 indicator.setYOffset(UIUtil.dip2px(context, 8));
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 return indicator;
@@ -158,7 +158,6 @@ public class BusinessContainerFragment extends BaseFragment {
 
     @Override
     public void onDestroyView() {
-        MyApplication.applicationHandler.removeCallbacksAndMessages(null);
         super.onDestroyView();
     }
 }

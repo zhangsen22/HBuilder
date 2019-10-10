@@ -23,6 +23,7 @@ import ccash.android.com.presenter.EntrustBuyPresenter;
 import ccash.android.com.presenter.contract.EntrustBuyContract;
 import ccash.android.com.presenter.modle.EntrustBuyModle;
 import ccash.android.com.ui.activity.BalancePassWordActivity;
+import ccash.android.com.ui.activity.GuaDanActivity;
 import ccash.android.com.ui.activity.MainActivity;
 import ccash.android.com.util.SharedPreferencesUtils;
 import ccash.android.com.util.ToastUtil;
@@ -47,7 +48,7 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
     private double maxBuyPrice;
 
     private EntrustBuyPresenter entrustBuyPresenter;
-    private MainActivity mainActivity;
+    private GuaDanActivity guaDanActivity;
 
     public static EntrustBuyFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -59,7 +60,7 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainActivity = (MainActivity) getActivity();
+        guaDanActivity = (GuaDanActivity) getActivity();
     }
 
     @Override
@@ -88,7 +89,7 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_forget_buy_password:
-                BalancePassWordActivity.startThis(mainActivity);
+                BalancePassWordActivity.startThis(guaDanActivity);
                 break;
             case R.id.tv_buy_publish:
                 String businessPrice = etBusinessBuyPrice.getText().toString().trim();
