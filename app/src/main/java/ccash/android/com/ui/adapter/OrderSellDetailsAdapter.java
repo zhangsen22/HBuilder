@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.DateUtil;
@@ -47,7 +48,7 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
     private class OrderSellDetailsHolder extends PowerHolder<MySellOrBuyinfoItem> {
         private CountDownTimer timer;
         private CountDownTimer timer1;
-        TextView tvOrderSellShuoming;
+        ImageView tvOrderSellShuoming;
         TextView tvOrderSellTime;
         TextView tvOrderSellStatus;
         TextView tvOrderSellPrice;
@@ -78,10 +79,8 @@ public class OrderSellDetailsAdapter extends PowerAdapter<MySellOrBuyinfoItem> {
         public void onBind(@NonNull final MySellOrBuyinfoItem mySellOrBuyinfoItem, int position) {
             int tradeSource = mySellOrBuyinfoItem.getTradeSource();
             if(tradeSource == 1){
-                tvOrderSellShuoming.setText("卖");
-                tvOrderSellShuoming.setBackgroundResource(R.mipmap.aj);
+                tvOrderSellShuoming.setBackgroundResource(R.mipmap.cx);
             }else {
-                tvOrderSellShuoming.setText("充");
                 tvOrderSellShuoming.setBackgroundResource(R.mipmap.bu);
             }
             long createTime = mySellOrBuyinfoItem.getCreateTime();

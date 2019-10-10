@@ -50,14 +50,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <TextView
+        <ImageView
             android:id="@+id/tv_guadan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="挂单"
-            android:textColor="@color/color_333333"
+            android:src="@mipmap/ci"
             android:layout_gravity="right|bottom"
-            android:padding="@dimen/y20"/>
+            android:layout_marginBottom="@dimen/y20"
+            android:layout_marginRight="@dimen/y20"/>
 
     </FrameLayout>
 

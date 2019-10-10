@@ -15,15 +15,11 @@
         android:paddingBottom="@dimen/y24"
         android:background="@color/common_white">
 
-        <TextView
+        <ImageView
             android:id="@+id/tv_order_sell_shuoming"
             android:layout_width="@dimen/y42"
             android:layout_height="@dimen/y42"
-            tools:text="卖"
-            tools:background="@mipmap/aj"
-            android:textSize="12sp"
-            android:textColor="@color/common_white"
-            android:gravity="center"/>
+            tools:background="@mipmap/cx" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,34 +38,34 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CNY"
-            android:textSize="13sp"
-            android:textColor="@color/color_ff5100"
-            android:gravity="center" />
+            android:text="@string/bco"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="/"
-            android:textSize="13sp"
-            android:textColor="@color/text"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
             android:gravity="center"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bco"
-            android:textSize="13sp"
-            android:textColor="@color/text"
-            android:gravity="center"/>
+            android:text="CNY"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
+            android:gravity="center" />
 
         <TextView
-            android:id="@+id/tv_order_sell_time"
+            android:id="@+id/tv_order_sell_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="2019-04-03 17:02:01"
-            android:textSize="13sp"
-            android:textColor="@color/color_999999"
+            tools:text="等待对方付款"
+            android:textSize="10sp"
+            android:textColor="@color/color_506ee6"
             android:gravity="center"
             android:layout_marginLeft="@dimen/y18"/>
 
@@ -79,12 +75,12 @@
             android:layout_height="@dimen/y1"/>
 
         <TextView
-            android:id="@+id/tv_order_sell_status"
+            android:id="@+id/tv_order_sell_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="等待对方付款"
-            android:textSize="13sp"
-            android:textColor="@color/color_ff0000"
+            tools:text="2019-04-03 17:02:01"
+            android:textSize="10sp"
+            android:textColor="@color/color_666666"
             android:gravity="center" />
 
     </LinearLayout>
@@ -111,7 +107,7 @@
                             android:layout_height="wrap_content"
                             android:text="价格："
                             android:textColor="@color/color_666666"
-                            android:textSize="12sp"/>
+                            android:textSize="10sp"/>
 
                         <TextView
                             android:id="@+id/tv_order_sell_price"
@@ -119,14 +115,14 @@
                             android:layout_height="wrap_content"
                             tools:text="6.87"
                             android:textColor="@color/color_666666"
-                            android:textSize="12sp"/>
+                            android:textSize="10sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="CNY"
                             android:textColor="@color/color_666666"
-                            android:textSize="12sp"/>
+                            android:textSize="10sp"/>
 
                     </LinearLayout>
 
@@ -141,7 +137,7 @@
                            android:layout_height="wrap_content"
                            android:text="总额："
                            android:textColor="@color/color_666666"
-                           android:textSize="12sp"/>
+                           android:textSize="10sp"/>
 
                        <TextView
                            android:id="@+id/tv_order_sell_amount"
@@ -149,14 +145,14 @@
                            android:layout_height="wrap_content"
                            tools:text="6.87"
                            android:textColor="@color/color_666666"
-                           android:textSize="12sp"/>
+                           android:textSize="10sp"/>
 
                        <TextView
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:text="CNY"
                            android:textColor="@color/color_666666"
-                           android:textSize="12sp"/>
+                           android:textSize="10sp"/>
 
                    </LinearLayout>
 
@@ -171,7 +167,7 @@
                            android:layout_height="wrap_content"
                            android:text="数量："
                            android:textColor="@color/color_666666"
-                           android:textSize="12sp"/>
+                           android:textSize="10sp"/>
 
                        <TextView
                            android:id="@+id/tv_order_sell_paycode"
@@ -179,14 +175,14 @@
                            android:layout_height="wrap_content"
                            tools:text="6.87"
                            android:textColor="@color/color_666666"
-                           android:textSize="12sp"/>
+                           android:textSize="10sp"/>
 
                        <TextView
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:text="@string/bco"
                            android:textColor="@color/color_666666"
-                           android:textSize="12sp"
+                           android:textSize="10sp"
                            android:layout_marginLeft="@dimen/y6"/>
 
                    </LinearLayout>
@@ -205,8 +201,8 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        tools:text="14:38后取消订单"
-                       android:textColor="@color/text"
-                       android:textSize="12sp"
+                       android:textColor="@color/color_666666"
+                       android:textSize="10sp"
                        android:gravity="center"
                        android:visibility="gone"/>
 
@@ -216,7 +212,7 @@
                        android:layout_height="wrap_content"
                        android:orientation="vertical"
                        android:layout_gravity="bottom"
-                       android:visibility="gone">
+                       android:visibility="gone" >
 
                        <TextView
                            android:id="@+id/tv_order_sell_sstime"
@@ -224,7 +220,7 @@
                            android:layout_height="wrap_content"
                            tools:text="14:09：15后可申诉"
                            android:textColor="@color/color_999999"
-                           android:textSize="12sp"
+                           android:textSize="10sp"
                            android:gravity="center"
                            android:visibility="gone"/>
 
@@ -239,24 +235,27 @@
                                android:layout_width="0dp"
                                android:layout_weight="1"
                                android:layout_height="wrap_content"
-                               android:text="申诉"
-                               android:textColor="@color/a1"
-                               android:textSize="12sp"
+                               android:textColor="#15BD5B"
+                               android:textSize="10sp"
                                android:gravity="center"
-                               android:background="@drawable/a1"/>
+                               android:paddingTop="@dimen/y10"
+                               android:paddingBottom="@dimen/y10"
+                               android:background="@drawable/lv_button_bg"
+                               android:text="申诉" />
 
                            <TextView
                                android:id="@+id/tv_order_sell_qfb"
                                android:layout_width="0dp"
                                android:layout_weight="1"
                                android:layout_height="wrap_content"
-                               android:text="去放币"
-                               android:textColor="@color/common_white"
-                               android:textSize="12sp"
+                               android:textColor="#15BD5B"
+                               android:textSize="10sp"
+                               android:paddingTop="@dimen/y10"
+                               android:paddingBottom="@dimen/y10"
                                android:gravity="center"
-                               android:background="@mipmap/ai"
-                               android:layout_marginLeft="@dimen/y10"/>
-
+                               android:background="@drawable/lv_button_bg"
+                               android:layout_marginLeft="@dimen/y10"
+                               android:text="去放币" />
 
                        </LinearLayout>
 

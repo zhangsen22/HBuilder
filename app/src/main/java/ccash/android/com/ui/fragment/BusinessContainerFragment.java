@@ -2,13 +2,12 @@ package ccash.android.com.ui.fragment;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -40,7 +39,7 @@ public class BusinessContainerFragment extends BaseFragment {
     @BindView(R.id.ff_business_content)
     LinearLayout ffBusinessContent;
     @BindView(R.id.tv_guadan)
-    TextView tvGuadan;
+    ImageView tvGuadan;
     private MainActivity mainActivity;
     private BusinessViewPagerAdapter baseFragmentPagerAdapter;
 
