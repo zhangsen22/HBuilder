@@ -19,8 +19,8 @@
     </string-array>
 
     <string-array name="property_title">
-        <item>币币账户</item>
-        <item>场外账户</item>
+        <item>我的钱包</item>
+        <item>交易账户</item>
     </string-array>
 
     <string-array name="order_title">
