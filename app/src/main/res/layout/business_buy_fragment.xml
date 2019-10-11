@@ -292,7 +292,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/y30"
-                android:paddingTop="@dimen/y42"
+                android:paddingTop="@dimen/y24"
                 android:paddingBottom="@dimen/y24"
                 android:gravity="center_vertical">
 
