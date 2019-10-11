@@ -114,6 +114,7 @@ public class HomeFragment extends BaseFragment implements BusinessContainerContr
         List<Integer> imgs = new ArrayList<>();
         imgs.add(R.mipmap.banner);
         imgs.add(R.mipmap.banner1);
+        imgs.add(R.mipmap.banner2);
         banner.setHorizontalScrollBarEnabled(false);
         banner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
 
