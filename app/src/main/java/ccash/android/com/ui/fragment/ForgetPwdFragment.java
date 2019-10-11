@@ -10,7 +10,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.google.commons.codec.binary.Base64;
 import com.growalong.util.util.BitmapUtils;
 import com.growalong.util.util.GALogger;
@@ -86,7 +85,7 @@ public class ForgetPwdFragment extends BaseFragment implements ForgetPwdContract
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("忘记密码");
+        tvTitle.setText("重置");
     }
 
     @Override
@@ -97,7 +96,6 @@ public class ForgetPwdFragment extends BaseFragment implements ForgetPwdContract
 
     @Override
     public void getImageCodeSuccess(ImageCodeResponse imageCodeResponse) {
-        llImageCode.setVisibility(View.VISIBLE);
         ivImageCode.setImageBitmap(BitmapUtils.base64ToBitmap(imageCodeResponse.getImage()));
     }
 
@@ -161,20 +159,6 @@ public class ForgetPwdFragment extends BaseFragment implements ForgetPwdContract
                 forgetPwdActivity.finish();
                 break;
             case R.id.iv_image_code:
-                String phone0 = etForgetLoginPassword.getText().toString().trim();
-                if (TextUtils.isEmpty(phone0)) {
-                    ToastUtil.shortShow("请输入密码");
-                    return;
-                }
-                String phone1 = etreForgetLoginPassword.getText().toString().trim();
-                if (TextUtils.isEmpty(phone1)) {
-                    ToastUtil.shortShow("请输入确认密码");
-                    return;
-                }
-                if(!phone0.equals(phone1)){
-                    ToastUtil.shortShow("两次密码输入不一致");
-                    return;
-                }
                 String phone2 = etInputPhonenumber.getText().toString().trim();
                 if (TextUtils.isEmpty(phone2)) {
                     ToastUtil.shortShow("请输入手机号");
@@ -183,54 +167,23 @@ public class ForgetPwdFragment extends BaseFragment implements ForgetPwdContract
                 presenter.getImageCode(phone2);
                 break;
             case R.id.tv_get_forget_login_smscode:
-                String phone3 = etForgetLoginPassword.getText().toString().trim();
-                if (TextUtils.isEmpty(phone3)) {
-                    ToastUtil.shortShow("请输入密码");
-                    return;
-                }
-                String phone4 = etreForgetLoginPassword.getText().toString().trim();
-                if (TextUtils.isEmpty(phone4)) {
-                    ToastUtil.shortShow("请输入确认密码");
-                    return;
-                }
-                if(!phone4.equals(phone3)){
-                    ToastUtil.shortShow("两次密码输入不一致");
-                    return;
-                }
                 String phone5 = etInputPhonenumber.getText().toString().trim();
                 if (TextUtils.isEmpty(phone5)) {
                     ToastUtil.shortShow("请输入手机号");
                     return;
                 }
-                if(llImageCode.getVisibility() == View.GONE){
-                    presenter.getImageCode(phone5);
-                }else {
-                    String imageNumber = etImageNumber.getText().toString().trim();
-                    if (TextUtils.isEmpty(imageNumber)) {
-                        ToastUtil.shortShow("请输入图片验证码");
-                        return;
-                    }
-                    presenter.senSenSmsCode(phone5);
-                }
+                presenter.senSenSmsCode(phone5);
                 break;
             case R.id.tv_submit_forget_login:
-                String phone6 = etForgetLoginPassword.getText().toString().trim();
-                if (TextUtils.isEmpty(phone6)) {
-                    ToastUtil.shortShow("请输入密码");
-                    return;
-                }
-                String phone7 = etreForgetLoginPassword.getText().toString().trim();
-                if (TextUtils.isEmpty(phone7)) {
-                    ToastUtil.shortShow("请输入确认密码");
-                    return;
-                }
-                if(!phone7.equals(phone6)){
-                    ToastUtil.shortShow("两次密码输入不一致");
-                    return;
-                }
                 String phone8 = etInputPhonenumber.getText().toString().trim();
                 if (TextUtils.isEmpty(phone8)) {
                     ToastUtil.shortShow("请输入手机号");
+                    return;
+                }
+
+                String imageNumber1 = etImageNumber.getText().toString().trim();
+                if (TextUtils.isEmpty(imageNumber1)) {
+                    ToastUtil.shortShow("请输入图片验证码");
                     return;
                 }
 
@@ -245,16 +198,28 @@ public class ForgetPwdFragment extends BaseFragment implements ForgetPwdContract
                     return;
                 }
 
-                    String imageNumber1 = etImageNumber.getText().toString().trim();
-                    if (TextUtils.isEmpty(imageNumber1)) {
-                        ToastUtil.shortShow("请输入图片验证码");
-                        return;
-                    }
-                    try {
-                        presenter.forgetPwd(Base64.encodeBase64String(RSAUtil.encryptByPublicKey(phone7,publicKey)),phone8,imageNumber1,phone9);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                String phone6 = etForgetLoginPassword.getText().toString().trim();
+                if (TextUtils.isEmpty(phone6)) {
+                    ToastUtil.shortShow("请输入密码");
+                    return;
+                }
+
+                String phone7 = etreForgetLoginPassword.getText().toString().trim();
+                if (TextUtils.isEmpty(phone7)) {
+                    ToastUtil.shortShow("请输入确认密码");
+                    return;
+                }
+
+                if(!phone7.equals(phone6)){
+                    ToastUtil.shortShow("两次密码输入不一致");
+                    return;
+                }
+
+                try {
+                    presenter.forgetPwd(Base64.encodeBase64String(RSAUtil.encryptByPublicKey(phone7,publicKey)),phone8,imageNumber1,phone9);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
