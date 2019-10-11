@@ -148,9 +148,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                 RecommendToFriendsActivity.startThis(mainActivity);
                 break;
             case R.id.ll_lx_kf:
-                new XPopup.Builder(mainActivity)
-                        .hasStatusBarShadow(true) //启用状态栏阴影
-                        .asCustom(new KeFuPopupView(mainActivity)).show();
+
                 break;
             case R.id.ll_center_message:
                 MessageCenterActivity.startThis(mainActivity);

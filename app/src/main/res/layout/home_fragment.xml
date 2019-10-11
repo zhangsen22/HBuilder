@@ -23,6 +23,14 @@
             android:src="@mipmap/dc"
             android:layout_gravity="center"/>
 
+            <ImageView
+                android:id="@+id/iv_kefu"
+                android:layout_width="@dimen/y50"
+                android:layout_height="@dimen/y50"
+                android:src="@mipmap/dh"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/y30"/>
+
         </FrameLayout>
 
     </LinearLayout>

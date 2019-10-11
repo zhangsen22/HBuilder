@@ -16,6 +16,7 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.google.gson.reflect.TypeToken;
 import com.growalong.util.util.GALogger;
+import com.lxj.xpopup.XPopup;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,7 @@ import ccash.android.com.presenter.modle.BusinessContainerModle;
 import ccash.android.com.ui.activity.BulletinActivity;
 import ccash.android.com.ui.activity.MainActivity;
 import ccash.android.com.ui.activity.WebViewActivity;
+import ccash.android.com.ui.widget.KeFuPopupView;
 import ccash.android.com.util.SharedPreferencesUtils;
 
 public class HomeFragment extends BaseFragment implements BusinessContainerContract.View {
@@ -45,6 +47,8 @@ public class HomeFragment extends BaseFragment implements BusinessContainerContr
     ConvenientBanner banner;
     @BindView(R.id.tv_gonggao)
     TextView tvGonggao;
+    @BindView(R.id.iv_kefu)
+    ImageView ivKefu;
     private MainActivity mainActivity;
     private BusinessContainerPresenter presenter;
     private ArrayList<BulletinListItem> bulletinList;
@@ -96,16 +100,21 @@ public class HomeFragment extends BaseFragment implements BusinessContainerContr
                 presenter.getHugeBillinfoRefresh(0);
                 MyApplication.applicationHandler.postDelayed(this, 10000);
             }
-        },500);
+        }, 500);
     }
 
-    @OnClick({R.id.ll_notry_click})
+    @OnClick({R.id.ll_notry_click,R.id.iv_kefu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_notry_click:
                 if (bulletinList != null && bulletinList.size() > 0) {
                     BulletinActivity.startThis(mainActivity, bulletinList);
                 }
+                break;
+            case R.id.iv_kefu:
+                new XPopup.Builder(mainActivity)
+                        .hasStatusBarShadow(true) //启用状态栏阴影
+                        .asCustom(new KeFuPopupView(mainActivity)).show();
                 break;
         }
     }
