@@ -29,8 +29,8 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     EditText etPhoneNumber;
     @BindView(R.id.et_password)
     EditText etPassword;
-    @BindView(R.id.iv_eye)
-    ImageView ivEye;
+//    @BindView(R.id.iv_eye)
+//    ImageView ivEye;
     @BindView(R.id.go_login)
     TextView goLogin;
     private LoginAndRegistActivity loginActivity;
@@ -67,22 +67,9 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
         new LoginPresenter(this, new LoginModle());
     }
 
-    @OnClick({R.id.iv_eye, R.id.go_login, R.id.go_forget_pass})
+    @OnClick({ R.id.go_login, R.id.go_forget_pass})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_eye:
-                if (isShowPassward) {
-                    ivEye.setImageResource(R.mipmap.yincang);
-                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    etPassword.setSelection(etPassword.getText().length());
-                    isShowPassward = false;
-                } else {
-                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    isShowPassward = true;
-                    etPassword.setSelection(etPassword.getText().length());
-                    ivEye.setImageResource(R.mipmap.br);
-                }
-                break;
             case R.id.go_login:
                 String phone = etPhoneNumber.getText().toString().trim();
                 if (TextUtils.isEmpty(phone)) {
