@@ -41,8 +41,6 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
     TextView tvBusinessBuyMore;
     @BindView(R.id.tv_business_buy_num)
     TextView tvBusinessBuyNum;
-    @BindView(R.id.et_business_buy_price)
-    TextView etBusinessBuyPrice;
     @BindView(R.id.et_business_buy_num)
     EditText etBusinessBuyNum;
     @BindView(R.id.tv_num_all)
@@ -57,16 +55,8 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
     CheckBox cbWebchat;
     @BindView(R.id.cb_idcast)
     CheckBox cbIdcast;
-    @BindView(R.id.tv_cancel_order)
-    TextView tvCancelOrder;
     @BindView(R.id.tv_order)
     TextView tvOrder;
-    @BindView(R.id.iv_webchat)
-    ImageView ivWebchat;
-    @BindView(R.id.iv_alipay)
-    ImageView ivAlipay;
-    @BindView(R.id.iv_idcast)
-    ImageView ivIdcast;
     @BindView(R.id.ll_alipay)
     LinearLayout llAlipay;
     @BindView(R.id.ll_webchat)
@@ -75,24 +65,13 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
     LinearLayout llIdcast;
     @BindView(R.id.iv_buy_name)
     TextView ivBuyName;
-    @BindView(R.id.iv_yunshanfu)
-    ImageView ivYunshanfu;
-    @BindView(R.id.cb_yunshanfu)
-    CheckBox cbYunshanfu;
-    @BindView(R.id.ll_yunshanfu)
-    LinearLayout llYunshanfu;
-    @BindView(R.id.iv_lakala)
-    ImageView ivLakala;
-    @BindView(R.id.cb_lacara)
-    CheckBox cbLacara;
-    @BindView(R.id.ll_lacara)
-    LinearLayout llLacara;
-
+    @BindView(R.id.tv_business_buy_more1)
+    TextView tvBusinessBuyMore1;
     private BusinessBuyActivity businessBuyActivity;
     private BusinessBuyPresenter presenter;
     private BuyItem buyItem;
     private boolean flag = true;//添加标志位，标志是否被编辑
-    private int type;//1为支付宝，2为微信，3为银行账户 ，4为云闪付 ，5为拉卡拉
+    private int type;//1为支付宝，2为微信，3为银行账户
 
     public static BusinessBuyFragment newInstance(@Nullable BuyItem buyItem) {
         Bundle arguments = new Bundle();
@@ -167,56 +146,32 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
         cbAlipay.setOnCheckedChangeListener(this);
         cbWebchat.setOnCheckedChangeListener(this);
         cbIdcast.setOnCheckedChangeListener(this);
-        cbYunshanfu.setOnCheckedChangeListener(this);
-        cbLacara.setOnCheckedChangeListener(this);
     }
 
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
         if (buyItem.isSupportBank()) {
-            ivIdcast.setVisibility(View.VISIBLE);
             llIdcast.setVisibility(View.VISIBLE);
         } else {
-            ivIdcast.setVisibility(View.GONE);
             llIdcast.setVisibility(View.GONE);
         }
 
         if (buyItem.isSupportAli()) {
-            ivAlipay.setVisibility(View.VISIBLE);
             llAlipay.setVisibility(View.VISIBLE);
         } else {
-            ivAlipay.setVisibility(View.GONE);
             llAlipay.setVisibility(View.GONE);
         }
 
         if (buyItem.isSupportWechat()) {
-            ivWebchat.setVisibility(View.VISIBLE);
             llWebchat.setVisibility(View.VISIBLE);
         } else {
-            ivWebchat.setVisibility(View.GONE);
             llWebchat.setVisibility(View.GONE);
         }
 
-        if (buyItem.isSupportCloud()) {
-            ivYunshanfu.setVisibility(View.VISIBLE);
-            llYunshanfu.setVisibility(View.VISIBLE);
-        } else {
-            ivYunshanfu.setVisibility(View.GONE);
-            llYunshanfu.setVisibility(View.GONE);
-        }
-
-        if (buyItem.isSupportLakala()) {
-            ivLakala.setVisibility(View.VISIBLE);
-            llLacara.setVisibility(View.VISIBLE);
-        } else {
-            ivLakala.setVisibility(View.GONE);
-            llLacara.setVisibility(View.GONE);
-        }
         ivBuyName.setText(buyItem.getNickname());
         tvBusinessBuyPrice.setText(buyItem.getPrice() + "");
-        tvBusinessBuyNum.setText(buyItem.getMaxNum() + "");
-        etBusinessBuyPrice.setText(buyItem.getPrice() + "");
+        tvBusinessBuyNum.setText(buyItem.getMinNum() + " - " + buyItem.getMaxNum());
 
         if (buyItem.isLargeAmount()) {
             tvBusinessBuyMore.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
@@ -229,7 +184,7 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
             etBusinessBuyMoney.setFocusableInTouchMode(false);
             etBusinessBuyMoney.setText(new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
         } else {
-            tvBusinessBuyMore.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()) + " - " + MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
+            tvBusinessBuyMore.setText(new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()) + " - " + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
             tvNumAll.setVisibility(View.VISIBLE);
             tvPriceAll.setVisibility(View.VISIBLE);
             etBusinessBuyNum.setFocusable(true);
@@ -237,9 +192,13 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
             etBusinessBuyMoney.setFocusable(true);
             etBusinessBuyMoney.setFocusableInTouchMode(true);
         }
+
+        tvBusinessBuyMore1.setText(new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()) + " - " + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
+        etBusinessBuyMoney.setHint(new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMinNum()) + " - " + new DecimalFormat("0.00").format(buyItem.getPrice() * buyItem.getMaxNum()));
+        etBusinessBuyMoney.setHintTextColor(MyApplication.appContext.getResources().getColor(R.color.color_999999));
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_num_all, R.id.tv_price_all, R.id.tv_cancel_order, R.id.tv_order})
+    @OnClick({R.id.iv_back, R.id.tv_num_all, R.id.tv_price_all, R.id.tv_order})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -249,9 +208,6 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
             case R.id.tv_price_all:
                 etBusinessBuyNum.setText(buyItem.getMaxNum() + "");
                 etBusinessBuyMoney.setText(new DecimalFormat("0.00").format(buyItem.getMaxNum() * buyItem.getPrice()));
-                break;
-            case R.id.tv_cancel_order:
-                businessBuyActivity.finish();
                 break;
             case R.id.tv_order:
                 String businessBuyNum = etBusinessBuyNum.getText().toString().trim();
@@ -314,8 +270,6 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
                 if (isChecked) {
                     cbWebchat.setChecked(false);
                     cbIdcast.setChecked(false);
-                    cbYunshanfu.setChecked(false);
-                    cbLacara.setChecked(false);
                     type = 1;
                 } else {
                     type = 0;
@@ -325,8 +279,6 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
                 if (isChecked) {
                     cbAlipay.setChecked(false);
                     cbIdcast.setChecked(false);
-                    cbYunshanfu.setChecked(false);
-                    cbLacara.setChecked(false);
                     type = 2;
                 } else {
                     type = 0;
@@ -336,31 +288,7 @@ public class BusinessBuyFragment extends BaseFragment implements BusinessBuyCont
                 if (isChecked) {
                     cbAlipay.setChecked(false);
                     cbWebchat.setChecked(false);
-                    cbYunshanfu.setChecked(false);
-                    cbLacara.setChecked(false);
                     type = 3;
-                } else {
-                    type = 0;
-                }
-                break;
-            case R.id.cb_yunshanfu:
-                if (isChecked) {
-                    cbAlipay.setChecked(false);
-                    cbWebchat.setChecked(false);
-                    cbIdcast.setChecked(false);
-                    cbLacara.setChecked(false);
-                    type = 4;
-                } else {
-                    type = 0;
-                }
-                break;
-            case R.id.cb_lacara:
-                if (isChecked) {
-                    cbAlipay.setChecked(false);
-                    cbWebchat.setChecked(false);
-                    cbIdcast.setChecked(false);
-                    cbYunshanfu.setChecked(false);
-                    type = 5;
                 } else {
                     type = 0;
                 }

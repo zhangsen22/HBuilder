@@ -79,7 +79,7 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    <style name="buttonstyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+    <style name="buttonstyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/y80</item>
         <item name="android:layout_marginLeft">@dimen/y54</item>
@@ -88,6 +88,17 @@
         <item name="android:textColor">@color/common_white</item>
         <item name="android:textSize">14sp</item>
         <item name="android:background">@drawable/a5</item>
+    </style>
+
+    <style name="buttonstyle1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/y80</item>
+        <item name="android:layout_marginLeft">@dimen/y54</item>
+        <item name="android:layout_marginRight">@dimen/y54</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/common_white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/a3</item>
     </style>
 
 </resources>

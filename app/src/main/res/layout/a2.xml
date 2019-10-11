@@ -5,7 +5,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/y28">
+        android:layout_marginTop="@dimen/y42"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30">
 
         <View
             android:layout_width="0dp"
@@ -18,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="交易提醒"
             android:textColor="@color/color_666666"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:layout_marginLeft="@dimen/y18"
             android:layout_marginRight="@dimen/y18"/>
 

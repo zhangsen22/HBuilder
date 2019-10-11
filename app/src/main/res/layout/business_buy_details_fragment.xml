@@ -354,16 +354,8 @@
 
             <TextView
                 android:id="@+id/tv_re_pay"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y80"
-                android:background="@drawable/a3"
-                android:layout_gravity="center_horizontal"
+                style="@style/buttonstyle1"
                 android:text="我已付款"
-                android:gravity="center"
-                android:layout_marginLeft="@dimen/y54"
-                android:layout_marginRight="@dimen/y54"
-                android:textColor="@color/common_white"
-                android:textSize="14sp"
                 android:layout_marginTop="@dimen/y78"/>
 
 
