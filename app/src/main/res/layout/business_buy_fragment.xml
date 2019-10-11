@@ -312,7 +312,7 @@
                 android:orientation="horizontal"
                 android:background="@color/common_white"
                 android:paddingLeft="@dimen/y30"
-                android:paddingRight="@dimen/y6"
+                android:paddingRight="@dimen/y16"
                 android:gravity="center_vertical"
                 android:visibility="gone">
 
@@ -349,7 +349,7 @@
                 android:orientation="horizontal"
                 android:background="@color/common_white"
                 android:paddingLeft="@dimen/y30"
-                android:paddingRight="@dimen/y6"
+                android:paddingRight="@dimen/y16"
                 android:gravity="center_vertical"
                 android:visibility="gone" >
 
@@ -386,7 +386,7 @@
                 android:orientation="horizontal"
                 android:background="@color/common_white"
                 android:paddingLeft="@dimen/y30"
-                android:paddingRight="@dimen/y6"
+                android:paddingRight="@dimen/y16"
                 android:gravity="center_vertical"
                 android:visibility="gone">
 

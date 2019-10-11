@@ -101,4 +101,15 @@
         <item name="android:background">@drawable/a3</item>
     </style>
 
+    <style name="buttonstyle2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/y80</item>
+        <item name="android:layout_marginLeft">@dimen/y54</item>
+        <item name="android:layout_marginRight">@dimen/y54</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/common_white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/a11</item>
+    </style>
+
 </resources>
