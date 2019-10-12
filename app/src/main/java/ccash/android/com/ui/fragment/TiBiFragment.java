@@ -53,14 +53,10 @@ public class TiBiFragment extends BaseFragment implements TiBiContract.View {
     TextView tvBiAll;
     @BindView(R.id.et_bi_keyongum)
     TextView etBiKeyongum;
-    @BindView(R.id.et_bi_shouxufei)
-    TextView etBiShouxufei;
     @BindView(R.id.et_bineass_password)
     EditText etBineassPassword;
     @BindView(R.id.tv_forget_password)
     TextView tvForgetPassword;
-    @BindView(R.id.et_bi_daozhangnum)
-    TextView etBiDaozhangnum;
     @BindView(R.id.tv_queding)
     TextView tvQueding;
     private TiBiActivity tiBiActivity;
@@ -98,18 +94,14 @@ public class TiBiFragment extends BaseFragment implements TiBiContract.View {
                 if (!TextUtils.isEmpty(sNum)) {
                     double d_num = Double.parseDouble(sNum);
                     if (d_num <= 2) {
-                        etBiDaozhangnum.setText("");
                         ToastUtil.shortShow("提币数量不能小于2");
                         return;
                     }
 
                     if (d_num > walletNum) {
-                        etBiDaozhangnum.setText("");
                         ToastUtil.shortShow("提币数量不足");
                         return;
                     }
-
-                    etBiDaozhangnum.setText(new DecimalFormat("0.00").format(d_num - 2));
                 }
             }
         });
@@ -217,7 +209,6 @@ public class TiBiFragment extends BaseFragment implements TiBiContract.View {
         if(walletResponse != null){
             walletNum = walletResponse.getWalletNum();
             etBiKeyongum.setText(new DecimalFormat("0.00").format(walletNum));
-            etBiShouxufei.setText("2");
         }
     }
 

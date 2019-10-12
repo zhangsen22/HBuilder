@@ -5,12 +5,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:background="@color/color_f9f9f9">
+    android:gravity="center_horizontal">
 
     <include layout="@layout/title"/>
-
-    <include layout="@layout/line_10_f9"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,47 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y90"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/y26"
-                android:paddingRight="@dimen/y26"
-                android:gravity="center_vertical"
-                android:background="@color/common_white">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="USDT"
-                    android:textSize="12sp"
-                    android:textColor="@color/color_666666"
-                    android:gravity="center" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/tv_bi_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="选择币种"
-                    android:textSize="12sp"
-                    android:textColor="@color/color_999999"
-                    android:gravity="center" />
-
-                <ImageView
-                    android:layout_width="@dimen/y12"
-                    android:layout_height="@dimen/y20"
-                    android:src="@mipmap/y"
-                    android:layout_marginLeft="@dimen/y18"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y90"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/y26"
-                android:paddingRight="@dimen/y26"
+                android:paddingLeft="@dimen/y36"
+                android:paddingRight="@dimen/y36"
                 android:gravity="center_vertical"
                 android:background="@color/common_white"
                 android:layout_marginTop="@dimen/y20">
@@ -73,23 +31,30 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="提币地址"
+                    android:text="选择币种"
                     android:textSize="12sp"
-                    android:textColor="@color/color_666666"
+                    android:textColor="@color/color_333333"
                     android:gravity="center" />
 
                 <TextView
+                    android:id="@+id/tv_bi_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="（比特币网络）"
+                    tools:text="USDT"
                     android:textSize="12sp"
-                    android:textColor="@color/color_666666"
-                    android:gravity="center" />
+                    android:textColor="@color/color_333333"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/y50"/>
 
                 <View
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_width="@dimen/y12"
+                    android:layout_height="@dimen/y20"
+                    android:src="@mipmap/y" />
 
             </LinearLayout>
 
@@ -97,72 +62,147 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y90"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/y26"
-                android:paddingRight="@dimen/y26"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/y36"
+                android:paddingRight="@dimen/y36"
                 android:background="@color/common_white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="链名称"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_333333"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/y24"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/y34"
+                    android:layout_marginBottom="@dimen/y50">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="OMNI"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_526bfc"
+                        android:gravity="center"
+                        android:background="@drawable/a12"
+                        android:paddingTop="@dimen/y16"
+                        android:paddingBottom="@dimen/y16"
+                        android:paddingLeft="@dimen/y44"
+                        android:paddingRight="@dimen/y44"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ERC20"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_333333"
+                        android:gravity="center"
+                        android:background="@drawable/a13"
+                        android:paddingTop="@dimen/y16"
+                        android:paddingBottom="@dimen/y16"
+                        android:paddingLeft="@dimen/y44"
+                        android:paddingRight="@dimen/y44"
+                        android:layout_marginLeft="@dimen/y26"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="收款人钱包地址"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_333333"
+                    android:gravity="center" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/y1"/>
+
+                    <ImageView
+                        android:id="@+id/iv_saoyisao"
+                        android:layout_width="@dimen/y24"
+                        android:layout_height="@dimen/y24"
+                        android:src="@mipmap/bl"/>
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/et_bi_address"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y80"
                     android:textCursorDrawable="@drawable/my_cursor"
                     android:maxLines="1"
                     android:textColorHint="@color/color_999999"
                     android:textColor="@color/color_999999"
                     android:textSize="12sp"
                     android:inputType="text"
-                    android:hint="输入或长按粘贴地址" />
-
-                <ImageView
-                    android:id="@+id/iv_saoyisao"
-                    android:layout_width="@dimen/y26"
-                    android:layout_height="@dimen/y26"
-                    android:src="@mipmap/bl"/>
+                    android:layout_marginTop="@dimen/y10"
+                    android:hint="请输入收款人的USDT地址" />
 
             </LinearLayout>
 
+            <include layout="@layout/line_f9"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y90"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/y26"
-                android:paddingRight="@dimen/y26"
+                android:paddingLeft="@dimen/y36"
+                android:paddingRight="@dimen/y36"
+                android:paddingTop="@dimen/y28"
                 android:gravity="center_vertical"
-                android:background="@color/common_white"
-                android:layout_marginTop="@dimen/y20">
+                android:background="@color/common_white">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="数量"
-                    android:textSize="12sp"
-                    android:textColor="@color/color_666666"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_333333"
                     android:gravity="center" />
 
-                <EditText
-                    android:id="@+id/et_bi_num"
+                <View
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:textCursorDrawable="@drawable/my_cursor"
-                    android:maxLines="1"
-                    android:textColorHint="@color/color_999999"
-                    android:textColor="@color/color_999999"
-                    android:textSize="12sp"
-                    android:inputType="numberDecimal|number"
-                    android:hint="最小提币数量200"
-                    android:layout_marginLeft="@dimen/y126"/>
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="USDT | "
+                    android:text="余额"
                     android:textSize="12sp"
-                    android:textColor="@color/color_999999"
+                    android:textColor="@color/color_666666"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/et_bi_keyongum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="0.0000"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_666666"
+                    android:gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="USDT"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_666666"
                     android:gravity="center" />
 
                 <TextView
@@ -171,97 +211,41 @@
                     android:layout_height="wrap_content"
                     android:text="全部"
                     android:textSize="12sp"
-                    android:textColor="@color/color_ff5100"
+                    android:textColor="@color/color_526bfc"
+                    android:layout_marginLeft="@dimen/y16"
                     android:gravity="center" />
 
             </LinearLayout>
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/et_bi_num"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y48"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/y26"
-                android:paddingRight="@dimen/y26"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="可用"
-                    android:textSize="10sp"
-                    android:textColor="@color/color_999999"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/et_bi_keyongum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="0.0000"
-                    android:textSize="10sp"
-                    android:textColor="@color/color_999999"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="USDT"
-                    android:textSize="10sp"
-                    android:textColor="@color/color_999999"
-                    android:gravity="center" />
-
-                <ImageView
-                    android:layout_width="@dimen/y20"
-                    android:layout_height="@dimen/y20"
-                    android:src="@mipmap/bm"
-                    android:layout_marginLeft="@dimen/y10"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="手续费："
-                    android:textSize="9sp"
-                    android:textColor="@color/color_666666"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/et_bi_shouxufei"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="2"
-                    android:textSize="9sp"
-                    android:textColor="@color/color_666666"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="USDT"
-                    android:textSize="9sp"
-                    android:textColor="@color/color_666666"
-                    android:gravity="center" />
-
-            </LinearLayout>
+                android:layout_height="@dimen/y80"
+                android:textCursorDrawable="@drawable/my_cursor"
+                android:maxLines="1"
+                android:textColorHint="@color/color_999999"
+                android:textColor="@color/color_999999"
+                android:background="@color/common_white"
+                android:textSize="12sp"
+                android:paddingLeft="@dimen/y36"
+                android:inputType="numberDecimal|number"
+                android:hint="0.00USDT" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y90"
+                android:layout_height="@dimen/y80"
                 android:orientation="horizontal"
                 android:background="@color/common_white"
-                android:paddingLeft="@dimen/y26"
-                android:paddingRight="@dimen/y26"
+                android:paddingLeft="@dimen/y36"
+                android:paddingRight="@dimen/y36"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="资金密码"
-                    android:textColor="@color/color_666666"
-                    android:textSize="12sp" />
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/et_bineass_password"
@@ -274,87 +258,35 @@
                     android:textColor="@color/color_999999"
                     android:inputType="textPassword"
                     android:textSize="12sp"
-                    android:hint="请输入资金密码"
-                    android:layout_marginLeft="@dimen/y80"/>
+                    android:gravity="center"
+                    android:hint="请输入资金密码" />
 
                 <TextView
                     android:id="@+id/tv_forget_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="忘记密码?"
-                    android:textColor="@color/color_ff5100"
-                    android:textSize="10sp" />
+                    android:text="忘记密码"
+                    android:textColor="@color/color_526bfc"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
-            <include layout="@layout/line_f9"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y90"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/y26"
-                android:paddingRight="@dimen/y26"
-                android:gravity="center_vertical"
-                android:background="@color/common_white">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="到账数量"
-                    android:textSize="12sp"
-                    android:textColor="@color/color_666666"
-                    android:gravity="center" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/et_bi_daozhangnum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="0.0000"
-                    android:textSize="12sp"
-                    android:textColor="@color/color_ff5100"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" USDT"
-                    android:textSize="12sp"
-                    android:textColor="@color/color_ff5100"
-                    android:gravity="center" />
-
-            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="温馨提示\n最小提币数量为：100USDT，提币手续费为4USDT（内部地址免手续费）。"
+                android:textSize="12sp"
+                android:textColor="@color/color_666666"
+                android:lineSpacingExtra="@dimen/y6"
+                android:layout_marginLeft="@dimen/y36"
+                android:layout_marginRight="@dimen/y36"
+                android:layout_marginTop="@dimen/y40"/>
 
             <TextView
                 android:id="@+id/tv_queding"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/cl"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/y38"
-                android:text="确 认"
-                android:gravity="center"
-                android:textColor="@color/common_white"
-                android:textSize="14sp"
-                android:paddingBottom="@dimen/y10"/>
-
-            <include layout="@layout/a1"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="·最小提币数量为：200USDT，提币手续费为2USDT。\n·为保障资金安全，当您账户的安全策略变更、密码更改，我们会对提币进行人工审核。\n·请务必确认电脑及浏览器安全，防止信息被篡改或泄露。"
-                android:textSize="12sp"
-                android:textColor="@color/color_999999"
-                android:lineSpacingExtra="@dimen/y6"
-                android:layout_marginLeft="@dimen/y32"
-                android:layout_marginRight="@dimen/y32"
-                android:layout_marginTop="@dimen/y28"/>
+                style="@style/buttonstyle"
+                android:layout_marginTop="@dimen/y82"
+                android:text="提币" />
 
         </LinearLayout>
 

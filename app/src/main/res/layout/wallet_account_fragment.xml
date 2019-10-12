@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/white">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,13 +11,15 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@color/common_white"
-        android:paddingTop="@dimen/y18">
+        android:paddingTop="@dimen/y18"
+        android:paddingBottom="@dimen/y26"
+        android:paddingLeft="@dimen/y28"
+        android:paddingRight="@dimen/y28">
 
         <ImageView
             android:layout_width="@dimen/y30"
             android:layout_height="@dimen/y30"
-            android:src="@mipmap/db"
-            android:layout_marginLeft="@dimen/y28"/>
+            android:src="@mipmap/db" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,12 +27,141 @@
             android:text="USDT"
             android:textSize="14sp"
             android:textColor="@color/color_333333"
-            android:layout_marginLeft="@dimen/y20"/>
+            android:layout_marginLeft="@dimen/y22"/>
 
         <View
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/y1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可用："
+            android:textSize="10sp"
+            android:textColor="@color/color_666666" />
+
+        <TextView
+            android:id="@+id/tv_used_usdt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="0.00"
+            android:textSize="10sp"
+            android:textColor="@color/color_666666" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="丨"
+            android:textSize="10sp"
+            android:textColor="@color/color_666666" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="冻结："
+            android:textSize="10sp"
+            android:textColor="@color/color_666666" />
+
+        <TextView
+            android:id="@+id/tv_freed_usdt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="0.00"
+            android:textSize="10sp"
+            android:textColor="@color/color_666666" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/common_white"
+        android:paddingBottom="@dimen/y36"
+        android:paddingLeft="@dimen/y28"
+        android:paddingRight="@dimen/y28">
+
+        <LinearLayout
+            android:id="@+id/ll_chongbi"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/a8"
+            android:gravity="center"
+            android:paddingTop="@dimen/y16"
+            android:paddingBottom="@dimen/y16">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/dj"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="充币"
+                android:textSize="14sp"
+                android:textColor="@color/common_white"
+                android:layout_marginLeft="@dimen/y22"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_tibi"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/a8"
+            android:gravity="center"
+            android:paddingTop="@dimen/y16"
+            android:paddingBottom="@dimen/y16"
+            android:layout_marginLeft="@dimen/y36"
+            android:layout_marginRight="@dimen/y36">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/dk"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提币"
+                android:textSize="14sp"
+                android:textColor="@color/common_white"
+                android:layout_marginLeft="@dimen/y22"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_huazhuan"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/a9"
+            android:gravity="center"
+            android:paddingTop="@dimen/y16"
+            android:paddingBottom="@dimen/y16">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/dl"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="资金划转"
+                android:textSize="14sp"
+                android:textColor="@color/color_506ee6"
+                android:layout_marginLeft="@dimen/y22"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
