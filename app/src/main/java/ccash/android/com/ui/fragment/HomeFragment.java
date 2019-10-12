@@ -34,6 +34,7 @@ import ccash.android.com.presenter.BusinessContainerPresenter;
 import ccash.android.com.presenter.contract.BusinessContainerContract;
 import ccash.android.com.presenter.modle.BusinessContainerModle;
 import ccash.android.com.ui.activity.BulletinActivity;
+import ccash.android.com.ui.activity.ChongBiActivity;
 import ccash.android.com.ui.activity.MainActivity;
 import ccash.android.com.ui.activity.WebViewActivity;
 import ccash.android.com.ui.widget.KeFuPopupView;
@@ -49,6 +50,8 @@ public class HomeFragment extends BaseFragment implements BusinessContainerContr
     TextView tvGonggao;
     @BindView(R.id.iv_kefu)
     ImageView ivKefu;
+    @BindView(R.id.ll_chongbi)
+    LinearLayout llChongbi;
     private MainActivity mainActivity;
     private BusinessContainerPresenter presenter;
     private ArrayList<BulletinListItem> bulletinList;
@@ -103,7 +106,7 @@ public class HomeFragment extends BaseFragment implements BusinessContainerContr
         }, 500);
     }
 
-    @OnClick({R.id.ll_notry_click,R.id.iv_kefu})
+    @OnClick({R.id.ll_notry_click, R.id.iv_kefu,R.id.ll_chongbi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_notry_click:
@@ -115,6 +118,9 @@ public class HomeFragment extends BaseFragment implements BusinessContainerContr
                 new XPopup.Builder(mainActivity)
                         .hasStatusBarShadow(true) //启用状态栏阴影
                         .asCustom(new KeFuPopupView(mainActivity)).show();
+                break;
+            case R.id.ll_chongbi:
+                ChongBiActivity.startThis(mainActivity);
                 break;
         }
     }
