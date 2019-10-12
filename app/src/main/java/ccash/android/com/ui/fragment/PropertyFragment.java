@@ -148,7 +148,8 @@ public class PropertyFragment extends BaseFragment implements PropertyContract.V
             double walletFreezeNum = walletResponse.getWalletFreezeNum();
             double hotNum = walletResponse.getHotNum();
             double hotFreezeNum = walletResponse.getHotFreezeNum();
-
+            tvTotalMoney.setText((walletNum+walletFreezeNum+hotNum+hotFreezeNum)+"");
+            tvTotalMoneycny.setText((walletNum+walletFreezeNum+hotNum+hotFreezeNum)*minSellPrice+"");
         }
     }
 

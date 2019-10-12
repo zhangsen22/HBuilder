@@ -19,7 +19,7 @@ public class TradingAccountFragment extends BaseFragment{
 
     @Override
     protected int getRootView() {
-        return R.layout.wallet_account_fragment;
+        return R.layout.trading_account_fragment;
     }
 
     @Override

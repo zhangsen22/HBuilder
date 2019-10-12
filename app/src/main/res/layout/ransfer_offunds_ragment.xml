@@ -3,20 +3,131 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/color_f9f9f9">
-
-    <include layout="@layout/title"/>
-
-    <include layout="@layout/line_10_f9"/>
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y100"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/cy"
+        android:id="@+id/fl_title_comtent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y92">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/y92"
+                android:layout_height="@dimen/y92"
+                android:src="@mipmap/back"
+                android:padding="@dimen/y30"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/app_name"
+                android:layout_gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/common_white"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="钱包资产"
+            android:textSize="12sp"
+            android:textColor="@color/common_white"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/y10"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/y32">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="100.00"
+                android:textSize="16sp"
+                android:textColor="@color/common_white"
+                android:gravity="center"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/usdt"
+                android:textSize="12sp"
+                android:textColor="@color/common_white"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/y24"
+            android:layout_marginBottom="@dimen/y42">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="可用："
+                android:textSize="12sp"
+                android:textColor="@color/common_white"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="0.00"
+                android:textSize="12sp"
+                android:textColor="@color/common_white"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 丨 "
+                android:textSize="12sp"
+                android:textColor="@color/common_white"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="冻结："
+                android:textSize="12sp"
+                android:textColor="@color/common_white"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="0.00"
+                android:textSize="12sp"
+                android:textColor="@color/common_white"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80"
         android:orientation="horizontal"
         android:background="@color/common_white"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="@dimen/y30">
 
         <TextView
             android:id="@+id/tv_left"
@@ -24,13 +135,13 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             tools:text="我的钱包"
-            android:textSize="12sp"
-            android:textColor="@color/color_666666"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
             android:gravity="center"/>
 
         <ImageView
-            android:layout_width="@dimen/y56"
-            android:layout_height="@dimen/y56"
+            android:layout_width="@dimen/y36"
+            android:layout_height="@dimen/y30"
             android:src="@mipmap/ad"/>
 
         <TextView
@@ -39,8 +150,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             tools:text="交易账户"
-            android:textSize="12sp"
-            android:textColor="@color/color_666666"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
             android:gravity="center"/>
 
     </LinearLayout>
@@ -56,12 +167,12 @@
         android:paddingRight="@dimen/y38"
         android:gravity="center_vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="划转数量"
-        android:textColor="@color/color_666666"
-        android:textSize="12sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="划转数量"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"/>
 
         <EditText
             android:id="@+id/et_huazhuan_num"
@@ -83,7 +194,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="全部"
-            android:textColor="@color/color_ff5100"
+            android:textColor="@color/color_506ee6"
             android:textSize="12sp"/>
 
     </LinearLayout>
@@ -103,8 +214,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="资金密码"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp"/>
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"/>
 
         <EditText
             android:id="@+id/et_huazhuan_password"
@@ -123,62 +234,54 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/y20">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/y38"
-            android:paddingRight="@dimen/y38">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="最多可转："
-                android:textColor="@color/color_666666"
-                android:textSize="12sp"/>
-
-            <TextView
-                android:id="@+id/et_huazhuan_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="419.27"
-                android:textColor="@color/color_666666"
-                android:textSize="12sp"/>
-        </LinearLayout>
-
-       <include layout="@layout/a1"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/y38"
+        android:layout_marginTop="@dimen/y24">
 
         <TextView
-            android:id="@+id/tv_deteils"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/y38"
-            android:paddingRight="@dimen/y38"
-            android:layout_marginTop="@dimen/y30"
-            android:textSize="12sp"
-            android:textColor="@color/color_999999"
-            android:lineSpacingExtra="@dimen/y6"
-            tools:text="·请将资金划转到交易账户进行挂单和交易操作。\n·资金划转为内部资产转移不收取手续费。"/>
+            android:text="最多可转："
+            android:textColor="@color/color_666666"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/et_huazhuan_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="419.27"
+            android:textColor="@color/color_666666"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="温馨提示"
+        android:textColor="@color/color_666666"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/y66"
+        android:layout_marginLeft="@dimen/y38"/>
+
+    <TextView
+        android:id="@+id/tv_deteils"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/y38"
+        android:layout_marginRight="@dimen/y38"
+        android:layout_marginTop="@dimen/y40"
+        android:textSize="12sp"
+        android:textColor="@color/color_666666"
+        android:lineSpacingExtra="@dimen/y6"
+        tools:text="·请将资金划转到交易账户进行挂单和交易操作。\n·资金划转为内部资产转移不收取手续费。"/>
 
         <TextView
             android:id="@+id/tv_publish_zhuan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/cl"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y50"
-            android:text="确认划转"
-            android:gravity="center"
-            android:inputType="number|numberDecimal"
-            android:textColor="@color/common_white"
-            android:textSize="14sp"
-            android:paddingBottom="@dimen/y10"/>
-
-    </LinearLayout>
+            style="@style/buttonstyle"
+            android:layout_marginTop="@dimen/y80"
+            android:text="确认划转" />
 
 </LinearLayout>

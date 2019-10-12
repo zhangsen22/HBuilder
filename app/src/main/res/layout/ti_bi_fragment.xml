@@ -274,7 +274,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="温馨提示\n最小提币数量为：100USDT，提币手续费为4USDT（内部地址免手续费）。"
+                android:text="温馨提示\n最小提币数量为：100USDT，提币手续费为2USDT（内部地址免手续费）。"
                 android:textSize="12sp"
                 android:textColor="@color/color_666666"
                 android:lineSpacingExtra="@dimen/y6"

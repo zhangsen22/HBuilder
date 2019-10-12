@@ -7,8 +7,8 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.GsonUtil;
 import com.growalong.util.util.Md5Utils;
@@ -35,7 +35,7 @@ import ccash.android.com.util.ToastUtil;
 
 public class RansferOfFundsFragment extends BaseFragment implements RansferOfFundsContract.View {
     @BindView(R.id.fl_title_comtent)
-    FrameLayout flTitleComtent;
+    LinearLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -197,15 +197,15 @@ public class RansferOfFundsFragment extends BaseFragment implements RansferOfFun
             hotNum = walletResponse.getHotNum();
         }
         if (fromType == 1) {
-            tvLeft.setText("币币账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.usdt) + ")");
-            tvRight.setText("场外账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.bco) + ")");
+            tvLeft.setText("我的钱包" + "  (" + MyApplication.appContext.getResources().getString(R.string.usdt) + ")");
+            tvRight.setText("交易账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.bco) + ")");
             tvDeteils.setText(MyApplication.appContext.getResources().getString(R.string.text11));
             if (usdtPriceResponse != null) {
                 etHuazhuanMore.setText(new DecimalFormat("0.00").format(walletNum) + MyApplication.appContext.getResources().getString(R.string.usdt) + " ≈ " + new DecimalFormat("0.00").format(walletNum * usdtPriceResponse.getMinSellUsdtPrice()/usdtPriceResponse.getApiConvertLowerAmount()) + MyApplication.appContext.getResources().getString(R.string.bco));
             }
         } else if (fromType == 2) {
-            tvLeft.setText("场外账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.bco) + ")");
-            tvRight.setText("币币账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.usdt) + ")");
+            tvLeft.setText("交易账户" + "  (" + MyApplication.appContext.getResources().getString(R.string.bco) + ")");
+            tvRight.setText("我的钱包" + "  (" + MyApplication.appContext.getResources().getString(R.string.usdt) + ")");
             tvDeteils.setText(MyApplication.appContext.getResources().getString(R.string.text12));
             if (usdtPriceResponse != null) {
                 etHuazhuanMore.setText(new DecimalFormat("0.00").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.bco) + " ≈ " + new DecimalFormat("0.00").format(hotNum / usdtPriceResponse.getMinSellUsdtPrice()*usdtPriceResponse.getApiConvertLowerAmount()) + MyApplication.appContext.getResources().getString(R.string.usdt));
