@@ -52,6 +52,7 @@
             android:layout_marginTop="@dimen/y32">
 
             <TextView
+                android:id="@+id/iv_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="100.00"
@@ -86,6 +87,7 @@
                 android:gravity="center" />
 
             <TextView
+                android:id="@+id/iv_used"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="0.00"
@@ -110,6 +112,7 @@
                 android:gravity="center" />
 
             <TextView
+                android:id="@+id/iv_freed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="0.00"
