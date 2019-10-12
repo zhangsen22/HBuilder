@@ -143,13 +143,13 @@ public class PropertyFragment extends BaseFragment implements PropertyContract.V
     public void getInfoSuccess(WalletResponse walletResponse) {
         UsdtPriceResponse usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
         if (walletResponse != null && usdtPriceResponse != null) {
-            double minSellPrice = usdtPriceResponse.getMinSellUsdtPrice();
+            double minSellUsdtPrice = usdtPriceResponse.getMinSellUsdtPrice();
             double walletNum = walletResponse.getWalletNum();
             double walletFreezeNum = walletResponse.getWalletFreezeNum();
             double hotNum = walletResponse.getHotNum();
             double hotFreezeNum = walletResponse.getHotFreezeNum();
-            tvTotalMoney.setText((walletNum+walletFreezeNum+hotNum+hotFreezeNum)+"");
-            tvTotalMoneycny.setText((walletNum+walletFreezeNum+hotNum+hotFreezeNum)*minSellPrice+"");
+            tvTotalMoney.setText((walletNum+walletFreezeNum+((hotNum+hotFreezeNum)/minSellUsdtPrice))+"");
+            tvTotalMoneycny.setText(((walletNum+walletFreezeNum)*minSellUsdtPrice+hotNum+hotFreezeNum)+"");
         }
     }
 

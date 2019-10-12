@@ -1,6 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/common_white"
+        android:paddingTop="@dimen/y26"
+        android:paddingBottom="@dimen/y36"
+        android:paddingLeft="@dimen/y28"
+        android:paddingRight="@dimen/y28">
+
+        <ImageView
+            android:layout_width="@dimen/y50"
+            android:layout_height="@dimen/y50"
+            android:src="@mipmap/dm" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/y16">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bco"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_333333" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/y1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="≈"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_333333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="0.00"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_333333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cny"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_333333" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/y20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="可用："
+                    android:textSize="10sp"
+                    android:textColor="@color/color_666666" />
+
+                <TextView
+                    android:id="@+id/tv_used_usdt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="0.00"
+                    android:textSize="10sp"
+                    android:textColor="@color/color_666666" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="丨"
+                    android:textSize="10sp"
+                    android:textColor="@color/color_666666" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="冻结："
+                    android:textSize="10sp"
+                    android:textColor="@color/color_666666" />
+
+                <TextView
+                    android:id="@+id/tv_freed_usdt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="0.00"
+                    android:textSize="10sp"
+                    android:textColor="@color/color_666666" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/y1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1BCO≈1.00CNY"
+                    android:textSize="10sp"
+                    android:textColor="@color/color_666666" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/y28"
+        android:paddingRight="@dimen/y28"
+        android:paddingBottom="@dimen/y30"
+        android:background="@color/common_white">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/a8"
+            android:paddingTop="@dimen/y16"
+            android:paddingBottom="@dimen/y16"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/y38"
+                android:layout_height="@dimen/y38"
+                android:src="@mipmap/df"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="免费兑换BCO"
+                android:layout_marginLeft="@dimen/y20"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:singleLine="true"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_huazhuan"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/a9"
+            android:gravity="center"
+            android:paddingTop="@dimen/y16"
+            android:paddingBottom="@dimen/y16"
+            android:layout_marginLeft="@dimen/y58">
+
+            <ImageView
+                android:layout_width="@dimen/y38"
+                android:layout_height="@dimen/y38"
+                android:src="@mipmap/dl"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="资金划转"
+                android:textSize="14sp"
+                android:textColor="@color/color_506ee6"
+                android:layout_marginLeft="@dimen/y20"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/y14"
+        android:background="@color/common_white"
+        android:paddingLeft="@dimen/y28"
+        android:paddingRight="@dimen/y28"
+        android:paddingTop="@dimen/y30"
+        android:paddingBottom="@dimen/y18">
+
+        <CheckBox
+            android:layout_weight="1"
+            android:layout_height="@dimen/y52"
+            android:checked="true"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/a18"
+            android:layout_width="0dp"
+            android:text="交易奖励"
+            android:textSize="12sp"
+            android:textColor="@color/a2"/>
+
+        <CheckBox
+            android:layout_weight="1"
+            android:layout_height="@dimen/y52"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/a18"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/y18"
+            android:layout_marginRight="@dimen/y18"
+            android:text="推广分红"
+            android:textSize="12sp"
+            android:textColor="@color/a2"/>
+
+        <CheckBox
+            android:layout_weight="1"
+            android:layout_height="@dimen/y52"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/a18"
+            android:layout_width="0dp"
+            android:text="代理奖励"
+            android:textSize="12sp"
+            android:textColor="@color/a2"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>
