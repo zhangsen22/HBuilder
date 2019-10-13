@@ -77,7 +77,7 @@ public class BalancePassWordFragment extends BaseFragment implements BalancePass
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("设置资金密码");
+        tvTitle.setText("重置资金密码");
     }
 
     @Override
