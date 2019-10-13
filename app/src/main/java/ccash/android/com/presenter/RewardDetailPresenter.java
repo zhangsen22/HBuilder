@@ -1,6 +1,7 @@
 package ccash.android.com.presenter;
 
 import ccash.android.com.modle.RewardDetailResponse;
+import ccash.android.com.modle.RewardLogResponse;
 import ccash.android.com.net.retrofit.ModelResultObserver;
 import ccash.android.com.net.retrofit.exception.ModelException;
 import ccash.android.com.presenter.contract.RewardDetailContract;
@@ -17,6 +18,25 @@ public class RewardDetailPresenter implements RewardDetailContract.Presenter{
         mView = view;
         mModel = model;
         mView.setPresenter(this);
+    }
+
+    @Override
+    public void rewardLog() {
+//        mView.showLoading();
+        mModel.rewardLog().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ModelResultObserver<RewardLogResponse>() {
+                    @Override
+                    public void onSuccess(RewardLogResponse rewardLogResponse) {
+                        mView.rewardLogSuccess(rewardLogResponse);
+//                        mView.hideLoading();
+                    }
+
+                    @Override
+                    public void onFailure(ModelException ex) {
+                        super.onFailure(ex);
+//                        mView.hideLoading();
+                    }
+                });
     }
 
     @Override

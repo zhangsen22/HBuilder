@@ -13,6 +13,12 @@
         <item>委托买币</item>
     </string-array>
 
+    <string-array name="trading_title">
+        <item>交易奖励</item>
+        <item>推广分红</item>
+        <item>代理奖励</item>
+    </string-array>
+
     <string-array name="login_title">
         <item>登录</item>
         <item>注册</item>

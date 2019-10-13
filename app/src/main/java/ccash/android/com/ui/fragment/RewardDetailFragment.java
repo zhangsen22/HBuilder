@@ -7,10 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
+import com.growalong.util.util.GsonUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
@@ -18,7 +17,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
-import butterknife.OnClick;
 import ccash.android.com.BaseFragment;
 import ccash.android.com.MyApplication;
 import ccash.android.com.R;
@@ -26,49 +24,37 @@ import ccash.android.com.app.Constants;
 import ccash.android.com.modle.RewardDetailItem;
 import ccash.android.com.modle.RewardDetailResponse;
 import ccash.android.com.modle.RewardLogResponse;
+import ccash.android.com.modle.UsdtPriceResponse;
 import ccash.android.com.presenter.RewardDetailPresenter;
 import ccash.android.com.presenter.contract.RewardDetailContract;
-import ccash.android.com.ui.activity.RewardDetailActivity;
+import ccash.android.com.presenter.modle.RewardDetailModle;
+import ccash.android.com.ui.activity.MainActivity;
 import ccash.android.com.ui.adapter.RewardDetailAdapter;
 import ccash.android.com.ui.adapter.poweradapter.AdapterLoader;
 import ccash.android.com.ui.adapter.poweradapter.LoadMoreScrollListener;
 import ccash.android.com.ui.adapter.poweradapter.OnLoadMoreListener;
 import ccash.android.com.ui.adapter.poweradapter.PowerAdapter;
 import ccash.android.com.ui.adapter.poweradapter.PowerHolder;
+import ccash.android.com.util.SharedPreferencesUtils;
 
 /**
  * 1为交易奖励，2推广分红，3代理奖励，4挂单奖励
  */
 public class RewardDetailFragment extends BaseFragment implements RewardDetailContract.View, OnLoadMoreListener, PowerAdapter.OnEmptyClickListener, PowerAdapter.OnErrorClickListener, AdapterLoader.OnItemClickListener<RewardDetailItem> {
     private static final String TAG = RewardDetailFragment.class.getSimpleName();
-    @BindView(R.id.ll_title_comtent)
-    LinearLayout llTitleComtent;
-    @BindView(R.id.ll_title_comtent1)
-    LinearLayout llTitleComtent1;
     @BindView(R.id.tv_all_jiangli)
     TextView tvAllJiangli;
     @BindView(R.id.tv_last_jiangli)
     TextView tvLastJiangli;
     @BindView(R.id.reward_detailspull_refresh_recycler)
     PullToRefreshRecyclerView rewardDetailspullRefreshRecycler;
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.tv_reward_bottom_type1)
-    TextView tvRewardBottomType1;
-    @BindView(R.id.tv_reward_bottom_num1)
-    TextView tvRewardBottomNum1;
-    @BindView(R.id.tv_reward_bottom_type2)
-    TextView tvRewardBottomType2;
-    @BindView(R.id.tv_reward_bottom_num2)
-    TextView tvRewardBottomNum2;
-    @BindView(R.id.ll_reward_bottom_details)
-    LinearLayout llRewardBottomDetails;
+    @BindView(R.id.tv_last_jiangliusdt)
+    TextView tvLastJiangliusdt;
+    @BindView(R.id.tv_all_jiangliusdt)
+    TextView tvAllJiangliusdt;
     private RecyclerView mRecyclerView;
-    private RewardDetailActivity rewardDetailActivity;
+    private MainActivity mainActivity;
     private int fromType;
-    private RewardLogResponse mRewardLogResponse;
     private RewardDetailPresenter presenter;
     private RewardDetailAdapter rewardDetailAdapter;
     private Runnable refreshAction;
@@ -77,10 +63,9 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
     private static final int DEFAULT_TIME = 0;
     public List<Long> idList;
 
-    public static RewardDetailFragment newInstance(int fromType, RewardLogResponse rewardLogResponse) {
+    public static RewardDetailFragment newInstance(int fromType) {
         Bundle arguments = new Bundle();
         arguments.putInt("fromType", fromType);
-        arguments.putParcelable("rewardLogResponse", rewardLogResponse);
         RewardDetailFragment fragment = new RewardDetailFragment();
         fragment.setArguments(arguments);
         return fragment;
@@ -89,9 +74,8 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rewardDetailActivity = (RewardDetailActivity) getActivity();
+        mainActivity = (MainActivity) getActivity();
         fromType = getArguments().getInt("fromType");
-        mRewardLogResponse = getArguments().getParcelable("rewardLogResponse");
     }
 
     @Override
@@ -101,8 +85,6 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
 
     @Override
     protected void initView(View root) {
-        setRootViewPaddingTop(llTitleComtent);
-        setRootViewPaddingTop(llTitleComtent1);
         rewardDetailspullRefreshRecycler.setId(R.id.recycleView);
         rewardDetailspullRefreshRecycler.setHeaderLayout(new RecycleViewLoadingLayout(MyApplication.appContext));
         mRecyclerView = rewardDetailspullRefreshRecycler.getRefreshableView();
@@ -141,43 +123,46 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
     @Override
     public void lazyLoadData() {
         super.lazyLoadData();
-        mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
-        if (fromType > 0) {
-            if (fromType == 1) {
-                tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTradeReward()));
-                tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTradeReward()));
-                tvTitle.setText("交易奖励详细");
-                llRewardBottomDetails.setVisibility(View.GONE);
-            } else if (fromType == 2) {
-                tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTGReward()));
-                tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTGReward()));
-                tvTitle.setText("推广分红详细");
-                llRewardBottomDetails.setVisibility(View.VISIBLE);
-                tvRewardBottomType1.setText(MyApplication.appContext.getResources().getString(R.string.text1));
-                tvRewardBottomType2.setText(MyApplication.appContext.getResources().getString(R.string.text2));
-                tvRewardBottomNum1.setText(mRewardLogResponse.getFirstTG()+"");
-                tvRewardBottomNum2.setText(mRewardLogResponse.getSecondTG()+"");
-            } else if (fromType == 3) {
-                tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotAgentReward()));
-                tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastAgentReward()));
-                tvTitle.setText("代理奖励详细");
-                llRewardBottomDetails.setVisibility(View.VISIBLE);
-                tvRewardBottomType1.setText(MyApplication.appContext.getResources().getString(R.string.text3));
-                tvRewardBottomType2.setText(MyApplication.appContext.getResources().getString(R.string.text4));
-                tvRewardBottomNum1.setText(mRewardLogResponse.getFirstAgentTG()+"");
-                tvRewardBottomNum2.setText(mRewardLogResponse.getSecondAgentTG()+"");
-            } else if (fromType == 4) {
-                tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotBillReward()));
-                tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastBillReward()));
-                tvTitle.setText("挂单奖励详细");
-                llRewardBottomDetails.setVisibility(View.GONE);
+        //初始化presenter
+        new RewardDetailPresenter(this, new RewardDetailModle());
+        presenter.rewardLog();
+        MyApplication.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                mRecyclerView.postDelayed(refreshAction, DEFAULT_TIME);
             }
-        }
+        }, 1000);
     }
 
-    @OnClick(R.id.iv_back)
-    public void onViewClicked() {
-        rewardDetailActivity.finish();
+    @Override
+    public void rewardLogSuccess(RewardLogResponse mRewardLogResponse) {
+        UsdtPriceResponse usdtPriceResponse = GsonUtil.getInstance().getServerBean(SharedPreferencesUtils.getString(Constants.USDTPRICE), UsdtPriceResponse.class);
+        if (mRewardLogResponse != null && usdtPriceResponse != null) {
+            double minSellUsdtPrice = usdtPriceResponse.getMinSellUsdtPrice();
+            if (fromType > 0) {
+                if (fromType == 1) {
+                    tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTradeReward()));
+                    tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTradeReward()));
+                    tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTradeReward()/minSellUsdtPrice));
+                    tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTradeReward()/minSellUsdtPrice));
+                } else if (fromType == 2) {
+                    tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTGReward()));
+                    tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTGReward()));
+                    tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTGReward()/minSellUsdtPrice));
+                    tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTGReward()/minSellUsdtPrice));
+                } else if (fromType == 3) {
+                    tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotAgentReward()));
+                    tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastAgentReward()));
+                    tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastAgentReward()/minSellUsdtPrice));
+                    tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotAgentReward()/minSellUsdtPrice));
+                } else if (fromType == 4) {
+                    tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotBillReward()));
+                    tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastBillReward()));
+                    tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastBillReward()/minSellUsdtPrice));
+                    tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotBillReward()/minSellUsdtPrice));
+                }
+            }
+        }
     }
 
     @Override
@@ -185,9 +170,9 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
         List<RewardDetailItem> details = rewardDetailResponse.getDetails();
         if (details != null && details.size() > 0) {
             reverseIdList(details);
-            if(details.size() <= Constants.RECYCLEVIEW_TOTALCOUNT){
+            if (details.size() <= Constants.RECYCLEVIEW_TOTALCOUNT) {
                 rewardDetailAdapter.setTotalCount(details.size());
-            }else {
+            } else {
                 rewardDetailAdapter.setTotalCount(Integer.MAX_VALUE);
             }
             rewardDetailAdapter.setList(details);
@@ -228,7 +213,7 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
             return;
         }
         RewardDetailItem buyItem = billInfo.get(billInfo.size() - 1);
-        if(buyItem != null && buyItem.getId() > 0) {
+        if (buyItem != null && buyItem.getId() > 0) {
             idList.add(buyItem.getId());
         }
     }
