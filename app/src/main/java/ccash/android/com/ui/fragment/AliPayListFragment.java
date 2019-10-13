@@ -86,7 +86,7 @@ public class AliPayListFragment extends BaseFragment implements AliPayListContra
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("支付宝收款设置");
+        tvTitle.setText("支付宝账号设置");
         alipayPullRefreshRecycler.setId(R.id.recycleView);
         alipayPullRefreshRecycler.setHeaderLayout(new RecycleViewLoadingLayout(MyApplication.appContext));
         mRecyclerView = alipayPullRefreshRecycler.getRefreshableView();

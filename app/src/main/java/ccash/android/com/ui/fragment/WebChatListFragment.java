@@ -86,7 +86,7 @@ public class WebChatListFragment extends BaseFragment implements WebChatListCont
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("微信收款设置");
+        tvTitle.setText("微信账号设置");
         webchatPullRefreshRecycler.setId(R.id.recycleView);
         webchatPullRefreshRecycler.setHeaderLayout(new RecycleViewLoadingLayout(MyApplication.appContext));
         mRecyclerView = webchatPullRefreshRecycler.getRefreshableView();

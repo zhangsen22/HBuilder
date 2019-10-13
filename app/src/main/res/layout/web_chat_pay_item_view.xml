@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:text="重绑"
             android:textSize="12sp"
-            android:textColor="@color/color_ff5100"
+            android:textColor="@color/color_15be5b"
             android:layout_marginLeft="@dimen/y20"
             android:visibility="gone"/>
 
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:text="重新登陆"
             android:textSize="12sp"
-            android:textColor="@color/color_ff5100"
+            android:textColor="@color/color_15be5b"
             android:layout_marginLeft="@dimen/y20"
             android:visibility="gone"/>
 
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:text="删除"
             android:textSize="12sp"
-            android:textColor="@color/color_ff5100"
+            android:textColor="@color/color_15be5b"
             android:layout_marginLeft="@dimen/y20"/>
 
     </LinearLayout>

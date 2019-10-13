@@ -87,7 +87,7 @@ public class IdCastPayListFragment extends BaseFragment implements IdCastPayList
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("银行卡收款设置");
+        tvTitle.setText("银行卡账号设置");
         idcastpayPullRefreshRecycler.setId(R.id.recycleView);
         idcastpayPullRefreshRecycler.setHeaderLayout(new RecycleViewLoadingLayout(MyApplication.appContext));
         mRecyclerView = idcastpayPullRefreshRecycler.getRefreshableView();

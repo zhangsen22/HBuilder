@@ -20,9 +20,7 @@ import ccash.android.com.app.AccountManager;
 import ccash.android.com.ui.activity.AddMakeStyleActivity;
 import ccash.android.com.ui.activity.AliPayListActivity;
 import ccash.android.com.ui.activity.IdCastPayListActivity;
-import ccash.android.com.ui.activity.LaCaraListActivity;
 import ccash.android.com.ui.activity.WebChatListActivity;
-import ccash.android.com.ui.activity.YunShanFuListActivity;
 
 public class AddMakeStyleFragment extends BaseFragment {
     private static final String TAG = AddMakeStyleFragment.class.getSimpleName();
@@ -44,14 +42,14 @@ public class AddMakeStyleFragment extends BaseFragment {
     LinearLayout llWebchatClick;
     @BindView(R.id.fl_title_comtent)
     FrameLayout flTitleComtent;
-    @BindView(R.id.tv_yunshanfu)
-    TextView tvYunshanfu;
-    @BindView(R.id.ll_yunshanfu_click)
-    LinearLayout llYunshanfuClick;
-    @BindView(R.id.tv_lacara)
-    TextView tvLacara;
-    @BindView(R.id.ll_lacara_click)
-    LinearLayout llLacaraClick;
+//    @BindView(R.id.tv_yunshanfu)
+//    TextView tvYunshanfu;
+//    @BindView(R.id.ll_yunshanfu_click)
+//    LinearLayout llYunshanfuClick;
+//    @BindView(R.id.tv_lacara)
+//    TextView tvLacara;
+//    @BindView(R.id.ll_lacara_click)
+//    LinearLayout llLacaraClick;
     private AddMakeStyleActivity addMakeStyleActivity;
 
     public static AddMakeStyleFragment newInstance(@Nullable String taskId) {
@@ -83,7 +81,7 @@ public class AddMakeStyleFragment extends BaseFragment {
         GALogger.d(TAG, "lazyLoadData  ........");
     }
 
-    @OnClick({R.id.iv_back, R.id.ll_alipay_click, R.id.ll_ylcard_click, R.id.ll_webchat_click, R.id.ll_yunshanfu_click,R.id.ll_lacara_click})
+    @OnClick({R.id.iv_back, R.id.ll_alipay_click, R.id.ll_ylcard_click, R.id.ll_webchat_click})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -126,40 +124,40 @@ public class AddMakeStyleFragment extends BaseFragment {
             case R.id.ll_webchat_click:
                 WebChatListActivity.startThis(addMakeStyleActivity);
                 break;
-            case R.id.ll_yunshanfu_click:
-                YunShanFuListActivity.startThis(addMakeStyleActivity);
-                break;
-            case R.id.ll_lacara_click:
-                if (!AccountManager.getInstance().isHaveWechatPayee()) {
-                        //带确认和取消按钮的弹窗
-                    new XPopup.Builder(getContext())
-                        //                         .dismissOnTouchOutside(false)
-                            // 设置弹窗显示和隐藏的回调监听
-                        //                         .autoDismiss(false)
-                        //                        .popupAnimation(PopupAnimation.NoAnimation)
-                            .setPopupCallback(new XPopupCallback() {
-                                @Override
-                                public void onShow() {
-                                    Log.e("tag", "onShow");
-                                }
-
-                                @Override
-                                public void onDismiss() {
-                                    Log.e("tag", "onDismiss");
-                                }
-                            }).asConfirm("请先绑定微信收款方式", "",
-                            "取消", "确定",
-                            new OnConfirmListener() {
-                                @Override
-                                public void onConfirm() {
-                                    WebChatListActivity.startThis(addMakeStyleActivity);
-                                }
-                            }, null, false)
-                            .show();
-                }else {
-                    LaCaraListActivity.startThis(addMakeStyleActivity);
-                }
-                break;
+//            case R.id.ll_yunshanfu_click:
+//                YunShanFuListActivity.startThis(addMakeStyleActivity);
+//                break;
+//            case R.id.ll_lacara_click:
+//                if (!AccountManager.getInstance().isHaveWechatPayee()) {
+//                        //带确认和取消按钮的弹窗
+//                    new XPopup.Builder(getContext())
+//                        //                         .dismissOnTouchOutside(false)
+//                            // 设置弹窗显示和隐藏的回调监听
+//                        //                         .autoDismiss(false)
+//                        //                        .popupAnimation(PopupAnimation.NoAnimation)
+//                            .setPopupCallback(new XPopupCallback() {
+//                                @Override
+//                                public void onShow() {
+//                                    Log.e("tag", "onShow");
+//                                }
+//
+//                                @Override
+//                                public void onDismiss() {
+//                                    Log.e("tag", "onDismiss");
+//                                }
+//                            }).asConfirm("请先绑定微信收款方式", "",
+//                            "取消", "确定",
+//                            new OnConfirmListener() {
+//                                @Override
+//                                public void onConfirm() {
+//                                    WebChatListActivity.startThis(addMakeStyleActivity);
+//                                }
+//                            }, null, false)
+//                            .show();
+//                }else {
+//                    LaCaraListActivity.startThis(addMakeStyleActivity);
+//                }
+//                break;
         }
     }
 
@@ -182,16 +180,16 @@ public class AddMakeStyleFragment extends BaseFragment {
         } else {
             tvWebchat.setText("未绑定");
         }
-        if (AccountManager.getInstance().isHaveCloudPayee()) {
-            tvYunshanfu.setText("已绑定");
-        } else {
-            tvYunshanfu.setText("未绑定");
-        }
-        if (AccountManager.getInstance().isHaveLakalaPayee()) {
-            tvLacara.setText("已绑定");
-        } else {
-            tvLacara.setText("未绑定");
-        }
+//        if (AccountManager.getInstance().isHaveCloudPayee()) {
+//            tvYunshanfu.setText("已绑定");
+//        } else {
+//            tvYunshanfu.setText("未绑定");
+//        }
+//        if (AccountManager.getInstance().isHaveLakalaPayee()) {
+//            tvLacara.setText("已绑定");
+//        } else {
+//            tvLacara.setText("未绑定");
+//        }
         GALogger.d(TAG, "onResume  ........");
     }
 }
