@@ -12,14 +12,11 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.growalong.util.util.BitmapUtils;
 import com.growalong.util.util.DateUtil;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.ImageUtil;
-
 import java.io.File;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.finalteam.rxgalleryfinal.RxGalleryFinal;
@@ -98,7 +95,7 @@ public class IdentityFragment extends BaseFragment implements IdentityContract.V
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("身份认证");
+        tvTitle.setText("身份验证");
         identityCbMan.setOnCheckedChangeListener(this);
         identityCbWoman.setOnCheckedChangeListener(this);
     }

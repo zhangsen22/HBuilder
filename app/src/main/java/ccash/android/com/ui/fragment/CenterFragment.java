@@ -2,17 +2,14 @@ package ccash.android.com.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.PackageUtil;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
-import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 import com.lxj.xpopup.interfaces.XPopupCallback;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,17 +25,13 @@ import ccash.android.com.ui.activity.AddMakeStyleActivity;
 import ccash.android.com.ui.activity.IdentityActivity;
 import ccash.android.com.ui.activity.LoginAndRegistActivity;
 import ccash.android.com.ui.activity.MainActivity;
-import ccash.android.com.ui.activity.MessageCenterActivity;
 import ccash.android.com.ui.activity.RecommendToFriendsActivity;
 import ccash.android.com.ui.activity.SecurityCenterActivity;
-import ccash.android.com.util.ToastUtil;
 
 public class CenterFragment extends BaseFragment implements CenterContract.View {
     private static final String TAG = CenterFragment.class.getSimpleName();
     @BindView(R.id.tv_username)
     TextView tvUsername;
-    @BindView(R.id.iv_edit)
-    ImageView ivEdit;
     @BindView(R.id.tv_account)
     TextView tvAccount;
     @BindView(R.id.ll_center_anquan)
@@ -93,28 +86,9 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
         initUserInfo();
     }
 
-    @OnClick({R.id.iv_edit, R.id.ll_center_anquan, R.id.ll_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.tv_logout})
+    @OnClick({R.id.ll_center_anquan, R.id.ll_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.tv_logout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_edit:
-                new XPopup.Builder(getContext())
-                        .dismissOnBackPressed(false)
-                        .dismissOnTouchOutside(false)
-                        .autoOpenSoftInput(true)
-//                        .moveUpToKeyboard(false) //是否移动到软键盘上面，默认为true
-                        .asInputConfirm("请输入要修改的昵称", "", "昵称", false,
-                                new OnInputConfirmListener() {
-                                    @Override
-                                    public void onConfirm(String text) {
-                                        if (!TextUtils.isEmpty(text)) {
-                                            presenter.changeNickname(text);
-                                        } else {
-                                            ToastUtil.shortShow("请输入要修改的昵称");
-                                        }
-                                    }
-                                })
-                        .show();
-                break;
             case R.id.ll_center_anquan:
                 SecurityCenterActivity.startThis(mainActivity);
                 break;
