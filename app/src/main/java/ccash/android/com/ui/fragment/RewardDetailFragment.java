@@ -7,16 +7,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.GsonUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.handmark.pulltorefresh.library.internal.RecycleViewLoadingLayout;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import ccash.android.com.BaseFragment;
 import ccash.android.com.MyApplication;
 import ccash.android.com.R;
@@ -52,6 +58,8 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
     TextView tvLastJiangliusdt;
     @BindView(R.id.tv_all_jiangliusdt)
     TextView tvAllJiangliusdt;
+    @BindView(R.id.tv_details)
+    TextView tvDetails;
     private RecyclerView mRecyclerView;
     private MainActivity mainActivity;
     private int fromType;
@@ -143,23 +151,26 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
                 if (fromType == 1) {
                     tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTradeReward()));
                     tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTradeReward()));
-                    tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTradeReward()/minSellUsdtPrice));
-                    tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTradeReward()/minSellUsdtPrice));
+                    tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTradeReward() / minSellUsdtPrice));
+                    tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTradeReward() / minSellUsdtPrice));
+                    tvDetails.setText("奖励明细");
                 } else if (fromType == 2) {
                     tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTGReward()));
                     tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTGReward()));
-                    tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTGReward()/minSellUsdtPrice));
-                    tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTGReward()/minSellUsdtPrice));
+                    tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastTGReward() / minSellUsdtPrice));
+                    tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotTGReward() / minSellUsdtPrice));
+                    tvDetails.setText("分红明细");
                 } else if (fromType == 3) {
                     tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotAgentReward()));
                     tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastAgentReward()));
-                    tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastAgentReward()/minSellUsdtPrice));
-                    tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotAgentReward()/minSellUsdtPrice));
+                    tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastAgentReward() / minSellUsdtPrice));
+                    tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotAgentReward() / minSellUsdtPrice));
+                    tvDetails.setText("奖励明细");
                 } else if (fromType == 4) {
                     tvAllJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotBillReward()));
                     tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastBillReward()));
-                    tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastBillReward()/minSellUsdtPrice));
-                    tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotBillReward()/minSellUsdtPrice));
+                    tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastBillReward() / minSellUsdtPrice));
+                    tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotBillReward() / minSellUsdtPrice));
                 }
             }
         }
