@@ -148,6 +148,7 @@
     <include layout="@layout/line_f9"/>
 
     <LinearLayout
+        android:id="@+id/ll_add_sk_type"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y90"
         android:orientation="horizontal"
@@ -366,55 +367,6 @@
             android:layout_width="@dimen/y12"
             android:layout_height="@dimen/y20"
             android:src="@mipmap/y"/>
-
-    </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <LinearLayout
-            android:id="@+id/ll_add_sk_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="@dimen/y72"
-                android:layout_height="@dimen/y82"
-                android:src="@mipmap/as"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text25"
-                android:textSize="13sp"
-                android:textColor="@color/color_666666"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/y28"/>
 
     </LinearLayout>
 

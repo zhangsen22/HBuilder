@@ -3,37 +3,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/color_f9f9f9">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <include layout="@layout/title"/>
 
-    <include layout="@layout/line_f9"/>
-
     <LinearLayout
-        android:id="@+id/ll_alipay_click"
+        android:id="@+id/ll_nickname_click"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y100"
+        android:layout_height="@dimen/y90"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/y40"
-        android:paddingRight="@dimen/y40"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
         android:gravity="center_vertical"
-        android:background="@color/common_white">
+        android:background="@color/common_white"
+        android:layout_marginTop="@dimen/y20">
 
         <ImageView
-            android:layout_width="@dimen/y34"
-            android:layout_height="@dimen/y34"
-            android:src="@mipmap/g"/>
+            android:layout_width="@dimen/y44"
+            android:layout_height="@dimen/y44"
+            android:src="@mipmap/ds"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="支付宝"
-            android:textSize="12sp"
-            android:textColor="@color/color_666666"
+            android:text="昵称"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
             android:gravity="center"
-            android:layout_marginLeft="@dimen/y30"/>
+            android:layout_marginLeft="@dimen/y16"/>
 
         <View
             android:layout_width="0dp"
@@ -41,14 +39,52 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tv_alipay"
+            android:id="@+id/tv_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="未绑定"
+            tools:text="飞鹰1"
             android:textSize="12sp"
             android:textColor="@color/color_999999"
             android:gravity="center"
-            android:layout_marginRight="@dimen/y20"/>
+            android:layout_marginRight="@dimen/y28"/>
+
+        <ImageView
+            android:layout_width="@dimen/y12"
+            android:layout_height="@dimen/y20"
+            android:src="@mipmap/y"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/line_f9"/>
+
+    <LinearLayout
+        android:id="@+id/ll_alipay_click"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y90"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:gravity="center_vertical"
+        android:background="@color/common_white">
+
+        <ImageView
+            android:layout_width="@dimen/y44"
+            android:layout_height="@dimen/y44"
+            android:src="@mipmap/dt"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付宝设置"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/y16"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
 
         <ImageView
             android:layout_width="@dimen/y12"
@@ -62,41 +98,31 @@
     <LinearLayout
         android:id="@+id/ll_ylcard_click"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y100"
+        android:layout_height="@dimen/y90"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/y40"
-        android:paddingRight="@dimen/y40"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
         android:gravity="center_vertical"
         android:background="@color/common_white">
 
         <ImageView
-            android:layout_width="@dimen/y34"
-            android:layout_height="@dimen/y34"
-            android:src="@mipmap/f"/>
+            android:layout_width="@dimen/y44"
+            android:layout_height="@dimen/y44"
+            android:src="@mipmap/du"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="银行卡"
-            android:textSize="12sp"
-            android:textColor="@color/color_666666"
+            android:text="银行卡设置"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
             android:gravity="center"
-            android:layout_marginLeft="@dimen/y30"/>
+            android:layout_marginLeft="@dimen/y16"/>
 
         <View
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_ylcard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="未绑定"
-            android:textSize="12sp"
-            android:textColor="@color/color_999999"
-            android:gravity="center"
-            android:layout_marginRight="@dimen/y20"/>
 
         <ImageView
             android:layout_width="@dimen/y12"
@@ -110,41 +136,31 @@
     <LinearLayout
         android:id="@+id/ll_webchat_click"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y100"
+        android:layout_height="@dimen/y90"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/y40"
-        android:paddingRight="@dimen/y40"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
         android:gravity="center_vertical"
         android:background="@color/common_white">
 
         <ImageView
-            android:layout_width="@dimen/y34"
-            android:layout_height="@dimen/y34"
-            android:src="@mipmap/h"/>
+            android:layout_width="@dimen/y44"
+            android:layout_height="@dimen/y44"
+            android:src="@mipmap/dv"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="微信"
-            android:textSize="12sp"
-            android:textColor="@color/color_666666"
+            android:text="微信设置"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
             android:gravity="center"
-            android:layout_marginLeft="@dimen/y30"/>
+            android:layout_marginLeft="@dimen/y16"/>
 
         <View
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_webchat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="未绑定"
-            android:textSize="12sp"
-            android:textColor="@color/color_999999"
-            android:gravity="center"
-            android:layout_marginRight="@dimen/y20"/>
 
         <ImageView
             android:layout_width="@dimen/y12"
@@ -153,141 +169,191 @@
 
     </LinearLayout>
 
-    <!--<include layout="@layout/line_f9"/>-->
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/ll_yunshanfu_click"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/y100"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:paddingLeft="@dimen/y40"-->
-        <!--android:paddingRight="@dimen/y40"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:background="@color/common_white">-->
-
-        <!--<ImageView-->
-            <!--android:layout_width="@dimen/y34"-->
-            <!--android:layout_height="@dimen/y34"-->
-            <!--android:src="@mipmap/af"/>-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="云闪付"-->
-            <!--android:textSize="12sp"-->
-            <!--android:textColor="@color/color_666666"-->
-            <!--android:gravity="center"-->
-            <!--android:layout_marginLeft="@dimen/y30"/>-->
-
-        <!--<View-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_height="wrap_content"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/tv_yunshanfu"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="未绑定"-->
-            <!--android:textSize="12sp"-->
-            <!--android:textColor="@color/color_999999"-->
-            <!--android:gravity="center"-->
-            <!--android:layout_marginRight="@dimen/y20"/>-->
-
-        <!--<ImageView-->
-            <!--android:layout_width="@dimen/y12"-->
-            <!--android:layout_height="@dimen/y20"-->
-            <!--android:src="@mipmap/y"/>-->
-
-    <!--</LinearLayout>-->
-
-    <!--<include layout="@layout/line_f9"/>-->
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/ll_lacara_click"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/y100"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:paddingLeft="@dimen/y40"-->
-        <!--android:paddingRight="@dimen/y40"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:background="@color/common_white">-->
-
-        <!--<ImageView-->
-            <!--android:layout_width="@dimen/y34"-->
-            <!--android:layout_height="@dimen/y34"-->
-            <!--android:src="@mipmap/ao"/>-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="拉卡拉"-->
-            <!--android:textSize="12sp"-->
-            <!--android:textColor="@color/color_666666"-->
-            <!--android:gravity="center"-->
-            <!--android:layout_marginLeft="@dimen/y30"/>-->
-
-        <!--<View-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_height="wrap_content"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/tv_lacara"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="未绑定"-->
-            <!--android:textSize="12sp"-->
-            <!--android:textColor="@color/color_999999"-->
-            <!--android:gravity="center"-->
-            <!--android:layout_marginRight="@dimen/y20"/>-->
-
-        <!--<ImageView-->
-            <!--android:layout_width="@dimen/y12"-->
-            <!--android:layout_height="@dimen/y20"-->
-            <!--android:src="@mipmap/y"/>-->
-
-    <!--</LinearLayout>-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/y48">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/y1"
-            android:background="@mipmap/l"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="温馨提示"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp"
-            android:layout_marginLeft="@dimen/y18"
-            android:layout_marginRight="@dimen/y18"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/y1"
-            android:background="@mipmap/l"/>
-
-    </LinearLayout>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/y38"
-        android:paddingRight="@dimen/y38"
-        android:layout_marginTop="@dimen/y30"
-        android:textSize="10sp"
+        android:text="温馨提示"
         android:textColor="@color/color_666666"
-        android:lineSpacingExtra="@dimen/y10"
-        android:text="@string/text13"/>
+        android:textSize="12sp"
+        android:layout_marginLeft="@dimen/y30"
+        android:layout_marginTop="@dimen/y76"/>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:paddingLeft="@dimen/y30"
+       android:paddingRight="@dimen/y30"
+       android:layout_marginTop="@dimen/y22">
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="• 被激活的收款方式将在交易时向买方展示，单一支付方式至多"
+           android:textColor="@color/color_666666"
+           android:textSize="12sp" />
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginTop="@dimen/y6">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="激活1种"
+               android:textColor="@color/color_ff0000"
+               android:textSize="12sp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="，银行卡至多"
+               android:textColor="@color/color_666666"
+               android:textSize="12sp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="添加10张"
+               android:textColor="@color/color_ff0000"
+               android:textSize="12sp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="，支付宝及微信"
+               android:textColor="@color/color_666666"
+               android:textSize="12sp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="不限制"
+               android:textColor="@color/color_ff0000"
+               android:textSize="12sp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="。"
+               android:textColor="@color/color_666666"
+               android:textSize="12sp" />
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginTop="@dimen/y6">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="• 支付宝、银行卡、微信支付，至少"
+               android:textColor="@color/color_666666"
+               android:textSize="12sp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="设置一种交易方式"
+               android:textColor="@color/color_ff0000"
+               android:textSize="12sp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="，才能进"
+               android:textColor="@color/color_666666"
+               android:textSize="12sp" />
+
+       </LinearLayout>
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="行法币交易。"
+           android:textColor="@color/color_666666"
+           android:textSize="12sp"
+           android:layout_marginTop="@dimen/y6"/>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginTop="@dimen/y6">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="• 为确保正常收款，规避风险，默认收款"
+               android:textColor="@color/color_666666"
+               android:textSize="12sp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="限额1000.000"
+               android:textColor="@color/color_ff0000"
+               android:textSize="12sp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="，支付"
+               android:textColor="@color/color_666666"
+               android:textSize="12sp" />
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginTop="@dimen/y6">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="宝收款笔数"
+               android:textColor="@color/color_666666"
+               android:textSize="12sp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="限制100笔"
+               android:textColor="@color/color_ff0000"
+               android:textSize="12sp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text=" ，银行卡可进行当日收款额度设置，当"
+               android:textColor="@color/color_666666"
+               android:textSize="12sp" />
+
+       </LinearLayout>
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="日收款额度或次数超出限制时，继续使用会导致收款失败几率"
+           android:textColor="@color/color_666666"
+           android:textSize="12sp"
+           android:layout_marginTop="@dimen/y6"/>
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="增加。"
+           android:textColor="@color/color_666666"
+           android:textSize="12sp"
+           android:layout_marginTop="@dimen/y6"/>
+
+   </LinearLayout>
 
 </LinearLayout>
