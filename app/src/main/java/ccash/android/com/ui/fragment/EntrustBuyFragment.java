@@ -24,7 +24,6 @@ import ccash.android.com.presenter.contract.EntrustBuyContract;
 import ccash.android.com.presenter.modle.EntrustBuyModle;
 import ccash.android.com.ui.activity.BalancePassWordActivity;
 import ccash.android.com.ui.activity.GuaDanActivity;
-import ccash.android.com.ui.activity.MainActivity;
 import ccash.android.com.util.SharedPreferencesUtils;
 import ccash.android.com.util.ToastUtil;
 
@@ -44,9 +43,10 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
     TextView tvBuyPublish;
     @BindView(R.id.tv_buy_cankaojia)
     TextView tvBuyCanKaoJia;
+    @BindView(R.id.tv_cankao)
+    TextView tvCanKao;
     private double minBuyPrice;
     private double maxBuyPrice;
-
     private EntrustBuyPresenter entrustBuyPresenter;
     private GuaDanActivity guaDanActivity;
 
@@ -75,6 +75,7 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
             minBuyPrice = usdtPriceResponse.getMinBuyPrice();
             maxBuyPrice = usdtPriceResponse.getMaxBuyPrice();
             etBusinessBuyPrice.setHint("交易价格请限于"+new DecimalFormat("0.000").format(minBuyPrice)+" ~ "+new DecimalFormat("0.000").format(maxBuyPrice));
+            tvCanKao.setText(new DecimalFormat("0.000").format(minBuyPrice) + " ~ " + new DecimalFormat("0.000").format(maxBuyPrice));
         }
     }
 

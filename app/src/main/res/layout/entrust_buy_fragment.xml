@@ -1,147 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24"
+        android:paddingTop="@dimen/y28"
+        android:paddingBottom="@dimen/y26"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="交易保证金"
+            android:textColor="@color/color_666666"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_user_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="3.00"
+            android:textColor="@color/color_ff0000"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bco"
+            android:textColor="@color/color_666666"
+            android:textSize="10sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/y1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前盘口价格：1.000CNY"
+            android:textColor="@color/color_666666"
+            android:textSize="10sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y90"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:background="@color/common_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择币种"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bco"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_marginLeft="@dimen/y52"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/y1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/y" />
+
+    </LinearLayout>
+
+    <include layout="@layout/line_f9"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y90"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:background="@color/common_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="交易类型"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="固定价格"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_marginLeft="@dimen/y52"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/y1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/y" />
+
+    </LinearLayout>
+
+    <include layout="@layout/line_f9"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y90"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
         android:background="@color/common_white">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="交易价格"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp"/>
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"/>
 
         <EditText
             android:id="@+id/et_business_buy_price"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            tools:text=""
             android:layout_marginLeft="@dimen/y80"
             android:textCursorDrawable="@drawable/my_cursor"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:inputType="number|numberDecimal"
-            tools:hint="交易价格请限于6.98 ~ 7.02之间" />
+            tools:hint="请限于1.000~1.01之间" />
 
         <TextView
             android:id="@+id/tv_buy_cankaojia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="参考价"
-            android:textColor="@color/color_1a72fb"
-            android:textSize="12sp"
-            android:visibility="gone"
-            android:layout_marginLeft="@dimen/y22"/>
+            android:textColor="@color/color_526bfc"
+            android:textSize="10sp" />
 
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y42"
-        android:text="交易数额"
-        android:textColor="@color/color_999999"
-        android:textSize="12sp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/y24"
-        android:background="@color/color_f9f9f9"/>
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/y12"
+        android:paddingBottom="@dimen/y12">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="交易数额"
+            android:textColor="@color/color_666666"
+            android:textSize="12sp"
+            android:gravity="center_vertical" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/y1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="推荐参考前价格区间："
+            android:textColor="@color/color_ff0000"
+            android:textSize="10sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tv_cankao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1.000~1.001"
+            android:textColor="@color/color_ff0000"
+            android:textSize="10sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="之间"
+            android:textColor="@color/color_ff0000"
+            android:textSize="10sp"
+            android:gravity="center_vertical" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
+        android:layout_height="@dimen/y90"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
         android:background="@color/common_white">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="最小数量(CAS)"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp" />
+            android:text="最小数量"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/et_expect_buy_minnum"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textCursorDrawable="@drawable/my_cursor"
-            android:maxLines="1"
-            android:textColorHint="@color/color_999999"
-            android:textColor="@color/color_999999"
-            android:textSize="12sp"
-            android:inputType="number"
-            android:hint="请输入您预想的最小购买数量"
-            android:layout_marginLeft="@dimen/y26"/>
-
-    </LinearLayout>
-
-    <include layout="@layout/line_f9"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24"
-        android:background="@color/common_white">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="最大数量(CAS)"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp" />
-
-        <EditText
-            android:id="@+id/et_expect_buy_maxnum"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textCursorDrawable="@drawable/my_cursor"
-            android:maxLines="1"
-            android:textColorHint="@color/color_999999"
-            android:textColor="@color/color_999999"
-            android:inputType="number"
-            android:textSize="12sp"
-            android:hint="至少挂单1400 CAS"
-            android:layout_marginLeft="@dimen/y26"/>
-
-    </LinearLayout>
-
-    <include layout="@layout/line_f9"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24"
-        android:background="@color/common_white">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="资金密码"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp" />
-
-        <EditText
-            android:id="@+id/et_monery_buy_password"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -149,54 +242,127 @@
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
-            android:inputType="textPassword"
-            android:textSize="12sp"
-            android:hint="请输入资金密码"
-            android:layout_marginLeft="@dimen/y82"
-            android:layout_marginRight="@dimen/y38"/>
+            android:textSize="10sp"
+            android:inputType="number"
+            android:hint="请输入您预想的最小求购数量"
+            android:layout_marginLeft="@dimen/y16"/>
 
         <TextView
-            android:id="@+id/tv_forget_buy_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="忘记密码?"
-            android:textColor="@color/color_ff5100"
-            android:textSize="12sp" />
+            android:text="@string/bco"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:background="@color/color_f9f9f9">
-
-       <include layout="@layout/a2"/>
+        android:layout_height="@dimen/y90"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:background="@color/common_white">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="·币已被平台锁定，请放心购买 \n·订单有效时间10分钟，请及时付款并点击“我已付款”."
+            android:text="最大数量"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_expect_buy_maxnum"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:textCursorDrawable="@drawable/my_cursor"
+            android:maxLines="1"
+            android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
-            android:textSize="12sp"
-            android:lineSpacingExtra="@dimen/y6"
-            android:paddingLeft="@dimen/y24"
-            android:layout_marginTop="@dimen/y30"/>
+            android:inputType="number"
+            android:textSize="10sp"
+            android:hint="请输入您预想的最大求购数量"
+            android:layout_marginLeft="@dimen/y16"/>
 
         <TextView
-            android:id="@+id/tv_buy_publish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/cl"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y38"
-            android:text="发 布"
-            android:gravity="center"
-            android:textColor="@color/common_white"
-            android:textSize="14sp"
-            android:paddingBottom="@dimen/y10"/>
+            android:text="@string/bco"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y90"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:background="@color/common_white"
+        android:layout_marginTop="@dimen/y30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="资金密码"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_monery_buy_password"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:maxLines="1"
+            android:textColorHint="@color/color_999999"
+            android:textColor="@color/color_999999"
+            android:inputType="textPassword"
+            android:textSize="12sp"
+            android:textCursorDrawable="@drawable/my_cursor"
+            android:hint="请输入资金密码"
+            android:layout_marginLeft="@dimen/y80"
+            android:layout_marginRight="@dimen/y38"/>
+
+        <TextView
+            android:id="@+id/tv_forget_buy_password"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="忘记密码?"
+            android:textColor="@color/color_526bfc"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="温馨提示"
+        android:textColor="@color/color_999999"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/y24"
+        android:layout_marginLeft="@dimen/y30"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="币已被平台锁定，请放心购买 \n·订单有效时间10分钟，请及时付款并点击“我已付款”."
+        android:textColor="@color/color_999999"
+        android:textSize="10sp"
+        android:layout_marginTop="@dimen/y16"
+        android:lineSpacingExtra="@dimen/y6"
+        android:layout_marginLeft="@dimen/y30"/>
+
+    <TextView
+        android:id="@+id/tv_buy_publish"
+        style="@style/buttonstyle1"
+        android:layout_marginTop="@dimen/y56"
+        android:layout_marginBottom="@dimen/y52"
+        android:text="发布" />
 
 </LinearLayout>
