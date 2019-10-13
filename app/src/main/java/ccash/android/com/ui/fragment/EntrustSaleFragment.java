@@ -30,10 +30,7 @@ import ccash.android.com.ui.activity.AliPayListActivity;
 import ccash.android.com.ui.activity.BalancePassWordActivity;
 import ccash.android.com.ui.activity.GuaDanActivity;
 import ccash.android.com.ui.activity.IdCastPayListActivity;
-import ccash.android.com.ui.activity.LaCaraListActivity;
-import ccash.android.com.ui.activity.MainActivity;
 import ccash.android.com.ui.activity.WebChatListActivity;
-import ccash.android.com.ui.activity.YunShanFuListActivity;
 import ccash.android.com.util.SharedPreferencesUtils;
 import ccash.android.com.util.ToastUtil;
 
@@ -48,11 +45,11 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     @BindView(R.id.tv_user_price)
     TextView tvUserPrice;
     @BindView(R.id.tv_add_alipay)
-    TextView tvAddAlipay;
+    ImageView tvAddAlipay;
     @BindView(R.id.tv_add_webchat)
-    TextView tvAddWebchat;
+    ImageView tvAddWebchat;
     @BindView(R.id.tv_add_idcards)
-    TextView tvAddIdcards;
+    ImageView tvAddIdcards;
     @BindView(R.id.et_monery_password)
     EditText etMoneryPassword;
     @BindView(R.id.tv_forget_password)
@@ -67,14 +64,8 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
     ImageView ivWebchat;
     @BindView(R.id.iv_idcards)
     ImageView ivIdcards;
-    @BindView(R.id.iv_yunshanfu)
-    ImageView ivYunshanfu;
-    @BindView(R.id.tv_add_yunshanfu)
-    TextView tvAddYunshanfu;
-    @BindView(R.id.iv_lacara)
-    ImageView ivLacara;
-    @BindView(R.id.tv_add_lacara)
-    TextView tvAddLacara;
+    @BindView(R.id.tv_cankao)
+    TextView tvCanKao;
     private boolean isUseIvAlipay;
     private boolean isUseIvWebchat;
     private boolean isUseIvIdcards;
@@ -111,34 +102,10 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
             maxSellPrice = usdtPriceResponse.getMaxSellPrice();
             etBusinessPrice.setHint("交易价格请限于" + new DecimalFormat("0.000").format(minSellPrice) + " ~ " + new DecimalFormat("0.000").format(maxSellPrice));
             etBusinessPrice.setHintTextColor(MyApplication.appContext.getResources().getColor(R.color.color_999999));
+            tvCanKao.setText(new DecimalFormat("0.000").format(minSellPrice) + " ~ " + new DecimalFormat("0.000").format(maxSellPrice));
         }
         GALogger.d(TAG, "EntrustSaleFragment    is    initView");
         GALogger.d(TAG, "mEnableLazyLoad   " + mEnableLazyLoad + "   mIsCreateView   " + mIsCreateView + "  getUserVisibleHint()  " + getUserVisibleHint() + "   mIsLoadData   " + mIsLoadData);
-        if (AccountManager.getInstance().isHaveAliPayee()) {
-            tvAddAlipay.setText("更改");
-        } else {
-            tvAddAlipay.setText("添加");
-        }
-        if (AccountManager.getInstance().isHaveBankPayee()) {
-            tvAddIdcards.setText("更改");
-        } else {
-            tvAddIdcards.setText("添加");
-        }
-        if (AccountManager.getInstance().isHaveWechatPayee()) {
-            tvAddWebchat.setText("更改");
-        } else {
-            tvAddWebchat.setText("添加");
-        }
-        if (AccountManager.getInstance().isHaveCloudPayee()) {
-            tvAddYunshanfu.setText("更改");
-        } else {
-            tvAddYunshanfu.setText("添加");
-        }
-        if (AccountManager.getInstance().isHaveLakalaPayee()) {
-            tvAddLacara.setText("更改");
-        } else {
-            tvAddLacara.setText("添加");
-        }
     }
 
     @Override
@@ -157,7 +124,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
         },1000);
     }
 
-    @OnClick({R.id.tv_add_alipay, R.id.tv_add_webchat, R.id.tv_add_idcards, R.id.tv_forget_password, R.id.tv_sell_publish, R.id.iv_alipay, R.id.iv_webchat, R.id.iv_idcards, R.id.tv_sale_cankaojia, R.id.iv_yunshanfu, R.id.tv_add_yunshanfu,R.id.tv_add_lacara,R.id.iv_lacara})
+    @OnClick({R.id.tv_add_alipay, R.id.tv_add_webchat, R.id.tv_add_idcards, R.id.tv_forget_password, R.id.tv_sell_publish, R.id.iv_alipay, R.id.iv_webchat, R.id.iv_idcards, R.id.tv_sale_cankaojia})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_add_alipay:
@@ -173,9 +140,9 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                 boolean haveAliPayee = AccountManager.getInstance().isHaveAliPayee();
                 if (haveAliPayee) {
                     if (isUseIvAlipay) {
-                        ivAlipay.setImageResource(R.mipmap.cv);
+                        ivAlipay.setImageResource(R.mipmap.o);
                     } else {
-                        ivAlipay.setImageResource(R.mipmap.cw);
+                        ivAlipay.setImageResource(R.mipmap.bb);
                     }
                     isUseIvAlipay = !isUseIvAlipay;
                 } else {
@@ -186,9 +153,9 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                 boolean haveWechatPayee = AccountManager.getInstance().isHaveWechatPayee();
                 if (haveWechatPayee) {
                     if (isUseIvWebchat) {
-                        ivWebchat.setImageResource(R.mipmap.cv);
+                        ivWebchat.setImageResource(R.mipmap.o);
                     } else {
-                        ivWebchat.setImageResource(R.mipmap.cw);
+                        ivWebchat.setImageResource(R.mipmap.bb);
                     }
                     isUseIvWebchat = !isUseIvWebchat;
                 } else {
@@ -199,9 +166,9 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                 boolean haveBankPayee = AccountManager.getInstance().isHaveBankPayee();
                 if (haveBankPayee) {
                     if (isUseIvIdcards) {
-                        ivIdcards.setImageResource(R.mipmap.cv);
+                        ivIdcards.setImageResource(R.mipmap.o);
                     } else {
-                        ivIdcards.setImageResource(R.mipmap.cw);
+                        ivIdcards.setImageResource(R.mipmap.bb);
                     }
                     isUseIvIdcards = !isUseIvIdcards;
                 } else {
@@ -288,38 +255,6 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
                 break;
             case R.id.tv_sale_cankaojia:
                 break;
-            case R.id.iv_yunshanfu:
-                boolean haveCloudPayee = AccountManager.getInstance().isHaveCloudPayee();
-                if (haveCloudPayee) {
-                    if (isUseIvCloud) {
-                        ivYunshanfu.setImageResource(R.mipmap.cv);
-                    } else {
-                        ivYunshanfu.setImageResource(R.mipmap.cw);
-                    }
-                    isUseIvCloud = !isUseIvCloud;
-                } else {
-                    ToastUtil.shortShow("请先添加云闪付收款信息");
-                }
-                break;
-            case R.id.iv_lacara:
-                boolean haveLakalaPayee = AccountManager.getInstance().isHaveLakalaPayee();
-                if (haveLakalaPayee) {
-                    if (isUseIvLaCara) {
-                        ivLacara.setImageResource(R.mipmap.cv);
-                    } else {
-                        ivLacara.setImageResource(R.mipmap.cw);
-                    }
-                    isUseIvLaCara = !isUseIvLaCara;
-                } else {
-                    ToastUtil.shortShow("请先添加拉卡拉收款信息");
-                }
-                break;
-            case R.id.tv_add_yunshanfu:
-                YunShanFuListActivity.startThis(guaDanActivity);
-                break;
-            case R.id.tv_add_lacara:
-                LaCaraListActivity.startThis(guaDanActivity);
-                break;
         }
     }
 
@@ -333,7 +268,7 @@ public class EntrustSaleFragment extends BaseFragment implements EntrustSaleCont
         if (walletResponse != null) {
             double hotNum = walletResponse.getHotNum();
             GALogger.d(TAG, "hotNum    " + hotNum);
-            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum) + MyApplication.appContext.getResources().getString(R.string.bco));
+            tvUserPrice.setText(new DecimalFormat("0.000000").format(hotNum));
         }
     }
 

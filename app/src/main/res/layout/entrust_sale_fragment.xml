@@ -1,32 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@color/color_f9f9f9">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y52"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@color/common_white"
-        android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24"
-        android:visibility="gone">
+        android:paddingTop="@dimen/y28"
+        android:paddingBottom="@dimen/y26"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="价格"
+            android:text="交易账户可用"
             android:textColor="@color/color_666666"
-            android:textSize="12sp"/>
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_user_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="3.00"
+            android:textColor="@color/color_ff0000"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bco"
+            android:textColor="@color/color_666666"
+            android:textSize="10sp" />
 
         <View
             android:layout_width="0dp"
@@ -36,27 +49,65 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="当前盘口价格6.96CNY"
-            android:textColor="@color/text"
-            android:textSize="11sp"/>
+            android:text="当前盘口价格：1.000CNY"
+            android:textColor="@color/color_666666"
+            android:textSize="10sp"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
+        android:layout_height="@dimen/y90"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:background="@color/common_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择币种"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bco"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_marginLeft="@dimen/y52"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/y1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/y" />
+
+    </LinearLayout>
+
+    <include layout="@layout/line_f9"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y90"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
         android:background="@color/common_white">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="交易价格"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp"/>
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"/>
 
         <EditText
             android:id="@+id/et_business_price"
@@ -68,249 +119,176 @@
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:inputType="number|numberDecimal"
-            tools:hint="交易价格请限于6.95 ~ 6.99" />
+            tools:hint="请限于1.000~1.01之间" />
 
         <TextView
             android:id="@+id/tv_sale_cankaojia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="参考价"
-            android:textColor="@color/color_1a72fb"
-            android:textSize="14sp"
-            android:visibility="gone"
-            android:layout_marginLeft="@dimen/y22"/>
+            android:textColor="@color/color_526bfc"
+            android:textSize="10sp" />
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y42"
-        android:text="交易数额"
-        android:textColor="@color/color_999999"
-        android:textSize="12sp"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/y24" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:background="@color/common_white"
-        android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24">
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/y12"
+        android:paddingBottom="@dimen/y12">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="最小数量(CAS)"
+            android:text="交易数额"
             android:textColor="@color/color_666666"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:gravity="center_vertical" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/y1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="推荐参考前价格区间："
+            android:textColor="@color/color_ff0000"
+            android:textSize="10sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tv_cankao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1.000~1.001"
+            android:textColor="@color/color_ff0000"
+            android:textSize="10sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="之间"
+            android:textColor="@color/color_ff0000"
+            android:textSize="10sp"
+            android:gravity="center_vertical" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y90"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:background="@color/common_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最小数量"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/et_expect_minnum"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:textCursorDrawable="@drawable/my_cursor"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:inputType="number"
             android:hint="请输入您预想的最小售出数量"
             android:layout_marginLeft="@dimen/y16"/>
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bco"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
 
-    <include layout="@layout/line_f9"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
+        android:layout_height="@dimen/y90"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@color/common_white"
-        android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24">
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:background="@color/common_white">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="最大数量(CAS)"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp" />
+            android:text="最大数量"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/et_expect_maxnum"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:textCursorDrawable="@drawable/my_cursor"
             android:maxLines="1"
             android:textColorHint="@color/color_999999"
             android:textColor="@color/color_999999"
             android:inputType="number"
-            android:textSize="12sp"
-            android:hint="至少挂单1400 CAS"
+            android:textSize="10sp"
+            android:hint="请输入您预想的最大售出数量"
             android:layout_marginLeft="@dimen/y16"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bco"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y42"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="交易账户可用"
-            android:textColor="@color/color_999999"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/tv_user_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="3.00"
-            android:textColor="@color/color_999999"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="收款方式"
-        android:textColor="@color/color_666666"
-        android:textSize="12sp"
         android:gravity="center_vertical"
-        android:background="@color/common_white"
-        android:paddingLeft="@dimen/y24"
-        android:drawableLeft="@mipmap/m"
-        android:drawablePadding="@dimen/y22"
-        android:layout_marginTop="@dimen/y20"
-        android:paddingTop="@dimen/y20"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
         android:orientation="horizontal"
-        android:background="@color/common_white"
-        android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/iv_alipay"
-            android:layout_width="@dimen/y56"
-            android:layout_height="@dimen/y92"
-            android:src="@mipmap/cv"
-            android:paddingTop="@dimen/y30"
-            android:paddingBottom="@dimen/y30"
-            android:paddingRight="@dimen/y26"/>
-
-        <ImageView
-            android:layout_width="@dimen/y34"
-            android:layout_height="@dimen/y34"
-            android:src="@mipmap/g" />
+        android:paddingTop="@dimen/y12"
+        android:paddingBottom="@dimen/y12">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="支付宝"
+            android:text="收款方式"
             android:textColor="@color/color_666666"
             android:textSize="12sp"
-            android:layout_marginLeft="@dimen/y16"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/y1"/>
-
-        <TextView
-            android:id="@+id/tv_add_alipay"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            tools:text="添加"
-            android:textColor="@color/color_ff5100"
-            android:textSize="12sp" />
+            android:gravity="center_vertical" />
 
     </LinearLayout>
 
-    <include layout="@layout/line_f9"/>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
+        android:layout_height="@dimen/y90"
         android:orientation="horizontal"
-        android:paddingRight="@dimen/y22"
-        android:background="@color/common_white"
-        android:paddingLeft="@dimen/y24"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/iv_webchat"
-            android:layout_width="@dimen/y56"
-            android:layout_height="@dimen/y92"
-            android:src="@mipmap/cv"
-            android:paddingTop="@dimen/y30"
-            android:paddingBottom="@dimen/y30"
-            android:paddingRight="@dimen/y26"/>
-
-        <ImageView
-            android:layout_width="@dimen/y34"
-            android:layout_height="@dimen/y34"
-            android:src="@mipmap/h" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="微信"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp"
-            android:layout_marginLeft="@dimen/y16"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/y1"/>
-
-        <TextView
-            android:id="@+id/tv_add_webchat"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="添加"
-            android:textColor="@color/color_ff5100"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
-    <include layout="@layout/line_f9"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
-        android:orientation="horizontal"
-        android:background="@color/common_white"
-        android:paddingRight="@dimen/y22"
-        android:paddingLeft="@dimen/y24"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/iv_idcards"
-            android:layout_width="@dimen/y56"
-            android:layout_height="@dimen/y92"
-            android:src="@mipmap/cv"
-            android:paddingTop="@dimen/y30"
-            android:paddingBottom="@dimen/y30"
-            android:paddingRight="@dimen/y26"/>
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:background="@color/common_white">
 
         <ImageView
             android:layout_width="@dimen/y34"
@@ -330,132 +308,175 @@
             android:layout_weight="1"
             android:layout_height="@dimen/y1"/>
 
-        <TextView
+        <ImageView
             android:id="@+id/tv_add_idcards"
+            android:layout_width="@dimen/y36"
+            android:layout_height="@dimen/y36"
+            android:src="@mipmap/eh"/>
+
+        <ImageView
+            android:id="@+id/iv_idcards"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="添加"
-            android:textColor="@color/color_ff5100"
-            android:textSize="12sp" />
+            android:layout_height="wrap_content"
+            android:src="@mipmap/o"
+            android:layout_marginLeft="@dimen/y32"/>
 
     </LinearLayout>
 
     <include layout="@layout/line_f9"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
-        android:orientation="horizontal"
-        android:paddingRight="@dimen/y22"
-        android:background="@color/common_white"
-        android:paddingLeft="@dimen/y24"
-        android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/iv_yunshanfu"
-            android:layout_width="@dimen/y56"
-            android:layout_height="@dimen/y92"
-            android:src="@mipmap/cv"
-            android:paddingTop="@dimen/y30"
-            android:paddingBottom="@dimen/y30"
-            android:paddingRight="@dimen/y26"/>
 
-        <ImageView
-            android:layout_width="@dimen/y34"
-            android:layout_height="@dimen/y34"
-            android:src="@mipmap/af" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="云闪付"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp"
-            android:layout_marginLeft="@dimen/y16"/>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/y1"/>
 
-        <TextView
-            android:id="@+id/tv_add_yunshanfu"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="添加"
-            android:textColor="@color/color_ff5100"
-            android:textSize="12sp" />
 
-    </LinearLayout>
 
-    <include layout="@layout/line_f9"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
-        android:orientation="horizontal"
-        android:paddingRight="@dimen/y22"
-        android:background="@color/common_white"
-        android:paddingLeft="@dimen/y24"
-        android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/iv_lacara"
-            android:layout_width="@dimen/y56"
-            android:layout_height="@dimen/y92"
-            android:src="@mipmap/cv"
-            android:paddingTop="@dimen/y30"
-            android:paddingBottom="@dimen/y30"
-            android:paddingRight="@dimen/y26"/>
 
-        <ImageView
-            android:layout_width="@dimen/y34"
-            android:layout_height="@dimen/y34"
-            android:src="@mipmap/ao" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="拉卡拉"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp"
-            android:layout_marginLeft="@dimen/y16"/>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/y1"/>
 
-        <TextView
-            android:id="@+id/tv_add_lacara"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="添加"
-            android:textColor="@color/color_ff5100"
-            android:textSize="12sp" />
 
-    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y92"
+        android:layout_height="@dimen/y90"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingRight="@dimen/y22"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:background="@color/common_white">
+
+        <ImageView
+            android:layout_width="@dimen/y34"
+            android:layout_height="@dimen/y34"
+            android:src="@mipmap/h" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微信"
+            android:textColor="@color/color_666666"
+            android:textSize="12sp"
+            android:layout_marginLeft="@dimen/y16"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/y1"/>
+
+        <ImageView
+            android:id="@+id/tv_add_webchat"
+            android:layout_width="@dimen/y36"
+            android:layout_height="@dimen/y36"
+            android:src="@mipmap/eh"/>
+
+        <ImageView
+            android:id="@+id/iv_webchat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/o"
+            android:layout_marginLeft="@dimen/y32"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/line_f9"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y90"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
+        android:background="@color/common_white">
+
+        <ImageView
+            android:layout_width="@dimen/y34"
+            android:layout_height="@dimen/y34"
+            android:src="@mipmap/g" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付宝"
+            android:textColor="@color/color_666666"
+            android:textSize="12sp"
+            android:layout_marginLeft="@dimen/y16"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/y1"/>
+
+        <ImageView
+            android:id="@+id/tv_add_alipay"
+            android:layout_width="@dimen/y36"
+            android:layout_height="@dimen/y36"
+            android:src="@mipmap/eh"/>
+
+        <ImageView
+            android:id="@+id/iv_alipay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/o"
+            android:layout_marginLeft="@dimen/y32"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y90"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/y30"
+        android:paddingRight="@dimen/y30"
         android:background="@color/common_white"
-        android:paddingLeft="@dimen/y24"
         android:layout_marginTop="@dimen/y30">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="资金密码"
-            android:textColor="@color/color_666666"
-            android:textSize="12sp" />
+            android:textColor="@color/color_333333"
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/et_monery_password"
@@ -478,42 +499,37 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="忘记密码?"
-            android:textColor="@color/color_ff5100"
-            android:textSize="12sp" />
+            android:textColor="@color/color_526bfc"
+            android:textSize="10sp" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="温馨提示"
+        android:textColor="@color/color_999999"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/y24"
+        android:layout_marginLeft="@dimen/y30"
+        android:textStyle="bold"/>
 
-        <include layout="@layout/a2"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="到账后请及时放币"
+        android:textColor="@color/color_999999"
+        android:textSize="10sp"
+        android:layout_marginTop="@dimen/y16"
+        android:layout_marginLeft="@dimen/y30"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="·到账后请及时放币"
-            android:textColor="@color/color_999999"
-            android:textSize="12sp"
-            android:paddingLeft="@dimen/y24"
-            android:layout_marginTop="@dimen/y30"/>
-
-        <TextView
-            android:id="@+id/tv_sell_publish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/cl"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y38"
-            android:text="发 布"
-            android:gravity="center"
-            android:textColor="@color/common_white"
-            android:textSize="14sp"
-            android:paddingBottom="@dimen/y10"/>
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_sell_publish"
+        style="@style/buttonstyle"
+        android:layout_marginTop="@dimen/y56"
+        android:layout_marginBottom="@dimen/y52"
+        android:text="发布" />
 
 </LinearLayout>
+
 </android.support.v4.widget.NestedScrollView>

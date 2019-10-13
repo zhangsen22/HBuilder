@@ -9,8 +9,8 @@
     </string-array>
 
     <string-array name="guadan_title">
-        <item>委托卖币</item>
-        <item>委托买币</item>
+        <item>我要出售</item>
+        <item>我要购买</item>
     </string-array>
 
     <string-array name="trading_title">

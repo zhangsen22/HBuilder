@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -19,6 +21,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import ccash.android.com.BaseFragment;
 import ccash.android.com.MyApplication;
 import ccash.android.com.R;
@@ -31,8 +34,12 @@ public class GuaDanFragment extends BaseFragment {
     MagicIndicator guadanMagicindicator;
     @BindView(R.id.guadan_viewPager)
     ViewPager guadanViewPager;
-    @BindView(R.id.ll_guadan_content)
-    LinearLayout llGuadanContent;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.fl_title_comtent)
+    FrameLayout flTitleComtent;
     private GuaDanViewPagerAdapter guaDanViewPagerAdapter;
     private GuaDanActivity guaDanActivity;
 
@@ -58,7 +65,8 @@ public class GuaDanFragment extends BaseFragment {
     @Override
     protected void initView(View root) {
         GALogger.d(TAG, "GuaDanFragment   is    initView");
-        setRootViewPaddingTop(llGuadanContent);
+        tvTitle.setText("发布委托单");
+        setRootViewPaddingTop(flTitleComtent);
         final String[] guadanTitle = guaDanActivity.getResources().getStringArray(R.array.guadan_title);
         guadanViewPager.setOffscreenPageLimit(guadanTitle.length - 1);
         guaDanViewPagerAdapter = new GuaDanViewPagerAdapter(getChildFragmentManager(), guadanTitle);
@@ -98,7 +106,7 @@ public class GuaDanFragment extends BaseFragment {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 2));
                 indicator.setLineWidth(UIUtil.dip2px(context, 25));
-                indicator.setColors(Color.WHITE);
+                indicator.setColors(Color.RED);
                 indicator.setYOffset(UIUtil.dip2px(context, 8));
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 return indicator;
@@ -113,5 +121,10 @@ public class GuaDanFragment extends BaseFragment {
     public void lazyLoadData() {
         super.lazyLoadData();
         GALogger.d(TAG, "GuaDanFragment   is    lazyLoadData");
+    }
+
+    @OnClick(R.id.iv_back)
+    public void onViewClicked() {
+        guaDanActivity.finish();
     }
 }
