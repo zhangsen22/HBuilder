@@ -77,7 +77,7 @@ public class ChangePwdFragment extends BaseFragment implements ChangePwdContract
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("设置登录密码");
+        tvTitle.setText("修改登录密码");
     }
 
     @Override
