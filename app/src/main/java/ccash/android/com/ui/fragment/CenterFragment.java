@@ -49,24 +49,12 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
     LinearLayout llAddSkType;
     @BindView(R.id.ll_tj_friend)
     LinearLayout llTjFriend;
-    @BindView(R.id.ll_lx_kf)
-    LinearLayout llLxKf;
-    @BindView(R.id.ll_center_message)
-    LinearLayout llCenterMessage;
     @BindView(R.id.tv_version_code)
     TextView tvVersionCode;
     @BindView(R.id.tv_logout)
     TextView tvLogout;
     @BindView(R.id.ll_center_bg)
     LinearLayout llCenterBg;
-    @BindView(R.id.iv_roletype)
-    ImageView ivRoletype;
-    @BindView(R.id.iv_apitype)
-    ImageView ivApitype;
-    @BindView(R.id.view1)
-    View view1;
-    @BindView(R.id.view2)
-    View view2;
     @BindView(R.id.tv_shenfencard_status)
     TextView tvShenfencardStatus;
     private MainActivity mainActivity;
@@ -105,7 +93,7 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
         initUserInfo();
     }
 
-    @OnClick({R.id.iv_edit, R.id.ll_center_anquan, R.id.ll_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.ll_lx_kf, R.id.ll_center_message, R.id.tv_logout})
+    @OnClick({R.id.iv_edit, R.id.ll_center_anquan, R.id.ll_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.tv_logout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_edit:
@@ -141,12 +129,6 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                 break;
             case R.id.ll_tj_friend:
                 RecommendToFriendsActivity.startThis(mainActivity);
-                break;
-            case R.id.ll_lx_kf:
-
-                break;
-            case R.id.ll_center_message:
-                MessageCenterActivity.startThis(mainActivity);
                 break;
             case R.id.tv_logout:
                 //带确认和取消按钮的弹窗
@@ -208,25 +190,6 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
         tvUsername.setText(AccountManager.getInstance().getNickname());
         tvAccount.setText(AccountManager.getInstance().getPhoneNumber());
         tvVersionCode.setText(PackageUtil.getAppVersionName(MyApplication.appContext));
-        if (AccountManager.getInstance().getRoleType() == 2) {
-            ivRoletype.setImageResource(R.mipmap.bs);
-            ivRoletype.setVisibility(View.VISIBLE);
-        } else if (AccountManager.getInstance().getRoleType() == 1) {
-            ivRoletype.setImageResource(R.mipmap.st);
-            ivRoletype.setVisibility(View.VISIBLE);
-        } else {
-            ivRoletype.setVisibility(View.GONE);
-            view1.setVisibility(View.GONE);
-        }
-
-        if (AccountManager.getInstance().getApiType() == 1) {
-            ivApitype.setImageResource(R.mipmap.st);
-            ivApitype.setVisibility(View.VISIBLE);
-        } else {
-            ivApitype.setVisibility(View.GONE);
-            view2.setVisibility(View.GONE);
-        }
-
         int iDstatus = AccountManager.getInstance().getIDstatus();//0未验证，1等待人工审核 2 已验证 99 验证失败
         if(iDstatus == 0){
             tvShenfencardStatus.setText("未验证");
