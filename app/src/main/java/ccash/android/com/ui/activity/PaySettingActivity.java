@@ -1,33 +1,23 @@
 package ccash.android.com.ui.activity;
 
 import android.content.Intent;
-import android.view.KeyEvent;
 import android.view.View;
 import com.growalong.util.util.ActivityUtils;
 import ccash.android.com.BaseActivity;
 import ccash.android.com.R;
-import ccash.android.com.app.Constants;
-import ccash.android.com.modle.LaCaraPayeeItemModelPayee;
 import ccash.android.com.modle.WeChatPayeeItemModelPayee;
-import ccash.android.com.modle.YunShanFuPayeeItemModelPayee;
 import ccash.android.com.presenter.AliPayEditPresenter;
 import ccash.android.com.presenter.IdCastPresenter;
-import ccash.android.com.presenter.LaCaraEditPresenter;
 import ccash.android.com.presenter.WebChatEditPresenter;
-import ccash.android.com.presenter.YunShanFuEditPresenter;
 import ccash.android.com.presenter.modle.PaySettingModle;
 import ccash.android.com.ui.fragment.AliPayEditFragment;
 import ccash.android.com.ui.fragment.IdCastPayEditFragment;
-import ccash.android.com.ui.fragment.LaCaraEditFragment;
 import ccash.android.com.ui.fragment.WebChatEditFragment;
-import ccash.android.com.ui.fragment.YunShanFunEditFragment;
 
 public class PaySettingActivity extends BaseActivity {
     private static final String TAG = PaySettingActivity.class.getSimpleName();
     private WebChatEditFragment webChatEditFragment;
     private AliPayEditFragment aliPayEditFragment;
-    private YunShanFunEditFragment yunShanFunEditFragment;
-    private LaCaraEditFragment laCaraEditFragment;
     private int type;
 
     public static void startThis(BaseActivity activity,int type,int requestCode) {
@@ -40,20 +30,6 @@ public class PaySettingActivity extends BaseActivity {
         Intent intent = new Intent(activity, PaySettingActivity.class);
         intent.putExtra("type",type);
         intent.putExtra("weChatPayeeItemModelPayee",weChatPayeeItemModelPayee);
-        activity.startActivityForResult(intent,requestCode);
-    }
-
-    public static void startThisYunShanFu(BaseActivity activity, int type, YunShanFuPayeeItemModelPayee yunShanFuPayeeItemModelPayee, int requestCode) {
-        Intent intent = new Intent(activity, PaySettingActivity.class);
-        intent.putExtra("type",type);
-        intent.putExtra("yunShanFuPayeeItemModelPayee",yunShanFuPayeeItemModelPayee);
-        activity.startActivityForResult(intent,requestCode);
-    }
-
-    public static void startThisLaCara(BaseActivity activity, int type, LaCaraPayeeItemModelPayee laCaraPayeeItemModelPayee, int requestCode) {
-        Intent intent = new Intent(activity, PaySettingActivity.class);
-        intent.putExtra("type",type);
-        intent.putExtra("laCaraPayeeItemModelPayee",laCaraPayeeItemModelPayee);
         activity.startActivityForResult(intent,requestCode);
     }
 
@@ -100,26 +76,6 @@ public class PaySettingActivity extends BaseActivity {
             }
             //初始化presenter
             new IdCastPresenter(idCastPayEditFragment, new PaySettingModle());
-        }else if(type == 4){
-            YunShanFuPayeeItemModelPayee yunShanFuPayeeItemModelPayee = getIntent().getParcelableExtra("yunShanFuPayeeItemModelPayee");
-            yunShanFunEditFragment = (YunShanFunEditFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.contentFrame);
-            if (yunShanFunEditFragment == null) {
-                yunShanFunEditFragment = YunShanFunEditFragment.newInstance(yunShanFuPayeeItemModelPayee);
-                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                        yunShanFunEditFragment, R.id.contentFrame);
-            }
-            new YunShanFuEditPresenter(yunShanFunEditFragment, new PaySettingModle());
-        }else if(type == 5){
-            LaCaraPayeeItemModelPayee laCaraPayeeItemModelPayee = getIntent().getParcelableExtra("laCaraPayeeItemModelPayee");
-            laCaraEditFragment = (LaCaraEditFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.contentFrame);
-            if (laCaraEditFragment == null) {
-                laCaraEditFragment = LaCaraEditFragment.newInstance(laCaraPayeeItemModelPayee);
-                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                        laCaraEditFragment, R.id.contentFrame);
-            }
-            new LaCaraEditPresenter(laCaraEditFragment, new PaySettingModle());
         }
     }
 
@@ -135,36 +91,11 @@ public class PaySettingActivity extends BaseActivity {
                     if (data == null) return;
                     aliPayEditFragment.onActivityResultF(requestCode,resultCode,data);
                     break;
-                case 102:
-                    if (data == null) return;
-                    yunShanFunEditFragment.onActivityResultF(requestCode,resultCode,data);
-                    break;
-                case 103:
-                    if (data == null) return;
-                    laCaraEditFragment.onActivityResultF(requestCode,resultCode,data);
-                    break;
-                case Constants.REQUESTCODE_20:
-                    if (data == null) return;
-                    yunShanFunEditFragment.onActivityBack(requestCode,resultCode,data);
-                    break;
                 default:
                     break;
 
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            if(type == 4){
-                if(yunShanFunEditFragment != null){
-                    yunShanFunEditFragment.onkeyDown();
-                }
-                return true;
-            }
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }
