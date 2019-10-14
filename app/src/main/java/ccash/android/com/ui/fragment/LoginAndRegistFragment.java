@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import com.growalong.util.util.DensityUtil;
 import com.growalong.util.util.GALogger;
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -34,8 +33,6 @@ public class LoginAndRegistFragment extends BaseFragment {
     MagicIndicator guadanMagicindicator;
     @BindView(R.id.guadan_viewPager)
     NoScrollViewPager guadanViewPager;
-    @BindView(R.id.ll_login_head)
-    LinearLayout llLoginHead;
     private LoginAndRegistActivity loginAndRegistActivity;
     private LoginAndRegistViewPagerAdapter loginAndRegistViewPagerAdapter;
 
@@ -60,7 +57,6 @@ public class LoginAndRegistFragment extends BaseFragment {
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flLoginHead);
-        setRootViewPaddingTop(llLoginHead);
         GALogger.d(TAG, "GuaDanFragment   is    initView");
         final String[] guadanTitle = loginAndRegistActivity.getResources().getStringArray(R.array.login_title);
         guadanViewPager.setOffscreenPageLimit(guadanTitle.length - 1);
@@ -80,7 +76,7 @@ public class LoginAndRegistFragment extends BaseFragment {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
                 colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#666666"));
                 colorTransitionPagerTitleView.setTextSize(14);
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#333333"));
+                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#ffffff"));
                 colorTransitionPagerTitleView.setText(guadanTitle[index]);
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -101,7 +97,7 @@ public class LoginAndRegistFragment extends BaseFragment {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setLineHeight(DensityUtil.dip2px(MyApplication.appContext, 2));
                 indicator.setLineWidth(UIUtil.dip2px(context, 25));
-                indicator.setColors(Color.parseColor("#FFCF20"));
+                indicator.setColors(Color.parseColor("#526BFC"));
                 indicator.setYOffset(UIUtil.dip2px(context, 8));
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 return indicator;

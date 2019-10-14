@@ -77,9 +77,10 @@
 
         <ImageView
             android:id="@+id/iv_image_code"
-            android:layout_width="@dimen/y100"
-            android:layout_height="@dimen/y100"
-            tools:src="@mipmap/ic_launcher"/>
+            android:layout_width="@dimen/y120"
+            android:layout_height="@dimen/y44"
+            android:src="@mipmap/misc"
+            android:scaleType="centerCrop"/>
 
     </LinearLayout>
 
