@@ -21,7 +21,7 @@
 
     </FrameLayout>
 
-    <ccash.android.com.ui.widget.NoScrollViewPager
+    <bychain.android.com.ui.widget.NoScrollViewPager
         android:id="@+id/guadan_viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

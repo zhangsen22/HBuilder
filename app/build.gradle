@@ -4,7 +4,7 @@ apply from: 'tinkerpatch.gradle'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
-        applicationId "ccash.android.com"
+        applicationId "bychain.android.com"
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -14,16 +14,16 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('ccash.jks')
-            storePassword "iaroundccash"
-            keyAlias "ccash"
-            keyPassword "iaroundccash"
+            storeFile file('bychain.jks')
+            storePassword "iaroundbychain"
+            keyAlias "bychain"
+            keyPassword "iaroundbychain"
         }
         debug {
-            storeFile file('ccash.jks')
-            storePassword "iaroundccash"
-            keyAlias "ccash"
-            keyPassword "iaroundccash"
+            storeFile file('bychain.jks')
+            storePassword "iaroundbychain"
+            keyAlias "bychain"
+            keyPassword "iaroundbychain"
 //            storeFile file('debug.keystore')
 //            storePassword "android"
 //            keyAlias "androiddebugkey"
