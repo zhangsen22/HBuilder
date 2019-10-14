@@ -11,12 +11,16 @@ import butterknife.OnClick;
 import ccash.android.com.BaseFragment;
 import ccash.android.com.R;
 import ccash.android.com.app.Constants;
+import ccash.android.com.modle.WalletResponse;
+import ccash.android.com.presenter.PropertyPresenter;
+import ccash.android.com.presenter.contract.PropertyContract;
+import ccash.android.com.presenter.modle.PropertyModle;
 import ccash.android.com.ui.activity.ChongBiActivity;
 import ccash.android.com.ui.activity.MainActivity;
 import ccash.android.com.ui.activity.RansferOfFundsActivity;
 import ccash.android.com.ui.activity.TiBiActivity;
 
-public class WalletAccountFragment extends BaseFragment {
+public class WalletAccountFragment extends BaseFragment implements PropertyContract.View {
 
     private static final String TAG = WalletAccountFragment.class.getSimpleName();
     @BindView(R.id.tv_used_usdt)
@@ -30,6 +34,7 @@ public class WalletAccountFragment extends BaseFragment {
     @BindView(R.id.ll_huazhuan)
     LinearLayout llHuazhuan;
     private MainActivity mainActivity;
+    private PropertyPresenter propertyPresenter;
 
     public static WalletAccountFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -57,6 +62,10 @@ public class WalletAccountFragment extends BaseFragment {
     public void lazyLoadData() {
         super.lazyLoadData();
         GALogger.d(TAG, "WalletAccountFragment   is    lazyLoadData");
+
+        //初始化presenter
+        new PropertyPresenter(this, new PropertyModle());
+        propertyPresenter.getInfo();
     }
 
     @OnClick({R.id.ll_chongbi, R.id.ll_tibi, R.id.ll_huazhuan})
@@ -72,5 +81,28 @@ public class WalletAccountFragment extends BaseFragment {
                 RansferOfFundsActivity.startThis(mainActivity, 1, Constants.REQUESTCODE_11);
                 break;
         }
+    }
+
+    @Override
+    public void getInfoSuccess(WalletResponse walletResponse) {
+        if(walletResponse != null){
+            tvUsedUsdt.setText(walletResponse.getWalletNum()+"");
+            tvFreedUsdt.setText(walletResponse.getWalletFreezeNum()+"");
+        }
+    }
+
+    @Override
+    public void setPresenter(PropertyContract.Presenter presenter) {
+        this.propertyPresenter = (PropertyPresenter) presenter;
+    }
+
+    @Override
+    public void showLoading() {
+        showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoading() {
+        hideLoadingDialog();
     }
 }

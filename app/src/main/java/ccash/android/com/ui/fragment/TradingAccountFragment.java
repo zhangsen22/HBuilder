@@ -14,11 +14,15 @@ import butterknife.OnClick;
 import ccash.android.com.BaseFragment;
 import ccash.android.com.R;
 import ccash.android.com.app.Constants;
+import ccash.android.com.modle.WalletResponse;
+import ccash.android.com.presenter.PropertyPresenter;
+import ccash.android.com.presenter.contract.PropertyContract;
+import ccash.android.com.presenter.modle.PropertyModle;
 import ccash.android.com.ui.activity.MainActivity;
 import ccash.android.com.ui.activity.RansferOfFundsActivity;
 import ccash.android.com.ui.adapter.TradingViewPagerAdapter;
 
-public class TradingAccountFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
+public class TradingAccountFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener, ViewPager.OnPageChangeListener, PropertyContract.View {
     private static final String TAG = TradingAccountFragment.class.getSimpleName();
     @BindView(R.id.tv_bco_money)
     TextView tvBcoMoney;
@@ -40,6 +44,7 @@ public class TradingAccountFragment extends BaseFragment implements CompoundButt
     ViewPager tradingViewPager;
     private MainActivity mainActivity;
     private TradingViewPagerAdapter tradingViewPagerAdapter;
+    private PropertyPresenter propertyPresenter;
 
     public static TradingAccountFragment newInstance(@Nullable String taskId) {
         Bundle arguments = new Bundle();
@@ -75,6 +80,10 @@ public class TradingAccountFragment extends BaseFragment implements CompoundButt
     public void lazyLoadData() {
         super.lazyLoadData();
         GALogger.d(TAG, "TradingAccountFragment   is    lazyLoadData");
+
+        //初始化presenter
+        new PropertyPresenter(this, new PropertyModle());
+        propertyPresenter.getInfo();
     }
 
     @OnClick({R.id.ll_duihuabco, R.id.ll_huazhuan})
@@ -140,5 +149,29 @@ public class TradingAccountFragment extends BaseFragment implements CompoundButt
     @Override
     public void onPageScrollStateChanged(int i) {
 
+    }
+
+    @Override
+    public void getInfoSuccess(WalletResponse walletResponse) {
+        if(walletResponse != null){
+            tvBcoMoney.setText((walletResponse.getHotNum()+walletResponse.getHotFreezeNum())+"");
+            tvUsedUsdt.setText(walletResponse.getHotNum()+"");
+            tvFreedUsdt.setText(walletResponse.getHotFreezeNum()+"");
+        }
+    }
+
+    @Override
+    public void setPresenter(PropertyContract.Presenter presenter) {
+        this.propertyPresenter = (PropertyPresenter) presenter;
+    }
+
+    @Override
+    public void showLoading() {
+        showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoading() {
+        hideLoadingDialog();
     }
 }
