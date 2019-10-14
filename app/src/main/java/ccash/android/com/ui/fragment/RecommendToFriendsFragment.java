@@ -6,11 +6,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.qrcode.utils.QRCodeUtil;
 import butterknife.BindView;
@@ -26,11 +27,9 @@ import ccash.android.com.util.ToastUtil;
 public class RecommendToFriendsFragment extends BaseFragment {
     private static final String TAG = RecommendToFriendsFragment.class.getSimpleName();
     @BindView(R.id.fl_title_comtent)
-    FrameLayout flTitleComtent;
+    LinearLayout flTitleComtent;
     @BindView(R.id.iv_back)
     ImageView ivBack;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
     @BindView(R.id.tv_yqm)
     TextView tvYqm;
     @BindView(R.id.tv_zing_img)
@@ -39,8 +38,6 @@ public class RecommendToFriendsFragment extends BaseFragment {
     TextView tvDownloadUrl;
     @BindView(R.id.tv_duplicate)
     TextView tvDuplicate;
-    @BindView(R.id.tv_yaoqinglianjie)
-    TextView tvYaoqinglianjie;
     @BindView(R.id.tuijianjiangli)
     TextView tuijianjiangli;
     private RecommendToFriendsActivity recommendToFriendsActivity;
@@ -68,7 +65,7 @@ public class RecommendToFriendsFragment extends BaseFragment {
     @Override
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
-        tvTitle.setText("推荐给好友");
+        tuijianjiangli.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG );
     }
 
     @Override
@@ -83,14 +80,13 @@ public class RecommendToFriendsFragment extends BaseFragment {
         tvDownloadUrl.setText(downloadUrl);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_duplicate,R.id.tv_yaoqinglianjie, R.id.tuijianjiangli})
+    @OnClick({R.id.iv_back, R.id.tv_duplicate, R.id.tuijianjiangli})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 recommendToFriendsActivity.finish();
                 break;
             case R.id.tv_duplicate:
-            case R.id.tv_yaoqinglianjie:
                 //获取剪贴板管理器：
                 ClipboardManager cm = (ClipboardManager) recommendToFriendsActivity.getSystemService(Context.CLIPBOARD_SERVICE);
                 // 创建普通字符型ClipData
