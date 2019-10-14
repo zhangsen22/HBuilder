@@ -233,26 +233,11 @@
             android:visibility="gone"/>
 
         <ImageView
-            android:id="@+id/iv_yunshanfu"
-            android:layout_width="@dimen/y30"
-            android:layout_height="@dimen/y30"
-            android:src="@mipmap/af"
-            android:layout_marginRight="@dimen/y18"
-            android:visibility="gone"/>
-
-        <ImageView
             android:id="@+id/iv_webpay"
             android:layout_width="@dimen/y30"
             android:layout_height="@dimen/y30"
             android:src="@mipmap/h"
             android:layout_marginRight="@dimen/y18"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/iv_lacard"
-            android:layout_width="@dimen/y30"
-            android:layout_height="@dimen/y30"
-            android:src="@mipmap/ao"
             android:visibility="gone"/>
 
         <View

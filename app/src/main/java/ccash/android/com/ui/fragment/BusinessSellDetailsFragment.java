@@ -1,9 +1,13 @@
 package ccash.android.com.ui.fragment;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
@@ -58,6 +62,8 @@ public class BusinessSellDetailsFragment extends BaseFragment implements Busines
     TextView tvSellShensu;
     @BindView(R.id.tv_sell_fangbi)
     TextView tvSellFangbi;
+    @BindView(R.id.iv_copy_ordercode)
+    ImageView ivCopyOrderCode;
     private BusinessSellDetailsActivity businessSellDetailsActivity;
     private BusinessSellDetailsPresenter presenter;
     private SellResponse sellResponse;
@@ -130,8 +136,8 @@ public class BusinessSellDetailsFragment extends BaseFragment implements Busines
             timer.start();
         }
         tvOrderCode.setText(sellResponse.getTradeId());
-        tvPayPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) +new DecimalFormat("0.00").format( price * num));
-        tvBiusnessPrice.setText(MyApplication.appContext.getResources().getString(R.string.rmb) + new DecimalFormat("0.00").format(price));
+        tvPayPrice.setText(new DecimalFormat("0.00").format( price * num));
+        tvBiusnessPrice.setText(new DecimalFormat("0.00").format(price));
         tvBiusnessNum.setText(num+"");
         tvSellName.setText(nickname);
         tvSellTime.setText(DateUtil.getCurrentDateString3(System.currentTimeMillis()));
@@ -139,7 +145,7 @@ public class BusinessSellDetailsFragment extends BaseFragment implements Busines
         tvSellReciveMonery.setText(new DecimalFormat("0.00").format(price * num));
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_sell_shensu, R.id.tv_sell_fangbi})
+    @OnClick({R.id.iv_back, R.id.tv_sell_shensu, R.id.tv_sell_fangbi,R.id.iv_copy_ordercode})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -154,6 +160,19 @@ public class BusinessSellDetailsFragment extends BaseFragment implements Busines
                     return;
                 }
                 presenter.fb_transfer(sellResponse.getTradeId());
+                break;
+            case R.id.iv_copy_ordercode:
+                String trim = tvOrderCode.getText().toString().trim();
+                if (TextUtils.isEmpty(trim)) {
+                    return;
+                }
+                //获取剪贴板管理器：
+                ClipboardManager cm = (ClipboardManager) businessSellDetailsActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                // 创建普通字符型ClipData
+                ClipData mClipData = ClipData.newPlainText("Label", trim);
+                // 将ClipData内容放到系统剪贴板里。
+                cm.setPrimaryClip(mClipData);
+                ToastUtil.shortShow("已复制到剪贴板");
                 break;
         }
     }

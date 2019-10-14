@@ -47,10 +47,6 @@
         <item name="android:scaleY">0.8</item>
     </style>
 
-    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/checkbox_style</item>
-    </style>
-
     <style name="CustomCheckboxTheme1" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/a2</item>
         <item name="android:paddingLeft">@dimen/y16</item>
