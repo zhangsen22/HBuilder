@@ -177,16 +177,9 @@
 
     <TextView
         android:id="@+id/tv_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/cl"
-        android:layout_gravity="center_horizontal"
+        style="@style/buttonstyle"
         android:layout_marginTop="@dimen/y24"
-        android:text="确 认"
-        android:gravity="center"
-        android:textColor="@color/common_white"
-        android:textSize="14sp"
-        android:paddingBottom="@dimen/y10"/>
+        android:text="确 认" />
 
         </LinearLayout>
 
