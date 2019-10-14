@@ -52,6 +52,16 @@ public class HomeFragment extends BaseFragment implements BusinessContainerContr
     ImageView ivKefu;
     @BindView(R.id.ll_chongbi)
     LinearLayout llChongbi;
+    @BindView(R.id.ll_home1)
+    LinearLayout llHome1;
+    @BindView(R.id.ll_home2)
+    LinearLayout llHome2;
+    @BindView(R.id.ll_home3)
+    LinearLayout llHome3;
+    @BindView(R.id.ll_home4)
+    LinearLayout llHome4;
+    @BindView(R.id.ll_home5)
+    LinearLayout llHome5;
     private MainActivity mainActivity;
     private BusinessContainerPresenter presenter;
     private ArrayList<BulletinListItem> bulletinList;
@@ -106,7 +116,7 @@ public class HomeFragment extends BaseFragment implements BusinessContainerContr
         }, 500);
     }
 
-    @OnClick({R.id.ll_notry_click, R.id.iv_kefu,R.id.ll_chongbi})
+    @OnClick({R.id.ll_notry_click, R.id.iv_kefu, R.id.ll_chongbi,R.id.ll_home1,R.id.ll_home2,R.id.ll_home3,R.id.ll_home4,R.id.ll_home5})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_notry_click:
@@ -121,6 +131,21 @@ public class HomeFragment extends BaseFragment implements BusinessContainerContr
                 break;
             case R.id.ll_chongbi:
                 ChongBiActivity.startThis(mainActivity);
+                break;
+            case R.id.ll_home1:
+                WebViewActivity.launchVerifyCode(MyApplication.appContext, "https://m.bychain.net/#/chainFirst", true);
+                break;
+            case R.id.ll_home2:
+                WebViewActivity.launchVerifyCode(MyApplication.appContext, "https://m.bychain.net/#/chainSecond", true);
+                break;
+            case R.id.ll_home3:
+                WebViewActivity.launchVerifyCode(MyApplication.appContext, "https://m.bychain.net/#/chainThird", true);
+                break;
+            case R.id.ll_home4:
+                WebViewActivity.launchVerifyCode(MyApplication.appContext, "https://m.bychain.net/#/question3", true);
+                break;
+            case R.id.ll_home5:
+                WebViewActivity.launchVerifyCode(MyApplication.appContext, "https://m.bychain.net/#/question4", true);
                 break;
         }
     }

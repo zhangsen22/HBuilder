@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
     <LinearLayout
@@ -142,9 +142,17 @@
                 android:textColor="@color/color_333333"
                 android:singleLine="true"/>
 
-            <View
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y250"/>
+                android:layout_height="@dimen/y250">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/cd"
+                    android:layout_gravity="center"/>
+
+            </FrameLayout>
 
         </LinearLayout>
 
@@ -162,9 +170,18 @@
                 android:textColor="@color/color_333333"
                 android:singleLine="true"/>
 
-            <View
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y250"/>
+                android:layout_height="@dimen/y250">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/cd"
+                    android:layout_gravity="center"/>
+
+            </FrameLayout>
+
 
         </LinearLayout>
 
@@ -344,6 +361,147 @@
                 android:paddingRight="@dimen/y24"/>
 
         </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_home1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/common_white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/y28"
+                    android:text="教程"
+                    android:background="@drawable/a19"
+                    android:textColor="@color/common_white"
+                    android:textSize="12sp"
+                    android:padding="@dimen/y8"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/y18"
+                    android:text="初识篇--Bychain概述简介"
+                    android:textColor="@color/color_506ee6"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_home2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/common_white"
+                android:paddingTop="@dimen/y14">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/y28"
+                    android:text="教程"
+                    android:background="@drawable/a19"
+                    android:textColor="@color/common_white"
+                    android:textSize="12sp"
+                    android:padding="@dimen/y8"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/y18"
+                    android:text="准备篇--注册、绑定收款码"
+                    android:textColor="@color/color_506ee6"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_home3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/common_white"
+                android:paddingTop="@dimen/y14">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/y28"
+                    android:text="教程"
+                    android:background="@drawable/a19"
+                    android:textColor="@color/common_white"
+                    android:textSize="12sp"
+                    android:padding="@dimen/y8"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/y18"
+                    android:text="实操篇--挂单、购买指引"
+                    android:textColor="@color/color_506ee6"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_home4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/common_white"
+                android:paddingTop="@dimen/y14">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/y28"
+                    android:text="问答"
+                    android:background="@drawable/a19"
+                    android:textColor="@color/common_white"
+                    android:textSize="12sp"
+                    android:padding="@dimen/y8"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/y18"
+                    android:text="卖家未向我付款，我的币会被转走吗？"
+                    android:textColor="@color/color_506ee6"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_home5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/common_white"
+                android:paddingTop="@dimen/y14"
+                android:paddingBottom="@dimen/y22"
+                android:layout_marginBottom="@dimen/y28">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/y28"
+                    android:text="问答"
+                    android:background="@drawable/a19"
+                    android:textColor="@color/common_white"
+                    android:textSize="12sp"
+                    android:padding="@dimen/y8"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/y18"
+                    android:text="我向卖家付完款后，会出现收不到币的情况吗？"
+                    android:textColor="@color/color_506ee6"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
