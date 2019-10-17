@@ -170,6 +170,7 @@ public class RewardDetailFragment extends BaseFragment implements RewardDetailCo
                     tvLastJiangli.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastBillReward()));
                     tvLastJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getLastBillReward() / minSellUsdtPrice));
                     tvAllJiangliusdt.setText(new DecimalFormat("0.00").format(mRewardLogResponse.getTotBillReward() / minSellUsdtPrice));
+                    tvDetails.setText("挂单奖励");
                 }
             }
         }

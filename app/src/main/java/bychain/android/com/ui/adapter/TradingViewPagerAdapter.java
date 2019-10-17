@@ -24,7 +24,11 @@ public class TradingViewPagerAdapter extends FragmentPagerAdapter {
             fragmentList = new ArrayList<>();
         }
         for (int i = 0; i < titles.length; i++) {
-            rewardDetailFragment = RewardDetailFragment.newInstance(i+1);
+            if(i < 2){
+                rewardDetailFragment = RewardDetailFragment.newInstance(i+1);
+            }else if(i == 2){
+                rewardDetailFragment = RewardDetailFragment.newInstance(4);
+            }
             fragmentList.add(rewardDetailFragment);
         }
     }

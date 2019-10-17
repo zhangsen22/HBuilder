@@ -242,7 +242,7 @@
             android:button="@null"
             android:background="@drawable/a18"
             android:layout_width="0dp"
-            android:text="代理奖励"
+            android:text="挂单奖励"
             android:textSize="12sp"
             android:textColor="@color/a2"/>
 

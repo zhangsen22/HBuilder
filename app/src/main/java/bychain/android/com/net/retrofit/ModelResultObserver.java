@@ -106,7 +106,7 @@ public abstract class ModelResultObserver<T> implements Observer<T> {
                             accountInfo.setPhoneNumber(phoneNumber);
                             accountInfo.setPassword(passWord);
                             AccountManager.getInstance().saveAccountInfoFormModel(accountInfo);
-                            ToastUtil.longShow("请重复上次操作");
+                            ToastUtil.longShow("网络断开连接,请重试");
                         }
 
                         @Override
