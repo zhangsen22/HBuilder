@@ -95,9 +95,9 @@ public class PaySettingModle{
      * @param time
      * @return
      */
-    public Observable<LaCaraEditModle> lakala(long id,long wechatPaymentId, String account, String base64Img, String financePwd, long time){
+    public Observable<LaCaraEditModle> lakala(long id,long wechatPaymentId, String account, String base64Img, String financePwd, long time,String provinceCode, String cityCode){
         return BaseRetrofitClient.getInstance().create(ApiServices.class)
-                .lakala(id,wechatPaymentId,account,base64Img,financePwd,time)
+                .lakala(id,wechatPaymentId,account,base64Img,financePwd,time,provinceCode,cityCode)
                 .subscribeOn(Schedulers.io())
                 .map(new ServerExceptionMap<LaCaraEditModle>())
                 .onErrorResumeNext(new ModelExceptionMap<LaCaraEditModle>());
@@ -127,9 +127,9 @@ public class PaySettingModle{
      * @param time
      * @return
      */
-    public Observable<LaCaraEditModle> lakalaImgSetUp(long id, long wechatPaymentId, String base64Img, String financePwd, long time){
+    public Observable<LaCaraEditModle> lakalaImgSetUp(long id, long wechatPaymentId, String base64Img, String financePwd, long time,String provinceCode, String cityCode){
         return BaseRetrofitClient.getInstance().create(ApiServices.class)
-                .lakalaImgSetUp(id,wechatPaymentId,base64Img,financePwd,time)
+                .lakalaImgSetUp(id,wechatPaymentId,base64Img,financePwd,time,provinceCode,cityCode)
                 .subscribeOn(Schedulers.io())
                 .map(new ServerExceptionMap<LaCaraEditModle>())
                 .onErrorResumeNext(new ModelExceptionMap<LaCaraEditModle>());

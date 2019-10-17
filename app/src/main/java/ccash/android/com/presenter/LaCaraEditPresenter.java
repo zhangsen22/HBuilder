@@ -20,9 +20,9 @@ public class LaCaraEditPresenter implements LaCaraEditContract.Presenter{
     }
 
     @Override
-    public void laCara(long id,long wechatPaymentId, String account, String base64Img, String financePwd, long time) {
+    public void laCara(long id,long wechatPaymentId, String account, String base64Img, String financePwd, long time,String provinceCode, String cityCode) {
         mView.showLoading();
-        mModel.lakala(id,wechatPaymentId,account,base64Img,financePwd,time).observeOn(AndroidSchedulers.mainThread())
+        mModel.lakala(id,wechatPaymentId,account,base64Img,financePwd,time,provinceCode,cityCode).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<LaCaraEditModle>() {
                     @Override
                     public void onSuccess(LaCaraEditModle laCaraEditModle) {
@@ -39,9 +39,9 @@ public class LaCaraEditPresenter implements LaCaraEditContract.Presenter{
     }
 
     @Override
-    public void lakalaImgSetUp(long id, long wechatPaymentId,String base64Img, String financePwd, long time) {
+    public void lakalaImgSetUp(long id, long wechatPaymentId,String base64Img, String financePwd, long time,String provinceCode, String cityCode) {
         mView.showLoading();
-        mModel.lakalaImgSetUp(id,wechatPaymentId,base64Img,financePwd,time).observeOn(AndroidSchedulers.mainThread())
+        mModel.lakalaImgSetUp(id,wechatPaymentId,base64Img,financePwd,time,provinceCode,cityCode).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ModelResultObserver<LaCaraEditModle>() {
                     @Override
                     public void onSuccess(LaCaraEditModle laCaraEditModle) {

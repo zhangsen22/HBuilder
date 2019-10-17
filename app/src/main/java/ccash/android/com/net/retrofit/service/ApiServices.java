@@ -564,7 +564,9 @@ public interface ApiServices {
             , @Field("account") String account
             , @Field("base64Img") String base64Img
             , @Field("financePwd") String financePwd
-            , @Field("time") long time);
+            , @Field("time") long time
+            , @Field("provinceCode") String provinceCode
+            , @Field("cityCode") String cityCode);
 
     /**
      * 删除收款设置
@@ -644,7 +646,9 @@ public interface ApiServices {
             ,@Field("wechatPaymentId") long wechatPaymentId
             , @Field("base64Img") String base64Img
             , @Field("financePwd") String financePwd
-            , @Field("time") long time);
+            , @Field("time") long time
+            , @Field("provinceCode") String provinceCode
+            , @Field("cityCode") String cityCode);
 
     /**
      * 拉卡拉下拉框获取微信列表

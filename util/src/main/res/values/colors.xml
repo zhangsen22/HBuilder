@@ -237,5 +237,13 @@
     <color name="color_ff5100">#FA4A3A</color>
     <color name="color_c5c5c5">#C5C5C5</color>
     <color name="color_ffcf20">#FFCF20</color>
-
+    <!--使用address自定义的的颜色-->
+    <color name="addressTabIndicatorColor">#2EA3E6</color>
+    <color name="addressTabSelectedTextColor">#2EA3E6</color>
+    <color name="addressTabTextColor">#262626</color>
+    <color name="addressRecycleViewSelectedColor">#2EA3E6</color>
+    <color name="addressRecycleViewUnSelectedColor">#262626</color>
+    <color name="addressSureUnClickColor">#B9B9B9</color>
+    <color name="addressSureCanClickColor">#2EA3E6</color>
+    <!--结束-->
 </resources>

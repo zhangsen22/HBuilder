@@ -184,6 +184,54 @@
 
     </LinearLayout>
 
+            <include layout="@layout/line_f9"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y90"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/y40"
+                android:paddingLeft="@dimen/y40"
+                android:background="@color/common_white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地址"
+                    android:textColor="@color/color_666666"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/y1"/>
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:hint="请选择地区"
+                    android:textColor="@color/color_666666"
+                    android:textColorHint="@color/color_999999"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <LinearLayout
         android:id="@+id/ll_forget_password"
         android:layout_width="match_parent"

@@ -5,9 +5,9 @@ package ccash.android.com.net.retrofit;
  */
 public class ApiConstants {
     //app访问的初始地址
-//    public static String getGetDomainNameBase = "http://54.254.190.23:8330/";//亚马逊测试环境
+    public static String getGetDomainNameBase = "http://54.254.190.23:8330/";//亚马逊测试环境
 //        public static String getGetDomainNameBase = "https://d.xotc.fun/";//xotc测试环境
-        public static String getGetDomainNameBase = "https://d.yy7777.fun/";//ccash线上环境
+//        public static String getGetDomainNameBase = "https://d.yy7777.fun/";//ccash线上环境
     public static final String getDomainName = "app/config";
     public static final String getImageCode = "user/imageCode";//获取图片验证码
     public static final String senSmsCode = "user/smsCode";//发送验证码

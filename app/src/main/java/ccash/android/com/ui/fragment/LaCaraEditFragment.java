@@ -10,9 +10,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -22,6 +25,7 @@ import android.widget.TextView;
 import com.example.qrcode.Constant;
 import com.example.qrcode.ScannerActivity;
 import com.example.qrcode.utils.QRCodeUtil;
+import ccash.android.com.address.AddressPickerView;
 import com.growalong.util.util.AppPublicUtils;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.Md5Utils;
@@ -67,6 +71,8 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
     LinearLayout llForgetPassword;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
     private PaySettingActivity paySettingActivity;
     private LaCaraEditPresenter presenter;
     private LaCaraPayeeItemModelPayee laCaraPayeeItemModelPayee = null;
@@ -76,6 +82,13 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
     private long id = 0;
     private long wechatPaymentId = 0;
     private BasePopupView show;
+
+    private String mProvince = "";
+    private String mCity = "";
+    private String mDistrict = "";
+
+    private String mProvinceCode = "";
+    private String mCityCode = "";
 
     public static LaCaraEditFragment newInstance(LaCaraPayeeItemModelPayee laCaraPayeeItemModelPayee) {
         Bundle arguments = new Bundle();
@@ -125,7 +138,7 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
         super.lazyLoadData();
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_webchat_image, R.id.tv_forget_password, R.id.tv_submit, R.id.et_wenchat_name})
+    @OnClick({R.id.iv_back, R.id.iv_webchat_image, R.id.tv_forget_password, R.id.tv_submit, R.id.et_wenchat_name,R.id.tv_address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -165,16 +178,8 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
                         return;
                     }
 
-                    String forgetPassword = etForgetPassword.getText().toString().trim();
-                    if (TextUtils.isEmpty(forgetPassword)) {
-                        ToastUtil.shortShow("请输入资金密码");
-                        return;
-                    }
-                    long currentTime = System.currentTimeMillis();
-                    presenter.laCara(id, wechatPaymentId, webchatCode, sIdcardFront, Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
-                } else {
-                    if (TextUtils.isEmpty(sIdcardFront)) {
-                        ToastUtil.shortShow("请上传拉卡拉收款二维码");
+                    if(TextUtils.isEmpty(mProvinceCode) || TextUtils.isEmpty(mCityCode)){
+                        ToastUtil.shortShow("请选择地址");
                         return;
                     }
 
@@ -184,11 +189,32 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
                         return;
                     }
                     long currentTime = System.currentTimeMillis();
-                    presenter.lakalaImgSetUp(id,wechatPaymentId, sIdcardFront, Md5Utils.getMD5(forgetPassword + currentTime), currentTime);
+                    presenter.laCara(id, wechatPaymentId, webchatCode, sIdcardFront, Md5Utils.getMD5(forgetPassword + currentTime), currentTime,mProvinceCode,mCityCode);
+                } else {
+                    if (TextUtils.isEmpty(sIdcardFront)) {
+                        ToastUtil.shortShow("请上传拉卡拉收款二维码");
+                        return;
+                    }
+
+                    if(TextUtils.isEmpty(mProvinceCode) || TextUtils.isEmpty(mCityCode)){
+                        ToastUtil.shortShow("请选择地址");
+                        return;
+                    }
+
+                    String forgetPassword = etForgetPassword.getText().toString().trim();
+                    if (TextUtils.isEmpty(forgetPassword)) {
+                        ToastUtil.shortShow("请输入资金密码");
+                        return;
+                    }
+                    long currentTime = System.currentTimeMillis();
+                    presenter.lakalaImgSetUp(id, wechatPaymentId, sIdcardFront, Md5Utils.getMD5(forgetPassword + currentTime), currentTime,mProvinceCode,mCityCode);
                 }
                 break;
             case R.id.et_wenchat_name:
                 presenter.getWechatList();
+                break;
+            case R.id.tv_address:
+                showAddressDialog();
                 break;
         }
     }
@@ -321,6 +347,32 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
                         wechatPaymentId = paymentId;
                         etWenchatName.setText(account);
                     }
-                },paySettingActivity)).show();
+                }, paySettingActivity)).show();
+    }
+
+    private void showAddressDialog() {
+        final BottomSheetDialog dialog = new BottomSheetDialog(paySettingActivity);
+
+        View rootView = LayoutInflater.from(paySettingActivity).inflate(R.layout.pop_address_picker, null, false);
+
+        AddressPickerView addressView = rootView.findViewById(R.id.apvAddress);
+        addressView.setPickerType(0);
+        if (!TextUtils.isEmpty(mProvince)) {
+            addressView.setPreData(mProvince, mCity, mDistrict);
+        }
+
+        addressView.setOnAddressPickerSure((province, city, district, provinceCode, cityCode, districtCode) -> {
+            tvAddress.setText(province + "-" + city + "-" + district);
+            mProvince = province;
+            mCity = city;
+            mDistrict = district;
+            mProvinceCode = provinceCode;
+            mCityCode = cityCode;
+            Log.d("TAG","provinceCode   "+provinceCode+"   cityCode   "+cityCode+"    districtCode    "+districtCode);
+            dialog.dismiss();
+        });
+
+        dialog.setContentView(rootView);
+        dialog.show();
     }
 }
