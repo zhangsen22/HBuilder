@@ -91,8 +91,8 @@
             android:orientation="horizontal"
             android:background="@drawable/a8"
             android:gravity="center"
-            android:paddingTop="@dimen/y16"
-            android:paddingBottom="@dimen/y16">
+            android:paddingTop="@dimen/y10"
+            android:paddingBottom="@dimen/y10">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="充币"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/common_white"
                 android:layout_marginLeft="@dimen/y22"/>
 
@@ -117,8 +117,8 @@
             android:orientation="horizontal"
             android:background="@drawable/a8"
             android:gravity="center"
-            android:paddingTop="@dimen/y16"
-            android:paddingBottom="@dimen/y16"
+            android:paddingTop="@dimen/y10"
+            android:paddingBottom="@dimen/y10"
             android:layout_marginLeft="@dimen/y36"
             android:layout_marginRight="@dimen/y36">
 
@@ -131,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="提币"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/common_white"
                 android:layout_marginLeft="@dimen/y22"/>
 
@@ -145,8 +145,8 @@
             android:orientation="horizontal"
             android:background="@drawable/a9"
             android:gravity="center"
-            android:paddingTop="@dimen/y16"
-            android:paddingBottom="@dimen/y16">
+            android:paddingTop="@dimen/y10"
+            android:paddingBottom="@dimen/y10">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -157,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="资金划转"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/color_506ee6"
                 android:layout_marginLeft="@dimen/y22"/>
 
