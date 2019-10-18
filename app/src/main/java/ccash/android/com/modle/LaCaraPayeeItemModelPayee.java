@@ -15,6 +15,16 @@ public class LaCaraPayeeItemModelPayee implements Parcelable {
     private boolean watchStop;//: false
     private boolean watchUnbind;// 是否已经解除监控
 
+      /**
+       * 所在地区省代码
+       */
+    private String provinceCode;
+
+    /**
+     * 所在地区市代码
+     */
+    private String cityCode;
+
     protected LaCaraPayeeItemModelPayee(Parcel in) {
         id = in.readLong();
         wechatPaymentId = in.readLong();
@@ -25,6 +35,8 @@ public class LaCaraPayeeItemModelPayee implements Parcelable {
         locked = in.readByte() != 0;
         watchStop = in.readByte() != 0;
         watchUnbind = in.readByte() != 0;
+        provinceCode = in.readString();
+        cityCode = in.readString();
     }
 
     @Override
@@ -38,6 +50,8 @@ public class LaCaraPayeeItemModelPayee implements Parcelable {
         dest.writeByte((byte) (locked ? 1 : 0));
         dest.writeByte((byte) (watchStop ? 1 : 0));
         dest.writeByte((byte) (watchUnbind ? 1 : 0));
+        dest.writeString(provinceCode);
+        dest.writeString(cityCode);
     }
 
     @Override
@@ -93,6 +107,14 @@ public class LaCaraPayeeItemModelPayee implements Parcelable {
         return wechatPaymentId;
     }
 
+    public String getProvinceCode() {
+        return provinceCode;
+    }
+
+    public String getCityCode() {
+        return cityCode;
+    }
+
     @Override
     public String toString() {
         return "LaCaraPayeeItemModelPayee{" +
@@ -105,6 +127,8 @@ public class LaCaraPayeeItemModelPayee implements Parcelable {
                 ", locked=" + locked +
                 ", watchStop=" + watchStop +
                 ", watchUnbind=" + watchUnbind +
+                ", provinceCode='" + provinceCode + '\'' +
+                ", cityCode='" + cityCode + '\'' +
                 '}';
     }
 }

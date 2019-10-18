@@ -91,4 +91,36 @@ public class AddressBean implements Serializable {
                     '}';
         }
     }
+
+    /**
+     * 根据省的code获取省的名字
+     */
+    public String getProvinceNameByCode(String provinceCode){
+        String name = null;
+        for (int i = 0; i < prov.size(); i++) {
+            AddressItemBean addressItemBean = prov.get(i);
+            String code = addressItemBean.getCode();
+            if(code.equals(provinceCode)){
+                name = addressItemBean.getN();
+                break;
+            }
+        }
+        return name;
+    }
+
+    /**
+     * 根据省的code获取省的名字
+     */
+    public String getCityNameByCode(String cityCode){
+        String name = null;
+        for (int i = 0; i < city.size(); i++) {
+            AddressItemBean addressItemBean = city.get(i);
+            String code = addressItemBean.getCode();
+            if(code.equals(cityCode)){
+                name = addressItemBean.getN();
+                break;
+            }
+        }
+        return name;
+    }
 }

@@ -25,13 +25,21 @@ import android.widget.TextView;
 import com.example.qrcode.Constant;
 import com.example.qrcode.ScannerActivity;
 import com.example.qrcode.utils.QRCodeUtil;
+
+import ccash.android.com.address.AddressBean;
 import ccash.android.com.address.AddressPickerView;
+
+import com.google.gson.Gson;
 import com.growalong.util.util.AppPublicUtils;
 import com.growalong.util.util.GALogger;
 import com.growalong.util.util.Md5Utils;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.interfaces.OnSelectWebChatListener;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -85,7 +93,6 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
 
     private String mProvince = "";
     private String mCity = "";
-    private String mDistrict = "";
 
     private String mProvinceCode = "";
     private String mCityCode = "";
@@ -128,12 +135,19 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
                 AppPublicUtils.setEditTextEnable(etWebchatCode, false);
             }
             etWenchatName.setText(laCaraPayeeItemModelPayee.getName());
+            mProvinceCode = laCaraPayeeItemModelPayee.getProvinceCode();
+            mCityCode = laCaraPayeeItemModelPayee.getCityCode();
+            tvAddress.post(new Runnable() {
+                @Override
+                public void run() {
+                    initAddressData();
+                }
+            });
             String base64Img = laCaraPayeeItemModelPayee.getBase64Img();
             creatCode(base64Img);
         }
     }
-
-    @Override
+        @Override
     public void lazyLoadData() {
         super.lazyLoadData();
     }
@@ -356,16 +370,15 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
         View rootView = LayoutInflater.from(paySettingActivity).inflate(R.layout.pop_address_picker, null, false);
 
         AddressPickerView addressView = rootView.findViewById(R.id.apvAddress);
-        addressView.setPickerType(0);
+        addressView.setPickerType(1);
         if (!TextUtils.isEmpty(mProvince)) {
-            addressView.setPreData(mProvince, mCity, mDistrict);
+            addressView.setPreData(mProvince, mCity, "");
         }
 
         addressView.setOnAddressPickerSure((province, city, district, provinceCode, cityCode, districtCode) -> {
-            tvAddress.setText(province + "-" + city + "-" + district);
+            tvAddress.setText(province + "-" + city);
             mProvince = province;
             mCity = city;
-            mDistrict = district;
             mProvinceCode = provinceCode;
             mCityCode = cityCode;
             Log.d("TAG","provinceCode   "+provinceCode+"   cityCode   "+cityCode+"    districtCode    "+districtCode);
@@ -374,5 +387,39 @@ public class LaCaraEditFragment extends BaseFragment implements LaCaraEditContra
 
         dialog.setContentView(rootView);
         dialog.show();
+    }
+
+    /**
+     * 初始化数据
+     * 拿assets下的json文件
+     */
+    protected void initAddressData() {
+        if(TextUtils.isEmpty(mProvinceCode) || TextUtils.isEmpty(mCityCode)){
+            return;
+        }
+        StringBuilder jsonSB = new StringBuilder();
+        try {
+            BufferedReader addressJsonStream = new BufferedReader(new InputStreamReader(paySettingActivity.getAssets().open("address.json")));
+            String line;
+            while ((line = addressJsonStream.readLine()) != null) {
+                jsonSB.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        // 将数据转换为对象
+        try {
+            AddressBean mYwpAddressBean = gson.fromJson(jsonSB.toString(), AddressBean.class);
+            String provinceNameByCode = mYwpAddressBean.getProvinceNameByCode(mProvinceCode);
+            String cityNameByCode = mYwpAddressBean.getCityNameByCode(mCityCode);
+            if(TextUtils.isEmpty(provinceNameByCode) || TextUtils.isEmpty(cityNameByCode)){
+                ToastUtil.shortShow("解析地址超时");
+                return;
+            }
+            tvAddress.setText(provinceNameByCode + "-" + cityNameByCode);
+        } catch (Exception e) {
+            Log.e("dalang", "转化异常" + e.getMessage());
+        }
     }
 }
