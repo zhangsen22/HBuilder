@@ -12,6 +12,7 @@ import com.growalong.util.util.GALogger;
 import butterknife.BindView;
 import butterknife.OnClick;
 import bychain.android.com.BaseFragment;
+import bychain.android.com.MyApplication;
 import bychain.android.com.R;
 import bychain.android.com.app.Constants;
 import bychain.android.com.modle.WalletResponse;
@@ -80,10 +81,15 @@ public class TradingAccountFragment extends BaseFragment implements CompoundButt
     public void lazyLoadData() {
         super.lazyLoadData();
         GALogger.d(TAG, "TradingAccountFragment   is    lazyLoadData");
-
+        setLoadDataWhenVisible();
         //初始化presenter
         new PropertyPresenter(this, new PropertyModle());
-        propertyPresenter.getInfo();
+        MyApplication.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                propertyPresenter.getInfo();
+            }
+        },1000);
     }
 
     @OnClick({R.id.ll_duihuabco, R.id.ll_huazhuan})

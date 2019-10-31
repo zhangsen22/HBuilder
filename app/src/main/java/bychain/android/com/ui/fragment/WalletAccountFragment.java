@@ -63,7 +63,7 @@ public class WalletAccountFragment extends BaseFragment implements PropertyContr
     public void lazyLoadData() {
         super.lazyLoadData();
         GALogger.d(TAG, "WalletAccountFragment   is    lazyLoadData");
-
+        setLoadDataWhenVisible();
         //初始化presenter
         new PropertyPresenter(this, new PropertyModle());
         MyApplication.runOnUIThread(new Runnable() {

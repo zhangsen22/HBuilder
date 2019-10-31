@@ -30,6 +30,7 @@ import bychain.android.com.modle.WalletResponse;
 import bychain.android.com.presenter.TiBiPresenter;
 import bychain.android.com.presenter.contract.TiBiContract;
 import bychain.android.com.ui.activity.BalancePassWordActivity;
+import bychain.android.com.ui.activity.FinancialRecordsActivity;
 import bychain.android.com.ui.activity.TiBiActivity;
 import bychain.android.com.util.ToastUtil;
 
@@ -59,6 +60,8 @@ public class TiBiFragment extends BaseFragment implements TiBiContract.View {
     TextView tvForgetPassword;
     @BindView(R.id.tv_queding)
     TextView tvQueding;
+    @BindView(R.id.tv_right)
+    TextView tvRight;
     private TiBiActivity tiBiActivity;
     private TiBiPresenter presenter;
     private double walletNum;
@@ -85,6 +88,8 @@ public class TiBiFragment extends BaseFragment implements TiBiContract.View {
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("提币");
+        tvRight.setVisibility(View.VISIBLE);
+        tvRight.setText("提币记录");
         tvBiType.setText("USDT");
         etBiNum.addTextChangedListener(new TextWatcherUtils(){
             @Override
@@ -113,7 +118,7 @@ public class TiBiFragment extends BaseFragment implements TiBiContract.View {
         presenter.getInfo();
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_saoyisao, R.id.tv_forget_password, R.id.tv_queding,R.id.tv_bi_all})
+    @OnClick({R.id.iv_back, R.id.iv_saoyisao, R.id.tv_forget_password, R.id.tv_queding,R.id.tv_bi_all,R.id.tv_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -163,6 +168,9 @@ public class TiBiFragment extends BaseFragment implements TiBiContract.View {
                 break;
             case R.id.tv_bi_all:
                 etBiNum.setText(walletNum+"");
+                break;
+            case R.id.tv_right:
+                FinancialRecordsActivity.startThis(tiBiActivity);
                 break;
         }
     }

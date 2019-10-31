@@ -13,9 +13,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.qrcode.utils.QRCodeUtil;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import bychain.android.com.BaseFragment;
@@ -24,6 +22,7 @@ import bychain.android.com.R;
 import bychain.android.com.app.AccountManager;
 import bychain.android.com.app.Constants;
 import bychain.android.com.ui.activity.ChongBiActivity;
+import bychain.android.com.ui.activity.FinancialRecordsActivity;
 import bychain.android.com.util.FileUtils;
 import bychain.android.com.util.ToastUtil;
 
@@ -45,6 +44,8 @@ public class ChongBiFragment extends BaseFragment {
     TextView tvBiAddress;
     @BindView(R.id.tv_copybi_type)
     TextView tvCopybiType;
+    @BindView(R.id.tv_right)
+    TextView tvRight;
     private ChongBiActivity chongBiActivity;
     private Bitmap qrImage;
     private Bitmap bitmap;
@@ -71,6 +72,8 @@ public class ChongBiFragment extends BaseFragment {
     protected void initView(View root) {
         setRootViewPaddingTop(flTitleComtent);
         tvTitle.setText("充币");
+        tvRight.setVisibility(View.VISIBLE);
+        tvRight.setText("充币记录");
     }
 
     @Override
@@ -78,7 +81,7 @@ public class ChongBiFragment extends BaseFragment {
         super.lazyLoadData();
         tvBiType.setText("USDT");
         String walletAddr = AccountManager.getInstance().getWalletAddr();
-        if(TextUtils.isEmpty(walletAddr)){
+        if (TextUtils.isEmpty(walletAddr)) {
             ToastUtil.shortShow("钱包地址为空");
             chongBiActivity.finish();
         }
@@ -89,7 +92,7 @@ public class ChongBiFragment extends BaseFragment {
         tvBiAddress.setText(walletAddr);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_save_zing_image, R.id.tv_copybi_type})
+    @OnClick({R.id.iv_back, R.id.tv_save_zing_image, R.id.tv_copybi_type,R.id.tv_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -112,16 +115,19 @@ public class ChongBiFragment extends BaseFragment {
                 cm.setPrimaryClip(mClipData);
                 ToastUtil.shortShow("已复制到剪贴板");
                 break;
+            case R.id.tv_right:
+                FinancialRecordsActivity.startThis(chongBiActivity);
+                break;
         }
     }
 
     @Override
     public void onDestroyView() {
-        if(qrImage != null && !qrImage.isRecycled()){
+        if (qrImage != null && !qrImage.isRecycled()) {
             qrImage.recycle();
             qrImage = null;
         }
-        if(bitmap != null && !bitmap.isRecycled()){
+        if (bitmap != null && !bitmap.isRecycled()) {
             bitmap.recycle();
             bitmap = null;
         }

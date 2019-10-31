@@ -27,6 +27,7 @@ import bychain.android.com.modle.FinanceLogResponse;
 import bychain.android.com.presenter.FinancialRecordsPresenter;
 import bychain.android.com.presenter.contract.FinancialRecordsContract;
 import bychain.android.com.ui.activity.FinancialRecordsActivity;
+import bychain.android.com.ui.adapter.FinancialRecordsAdapter;
 import bychain.android.com.ui.adapter.poweradapter.AdapterLoader;
 import bychain.android.com.ui.adapter.poweradapter.LoadMoreScrollListener;
 import bychain.android.com.ui.adapter.poweradapter.OnLoadMoreListener;

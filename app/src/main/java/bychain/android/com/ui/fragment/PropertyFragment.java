@@ -130,6 +130,12 @@ public class PropertyFragment extends BaseFragment implements PropertyContract.V
         //初始化presenter
         new PropertyPresenter(PropertyFragment.this, new PropertyModle());
         propertyPresenter.getInfo();
+
+        int currentItem = propertyViewPager.getCurrentItem();
+        BaseFragment currentFragment = propertyViewPagerAdapter.getCurrentFragment(currentItem);
+        if(currentFragment != null){
+            currentFragment.lazyLoadData();
+        }
     }
 
     public void onActivityResultProperty(int requestCode) {
