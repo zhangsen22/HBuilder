@@ -130,18 +130,24 @@ public class PropertyFragment extends BaseFragment implements PropertyContract.V
         //初始化presenter
         new PropertyPresenter(PropertyFragment.this, new PropertyModle());
         propertyPresenter.getInfo();
-
-        int currentItem = propertyViewPager.getCurrentItem();
-        BaseFragment currentFragment = propertyViewPagerAdapter.getCurrentFragment(currentItem);
-        if(currentFragment != null){
-            currentFragment.lazyLoadData();
-        }
+        childLayData();
     }
 
     public void onActivityResultProperty(int requestCode) {
         GALogger.d(TAG, "requestCode == " + requestCode);
         if (propertyPresenter != null) {
             propertyPresenter.getInfo();
+        }
+        childLayData();
+    }
+
+    public void childLayData(){
+        int currentItem = propertyViewPager.getCurrentItem();
+        if (propertyViewPagerAdapter != null) {
+            BaseFragment currentFragment = propertyViewPagerAdapter.getCurrentFragment(currentItem);
+            if (currentFragment != null && currentFragment.isVisible()) {
+                currentFragment.lazyLoadData();
+            }
         }
     }
 
