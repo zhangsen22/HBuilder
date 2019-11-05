@@ -185,7 +185,7 @@ public class IdCastPayEditFragment extends BaseFragment implements IdCastContrac
                                 public void onDismiss() {
                                     Log.e("tag", "onDismiss");
                                 }
-                            }).asConfirm("请确保当前输入的是平安银行，建设银行或者广发银行的银行卡，否则无法收款。", "",
+                            }).asConfirm("请确保当前输入的是平安银行，建设银行或者广发银行的银行卡，否则无法自动放币。", "",
                             "更换卡号", "继续绑定",
                             new OnConfirmListener() {
                                 @Override

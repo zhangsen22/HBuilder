@@ -20,6 +20,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
+
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import bychain.android.com.BaseFragment;
 import bychain.android.com.MyApplication;
@@ -160,7 +163,7 @@ public class PropertyFragment extends BaseFragment implements PropertyContract.V
             double walletFreezeNum = walletResponse.getWalletFreezeNum();
             double hotNum = walletResponse.getHotNum();
             double hotFreezeNum = walletResponse.getHotFreezeNum();
-            tvTotalMoney.setText((walletNum+walletFreezeNum+((hotNum+hotFreezeNum)/minSellUsdtPrice))+"");
+            tvTotalMoney.setText(new DecimalFormat("0.000000").format((walletNum+walletFreezeNum+((hotNum+hotFreezeNum)/minSellUsdtPrice))));
             tvTotalMoneycny.setText(((walletNum+walletFreezeNum)*minSellUsdtPrice+hotNum+hotFreezeNum)+"");
         }
     }
