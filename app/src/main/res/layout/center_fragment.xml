@@ -323,7 +323,7 @@
         android:layout_height="@dimen/y90"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/y28"
-        android:paddingRight="@dimen/y4"
+        android:paddingRight="@dimen/y28"
         android:gravity="center_vertical"
         android:background="@color/common_white">
 
@@ -346,11 +346,11 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"/>
 
-        <CheckBox
+        <ImageView
             android:id="@+id/cb_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/My_CheckBox"/>
+            tools:src="@mipmap/aa"/>
 
     </LinearLayout>
 

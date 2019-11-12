@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import bychain.android.com.BaseFragment;
 import bychain.android.com.R;
 import bychain.android.com.app.AccountManager;
+import bychain.android.com.modle.UserInfoResponse;
 import bychain.android.com.presenter.CenterPresenter;
 import bychain.android.com.presenter.contract.CenterContract;
 import bychain.android.com.presenter.modle.CenterModle;
@@ -165,7 +166,7 @@ public class AddMakeStyleFragment extends BaseFragment implements CenterContract
     }
 
     @Override
-    public void setAliOpenFlagError(int aliOpenFlag) {
+    public void getUserInfoSuccess(UserInfoResponse userInfoResponse) {
 
     }
 

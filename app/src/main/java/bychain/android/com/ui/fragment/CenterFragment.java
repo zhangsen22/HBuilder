@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
@@ -55,9 +55,10 @@ public class CenterFragment extends BaseFragment implements CenterContract.View{
     @BindView(R.id.tv_shenfencard_status)
     TextView tvShenfencardStatus;
     @BindView(R.id.cb_check)
-    CheckBox cbCheck;
+    ImageView cbCheck;
     private MainActivity mainActivity;
     private CenterPresenter presenter;
+    private int mAliOpenFlag = 0;//默认0  关闭
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -141,10 +142,10 @@ public class CenterFragment extends BaseFragment implements CenterContract.View{
                 break;
             case R.id.cb_check:
                 //0 关闭 1打开
-                if(cbCheck.isChecked()){
-                    presenter.setAliOpenFlag(0);
-                }else {
+                if(mAliOpenFlag == 0){
                     presenter.setAliOpenFlag(1);
+                }else if(mAliOpenFlag == 1){
+                    presenter.setAliOpenFlag(0);
                 }
                 break;
         }
@@ -160,8 +161,11 @@ public class CenterFragment extends BaseFragment implements CenterContract.View{
     public void setAliOpenFlagSuccess(int aliOpenFlag) {
 //0 关闭 1打开
         if(aliOpenFlag == 0){
+            cbCheck.setImageResource(R.mipmap.aa);
+            mAliOpenFlag = 0;
             ToastUtil.shortShow("已关闭支付宝接单");
         }else if(aliOpenFlag == 1){
+            mAliOpenFlag = 1;
             new XPopup.Builder(getContext())
                     .dismissOnBackPressed(false)
                     .dismissOnTouchOutside(false)
@@ -169,25 +173,22 @@ public class CenterFragment extends BaseFragment implements CenterContract.View{
                     .asCustom(new AiPayCheckBoxPopupView(getContext(), new OnConfirmListener() {
                         @Override
                         public void onConfirm() {
-
+                            cbCheck.setImageResource(R.mipmap.ab);
                         }
                     })).show();
         }
     }
 
     @Override
-    public void setAliOpenFlagError(int aliOpenFlag) {
-//0 关闭 1打开
-        if(aliOpenFlag == 0){
-            cbCheck.setChecked(true);
-        }else if(aliOpenFlag == 1){
-            cbCheck.setChecked(false);
-        }
-    }
-
-    @Override
     public void getUserInfoSuccess(UserInfoResponse userInfoResponse) {
-
+        if(userInfoResponse != null){
+            mAliOpenFlag = userInfoResponse.getAliOpenFlag();
+            if(mAliOpenFlag == 0){
+                cbCheck.setImageResource(R.mipmap.aa);
+            }else if(mAliOpenFlag == 1){
+                cbCheck.setImageResource(R.mipmap.ab);
+            }
+        }
     }
 
     @Override

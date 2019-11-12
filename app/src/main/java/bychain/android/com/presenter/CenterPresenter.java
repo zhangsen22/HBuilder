@@ -52,7 +52,6 @@ public class CenterPresenter implements CenterContract.Presenter{
                     @Override
                     public void onFailure(ModelException ex) {
                         super.onFailure(ex);
-                        mView.setAliOpenFlagError(aliOpenFlag);
                         mView.hideLoading();
                     }
                 });

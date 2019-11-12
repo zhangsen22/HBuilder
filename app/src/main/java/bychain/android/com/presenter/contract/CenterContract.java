@@ -16,8 +16,6 @@ public interface CenterContract {
         void changeNicknameSuccess(String nickname);
         //支付宝收款设置开关  成功
         void setAliOpenFlagSuccess(int aliOpenFlag);
-        //支付宝收款设置开关  失败
-        void setAliOpenFlagError(int aliOpenFlag);
 
         void getUserInfoSuccess(UserInfoResponse userInfoResponse);
     }
