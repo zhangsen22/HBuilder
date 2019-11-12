@@ -17,6 +17,7 @@
         <item>交易奖励</item>
         <item>推广分红</item>
         <item>代理奖励</item>
+        <item>挂单奖励</item>
     </string-array>
 
     <string-array name="login_title">

@@ -93,64 +93,65 @@ public class EntrustBuyFragment extends BaseFragment implements EntrustBuyContra
                 BalancePassWordActivity.startThis(guaDanActivity);
                 break;
             case R.id.tv_buy_publish:
-                String businessPrice = etBusinessBuyPrice.getText().toString().trim();
-                if (TextUtils.isEmpty(businessPrice)) {
-                    ToastUtil.shortShow("请输入交易价格");
-                    return;
-                }
-                double d_businessPrice = Double.parseDouble(businessPrice);
-                if (d_businessPrice <= 0) {
-                    ToastUtil.shortShow("交易价格不能小于零");
-                    return;
-                }
-
-                if(minBuyPrice > 0 && maxBuyPrice > 0 && minBuyPrice <= maxBuyPrice){
-                    if(d_businessPrice < minBuyPrice || d_businessPrice > maxBuyPrice){
-                        ToastUtil.shortShow("交易价格请限于" + minBuyPrice + " - " + maxBuyPrice + "之间");
-                        return;
-                    }
-                }else {
-                    ToastUtil.shortShow("请获取交易价格区间");
-                    return;
-                }
-
-                String expectMinnum = etExpectBuyMinnum.getText().toString().trim();
-                if (TextUtils.isEmpty(expectMinnum)) {
-                    ToastUtil.shortShow("请输入您预想的最小售出数量");
-                    return;
-                }
-
-                double d_expectMinnum = Double.parseDouble(expectMinnum);
-                if (d_expectMinnum <= 0) {
-                    ToastUtil.shortShow("请输入您预想的最小售出数量大于零");
-                    return;
-                }
-
-                String expectMaxnum = etExpectBuyMaxnum.getText().toString().trim();
-                if (TextUtils.isEmpty(expectMaxnum)) {
-                    ToastUtil.shortShow("请输入您预想的最大售出数量");
-                    return;
-                }
-
-                double d_expectMaxnum = Double.parseDouble(expectMaxnum);
-                if (d_expectMaxnum <= 0) {
-                    ToastUtil.shortShow("请输入您预想的最大售出数量大于零");
-                    return;
-                }
-
-                if (d_expectMaxnum < d_expectMinnum) {
-                    ToastUtil.shortShow("您预想的最大售出数量不能小于您预想的最小售出数量");
-                    return;
-                }
-
-                String moneryPassword = etMoneryBuyPassword.getText().toString().trim();
-                if (TextUtils.isEmpty(moneryPassword)) {
-                    ToastUtil.shortShow("请输入资金密码");
-                    return;
-                }
-
-                long currentTime = System.currentTimeMillis();
-                entrustBuyPresenter.putUpBuy(d_businessPrice,d_expectMinnum,d_expectMaxnum,Md5Utils.getMD5(moneryPassword+currentTime),currentTime);
+                ToastUtil.shortShow("暂未开放");
+//                String businessPrice = etBusinessBuyPrice.getText().toString().trim();
+//                if (TextUtils.isEmpty(businessPrice)) {
+//                    ToastUtil.shortShow("请输入交易价格");
+//                    return;
+//                }
+//                double d_businessPrice = Double.parseDouble(businessPrice);
+//                if (d_businessPrice <= 0) {
+//                    ToastUtil.shortShow("交易价格不能小于零");
+//                    return;
+//                }
+//
+//                if(minBuyPrice > 0 && maxBuyPrice > 0 && minBuyPrice <= maxBuyPrice){
+//                    if(d_businessPrice < minBuyPrice || d_businessPrice > maxBuyPrice){
+//                        ToastUtil.shortShow("交易价格请限于" + minBuyPrice + " - " + maxBuyPrice + "之间");
+//                        return;
+//                    }
+//                }else {
+//                    ToastUtil.shortShow("请获取交易价格区间");
+//                    return;
+//                }
+//
+//                String expectMinnum = etExpectBuyMinnum.getText().toString().trim();
+//                if (TextUtils.isEmpty(expectMinnum)) {
+//                    ToastUtil.shortShow("请输入您预想的最小售出数量");
+//                    return;
+//                }
+//
+//                double d_expectMinnum = Double.parseDouble(expectMinnum);
+//                if (d_expectMinnum <= 0) {
+//                    ToastUtil.shortShow("请输入您预想的最小售出数量大于零");
+//                    return;
+//                }
+//
+//                String expectMaxnum = etExpectBuyMaxnum.getText().toString().trim();
+//                if (TextUtils.isEmpty(expectMaxnum)) {
+//                    ToastUtil.shortShow("请输入您预想的最大售出数量");
+//                    return;
+//                }
+//
+//                double d_expectMaxnum = Double.parseDouble(expectMaxnum);
+//                if (d_expectMaxnum <= 0) {
+//                    ToastUtil.shortShow("请输入您预想的最大售出数量大于零");
+//                    return;
+//                }
+//
+//                if (d_expectMaxnum < d_expectMinnum) {
+//                    ToastUtil.shortShow("您预想的最大售出数量不能小于您预想的最小售出数量");
+//                    return;
+//                }
+//
+//                String moneryPassword = etMoneryBuyPassword.getText().toString().trim();
+//                if (TextUtils.isEmpty(moneryPassword)) {
+//                    ToastUtil.shortShow("请输入资金密码");
+//                    return;
+//                }
+//
+//                long currentTime = System.currentTimeMillis();
+//                entrustBuyPresenter.putUpBuy(d_businessPrice,d_expectMinnum,d_expectMaxnum,Md5Utils.getMD5(moneryPassword+currentTime),currentTime);
                 break;
             case R.id.tv_buy_cankaojia:
                 break;

@@ -3,13 +3,16 @@ package bychain.android.com.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import bychain.android.com.BaseFragment;
 import bychain.android.com.MyApplication;
@@ -43,6 +46,8 @@ public class TradingAccountFragment extends BaseFragment implements CompoundButt
     CheckBox cbDljl;
     @BindView(R.id.trading_viewPager)
     ViewPager tradingViewPager;
+    @BindView(R.id.cb_gdjl)
+    CheckBox cbGdjl;
     private MainActivity mainActivity;
     private TradingViewPagerAdapter tradingViewPagerAdapter;
     private PropertyPresenter propertyPresenter;
@@ -74,6 +79,7 @@ public class TradingAccountFragment extends BaseFragment implements CompoundButt
         cbJyjl.setOnCheckedChangeListener(this);
         cbTgjl.setOnCheckedChangeListener(this);
         cbDljl.setOnCheckedChangeListener(this);
+        cbGdjl.setOnCheckedChangeListener(this);
         tradingViewPager.addOnPageChangeListener(this);
     }
 
@@ -89,7 +95,7 @@ public class TradingAccountFragment extends BaseFragment implements CompoundButt
             public void run() {
                 propertyPresenter.getInfo();
             }
-        },1000);
+        }, 1000);
     }
 
     @OnClick({R.id.ll_duihuabco, R.id.ll_huazhuan})
@@ -105,26 +111,37 @@ public class TradingAccountFragment extends BaseFragment implements CompoundButt
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        switch (compoundButton.getId()){
+        switch (compoundButton.getId()) {
             case R.id.cb_jyjl:
-                if(b){
+                if (b) {
                     cbTgjl.setChecked(false);
                     cbDljl.setChecked(false);
-                    tradingViewPager.setCurrentItem(0,false);
+                    cbGdjl.setChecked(false);
+                    tradingViewPager.setCurrentItem(0, false);
                 }
                 break;
             case R.id.cb_tgjl:
-                if(b){
+                if (b) {
                     cbJyjl.setChecked(false);
                     cbDljl.setChecked(false);
-                    tradingViewPager.setCurrentItem(1,false);
+                    cbGdjl.setChecked(false);
+                    tradingViewPager.setCurrentItem(1, false);
                 }
                 break;
             case R.id.cb_dljl:
-                if(b){
+                if (b) {
                     cbJyjl.setChecked(false);
                     cbTgjl.setChecked(false);
-                    tradingViewPager.setCurrentItem(2,false);
+                    cbGdjl.setChecked(false);
+                    tradingViewPager.setCurrentItem(2, false);
+                }
+                break;
+            case R.id.cb_gdjl:
+                if (b) {
+                    cbJyjl.setChecked(false);
+                    cbTgjl.setChecked(false);
+                    cbDljl.setChecked(false);
+                    tradingViewPager.setCurrentItem(3, false);
                 }
                 break;
         }
@@ -137,15 +154,15 @@ public class TradingAccountFragment extends BaseFragment implements CompoundButt
 
     @Override
     public void onPageSelected(int i) {
-        if(i == 0){
+        if (i == 0) {
             cbJyjl.setChecked(true);
             cbTgjl.setChecked(false);
             cbDljl.setChecked(false);
-        }else if(i == 1){
+        } else if (i == 1) {
             cbJyjl.setChecked(false);
             cbTgjl.setChecked(true);
             cbDljl.setChecked(false);
-        }else if(i == 2){
+        } else if (i == 2) {
             cbJyjl.setChecked(false);
             cbTgjl.setChecked(false);
             cbDljl.setChecked(true);
@@ -159,10 +176,10 @@ public class TradingAccountFragment extends BaseFragment implements CompoundButt
 
     @Override
     public void getInfoSuccess(WalletResponse walletResponse) {
-        if(walletResponse != null){
-            tvBcoMoney.setText((walletResponse.getHotNum()+walletResponse.getHotFreezeNum())+"");
-            tvUsedUsdt.setText(walletResponse.getHotNum()+"");
-            tvFreedUsdt.setText(walletResponse.getHotFreezeNum()+"");
+        if (walletResponse != null) {
+            tvBcoMoney.setText((walletResponse.getHotNum() + walletResponse.getHotFreezeNum()) + "");
+            tvUsedUsdt.setText(walletResponse.getHotNum() + "");
+            tvFreedUsdt.setText(walletResponse.getHotFreezeNum() + "");
         }
     }
 
@@ -180,4 +197,5 @@ public class TradingAccountFragment extends BaseFragment implements CompoundButt
     public void hideLoading() {
         hideLoadingDialog();
     }
+
 }

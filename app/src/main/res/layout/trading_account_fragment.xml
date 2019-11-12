@@ -242,6 +242,19 @@
             android:button="@null"
             android:background="@drawable/a18"
             android:layout_width="0dp"
+            android:layout_marginRight="@dimen/y18"
+            android:text="代理奖励"
+            android:textSize="12sp"
+            android:textColor="@color/a2"/>
+
+        <CheckBox
+            android:id="@+id/cb_gdjl"
+            android:layout_weight="1"
+            android:layout_height="@dimen/y52"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/a18"
+            android:layout_width="0dp"
             android:text="挂单奖励"
             android:textSize="12sp"
             android:textColor="@color/a2"/>
