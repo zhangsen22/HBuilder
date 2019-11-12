@@ -145,7 +145,7 @@ public interface ApiServices {
      */
     @FormUrlEncoded
     @POST(ApiConstants.setAliOpenFlag)
-    Observable<BaseBean> setAliOpenFlag(@Field("aliOpenFlag ") int aliOpenFlag);
+    Observable<BaseBean> setAliOpenFlag(@Field("aliOpenFlag") int aliOpenFlag);
 
 
     /**
