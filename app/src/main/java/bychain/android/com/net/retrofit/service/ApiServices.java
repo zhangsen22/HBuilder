@@ -26,6 +26,7 @@ import bychain.android.com.modle.RewardLogResponse;
 import bychain.android.com.modle.SellResponse;
 import bychain.android.com.modle.SmsCodeResponse;
 import bychain.android.com.modle.UsdtPriceResponse;
+import bychain.android.com.modle.UserInfoResponse;
 import bychain.android.com.modle.WalletResponse;
 import bychain.android.com.modle.WebChatEditModle;
 import bychain.android.com.modle.WechatLoginModle;
@@ -136,6 +137,23 @@ public interface ApiServices {
     @POST(ApiConstants.changePwd)
     Observable<BaseBean> changePwd(@Field("pwd") String pwd
                                     ,@Field("smsCode") String smsCode);
+
+    /**
+     * 支付宝收款设置开关
+     * @param aliOpenFlag
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.setAliOpenFlag)
+    Observable<BaseBean> setAliOpenFlag(@Field("aliOpenFlag ") int aliOpenFlag);
+
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    @POST(ApiConstants.getUserInfo)
+    Observable<UserInfoResponse> getUserInfo();
 
     /**
      * 获取挂取的卖单信息

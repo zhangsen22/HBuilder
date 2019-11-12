@@ -16,6 +16,8 @@ public class ApiConstants {
     public static final String login = "user/login";//登录
     public static final String changeNickname = "user/changeNickname";//设置昵称
     public static final String changePwd = "user/changePwd";//修改密码
+    public static final String getUserInfo = "user/getUserInfo";//获取用户信息
+    public static final String setAliOpenFlag = "user/setAliOpenFlag";//支付宝收款设置开关
     public static final String getSellinfo = "trade/bill/getSellinfo";//获取挂取的卖单信息
     public static final String getBuyinfo = "trade/bill/getBuyinfo";//获取挂取的买单信息
     public static final String getHugeBillinfo = "api/bill/getHugeBillinfo";//获取大额提现订单

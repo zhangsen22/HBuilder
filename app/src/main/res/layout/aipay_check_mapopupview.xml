@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/corners_bg6"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/y30">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_333333"
+        android:textSize="14sp"
+        android:text="已开启，接单时，收到钱30秒钟不放币，扣除资产100"
+        android:layout_marginTop="@dimen/y18" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_ff5100"
+        android:textSize="16sp"
+        android:text="如果不想接单，必须关闭此选项"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/y20" />
+
+    <TextView
+        android:id="@+id/tv_ok_sao"
+        style="@style/buttonstyle"
+        android:text="确认"
+        android:layout_marginTop="@dimen/y50" />
+
+</LinearLayout>

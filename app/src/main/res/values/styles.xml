@@ -108,4 +108,9 @@
         <item name="android:background">@drawable/a11</item>
     </style>
 
+    <style name="My_CheckBox" parent="@android:style/Widget.Material.CompoundButton.CheckBox">
+        <item name="android:colorControlActivated">@color/color_506ee6</item>
+        <item name="android:colorControlNormal">@color/color_506ee6</item>
+    </style>
+
 </resources>

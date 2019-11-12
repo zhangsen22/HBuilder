@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.growalong.util.util.GALogger;
@@ -18,6 +19,7 @@ import bychain.android.com.MyApplication;
 import bychain.android.com.R;
 import bychain.android.com.app.AccountManager;
 import bychain.android.com.app.Constants;
+import bychain.android.com.modle.UserInfoResponse;
 import bychain.android.com.presenter.CenterPresenter;
 import bychain.android.com.presenter.contract.CenterContract;
 import bychain.android.com.presenter.modle.CenterModle;
@@ -27,8 +29,10 @@ import bychain.android.com.ui.activity.LoginAndRegistActivity;
 import bychain.android.com.ui.activity.MainActivity;
 import bychain.android.com.ui.activity.RecommendToFriendsActivity;
 import bychain.android.com.ui.activity.SecurityCenterActivity;
+import bychain.android.com.ui.widget.AiPayCheckBoxPopupView;
+import bychain.android.com.util.ToastUtil;
 
-public class CenterFragment extends BaseFragment implements CenterContract.View {
+public class CenterFragment extends BaseFragment implements CenterContract.View{
     private static final String TAG = CenterFragment.class.getSimpleName();
     @BindView(R.id.tv_username)
     TextView tvUsername;
@@ -50,6 +54,8 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
     LinearLayout llCenterBg;
     @BindView(R.id.tv_shenfencard_status)
     TextView tvShenfencardStatus;
+    @BindView(R.id.cb_check)
+    CheckBox cbCheck;
     private MainActivity mainActivity;
     private CenterPresenter presenter;
 
@@ -83,10 +89,11 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
         setLoadDataWhenVisible();
         //初始化presenter
         new CenterPresenter(this, new CenterModle());
+        presenter.getUserInfo();
         initUserInfo();
     }
 
-    @OnClick({R.id.ll_center_anquan, R.id.ll_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.tv_logout})
+    @OnClick({R.id.ll_center_anquan, R.id.ll_shenfencard, R.id.ll_add_sk_type, R.id.ll_tj_friend, R.id.tv_logout,R.id.cb_check})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_center_anquan:
@@ -132,6 +139,14 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
                         }, null, false)
                         .show();
                 break;
+            case R.id.cb_check:
+                //0 关闭 1打开
+                if(cbCheck.isChecked()){
+                    presenter.setAliOpenFlag(0);
+                }else {
+                    presenter.setAliOpenFlag(1);
+                }
+                break;
         }
     }
 
@@ -139,6 +154,40 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
     public void changeNicknameSuccess(String nickname) {
         AccountManager.getInstance().setNickname(nickname);
         tvUsername.setText(AccountManager.getInstance().getNickname());
+    }
+
+    @Override
+    public void setAliOpenFlagSuccess(int aliOpenFlag) {
+//0 关闭 1打开
+        if(aliOpenFlag == 0){
+            ToastUtil.shortShow("已关闭支付宝接单");
+        }else if(aliOpenFlag == 1){
+            new XPopup.Builder(getContext())
+                    .dismissOnBackPressed(false)
+                    .dismissOnTouchOutside(false)
+                    .hasStatusBarShadow(true) //启用状态栏阴影
+                    .asCustom(new AiPayCheckBoxPopupView(getContext(), new OnConfirmListener() {
+                        @Override
+                        public void onConfirm() {
+
+                        }
+                    })).show();
+        }
+    }
+
+    @Override
+    public void setAliOpenFlagError(int aliOpenFlag) {
+//0 关闭 1打开
+        if(aliOpenFlag == 0){
+            cbCheck.setChecked(true);
+        }else if(aliOpenFlag == 1){
+            cbCheck.setChecked(false);
+        }
+    }
+
+    @Override
+    public void getUserInfoSuccess(UserInfoResponse userInfoResponse) {
+
     }
 
     @Override
@@ -165,13 +214,13 @@ public class CenterFragment extends BaseFragment implements CenterContract.View 
         tvAccount.setText(AccountManager.getInstance().getPhoneNumber());
         tvVersionCode.setText(PackageUtil.getAppVersionName(MyApplication.appContext));
         int iDstatus = AccountManager.getInstance().getIDstatus();//0未验证，1等待人工审核 2 已验证 99 验证失败
-        if(iDstatus == 0){
+        if (iDstatus == 0) {
             tvShenfencardStatus.setText("未验证");
-        }else if(iDstatus == 1){
+        } else if (iDstatus == 1) {
             tvShenfencardStatus.setText("等待人工审核");
-        }else if(iDstatus == 2){
+        } else if (iDstatus == 2) {
             tvShenfencardStatus.setText("已验证");
-        }else if(iDstatus == 99){
+        } else if (iDstatus == 99) {
             tvShenfencardStatus.setText("验证失败");
         }
     }

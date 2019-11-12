@@ -160,6 +160,16 @@ public class AddMakeStyleFragment extends BaseFragment implements CenterContract
     }
 
     @Override
+    public void setAliOpenFlagSuccess(int aliOpenFlag) {
+
+    }
+
+    @Override
+    public void setAliOpenFlagError(int aliOpenFlag) {
+
+    }
+
+    @Override
     public void setPresenter(CenterContract.Presenter presenter) {
         this.presenter = (CenterPresenter) presenter;
     }
