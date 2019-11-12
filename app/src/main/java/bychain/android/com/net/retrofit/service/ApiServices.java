@@ -11,6 +11,7 @@ import bychain.android.com.modle.ImageCodeResponse;
 import bychain.android.com.modle.InvitationResponse;
 import bychain.android.com.modle.LaCaraEditModle;
 import bychain.android.com.modle.LaCaraWenChatListModle;
+import bychain.android.com.modle.LargeAmountResponse;
 import bychain.android.com.modle.MessageCenterResponse;
 import bychain.android.com.modle.MyEntrustinfoResponse;
 import bychain.android.com.modle.MySellOrBuyinfoResponse;
@@ -160,6 +161,16 @@ public interface ApiServices {
      */
     @POST(ApiConstants.usdtPrice)
     Observable<UsdtPriceResponse> usdtPrice();
+
+
+    /**
+     * 获取大额提现订单
+     * @param minId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstants.getHugeBillinfo)
+    Observable<LargeAmountResponse> getHugeBillinfo(@Field("minId") long minId);
 
     /**
      * 资产查询
